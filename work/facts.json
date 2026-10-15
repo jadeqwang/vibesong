@@ -1,0 +1,1798 @@
+{
+ "full_instrumental_silences": [
+  {
+   "start": 16.73,
+   "end": 17.38,
+   "dur": 0.65,
+   "mix_min_db": -32.6,
+   "vocals_db": -24.7
+  },
+  {
+   "start": 23.695,
+   "end": 24.2,
+   "dur": 0.505,
+   "mix_min_db": -27.2,
+   "vocals_db": -25.6
+  },
+  {
+   "start": 79.87,
+   "end": 80.805,
+   "dur": 0.935,
+   "mix_min_db": -63.6,
+   "vocals_db": -26.4
+  },
+  {
+   "start": 87.26,
+   "end": 87.81,
+   "dur": 0.55,
+   "mix_min_db": -29.5,
+   "vocals_db": -26.3
+  },
+  {
+   "start": 90.375,
+   "end": 91.085,
+   "dur": 0.71,
+   "mix_min_db": -31.6,
+   "vocals_db": -25.6
+  },
+  {
+   "start": 107.615,
+   "end": 108.06,
+   "dur": 0.445,
+   "mix_min_db": -43.9,
+   "vocals_db": -24.6
+  },
+  {
+   "start": 108.195,
+   "end": 108.66,
+   "dur": 0.465,
+   "mix_min_db": -29.5,
+   "vocals_db": -25.6
+  },
+  {
+   "start": 108.835,
+   "end": 109.26,
+   "dur": 0.425,
+   "mix_min_db": -43.2,
+   "vocals_db": -28.5
+  },
+  {
+   "start": 137.47,
+   "end": 138.9,
+   "dur": 1.43,
+   "mix_min_db": -36.7,
+   "vocals_db": -25.9
+  },
+  {
+   "start": 139.06,
+   "end": 139.7,
+   "dur": 0.64,
+   "mix_min_db": -30.5,
+   "vocals_db": -21.1
+  },
+  {
+   "start": 150.755,
+   "end": 151.045,
+   "dur": 0.29,
+   "mix_min_db": -32.8,
+   "vocals_db": -25.2
+  },
+  {
+   "start": 151.05,
+   "end": 151.3,
+   "dur": 0.25,
+   "mix_min_db": -29.0,
+   "vocals_db": -23.1
+  },
+  {
+   "start": 173.41,
+   "end": 174.0,
+   "dur": 0.59,
+   "mix_min_db": -51.8,
+   "vocals_db": -29.0
+  },
+  {
+   "start": 180.5,
+   "end": 181.115,
+   "dur": 0.615,
+   "mix_min_db": -36.6,
+   "vocals_db": -25.5
+  },
+  {
+   "start": 183.715,
+   "end": 184.27,
+   "dur": 0.555,
+   "mix_min_db": -37.5,
+   "vocals_db": -26.7
+  },
+  {
+   "start": 197.78,
+   "end": 198.03,
+   "dur": 0.25,
+   "mix_min_db": -50.6,
+   "vocals_db": -77.9
+  },
+  {
+   "start": 201.22,
+   "end": 201.595,
+   "dur": 0.375,
+   "mix_min_db": -50.4,
+   "vocals_db": -46.7
+  }
+ ],
+ "beat_dropouts": [
+  {
+   "start": 1.845,
+   "end": 2.25,
+   "dur": 0.405
+  },
+  {
+   "start": 2.49,
+   "end": 3.105,
+   "dur": 0.615
+  },
+  {
+   "start": 3.955,
+   "end": 4.39,
+   "dur": 0.435
+  },
+  {
+   "start": 4.69,
+   "end": 5.035,
+   "dur": 0.345
+  },
+  {
+   "start": 5.275,
+   "end": 5.89,
+   "dur": 0.615
+  },
+  {
+   "start": 5.915,
+   "end": 6.32,
+   "dur": 0.405
+  },
+  {
+   "start": 6.39,
+   "end": 6.75,
+   "dur": 0.36
+  },
+  {
+   "start": 16.715,
+   "end": 17.38,
+   "dur": 0.665
+  },
+  {
+   "start": 23.695,
+   "end": 24.2,
+   "dur": 0.505
+  },
+  {
+   "start": 79.87,
+   "end": 80.805,
+   "dur": 0.935
+  },
+  {
+   "start": 87.26,
+   "end": 87.81,
+   "dur": 0.55
+  },
+  {
+   "start": 90.375,
+   "end": 91.085,
+   "dur": 0.71
+  },
+  {
+   "start": 107.615,
+   "end": 108.06,
+   "dur": 0.445
+  },
+  {
+   "start": 108.195,
+   "end": 108.66,
+   "dur": 0.465
+  },
+  {
+   "start": 108.835,
+   "end": 109.26,
+   "dur": 0.425
+  },
+  {
+   "start": 124.525,
+   "end": 126.025,
+   "dur": 1.5
+  },
+  {
+   "start": 126.155,
+   "end": 126.85,
+   "dur": 0.695
+  },
+  {
+   "start": 126.855,
+   "end": 127.64,
+   "dur": 0.785
+  },
+  {
+   "start": 127.785,
+   "end": 129.255,
+   "dur": 1.47
+  },
+  {
+   "start": 129.685,
+   "end": 129.995,
+   "dur": 0.31
+  },
+  {
+   "start": 137.465,
+   "end": 138.9,
+   "dur": 1.435
+  },
+  {
+   "start": 139.06,
+   "end": 139.7,
+   "dur": 0.64
+  },
+  {
+   "start": 150.75,
+   "end": 151.3,
+   "dur": 0.55
+  },
+  {
+   "start": 173.41,
+   "end": 174.0,
+   "dur": 0.59
+  },
+  {
+   "start": 180.455,
+   "end": 181.115,
+   "dur": 0.66
+  },
+  {
+   "start": 183.715,
+   "end": 184.275,
+   "dur": 0.56
+  },
+  {
+   "start": 184.345,
+   "end": 186.645,
+   "dur": 2.3
+  },
+  {
+   "start": 194.505,
+   "end": 198.03,
+   "dur": 3.525
+  },
+  {
+   "start": 201.22,
+   "end": 201.595,
+   "dur": 0.375
+  }
+ ],
+ "reentries": {
+  "drop1_drums": 80.7,
+  "drop1_bass808": 80.767,
+  "final_chorus_drums": 139.402,
+  "drop2_drums": 174.202,
+  "drop2_bass808": 174.215,
+  "outro_tag_drums": 197.599,
+  "outro_final_hit_drums": 197.9
+ },
+ "whistle_hook_segments": [
+  {
+   "start": 2.01,
+   "end": 2.29,
+   "median_hz": 2077.0
+  },
+  {
+   "start": 2.71,
+   "end": 3.75,
+   "median_hz": 1995.0
+  },
+  {
+   "start": 8.16,
+   "end": 8.65,
+   "median_hz": 1179.0
+  },
+  {
+   "start": 8.7,
+   "end": 9.05,
+   "median_hz": 2065.0
+  },
+  {
+   "start": 9.11,
+   "end": 9.5,
+   "median_hz": 1179.0
+  },
+  {
+   "start": 81.87,
+   "end": 82.28,
+   "median_hz": 1995.0
+  },
+  {
+   "start": 82.93,
+   "end": 84.11,
+   "median_hz": 1486.0
+  },
+  {
+   "start": 84.15,
+   "end": 84.39,
+   "median_hz": 1324.0
+  },
+  {
+   "start": 85.19,
+   "end": 85.58,
+   "median_hz": 1972.0
+  },
+  {
+   "start": 85.63,
+   "end": 86.15,
+   "median_hz": 1324.0
+  },
+  {
+   "start": 88.48,
+   "end": 88.88,
+   "median_hz": 1983.0
+  },
+  {
+   "start": 89.49,
+   "end": 90.08,
+   "median_hz": 1460.0
+  },
+  {
+   "start": 174.78,
+   "end": 175.08,
+   "median_hz": 1861.0
+  },
+  {
+   "start": 175.24,
+   "end": 175.98,
+   "median_hz": 1440.0
+  },
+  {
+   "start": 176.18,
+   "end": 177.64,
+   "median_hz": 1469.0
+  },
+  {
+   "start": 177.94,
+   "end": 178.22,
+   "median_hz": 1762.0
+  },
+  {
+   "start": 178.4,
+   "end": 179.31,
+   "median_hz": 1355.0
+  },
+  {
+   "start": 181.12,
+   "end": 181.39,
+   "median_hz": 1824.0
+  },
+  {
+   "start": 181.54,
+   "end": 182.46,
+   "median_hz": 1630.0
+  },
+  {
+   "start": 182.47,
+   "end": 183.1,
+   "median_hz": 1469.0
+  }
+ ],
+ "bars_energy": [
+  {
+   "bar": 1,
+   "start": 0.343,
+   "mix_db": -24.9,
+   "drums_db": -31.1,
+   "bass_db": -47.8,
+   "other_db": -32.6,
+   "vocals_db": -35.8
+  },
+  {
+   "bar": 2,
+   "start": 2.054,
+   "mix_db": -23.9,
+   "drums_db": -45.6,
+   "bass_db": -53.7,
+   "other_db": -29.1,
+   "vocals_db": -29.2
+  },
+  {
+   "bar": 3,
+   "start": 3.763,
+   "mix_db": -25.8,
+   "drums_db": -42.7,
+   "bass_db": -56.6,
+   "other_db": -29.9,
+   "vocals_db": -31.7
+  },
+  {
+   "bar": 4,
+   "start": 5.472,
+   "mix_db": -24.3,
+   "drums_db": -36.5,
+   "bass_db": -44.8,
+   "other_db": -30.7,
+   "vocals_db": -28.7
+  },
+  {
+   "bar": 5,
+   "start": 7.183,
+   "mix_db": -23.1,
+   "drums_db": -30.9,
+   "bass_db": -34.5,
+   "other_db": -31.9,
+   "vocals_db": -28.5
+  },
+  {
+   "bar": 6,
+   "start": 8.894,
+   "mix_db": -21.5,
+   "drums_db": -32.9,
+   "bass_db": -35.4,
+   "other_db": -32.6,
+   "vocals_db": -23.8
+  },
+  {
+   "bar": 7,
+   "start": 10.563,
+   "mix_db": -22.8,
+   "drums_db": -34.6,
+   "bass_db": -43.5,
+   "other_db": -30.0,
+   "vocals_db": -26.9
+  },
+  {
+   "bar": 8,
+   "start": 12.308,
+   "mix_db": -21.2,
+   "drums_db": -35.7,
+   "bass_db": -50.5,
+   "other_db": -30.6,
+   "vocals_db": -23.6
+  },
+  {
+   "bar": 9,
+   "start": 14.012,
+   "mix_db": -19.6,
+   "drums_db": -24.6,
+   "bass_db": -25.9,
+   "other_db": -34.2,
+   "vocals_db": -25.9
+  },
+  {
+   "bar": 10,
+   "start": 15.71,
+   "mix_db": -21.2,
+   "drums_db": -27.5,
+   "bass_db": -28.7,
+   "other_db": -37.1,
+   "vocals_db": -24.5
+  },
+  {
+   "bar": 11,
+   "start": 17.404,
+   "mix_db": -20.0,
+   "drums_db": -22.8,
+   "bass_db": -29.0,
+   "other_db": -32.8,
+   "vocals_db": -27.5
+  },
+  {
+   "bar": 12,
+   "start": 19.095,
+   "mix_db": -22.1,
+   "drums_db": -37.6,
+   "bass_db": -29.3,
+   "other_db": -31.8,
+   "vocals_db": -25.9
+  },
+  {
+   "bar": 13,
+   "start": 20.787,
+   "mix_db": -20.4,
+   "drums_db": -24.4,
+   "bass_db": -28.6,
+   "other_db": -35.4,
+   "vocals_db": -26.3
+  },
+  {
+   "bar": 14,
+   "start": 22.48,
+   "mix_db": -22.1,
+   "drums_db": -26.9,
+   "bass_db": -30.3,
+   "other_db": -40.2,
+   "vocals_db": -26.1
+  },
+  {
+   "bar": 15,
+   "start": 24.173,
+   "mix_db": -20.4,
+   "drums_db": -23.4,
+   "bass_db": -29.0,
+   "other_db": -33.4,
+   "vocals_db": -27.0
+  },
+  {
+   "bar": 16,
+   "start": 25.864,
+   "mix_db": -21.7,
+   "drums_db": -35.2,
+   "bass_db": -29.4,
+   "other_db": -31.4,
+   "vocals_db": -24.8
+  },
+  {
+   "bar": 17,
+   "start": 27.552,
+   "mix_db": -20.8,
+   "drums_db": -24.2,
+   "bass_db": -29.2,
+   "other_db": -34.3,
+   "vocals_db": -26.8
+  },
+  {
+   "bar": 18,
+   "start": 29.24,
+   "mix_db": -23.7,
+   "drums_db": -27.2,
+   "bass_db": -64.4,
+   "other_db": -44.5,
+   "vocals_db": -26.6
+  },
+  {
+   "bar": 19,
+   "start": 30.927,
+   "mix_db": -20.7,
+   "drums_db": -24.2,
+   "bass_db": -28.6,
+   "other_db": -32.1,
+   "vocals_db": -27.8
+  },
+  {
+   "bar": 20,
+   "start": 32.613,
+   "mix_db": -23.3,
+   "drums_db": -34.6,
+   "bass_db": -31.0,
+   "other_db": -35.0,
+   "vocals_db": -26.1
+  },
+  {
+   "bar": 21,
+   "start": 34.298,
+   "mix_db": -20.6,
+   "drums_db": -23.7,
+   "bass_db": -28.7,
+   "other_db": -33.8,
+   "vocals_db": -27.2
+  },
+  {
+   "bar": 22,
+   "start": 35.983,
+   "mix_db": -21.2,
+   "drums_db": -26.2,
+   "bass_db": -31.9,
+   "other_db": -35.6,
+   "vocals_db": -24.8
+  },
+  {
+   "bar": 23,
+   "start": 37.666,
+   "mix_db": -20.5,
+   "drums_db": -24.1,
+   "bass_db": -30.2,
+   "other_db": -35.3,
+   "vocals_db": -25.8
+  },
+  {
+   "bar": 24,
+   "start": 39.348,
+   "mix_db": -21.7,
+   "drums_db": -34.7,
+   "bass_db": -44.4,
+   "other_db": -32.3,
+   "vocals_db": -23.5
+  },
+  {
+   "bar": 25,
+   "start": 41.028,
+   "mix_db": -19.6,
+   "drums_db": -23.3,
+   "bass_db": -27.5,
+   "other_db": -33.8,
+   "vocals_db": -27.0
+  },
+  {
+   "bar": 26,
+   "start": 42.699,
+   "mix_db": -20.9,
+   "drums_db": -27.4,
+   "bass_db": -29.2,
+   "other_db": -33.7,
+   "vocals_db": -24.8
+  },
+  {
+   "bar": 27,
+   "start": 44.375,
+   "mix_db": -19.6,
+   "drums_db": -23.0,
+   "bass_db": -28.1,
+   "other_db": -30.8,
+   "vocals_db": -28.6
+  },
+  {
+   "bar": 28,
+   "start": 46.053,
+   "mix_db": -20.4,
+   "drums_db": -25.6,
+   "bass_db": -26.5,
+   "other_db": -27.5,
+   "vocals_db": -35.1
+  },
+  {
+   "bar": 29,
+   "start": 47.729,
+   "mix_db": -19.6,
+   "drums_db": -22.7,
+   "bass_db": -28.0,
+   "other_db": -30.7,
+   "vocals_db": -27.9
+  },
+  {
+   "bar": 30,
+   "start": 49.403,
+   "mix_db": -20.7,
+   "drums_db": -27.9,
+   "bass_db": -27.5,
+   "other_db": -31.8,
+   "vocals_db": -25.0
+  },
+  {
+   "bar": 31,
+   "start": 51.076,
+   "mix_db": -19.5,
+   "drums_db": -23.1,
+   "bass_db": -28.8,
+   "other_db": -32.4,
+   "vocals_db": -25.4
+  },
+  {
+   "bar": 32,
+   "start": 52.748,
+   "mix_db": -19.9,
+   "drums_db": -25.4,
+   "bass_db": -27.8,
+   "other_db": -31.6,
+   "vocals_db": -25.2
+  },
+  {
+   "bar": 33,
+   "start": 54.42,
+   "mix_db": -19.6,
+   "drums_db": -23.3,
+   "bass_db": -28.0,
+   "other_db": -34.3,
+   "vocals_db": -26.4
+  },
+  {
+   "bar": 34,
+   "start": 56.091,
+   "mix_db": -20.4,
+   "drums_db": -27.7,
+   "bass_db": -26.1,
+   "other_db": -32.5,
+   "vocals_db": -25.5
+  },
+  {
+   "bar": 35,
+   "start": 57.763,
+   "mix_db": -19.7,
+   "drums_db": -23.3,
+   "bass_db": -27.1,
+   "other_db": -32.5,
+   "vocals_db": -27.6
+  },
+  {
+   "bar": 36,
+   "start": 59.434,
+   "mix_db": -20.5,
+   "drums_db": -30.1,
+   "bass_db": -25.5,
+   "other_db": -31.1,
+   "vocals_db": -25.8
+  },
+  {
+   "bar": 37,
+   "start": 61.105,
+   "mix_db": -19.0,
+   "drums_db": -22.5,
+   "bass_db": -26.5,
+   "other_db": -31.6,
+   "vocals_db": -26.1
+  },
+  {
+   "bar": 38,
+   "start": 62.774,
+   "mix_db": -20.2,
+   "drums_db": -27.0,
+   "bass_db": -26.4,
+   "other_db": -30.9,
+   "vocals_db": -25.6
+  },
+  {
+   "bar": 39,
+   "start": 64.443,
+   "mix_db": -19.0,
+   "drums_db": -23.1,
+   "bass_db": -28.1,
+   "other_db": -33.2,
+   "vocals_db": -23.6
+  },
+  {
+   "bar": 40,
+   "start": 66.111,
+   "mix_db": -20.3,
+   "drums_db": -34.8,
+   "bass_db": -29.1,
+   "other_db": -31.4,
+   "vocals_db": -22.7
+  },
+  {
+   "bar": 41,
+   "start": 67.778,
+   "mix_db": -20.2,
+   "drums_db": -29.4,
+   "bass_db": -28.0,
+   "other_db": -25.0,
+   "vocals_db": -30.2
+  },
+  {
+   "bar": 42,
+   "start": 69.444,
+   "mix_db": -20.6,
+   "drums_db": -31.6,
+   "bass_db": -27.8,
+   "other_db": -23.5,
+   "vocals_db": -47.3
+  },
+  {
+   "bar": 43,
+   "start": 71.109,
+   "mix_db": -19.8,
+   "drums_db": -28.7,
+   "bass_db": -26.3,
+   "other_db": -24.4,
+   "vocals_db": -31.3
+  },
+  {
+   "bar": 44,
+   "start": 72.775,
+   "mix_db": -20.1,
+   "drums_db": -34.9,
+   "bass_db": -27.0,
+   "other_db": -28.5,
+   "vocals_db": -24.5
+  },
+  {
+   "bar": 45,
+   "start": 74.439,
+   "mix_db": -20.3,
+   "drums_db": -29.0,
+   "bass_db": -27.0,
+   "other_db": -24.7,
+   "vocals_db": -35.2
+  },
+  {
+   "bar": 46,
+   "start": 76.1,
+   "mix_db": -20.2,
+   "drums_db": -31.8,
+   "bass_db": -27.3,
+   "other_db": -23.6,
+   "vocals_db": -53.0
+  },
+  {
+   "bar": 47,
+   "start": 77.757,
+   "mix_db": -20.6,
+   "drums_db": -30.4,
+   "bass_db": -28.5,
+   "other_db": -24.0,
+   "vocals_db": -53.8
+  },
+  {
+   "bar": 48,
+   "start": 79.409,
+   "mix_db": -23.0,
+   "drums_db": -29.2,
+   "bass_db": -38.8,
+   "other_db": -33.9,
+   "vocals_db": -27.0
+  },
+  {
+   "bar": 49,
+   "start": 81.058,
+   "mix_db": -18.1,
+   "drums_db": -22.0,
+   "bass_db": -23.6,
+   "other_db": -33.0,
+   "vocals_db": -28.2
+  },
+  {
+   "bar": 50,
+   "start": 82.706,
+   "mix_db": -18.2,
+   "drums_db": -22.2,
+   "bass_db": -23.3,
+   "other_db": -31.5,
+   "vocals_db": -27.2
+  },
+  {
+   "bar": 51,
+   "start": 84.352,
+   "mix_db": -18.6,
+   "drums_db": -21.9,
+   "bass_db": -24.0,
+   "other_db": -30.7,
+   "vocals_db": -28.5
+  },
+  {
+   "bar": 52,
+   "start": 85.997,
+   "mix_db": -20.2,
+   "drums_db": -24.8,
+   "bass_db": -25.3,
+   "other_db": -29.9,
+   "vocals_db": -29.0
+  },
+  {
+   "bar": 53,
+   "start": 87.641,
+   "mix_db": -17.5,
+   "drums_db": -20.4,
+   "bass_db": -23.2,
+   "other_db": -33.2,
+   "vocals_db": -28.5
+  },
+  {
+   "bar": 54,
+   "start": 89.284,
+   "mix_db": -19.4,
+   "drums_db": -25.3,
+   "bass_db": -23.2,
+   "other_db": -34.2,
+   "vocals_db": -26.2
+  },
+  {
+   "bar": 55,
+   "start": 90.925,
+   "mix_db": -18.0,
+   "drums_db": -21.1,
+   "bass_db": -24.6,
+   "other_db": -27.1,
+   "vocals_db": -31.5
+  },
+  {
+   "bar": 56,
+   "start": 92.566,
+   "mix_db": -19.2,
+   "drums_db": -25.0,
+   "bass_db": -25.3,
+   "other_db": -27.1,
+   "vocals_db": -27.8
+  },
+  {
+   "bar": 57,
+   "start": 94.204,
+   "mix_db": -18.7,
+   "drums_db": -23.2,
+   "bass_db": -25.2,
+   "other_db": -29.1,
+   "vocals_db": -26.5
+  },
+  {
+   "bar": 58,
+   "start": 95.841,
+   "mix_db": -19.3,
+   "drums_db": -27.4,
+   "bass_db": -24.3,
+   "other_db": -30.9,
+   "vocals_db": -24.9
+  },
+  {
+   "bar": 59,
+   "start": 97.476,
+   "mix_db": -18.6,
+   "drums_db": -22.7,
+   "bass_db": -24.3,
+   "other_db": -28.9,
+   "vocals_db": -28.4
+  },
+  {
+   "bar": 60,
+   "start": 99.107,
+   "mix_db": -19.1,
+   "drums_db": -23.7,
+   "bass_db": -24.8,
+   "other_db": -30.5,
+   "vocals_db": -26.0
+  },
+  {
+   "bar": 61,
+   "start": 100.735,
+   "mix_db": -18.8,
+   "drums_db": -22.4,
+   "bass_db": -26.5,
+   "other_db": -31.6,
+   "vocals_db": -25.3
+  },
+  {
+   "bar": 62,
+   "start": 102.361,
+   "mix_db": -20.0,
+   "drums_db": -27.1,
+   "bass_db": -26.2,
+   "other_db": -30.5,
+   "vocals_db": -25.4
+  },
+  {
+   "bar": 63,
+   "start": 103.988,
+   "mix_db": -19.0,
+   "drums_db": -23.3,
+   "bass_db": -26.5,
+   "other_db": -29.9,
+   "vocals_db": -25.9
+  },
+  {
+   "bar": 64,
+   "start": 105.618,
+   "mix_db": -19.1,
+   "drums_db": -24.4,
+   "bass_db": -27.2,
+   "other_db": -32.2,
+   "vocals_db": -23.6
+  },
+  {
+   "bar": 65,
+   "start": 107.238,
+   "mix_db": -23.6,
+   "drums_db": -32.3,
+   "bass_db": -33.9,
+   "other_db": -41.0,
+   "vocals_db": -25.6
+  },
+  {
+   "bar": 66,
+   "start": 108.845,
+   "mix_db": -24.5,
+   "drums_db": -32.6,
+   "bass_db": -76.9,
+   "other_db": -54.7,
+   "vocals_db": -25.8
+  },
+  {
+   "bar": 67,
+   "start": 110.45,
+   "mix_db": -19.6,
+   "drums_db": -23.4,
+   "bass_db": -29.6,
+   "other_db": -35.8,
+   "vocals_db": -24.4
+  },
+  {
+   "bar": 68,
+   "start": 112.066,
+   "mix_db": -19.7,
+   "drums_db": -23.9,
+   "bass_db": -26.0,
+   "other_db": -34.3,
+   "vocals_db": -25.9
+  },
+  {
+   "bar": 69,
+   "start": 113.683,
+   "mix_db": -19.3,
+   "drums_db": -23.8,
+   "bass_db": -25.2,
+   "other_db": -32.6,
+   "vocals_db": -25.6
+  },
+  {
+   "bar": 70,
+   "start": 115.303,
+   "mix_db": -19.2,
+   "drums_db": -24.0,
+   "bass_db": -25.6,
+   "other_db": -32.0,
+   "vocals_db": -25.6
+  },
+  {
+   "bar": 71,
+   "start": 116.915,
+   "mix_db": -19.0,
+   "drums_db": -22.4,
+   "bass_db": -26.2,
+   "other_db": -35.4,
+   "vocals_db": -25.8
+  },
+  {
+   "bar": 72,
+   "start": 118.525,
+   "mix_db": -19.8,
+   "drums_db": -25.9,
+   "bass_db": -27.7,
+   "other_db": -30.9,
+   "vocals_db": -25.7
+  },
+  {
+   "bar": 73,
+   "start": 120.135,
+   "mix_db": -18.9,
+   "drums_db": -21.9,
+   "bass_db": -27.3,
+   "other_db": -34.9,
+   "vocals_db": -25.7
+  },
+  {
+   "bar": 74,
+   "start": 121.745,
+   "mix_db": -17.9,
+   "drums_db": -20.6,
+   "bass_db": -26.8,
+   "other_db": -31.1,
+   "vocals_db": -26.7
+  },
+  {
+   "bar": 75,
+   "start": 123.354,
+   "mix_db": -20.6,
+   "drums_db": -24.5,
+   "bass_db": -29.0,
+   "other_db": -33.9,
+   "vocals_db": -27.2
+  },
+  {
+   "bar": 76,
+   "start": 124.963,
+   "mix_db": -24.5,
+   "drums_db": -40.1,
+   "bass_db": -75.2,
+   "other_db": -35.0,
+   "vocals_db": -25.2
+  },
+  {
+   "bar": 77,
+   "start": 126.572,
+   "mix_db": -24.0,
+   "drums_db": -40.8,
+   "bass_db": -72.8,
+   "other_db": -31.1,
+   "vocals_db": -25.8
+  },
+  {
+   "bar": 78,
+   "start": 128.18,
+   "mix_db": -24.0,
+   "drums_db": -39.7,
+   "bass_db": -79.4,
+   "other_db": -36.2,
+   "vocals_db": -24.7
+  },
+  {
+   "bar": 79,
+   "start": 129.789,
+   "mix_db": -19.3,
+   "drums_db": -26.0,
+   "bass_db": -29.3,
+   "other_db": -26.3,
+   "vocals_db": -24.8
+  },
+  {
+   "bar": 80,
+   "start": 131.397,
+   "mix_db": -20.0,
+   "drums_db": -37.5,
+   "bass_db": -28.0,
+   "other_db": -26.3,
+   "vocals_db": -24.4
+  },
+  {
+   "bar": 81,
+   "start": 133.004,
+   "mix_db": -19.4,
+   "drums_db": -33.4,
+   "bass_db": -26.4,
+   "other_db": -26.4,
+   "vocals_db": -25.0
+  },
+  {
+   "bar": 82,
+   "start": 134.609,
+   "mix_db": -19.4,
+   "drums_db": -31.7,
+   "bass_db": -25.4,
+   "other_db": -29.3,
+   "vocals_db": -23.8
+  },
+  {
+   "bar": 83,
+   "start": 136.212,
+   "mix_db": -18.4,
+   "drums_db": -22.7,
+   "bass_db": -25.2,
+   "other_db": -33.3,
+   "vocals_db": -24.7
+  },
+  {
+   "bar": 84,
+   "start": 137.812,
+   "mix_db": -22.6,
+   "drums_db": -35.8,
+   "bass_db": -77.7,
+   "other_db": -65.1,
+   "vocals_db": -23.1
+  },
+  {
+   "bar": 85,
+   "start": 139.411,
+   "mix_db": -18.5,
+   "drums_db": -21.9,
+   "bass_db": -26.2,
+   "other_db": -31.3,
+   "vocals_db": -25.5
+  },
+  {
+   "bar": 86,
+   "start": 141.008,
+   "mix_db": -18.4,
+   "drums_db": -23.0,
+   "bass_db": -25.4,
+   "other_db": -29.6,
+   "vocals_db": -23.8
+  },
+  {
+   "bar": 87,
+   "start": 142.605,
+   "mix_db": -18.0,
+   "drums_db": -21.9,
+   "bass_db": -24.5,
+   "other_db": -32.8,
+   "vocals_db": -24.5
+  },
+  {
+   "bar": 88,
+   "start": 144.201,
+   "mix_db": -19.0,
+   "drums_db": -23.2,
+   "bass_db": -26.1,
+   "other_db": -33.9,
+   "vocals_db": -24.7
+  },
+  {
+   "bar": 89,
+   "start": 145.798,
+   "mix_db": -18.7,
+   "drums_db": -22.7,
+   "bass_db": -25.6,
+   "other_db": -33.9,
+   "vocals_db": -24.5
+  },
+  {
+   "bar": 90,
+   "start": 147.394,
+   "mix_db": -18.8,
+   "drums_db": -22.9,
+   "bass_db": -26.2,
+   "other_db": -33.8,
+   "vocals_db": -24.1
+  },
+  {
+   "bar": 91,
+   "start": 148.989,
+   "mix_db": -19.2,
+   "drums_db": -22.2,
+   "bass_db": -29.3,
+   "other_db": -34.3,
+   "vocals_db": -25.3
+  },
+  {
+   "bar": 92,
+   "start": 150.584,
+   "mix_db": -20.3,
+   "drums_db": -24.4,
+   "bass_db": -28.6,
+   "other_db": -35.6,
+   "vocals_db": -24.9
+  },
+  {
+   "bar": 93,
+   "start": 152.177,
+   "mix_db": -19.1,
+   "drums_db": -23.6,
+   "bass_db": -24.7,
+   "other_db": -32.7,
+   "vocals_db": -25.5
+  },
+  {
+   "bar": 94,
+   "start": 153.771,
+   "mix_db": -19.2,
+   "drums_db": -23.0,
+   "bass_db": -27.0,
+   "other_db": -33.0,
+   "vocals_db": -24.6
+  },
+  {
+   "bar": 95,
+   "start": 155.363,
+   "mix_db": -18.3,
+   "drums_db": -21.9,
+   "bass_db": -24.3,
+   "other_db": -30.9,
+   "vocals_db": -27.7
+  },
+  {
+   "bar": 96,
+   "start": 156.956,
+   "mix_db": -18.6,
+   "drums_db": -25.2,
+   "bass_db": -23.4,
+   "other_db": -32.5,
+   "vocals_db": -24.2
+  },
+  {
+   "bar": 97,
+   "start": 158.547,
+   "mix_db": -18.1,
+   "drums_db": -20.6,
+   "bass_db": -28.3,
+   "other_db": -32.4,
+   "vocals_db": -24.9
+  },
+  {
+   "bar": 98,
+   "start": 160.138,
+   "mix_db": -17.8,
+   "drums_db": -20.1,
+   "bass_db": -32.9,
+   "other_db": -32.8,
+   "vocals_db": -24.0
+  },
+  {
+   "bar": 99,
+   "start": 161.728,
+   "mix_db": -18.1,
+   "drums_db": -22.2,
+   "bass_db": -25.3,
+   "other_db": -25.8,
+   "vocals_db": -27.7
+  },
+  {
+   "bar": 100,
+   "start": 163.318,
+   "mix_db": -18.0,
+   "drums_db": -22.7,
+   "bass_db": -24.7,
+   "other_db": -23.1,
+   "vocals_db": -42.0
+  },
+  {
+   "bar": 101,
+   "start": 164.907,
+   "mix_db": -18.1,
+   "drums_db": -22.9,
+   "bass_db": -24.1,
+   "other_db": -23.5,
+   "vocals_db": -37.3
+  },
+  {
+   "bar": 102,
+   "start": 166.495,
+   "mix_db": -18.7,
+   "drums_db": -22.9,
+   "bass_db": -25.8,
+   "other_db": -28.0,
+   "vocals_db": -26.4
+  },
+  {
+   "bar": 103,
+   "start": 168.082,
+   "mix_db": -18.1,
+   "drums_db": -22.5,
+   "bass_db": -23.7,
+   "other_db": -24.9,
+   "vocals_db": -30.9
+  },
+  {
+   "bar": 104,
+   "start": 169.668,
+   "mix_db": -17.0,
+   "drums_db": -21.0,
+   "bass_db": -23.3,
+   "other_db": -23.4,
+   "vocals_db": -43.3
+  },
+  {
+   "bar": 105,
+   "start": 171.253,
+   "mix_db": -15.9,
+   "drums_db": -17.8,
+   "bass_db": -24.9,
+   "other_db": -24.7,
+   "vocals_db": -50.9
+  },
+  {
+   "bar": 106,
+   "start": 172.836,
+   "mix_db": -20.5,
+   "drums_db": -23.7,
+   "bass_db": -32.9,
+   "other_db": -30.7,
+   "vocals_db": -25.8
+  },
+  {
+   "bar": 107,
+   "start": 174.418,
+   "mix_db": -18.1,
+   "drums_db": -23.5,
+   "bass_db": -22.2,
+   "other_db": -31.6,
+   "vocals_db": -27.1
+  },
+  {
+   "bar": 108,
+   "start": 175.998,
+   "mix_db": -16.5,
+   "drums_db": -20.7,
+   "bass_db": -22.7,
+   "other_db": -32.4,
+   "vocals_db": -24.3
+  },
+  {
+   "bar": 109,
+   "start": 177.576,
+   "mix_db": -17.5,
+   "drums_db": -22.1,
+   "bass_db": -22.2,
+   "other_db": -28.4,
+   "vocals_db": -25.0
+  },
+  {
+   "bar": 110,
+   "start": 179.154,
+   "mix_db": -17.3,
+   "drums_db": -21.0,
+   "bass_db": -22.8,
+   "other_db": -27.7,
+   "vocals_db": -27.9
+  },
+  {
+   "bar": 111,
+   "start": 180.731,
+   "mix_db": -18.2,
+   "drums_db": -21.6,
+   "bass_db": -24.4,
+   "other_db": -29.6,
+   "vocals_db": -26.0
+  },
+  {
+   "bar": 112,
+   "start": 182.308,
+   "mix_db": -17.5,
+   "drums_db": -21.0,
+   "bass_db": -23.1,
+   "other_db": -31.4,
+   "vocals_db": -25.6
+  },
+  {
+   "bar": 113,
+   "start": 183.884,
+   "mix_db": -23.8,
+   "drums_db": -45.6,
+   "bass_db": -75.3,
+   "other_db": -24.6,
+   "vocals_db": -34.1
+  },
+  {
+   "bar": 114,
+   "start": 185.461,
+   "mix_db": -21.7,
+   "drums_db": -29.9,
+   "bass_db": -73.6,
+   "other_db": -23.0,
+   "vocals_db": -78.2
+  },
+  {
+   "bar": 115,
+   "start": 187.039,
+   "mix_db": -18.7,
+   "drums_db": -23.3,
+   "bass_db": -23.7,
+   "other_db": -30.6,
+   "vocals_db": -26.3
+  },
+  {
+   "bar": 116,
+   "start": 188.794,
+   "mix_db": -20.0,
+   "drums_db": -78.7,
+   "bass_db": -21.5,
+   "other_db": -43.5,
+   "vocals_db": -25.6
+  },
+  {
+   "bar": 117,
+   "start": 190.549,
+   "mix_db": -19.4,
+   "drums_db": -78.1,
+   "bass_db": -19.8,
+   "other_db": -36.1,
+   "vocals_db": -32.0
+  },
+  {
+   "bar": 118,
+   "start": 192.305,
+   "mix_db": -18.3,
+   "drums_db": -78.7,
+   "bass_db": -18.7,
+   "other_db": -44.3,
+   "vocals_db": -29.9
+  },
+  {
+   "bar": 119,
+   "start": 194.06,
+   "mix_db": -23.8,
+   "drums_db": -78.6,
+   "bass_db": -24.4,
+   "other_db": -32.7,
+   "vocals_db": -59.0
+  },
+  {
+   "bar": 120,
+   "start": 195.855,
+   "mix_db": -32.8,
+   "drums_db": -79.2,
+   "bass_db": -77.3,
+   "other_db": -32.8,
+   "vocals_db": -78.8
+  },
+  {
+   "bar": 121,
+   "start": 197.62,
+   "mix_db": -19.8,
+   "drums_db": -22.0,
+   "bass_db": -26.2,
+   "other_db": -50.3,
+   "vocals_db": -77.2
+  },
+  {
+   "bar": 122,
+   "start": 199.322,
+   "mix_db": -20.6,
+   "drums_db": -22.8,
+   "bass_db": -28.0,
+   "other_db": -66.4,
+   "vocals_db": -29.9
+  }
+ ],
+ "top_transients": [
+  {
+   "t": 15.285,
+   "strength": 16.3,
+   "bar": 9,
+   "beat": 4,
+   "off_grid_ms": -1
+  },
+  {
+   "t": 18.039,
+   "strength": 10.4,
+   "bar": 11,
+   "beat": 3,
+   "off_grid_ms": -211
+  },
+  {
+   "t": 22.06,
+   "strength": 11.7,
+   "bar": 13,
+   "beat": 4,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 29.658,
+   "strength": 19.3,
+   "bar": 18,
+   "beat": 2,
+   "off_grid_ms": -4
+  },
+  {
+   "t": 35.564,
+   "strength": 10.1,
+   "bar": 21,
+   "beat": 4,
+   "off_grid_ms": 2
+  },
+  {
+   "t": 36.407,
+   "strength": 13.8,
+   "bar": 22,
+   "beat": 2,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 79.604,
+   "strength": 12.6,
+   "bar": 48,
+   "beat": 1,
+   "off_grid_ms": 195
+  },
+  {
+   "t": 80.213,
+   "strength": 29.2,
+   "bar": 48,
+   "beat": 3,
+   "off_grid_ms": -21
+  },
+  {
+   "t": 82.298,
+   "strength": 13.7,
+   "bar": 49,
+   "beat": 4,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 83.121,
+   "strength": 11.5,
+   "bar": 50,
+   "beat": 2,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 85.585,
+   "strength": 13.6,
+   "bar": 51,
+   "beat": 4,
+   "off_grid_ms": 0
+  },
+  {
+   "t": 86.409,
+   "strength": 11.5,
+   "bar": 52,
+   "beat": 2,
+   "off_grid_ms": 1
+  },
+  {
+   "t": 88.878,
+   "strength": 10.7,
+   "bar": 53,
+   "beat": 4,
+   "off_grid_ms": 5
+  },
+  {
+   "t": 89.691,
+   "strength": 11.2,
+   "bar": 54,
+   "beat": 2,
+   "off_grid_ms": -3
+  },
+  {
+   "t": 109.037,
+   "strength": 14.5,
+   "bar": 66,
+   "beat": 1,
+   "off_grid_ms": 192
+  },
+  {
+   "t": 111.661,
+   "strength": 12.5,
+   "bar": 67,
+   "beat": 4,
+   "off_grid_ms": -1
+  },
+  {
+   "t": 112.469,
+   "strength": 13.9,
+   "bar": 68,
+   "beat": 2,
+   "off_grid_ms": -2
+  },
+  {
+   "t": 114.29,
+   "strength": 14.3,
+   "bar": 69,
+   "beat": 3,
+   "off_grid_ms": -202
+  },
+  {
+   "t": 114.899,
+   "strength": 13.3,
+   "bar": 69,
+   "beat": 4,
+   "off_grid_ms": 0
+  },
+  {
+   "t": 118.122,
+   "strength": 12.7,
+   "bar": 71,
+   "beat": 4,
+   "off_grid_ms": 0
+  },
+  {
+   "t": 118.321,
+   "strength": 17.5,
+   "bar": 71,
+   "beat": 4,
+   "off_grid_ms": 199
+  },
+  {
+   "t": 121.344,
+   "strength": 12.5,
+   "bar": 73,
+   "beat": 4,
+   "off_grid_ms": 2
+  },
+  {
+   "t": 125.769,
+   "strength": 16.5,
+   "bar": 76,
+   "beat": 3,
+   "off_grid_ms": 2
+  },
+  {
+   "t": 150.189,
+   "strength": 10.1,
+   "bar": 91,
+   "beat": 4,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 173.022,
+   "strength": 16.6,
+   "bar": 106,
+   "beat": 1,
+   "off_grid_ms": 186
+  },
+  {
+   "t": 173.61,
+   "strength": 24.4,
+   "bar": 106,
+   "beat": 3,
+   "off_grid_ms": -17
+  },
+  {
+   "t": 174.419,
+   "strength": 16.1,
+   "bar": 107,
+   "beat": 1,
+   "off_grid_ms": 1
+  },
+  {
+   "t": 175.606,
+   "strength": 16.0,
+   "bar": 107,
+   "beat": 4,
+   "off_grid_ms": 3
+  },
+  {
+   "t": 176.399,
+   "strength": 11.8,
+   "bar": 108,
+   "beat": 2,
+   "off_grid_ms": 7
+  },
+  {
+   "t": 176.993,
+   "strength": 9.9,
+   "bar": 108,
+   "beat": 4,
+   "off_grid_ms": -189
+  },
+  {
+   "t": 178.764,
+   "strength": 15.5,
+   "bar": 109,
+   "beat": 4,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 179.352,
+   "strength": 14.9,
+   "bar": 110,
+   "beat": 2,
+   "off_grid_ms": -196
+  },
+  {
+   "t": 179.552,
+   "strength": 14.9,
+   "bar": 110,
+   "beat": 2,
+   "off_grid_ms": 4
+  },
+  {
+   "t": 180.734,
+   "strength": 16.1,
+   "bar": 111,
+   "beat": 1,
+   "off_grid_ms": 3
+  },
+  {
+   "t": 181.912,
+   "strength": 16.9,
+   "bar": 111,
+   "beat": 4,
+   "off_grid_ms": -1
+  },
+  {
+   "t": 182.5,
+   "strength": 17.7,
+   "bar": 112,
+   "beat": 1,
+   "off_grid_ms": 192
+  },
+  {
+   "t": 182.705,
+   "strength": 12.6,
+   "bar": 112,
+   "beat": 2,
+   "off_grid_ms": 3
+  },
+  {
+   "t": 186.247,
+   "strength": 16.6,
+   "bar": 114,
+   "beat": 3,
+   "off_grid_ms": -3
+  },
+  {
+   "t": 191.255,
+   "strength": 14.2,
+   "bar": 117,
+   "beat": 3,
+   "off_grid_ms": -172
+  },
+  {
+   "t": 197.606,
+   "strength": 24.0,
+   "bar": 121,
+   "beat": 1,
+   "off_grid_ms": -14
+  },
+  {
+   "t": 198.254,
+   "strength": 13.0,
+   "bar": 121,
+   "beat": 2,
+   "off_grid_ms": 209
+  },
+  {
+   "t": 198.469,
+   "strength": 14.6,
+   "bar": 121,
+   "beat": 3,
+   "off_grid_ms": -2
+  },
+  {
+   "t": 199.102,
+   "strength": 13.5,
+   "bar": 121,
+   "beat": 4,
+   "off_grid_ms": 206
+  },
+  {
+   "t": 199.317,
+   "strength": 12.8,
+   "bar": 122,
+   "beat": 1,
+   "off_grid_ms": -5
+  },
+  {
+   "t": 200.15,
+   "strength": 18.7,
+   "bar": 122,
+   "beat": 3,
+   "off_grid_ms": -23
+  }
+ ]
+}

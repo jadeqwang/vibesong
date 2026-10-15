@@ -1,0 +1,191 @@
+{
+ "turn0_a": {
+  "shift": [
+   -0.11,
+   0.01
+  ],
+  "eye_diff": 20.0
+ },
+ "turn1_a": {
+  "shift": [
+   -0.0,
+   0.11
+  ],
+  "eye_diff": 57.6
+ },
+ "turn0_b": {
+  "shift": [
+   -0.07,
+   0.02
+  ],
+  "eye_diff": 19.3
+ },
+ "turn1_b": {
+  "shift": [
+   0.06,
+   0.12
+  ],
+  "eye_diff": 34.0
+ },
+ "turn0_c": {
+  "shift": [
+   -0.17,
+   0.08
+  ],
+  "eye_diff": 24.1
+ },
+ "turn1_c": {
+  "shift": [
+   -0.08,
+   0.07
+  ],
+  "eye_diff": 27.2
+ },
+ "expr0_a": {
+  "shift": [
+   -0.01,
+   0.07
+  ],
+  "eye_diff": 18.4
+ },
+ "expr1_a": {
+  "shift": [
+   -0.02,
+   -0.03
+  ],
+  "eye_diff": 15.4
+ },
+ "expr2_a": {
+  "shift": [
+   0.06,
+   -0.03
+  ],
+  "eye_diff": 19.3
+ },
+ "expr3_a": {
+  "shift": [
+   -0.02,
+   -0.01
+  ],
+  "eye_diff": 17.2
+ },
+ "expr4_a": {
+  "shift": [
+   -0.02,
+   -0.04
+  ],
+  "eye_diff": 17.5
+ },
+ "expr5_a": {
+  "shift": [
+   -0.01,
+   -0.01
+  ],
+  "eye_diff": 17.4
+ },
+ "expr0_b": {
+  "shift": [
+   -0.03,
+   0.03
+  ],
+  "eye_diff": 16.6
+ },
+ "expr1_b": {
+  "shift": [
+   -0.03,
+   0.0
+  ],
+  "eye_diff": 17.6
+ },
+ "expr2_b": {
+  "shift": [
+   0.01,
+   -0.03
+  ],
+  "eye_diff": 55.6
+ },
+ "expr3_b": {
+  "shift": [
+   -0.0,
+   -0.0
+  ],
+  "eye_diff": 17.6
+ },
+ "expr4_b": {
+  "shift": [
+   0.01,
+   -0.06
+  ],
+  "eye_diff": 17.5
+ },
+ "expr5_b": {
+  "shift": [
+   -0.01,
+   -0.03
+  ],
+  "eye_diff": 17.8
+ },
+ "expr0_c": {
+  "shift": [
+   0.03,
+   0.03
+  ],
+  "eye_diff": 15.4
+ },
+ "expr1_c": {
+  "shift": [
+   -0.01,
+   -0.03
+  ],
+  "eye_diff": 16.0
+ },
+ "expr2_c": {
+  "shift": [
+   0.08,
+   -0.04
+  ],
+  "eye_diff": 19.0
+ },
+ "expr3_c": {
+  "shift": [
+   0.03,
+   0.02
+  ],
+  "eye_diff": 19.1
+ },
+ "expr4_c": {
+  "shift": [
+   -0.0,
+   -0.02
+  ],
+  "eye_diff": 19.1
+ },
+ "expr5_c": {
+  "shift": [
+   0.01,
+   -0.01
+  ],
+  "eye_diff": 18.1
+ },
+ "lineup0_a": {
+  "shift": [
+   -0.02,
+   -0.01
+  ],
+  "eye_diff": 20.5
+ },
+ "lineup0_b": {
+  "shift": [
+   -0.06,
+   0.08
+  ],
+  "eye_diff": 19.0
+ },
+ "lineup0_c": {
+  "shift": [
+   0.07,
+   0.02
+  ],
+  "eye_diff": 26.2
+ }
+}

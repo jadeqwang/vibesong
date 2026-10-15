@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "act5_sweep_t3",
+ "notes": "Act V top-down sweep 176.6-184.3 from aerial_photo (photoreal of engine frame 175.5)",
+ "input": {
+  "prompt": "Slow, steady top-down aerial drone shot, camera looking straight down, gliding gently and smoothly to the right at constant height and constant low speed, following the four giant flower-field plateaus shaped like the characters, from left to right. Late-afternoon golden sunlight, long soft shadows. A light breeze ripples the flower fields and meadows, sparkles glint on the lakes, soft waves roll onto the sandy beaches. The landscape is completely solid and static: the giant character-shaped plateaus, their stone walls, the fields, trees, ruins, lakes and coastline never move, morph or change shape; only the camera moves, smoothly, no tilt, no rotation, no zoom, no cuts. Photorealistic, natural colors, 4K drone documentary footage.",
+  "image_input": "file:media/act5/stills/aerial_photo.jpg",
+  "duration": "8s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

@@ -1,0 +1,18 @@
+[cf] openai/gpt-image-2.5-sunburst 33.3s
+[cf] openai/gpt-image-2.5-sunburst -> keyframes/concepts/_work/raw/k03_v1.png  ($0.2384 est, 33.8s)
+[cf] openai/gpt-image-2.5-sunburst 34.5s
+[cf] openai/gpt-image-2.5-sunburst -> keyframes/concepts/_work/raw/k01_v1.png  ($0.2256 est, 35.0s)
+[cf] openai/gpt-image-2.5-sunburst 35.0s
+[cf] openai/gpt-image-2.5-sunburst 35.9s
+[cf] openai/gpt-image-2.5-sunburst -> keyframes/concepts/_work/raw/k04_v1.png  ($0.2128 est, 35.9s)
+[cf] openai/gpt-image-2.5-sunburst -> keyframes/concepts/_work/raw/k05_v1.png  ($0.2256 est, 36.3s)
+[cf] openai/gpt-image-2.5-sunburst 36.3s
+[cf] openai/gpt-image-2.5-sunburst 36.7s
+[cf] openai/gpt-image-2.5-sunburst -> keyframes/concepts/_work/raw/k06_v1.png  ($0.2128 est, 36.7s)
+[cf] openai/gpt-image-2.5-sunburst -> keyframes/concepts/_work/raw/k02_v1.png  ($0.2128 est, 37.2s)
+k03 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k03_v1.png spent=0.24
+k01 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k01_v1.png spent=0.46
+k04 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k04_v1.png spent=0.68
+k05 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k05_v1.png spent=0.90
+k06 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k06_v1.png spent=1.12
+k02 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k02_v1.png spent=1.33

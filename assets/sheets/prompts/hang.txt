@@ -1,0 +1,6 @@
+16-bit SNES pixel art sprite sheet, The Lost Vikings (1993) style, EXACTLY the same resolution, pixel size, palette and character designs as the attached pixel sheets (each character about 40 game-pixels tall, every game pixel a big square block on one global grid, 1-px near-black outline, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no grid lines. Side view facing RIGHT unless stated.
+
+HANG / GRAB animation, 3 rows (one per character, matching the attached sheets), 2 frames per row: the character hangs from a horizontal bar/ledge above their head, BOTH hands gripping it, arms straight up, body hanging below, legs swinging: frame 1 legs swung forward (to the right), frame 2 legs swung back (to the left). Draw a short dark-gray horizontal bar in their hands (part of the sprite). Same scale as the attached sprites.
+Row 1: JADE (hair up in her bun with the two yellow pencils crossing in an X through the bun, one blue cap and one pink cap; white cropped jacket with orange stripe; navy cargo pants with orange straps; white sneakers).
+Row 2: CHARLIE (beige flat cap, curly dark hair, charcoal tee, jeans, brown boots, acoustic guitar on his back).
+Row 3: RICKY (short spiky black hair, blue-and-white striped shirt, jeans, white sneakers, Stratocaster slung on his back while hanging).

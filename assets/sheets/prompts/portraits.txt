@@ -1,0 +1,7 @@
+16-bit SNES pixel art HUD character portraits in the exact style of The Lost Vikings (1993) status-bar portraits: square head-and-shoulders face portraits, facing the viewer (slightly 3/4), each portrait about 32x32 game pixels, every game pixel a big perfectly square block on one global grid, 1-pixel near-black outline, 3-4 shade ramps, flat colour clusters, no anti-aliasing, no gradients, no glow. Transparent background, no frames, no borders, no text.
+
+Layout: 3 rows x 2 columns, evenly spaced, all portraits the same size. Left column = NEUTRAL (calm, slight smile, eyes open). Right column = SINGING / EXCITED (mouth wide open singing, eyebrows up, eyes bright or happily closed).
+Row 1: JADE (from the attached sheets): East-Asian young woman, long black hair up in a messy bun with side strands framing the face, two YELLOW pencils stuck in the bun (one with a BLUE eraser cap, one with a PINK eraser cap), orange-and-black headphones round her neck, white jacket collar with orange stripe, black top.
+Row 2: CHARLIE: young man, curly dark-brown hair under a BEIGE flat newsboy cap, charcoal t-shirt, brown guitar strap across the chest.
+Row 3: RICKY: young East-Asian man, short spiky black hair, blue-and-white vertical-striped collared shirt, dark navy guitar strap.
+Faces must be recognisable as the people in the attached reference sheets (face shape, hair, eyes) translated into tiny pixel art.

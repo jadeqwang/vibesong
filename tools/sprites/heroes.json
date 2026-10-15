@@ -1,0 +1,1086 @@
+{
+ "root": "/home/jade/Documents/vibesong",
+ "out_dir": "/home/jade/Documents/vibesong/assets/sprites",
+ "review_dir": "/home/jade/Documents/vibesong/assets/sheets/review",
+ "meta": "/home/jade/Documents/vibesong/assets/sprites/sprites.json",
+ "sheets": [
+  {
+   "name": "jade",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_updo_a.png",
+   "target_h": 40,
+   "ref_box": [
+    114,
+    153,
+    259,
+    421
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_n": 24,
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "force": [
+    [
+     248,
+     168,
+     8
+    ],
+    [
+     16,
+     90,
+     236
+    ],
+    [
+     248,
+     80,
+     112
+    ],
+    [
+     96,
+     160,
+     244
+    ],
+    [
+     248,
+     8,
+     8
+    ],
+    [
+     8,
+     184,
+     8
+    ],
+    [
+     248,
+     224,
+     8
+    ],
+    [
+     248,
+     112,
+     8
+    ],
+    [
+     150,
+     150,
+     158
+    ]
+   ],
+   "protect": [
+    [
+     248,
+     168,
+     8
+    ],
+    [
+     16,
+     90,
+     236
+    ],
+    [
+     248,
+     80,
+     112
+    ],
+    [
+     96,
+     160,
+     244
+    ],
+    [
+     248,
+     8,
+     8
+    ],
+    [
+     8,
+     184,
+     8
+    ],
+    [
+     248,
+     224,
+     8
+    ],
+    [
+     248,
+     112,
+     8
+    ],
+    [
+     150,
+     150,
+     158
+    ]
+   ],
+   "boost": 3.0,
+   "anims": {
+    "idle": {
+     "frames": [
+      [
+       [
+        114,
+        153,
+        259,
+        421
+       ]
+      ],
+      [
+       [
+        341,
+        152,
+        477,
+        421
+       ]
+      ]
+     ],
+     "fps": 3,
+     "note": "updo + X pencils (blue cap / pink cap)"
+    },
+    "jump": {
+     "frames": [
+      [
+       [
+        582,
+        152,
+        737,
+        402
+       ]
+      ],
+      [
+       [
+        794,
+        152,
+        983,
+        426
+       ]
+      ]
+     ],
+     "loop": false,
+     "note": "0 = rising, 1 = falling"
+    },
+    "victory": {
+     "frames": [
+      [
+       [
+        1045,
+        153,
+        1235,
+        421
+       ]
+      ]
+     ],
+     "frame": [
+      40,
+      44
+     ],
+     "loop": false
+    },
+    "back": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_updo_b.png",
+     "frames": [
+      [
+       [
+        1344,
+        142,
+        1475,
+        423
+       ]
+      ]
+     ],
+     "ref_box": [
+      78,
+      142,
+      221,
+      423
+     ],
+     "target_h": 40,
+     "loop": false,
+     "note": "seen from behind: big pale-blue dot on the jacket back"
+    },
+    "run": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_updo_b.png",
+     "frames": [
+      [
+       [
+        45,
+        507,
+        250,
+        792
+       ]
+      ],
+      [
+       [
+        303,
+        507,
+        491,
+        792
+       ]
+      ],
+      [
+       [
+        559,
+        500,
+        745,
+        762
+       ]
+      ],
+      [
+       [
+        790,
+        503,
+        989,
+        791
+       ]
+      ],
+      [
+       [
+        1062,
+        508,
+        1260,
+        791
+       ]
+      ],
+      [
+       [
+        1333,
+        504,
+        1501,
+        791
+       ]
+      ]
+     ],
+     "ref_box": [
+      78,
+      142,
+      221,
+      423
+     ],
+     "target_h": 40,
+     "fps": 12,
+     "note": "updo; contact, down, passing x2; sleeve patch visible"
+    },
+    "draw_rainbow": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_down_b.png",
+     "frames": [
+      [
+       [
+        374,
+        44,
+        832,
+        320
+       ]
+      ]
+     ],
+     "ref_box": [
+      384,
+      379,
+      671,
+      640
+     ],
+     "target_h": 37,
+     "frame": [
+      72,
+      44
+     ],
+     "loop": false,
+     "note": "HAIR DOWN; blue-cap pencil = FUNCTIONS, rainbow stroke baked in"
+    },
+    "draw_graphite": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_down_b.png",
+     "frames": [
+      [
+       [
+        831,
+        63,
+        1307,
+        320
+       ]
+      ]
+     ],
+     "ref_box": [
+      384,
+      379,
+      671,
+      640
+     ],
+     "target_h": 37,
+     "frame": [
+      72,
+      44
+     ],
+     "loop": false,
+     "note": "HAIR DOWN; pink-cap pencil = FIXTURES, graphite line baked in"
+    },
+    "sing": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_down_b.png",
+     "frames": [
+      [
+       [
+        384,
+        379,
+        671,
+        640
+       ],
+       [
+        684,
+        371,
+        730,
+        422
+       ],
+       [
+        715,
+        421,
+        757,
+        467
+       ]
+      ],
+      [
+       [
+        818,
+        380,
+        1108,
+        639
+       ],
+       [
+        1121,
+        388,
+        1167,
+        438
+       ],
+       [
+        1152,
+        433,
+        1191,
+        479
+       ]
+      ]
+     ],
+     "ref_box": [
+      384,
+      379,
+      671,
+      640
+     ],
+     "target_h": 37,
+     "frame": [
+      56,
+      44
+     ],
+     "fps": 4,
+     "note": "HAIR DOWN; pencil as mic"
+    },
+    "drum": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_down_b.png",
+     "frames": [
+      [
+       [
+        67,
+        705,
+        360,
+        966
+       ]
+      ],
+      [
+       [
+        438,
+        689,
+        720,
+        966
+       ]
+      ]
+     ],
+     "ref_box": [
+      384,
+      379,
+      671,
+      640
+     ],
+     "target_h": 37,
+     "frame": [
+      44,
+      44
+     ],
+     "fps": 8,
+     "note": "HAIR DOWN; pencils as drumsticks"
+    },
+    "run_hairdown": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_pix_down_b.png",
+     "frames": [
+      [
+       [
+        863,
+        699,
+        1115,
+        966
+       ]
+      ],
+      [
+       [
+        1207,
+        691,
+        1459,
+        966
+       ]
+      ]
+     ],
+     "ref_box": [
+      384,
+      379,
+      671,
+      640
+     ],
+     "target_h": 37,
+     "frame": [
+      40,
+      44
+     ],
+     "fps": 10,
+     "note": "HAIR DOWN, a pencil in each hand; 2-frame run for ability moments"
+    }
+   }
+  },
+  {
+   "name": "charlie",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/charlie_pixel_t2.png",
+   "target_h": 40,
+   "ref_box": [
+    288,
+    47,
+    415,
+    269
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "palette_n": 24,
+   "remap": [
+    [
+     [
+      249,
+      159,
+      72
+     ],
+     [
+      240,
+      186,
+      140
+     ]
+    ],
+    [
+     [
+      224,
+      128,
+      48
+     ],
+     [
+      206,
+      144,
+      104
+     ]
+    ]
+   ],
+   "remap_tol": 40,
+   "anims": {
+    "idle": {
+     "frames": [
+      [
+       [
+        288,
+        47,
+        415,
+        269
+       ]
+      ],
+      [
+       [
+        494,
+        48,
+        616,
+        269
+       ]
+      ]
+     ],
+     "fps": 3
+    },
+    "jump": {
+     "frames": [
+      [
+       [
+        719,
+        41,
+        872,
+        269
+       ]
+      ],
+      [
+       [
+        959,
+        62,
+        1099,
+        269
+       ]
+      ]
+     ],
+     "loop": false,
+     "note": "0 = rising, 1 = falling"
+    },
+    "run": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/charlie_run_t1.png",
+     "frames": [
+      [
+       [
+        40,
+        403,
+        266,
+        703
+       ]
+      ],
+      [
+       [
+        303,
+        418,
+        519,
+        703
+       ]
+      ],
+      [
+       [
+        556,
+        383,
+        731,
+        704
+       ]
+      ],
+      [
+       [
+        786,
+        405,
+        1008,
+        704
+       ]
+      ],
+      [
+       [
+        1048,
+        418,
+        1271,
+        704
+       ]
+      ],
+      [
+       [
+        1315,
+        383,
+        1498,
+        704
+       ]
+      ]
+     ],
+     "ref_box": [
+      556,
+      383,
+      731,
+      704
+     ],
+     "target_h": 40,
+     "fps": 12,
+     "note": "contact, down, passing x2 (dedicated run sheet)"
+    },
+    "hat_shield": {
+     "frames": [
+      [
+       [
+        61,
+        600,
+        195,
+        783
+       ],
+       [
+        115,
+        535,
+        137,
+        570
+       ]
+      ],
+      [
+       [
+        234,
+        605,
+        353,
+        783
+       ],
+       [
+        263,
+        545,
+        286,
+        581
+       ]
+      ],
+      [
+       [
+        395,
+        606,
+        518,
+        783
+       ],
+       [
+        440,
+        544,
+        463,
+        581
+       ]
+      ]
+     ],
+     "frame": [
+      36,
+      52
+     ],
+     "fps": 6,
+     "note": "ink drop bouncing off the cap"
+    },
+    "hat_parachute": {
+     "frames": [
+      [
+       [
+        571,
+        543,
+        709,
+        768
+       ]
+      ],
+      [
+       [
+        727,
+        543,
+        868,
+        768
+       ]
+      ],
+      [
+       [
+        886,
+        550,
+        1027,
+        774
+       ]
+      ]
+     ],
+     "frame": [
+      36,
+      48
+     ],
+     "fps": 6
+    },
+    "hat_trampoline": {
+     "frames": [
+      [
+       [
+        1072,
+        638,
+        1271,
+        784
+       ]
+      ],
+      [
+       [
+        1303,
+        633,
+        1488,
+        786
+       ]
+      ]
+     ],
+     "frame": [
+      44,
+      44
+     ],
+     "fps": 4,
+     "note": "cap flipped on the ground; spawn as a separate bounce prop if needed"
+    },
+    "hat_throw": {
+     "frames": [
+      [
+       [
+        52,
+        822,
+        249,
+        996
+       ]
+      ],
+      [
+       [
+        287,
+        825,
+        478,
+        996
+       ]
+      ]
+     ],
+     "frame": [
+      44,
+      44
+     ],
+     "loop": false
+    },
+    "hat_boomerang": {
+     "frames": [
+      [
+       [
+        536,
+        872,
+        614,
+        935
+       ]
+      ],
+      [
+       [
+        703,
+        875,
+        779,
+        938
+       ]
+      ],
+      [
+       [
+        862,
+        877,
+        937,
+        938
+       ]
+      ]
+     ],
+     "frame": [
+      16,
+      16
+     ],
+     "fps": 12,
+     "align": "center",
+     "note": "projectile only"
+    },
+    "hat_pull": {
+     "frames": [
+      [
+       [
+        983,
+        851,
+        1144,
+        997
+       ]
+      ],
+      [
+       [
+        1155,
+        838,
+        1325,
+        997
+       ]
+      ],
+      [
+       [
+        1341,
+        807,
+        1494,
+        997
+       ]
+      ]
+     ],
+     "frame": [
+      40,
+      44
+     ],
+     "fps": 4,
+     "loop": false,
+     "note": "pulls another cap out of the cap"
+    }
+   }
+  },
+  {
+   "name": "ricky",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/ricky_pixel_t2.png",
+   "target_h": 40,
+   "ref_box": [
+    176,
+    75,
+    367,
+    369
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "palette_n": 24,
+   "force": [
+    [
+     128,
+     160,
+     222
+    ],
+    [
+     246,
+     246,
+     246
+    ],
+    [
+     236,
+     236,
+     236
+    ]
+   ],
+   "protect": [
+    [
+     128,
+     160,
+     222
+    ]
+   ],
+   "boost": 1.6,
+   "remap": [
+    [
+     [
+      246,
+      166,
+      84
+     ],
+     [
+      238,
+      184,
+      140
+     ]
+    ],
+    [
+     [
+      200,
+      116,
+      50
+     ],
+     [
+      200,
+      136,
+      100
+     ]
+    ]
+   ],
+   "anims": {
+    "idle": {
+     "frames": [
+      [
+       [
+        176,
+        75,
+        367,
+        369
+       ]
+      ],
+      [
+       [
+        463,
+        76,
+        655,
+        369
+       ]
+      ]
+     ],
+     "fps": 3
+    },
+    "jump": {
+     "frames": [
+      [
+       [
+        769,
+        52,
+        959,
+        327
+       ]
+      ],
+      [
+       [
+        1033,
+        75,
+        1222,
+        369
+       ]
+      ]
+     ],
+     "loop": false,
+     "note": "0 = rising, 1 = falling"
+    },
+    "run": {
+     "src": "/home/jade/Documents/vibesong/assets/sheets/raw/ricky_run_t1.png",
+     "frames": [
+      [
+       [
+        32,
+        379,
+        285,
+        673
+       ]
+      ],
+      [
+       [
+        303,
+        387,
+        540,
+        673
+       ]
+      ],
+      [
+       [
+        591,
+        356,
+        768,
+        673
+       ]
+      ],
+      [
+       [
+        793,
+        379,
+        1042,
+        672
+       ]
+      ],
+      [
+       [
+        1065,
+        385,
+        1291,
+        673
+       ]
+      ],
+      [
+       [
+        1329,
+        357,
+        1506,
+        673
+       ]
+      ]
+     ],
+     "ref_box": [
+      591,
+      356,
+      768,
+      673
+     ],
+     "target_h": 40,
+     "fps": 12,
+     "note": "contact, down, passing x2 (dedicated run sheet)"
+    },
+    "power_chord": {
+     "frames": [
+      [
+       [
+        48,
+        764,
+        266,
+        985
+       ]
+      ],
+      [
+       [
+        294,
+        763,
+        703,
+        985
+       ]
+      ]
+     ],
+     "frame": [
+      64,
+      44
+     ],
+     "fps": 8,
+     "loop": false,
+     "note": "1 = blast with muzzle flash baked in"
+    },
+    "sustain": {
+     "frames": [
+      [
+       [
+        728,
+        781,
+        939,
+        985
+       ],
+       [
+        892,
+        774,
+        926,
+        854
+       ],
+       [
+        911,
+        755,
+        953,
+        875
+       ]
+      ],
+      [
+       [
+        983,
+        781,
+        1193,
+        985
+       ],
+       [
+        1153,
+        768,
+        1191,
+        867
+       ],
+       [
+        1176,
+        743,
+        1228,
+        897
+       ],
+       [
+        1201,
+        721,
+        1270,
+        918
+       ]
+      ]
+     ],
+     "frame": [
+      44,
+      44
+     ],
+     "fps": 4,
+     "note": "sound-wave arcs baked in"
+    },
+    "victory": {
+     "frames": [
+      [
+       [
+        1313,
+        696,
+        1485,
+        985
+       ]
+      ]
+     ],
+     "frame": [
+      36,
+      48
+     ],
+     "loop": false
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,360 @@
+<title>一笔一画 Check-in</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Silkscreen&family=IBM+Plex+Sans:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap">
+<style>
+/* Layout: a sketchbook page. One reading column; the song timeline is the spine; wide figures break out. */
+:root {
+  --paper: #f4f4f0;
+  --paper-2: #e9e9e3;
+  --graphite: #2a2a30;
+  --graphite-soft: #5f5f68;
+  --rule: #cfcfc8;
+  --blue: #2f6ce0;      /* blue-eraser pencil: functions */
+  --pink: #e8735f;      /* pink-eraser pencil: fixtures */
+  --chip: #ffffff;
+  --f-cjk: "Ma Shan Zheng", "Kaiti SC", "STKaiti", "KaiTi", serif;
+  --f-pixel: "Silkscreen", ui-monospace, monospace;
+  --f-head: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #17171b; --paper-2: #212127; --graphite: #e7e7ea; --graphite-soft: #a4a4ae; --rule: #34343c;
+  --blue: #6d9bff; --pink: #ff9a85; --chip: #26262d; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #17171b; --paper-2: #212127; --graphite: #e7e7ea; --graphite-soft: #a4a4ae; --rule: #34343c;
+  --blue: #6d9bff; --pink: #ff9a85; --chip: #26262d; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { background: var(--paper); color: var(--graphite); font-family: var(--f-body); font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 32px 80px }
+main { max-width: 1080px; margin: 0 auto; display: grid; gap: 64px }
+.col { max-width: 680px }
+h1, h2, h3 { font-family: var(--f-head); text-wrap: balance; line-height: 1.15; margin: 0 }
+h2 { font-size: 1.7rem }
+h3 { font-size: 1.15rem }
+p { margin: 0 }
+.stack { display: grid; gap: 14px }
+.label { font-family: var(--f-pixel); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--graphite-soft) }
+.muted { color: var(--graphite-soft) }
+a { color: var(--blue) }
+
+/* hero */
+.hero { display: grid; gap: 18px; padding-top: 8px }
+.title { font-family: var(--f-cjk); font-size: clamp(4rem, 15vw, 9rem); line-height: 1; letter-spacing: .04em; margin: 0 }
+.title span { display: inline-block }
+.stroke-rule { height: 6px; border-radius: 3px; width: min(520px, 100%);
+  background: linear-gradient(90deg, var(--graphite) 0 46%, transparent 46% 50%, #e8463c 50%, #f2a33a 60%, #e8d23c 68%, #4fb85a 76%, #2f8ce0 86%, #8a5ce0 100%) }
+.lede { font-size: 1.2rem; max-width: 640px }
+
+/* timeline */
+.tl { overflow-x: auto }
+.tl-bar { position: relative; min-width: 760px; height: 92px; margin-top: 8px }
+.seg { position: absolute; top: 26px; height: 40px; border-right: 2px solid var(--paper); display: flex; align-items: center; padding: 0 6px; overflow: hidden;
+  font-family: var(--f-pixel); font-size: .62rem; color: #fff; white-space: nowrap }
+.seg.cart { background: #4b4b55 } .seg.void { background: #10141f } .seg.talos { background: #c9a46a; color: #2a2a30 }
+.seg.paper { background: #e2d6c2; color: #2a2a30 } .seg.color { background: linear-gradient(90deg,#e8463c,#f2a33a,#4fb85a,#2f8ce0,#8a5ce0) }
+.mark { position: absolute; top: 0; font-family: var(--f-pixel); font-size: .6rem; transform: translateX(-50%); color: var(--graphite) }
+.mark::after { content: ""; position: absolute; left: 50%; top: 14px; width: 2px; height: 56px; background: var(--pink) }
+.ticks { position: absolute; top: 72px; left: 0; right: 0; font-family: var(--f-pixel); font-size: .58rem; color: var(--graphite-soft) }
+.ticks span { position: absolute; transform: translateX(-50%) }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 12px; font-size: .85rem }
+.legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 6px }
+
+/* script table */
+.beats { display: grid; gap: 0; border-top: 1px solid var(--rule) }
+.beat { display: grid; grid-template-columns: 84px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule) }
+.beat .tc { font-family: var(--f-pixel); font-size: .78rem; color: var(--pink); padding-top: 3px; font-variant-numeric: tabular-nums }
+.beat b { font-family: var(--f-head) }
+.beat .zh { font-family: var(--f-cjk); font-size: 1.15em }
+.beat > div { min-width: 0 }
+
+/* figures */
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px }
+.grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px }
+@media (max-width: 760px) { .grid4 { grid-template-columns: repeat(2, minmax(0, 1fr)) } .grid3, .grid2 { grid-template-columns: 1fr } }
+figure { margin: 0; display: grid; gap: 6px; min-width: 0 }
+figure img, video { width: 100%; max-width: 100%; height: auto; display: block; border-radius: 4px; background: var(--paper-2) }
+figcaption { font-size: .85rem; color: var(--graphite-soft) }
+figcaption .tc { font-family: var(--f-pixel); font-size: .72rem; color: var(--pink); margin-right: 8px }
+.wide img { border: 1px solid var(--rule) }
+.note { border-left: 3px solid var(--blue); padding: 4px 0 4px 14px; font-size: .95rem }
+
+/* decisions */
+.dec-list { display: grid; gap: 18px }
+.dec { border: 1px solid var(--rule); background: var(--chip); border-radius: 6px; padding: 18px; display: grid; gap: 12px }
+.dec .opts { display: flex; flex-wrap: wrap; gap: 8px }
+.opt { font: 600 .9rem var(--f-body); border: 1.5px solid var(--rule); background: transparent; color: var(--graphite); border-radius: 999px; padding: 7px 14px; cursor: pointer }
+.opt:hover { border-color: var(--graphite-soft) }
+.opt:focus-visible, textarea:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px }
+.opt[aria-pressed="true"] { background: var(--graphite); color: var(--paper); border-color: var(--graphite) }
+.opt .rec { font-weight: 400; opacity: .75 }
+textarea { width: 100%; min-height: 64px; font: inherit; font-size: .92rem; color: var(--graphite); background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 8px 10px; resize: vertical }
+.status { font-family: var(--f-pixel); font-size: .65rem; color: var(--graphite-soft) }
+.status.saved { color: var(--blue) }
+#dbstate { font-size: .85rem }
+@media (prefers-reduced-motion: no-preference) { .title span { animation: ink .5s ease-out both } .title span:nth-child(2){animation-delay:.12s} .title span:nth-child(3){animation-delay:.24s} .title span:nth-child(4){animation-delay:.36s} }
+@keyframes ink { from { clip-path: inset(0 100% 0 0) } to { clip-path: inset(0 0 0 0) } }
+</style>
+
+<main>
+<header class="hero">
+  <p class="label">Morning check-in · Oct 15</p>
+  <h1 class="title" aria-label="一笔一画"><span>一</span><span>笔</span><span>一</span><span>画</span></h1>
+  <div class="stroke-rule" aria-hidden="true"></div>
+  <p class="lede">A Lost Vikings-style puzzle platformer where every platform is a real stroke of a Chinese character. The party runs off the edge of the written world, vibe codes the rest, and at the first drop the camera turns and the pixel game becomes a sunlit 3D world. They beat the boss by changing where they stand.</p>
+  <p class="muted">Script, keyframes, character sheets and the first engine test are below. The choices at the bottom save as you click and I read them before rendering.</p>
+</header>
+
+<section class="stack" id="full">
+  <p class="label">NEW · Rough cut v2 · the whole song, one continuous render, 540p with sound</p>
+  <h2>Start to finish, 0:00–3:27</h2>
+  <div class="col stack"><p>Every act in one pass of the engine, in two halves for the page (the split at 1:43.5 is only for upload size). Everything from my v1 list is fixed:</p>
+  <ul>
+    <li><b>0:46–0:55</b>: cubes pop in on every beat, then you type "what do I need?" with your pencils and each word sketches part of the level in blueprint. The camera pulls back to the whole blueprint just before the FIXTURES pencil draws over it.</li>
+    <li><b>1:10–1:13</b>: the party stops and looks up as 一切从这里出发 slams in word by word. You land as 出 erupts.</li>
+    <li><b>LINES OF CODE</b> counts up with every stroke (see the choice at the bottom: count, or the always-0 joke).</li>
+    <li><b>2:03</b>: Act IV now runs in the same world as Act III, so the cut is seamless.</li>
+    <li><b>2:05.8–2:09.4</b>: your singing card (timing B), then Charlie and Ricky <b>playing</b>, with the strums on the beat.</li>
+    <li><b>2:09–2:12</b>: the sound-bridge shots face away from the sun, so the glare is gone. <b>2:21</b>: the Eraser close-up breathes, blinks and leans.</li>
+    <li><b>2:48–2:52</b>: the recap montage has no stale subtitles, and all three of you read clearly.</li>
+    <li><b>2:55–3:00</b>: clouds pass as distinct puffs, and the aerial sweeps from 一 to 画.</li>
+    <li><b>Outro</b>: the left page is Charlie alone in 2011 with his guitar and a laptop of code.</li>
+  </ul>
+  <p><b>Still on my list:</b> the wipe at 3:14 has a jagged black edge that reads as a glitch (becoming a torn paper edge); the plaster world in 1:21–1:59 is a little hazy; the 720p version of your singing shot (needs your upload, see chat); the final models line in the credits; then 1080p masters and social crops.</p></div>
+  <video src="full_v2_part1.mp4" controls playsinline preload="metadata"></video>
+  <video src="full_v2_part2.mp4" controls playsinline preload="metadata"></video>
+</section>
+
+<section class="stack">
+  <p class="label">The rule that holds it together</p>
+  <h2>Nothing appears except by a stroke</h2>
+  <div class="col stack">
+    <p>一笔一画 means stroke by stroke, the way every kid learns to write Chinese. Here it is also the level design: 一 is a floor, 丨 a pillar, 丿 a slide, 丶 a stepping stone, all drawn in true stroke order from the Make Me a Hanzi dataset. Every change of world is drawn by a stroke or performed by the camera. No plain crossfades.</p>
+    <p>Your two pencils are the chorus. The <b style="color:var(--pink)">pink-eraser pencil</b> draws graphite: <b>fixtures</b>, the base layer (打底). The <b style="color:var(--blue)">blue-eraser pencil</b> draws in every color: <b>functions</b>, the color (上色). The world stays graphite and plaster until the rap line <span class="zh" style="font-family:var(--f-cjk)">Fixtures 打底 functions 上色</span>, when color floods all of it.</p>
+  </div>
+</section>
+
+<section class="stack">
+  <p class="label">The song, 3:21, mapped to the four looks</p>
+  <h2>Timeline</h2>
+  <div class="tl" role="img" aria-label="Song timeline: pixel cartridge from 0:00 to 0:34, the void from 0:34 to 1:20, the 3D plaster world from 1:20, color flood at 1:59, Eraser bridge at 2:03, final chorus and drop 2 in full color, paper outro from 3:07">
+    <div class="tl-bar" id="tlbar"></div>
+  </div>
+  <div class="legend">
+    <span><i style="background:#4b4b55"></i>Cartridge (16-bit pixel)</span>
+    <span><i style="background:#10141f"></i>Void / editor</span>
+    <span><i style="background:#c9a46a"></i>Talos (plaster 3D)</span>
+    <span><i style="background:#e2d6c2"></i>Paper (pencil cutscenes)</span>
+    <span><i style="background:linear-gradient(90deg,#e8463c,#4fb85a,#2f8ce0)"></i>Full color</span>
+  </div>
+  <p class="note col">Measured, not assumed: the song speeds up from 140 to 152 BPM, so every cut keys to a measured beat grid (98% of drum hits within 15 ms). There is no real key change. The final-chorus lift comes from two band stops before a slam (2:17.5–2:19.7), which is exactly where the perspective lock happens.</p>
+</section>
+
+<section class="stack">
+  <p class="label">Shot script, condensed (full version in docs/script.md)</p>
+  <h2>The run</h2>
+  <div class="beats">
+    <div class="beat"><span class="tc">0:00</span><div><b>The title draws itself under her feet.</b> The four whistle notes carry the 一笔一画 melody, so each note draws one character in stroke order, a split second before pixel Jade needs to land on it. Camera pulls back to the title, pinyin and a one-line gloss for people who don't read Chinese.</div></div>
+    <div class="beat"><span class="tc">0:04</span><div><b>Paint it / run it / ship it</b>, one word per beat. Paint: the blue-eraser pencil floods 画 with color. Run: Ricky's power chord hits a giant ▶. Ship: a cartridge falls out of Charlie's hat.</div></div>
+    <div class="beat"><span class="tc">0:07</span><div><b>Character select.</b> One portrait per bar as the 808 enters. The bios tell the backstory: Charlie wrote it in 2011 when he traded code for product; you found the jam recordings and remade it in 2026.</div></div>
+    <div class="beat"><span class="tc">0:14</span><div><b>Kaizo run.</b> On the first band stop, The Eraser slides in and starts chasing. <i>because</i> is a bridge made of letters; <i>linked</i> is a hyperlink chain they swing across on Charlie's hat; <span class="zh">每一天 都是色彩</span> paints tiles as you run. The world runs out into the missing-texture checkerboard.</div></div>
+    <div class="beat"><span class="tc">0:34</span><div><b>Off the edge.</b> LEVEL NOT FOUND. You sing <span class="zh">说出来 它就存在</span> into your pencil and the characters drop out of the speech bubble and become the platforms. <span class="zh">未来</span> is a rainbow staircase.</div></div>
+    <div class="beat"><span class="tc">0:41</span><div><b>Vibe coding.</b> A prompt box types <code>&gt; what do I need?</code>. On "the fixtures and the functions" the graphite pencil sweeps a gray-box level into being and the color pencil brings it to life.</div></div>
+    <div class="beat"><span class="tc">1:12</span><div><b>The build.</b> <span class="zh">出发</span> erupts as a launch ramp; you drum the triplet roll with your pencils; Charlie's hat trampoline. In the 0.9 s of total silence, everything freezes and the flat screen tilts 2°.</div></div>
+    <div class="beat"><span class="tc">1:20.81</span><div><b>THE TURN.</b> On the drop, the camera whips around: the pixel level was one slice of a golden-hour 3D world, all unpainted plaster, where only the sky, the sea and the three of you have color. "Fixtures!" slams up stone slabs; "Functions!" makes Ricky's sound beams connect them.</div></div>
+    <div class="beat"><span class="tc">1:22</span><div><b>NEW · Coloring by hand.</b> From the drop on, you flick the blue-eraser pencil at single objects on musical accents: cypresses first (6–8 by 1:34), then the flowers along your path on "blossoms", Ricky's beams as the first colored light, and colored spotlights on the stage. At most about 15% of the frame is colored before the flood.</div></div>
+    <div class="beat"><span class="tc">1:47</span><div><b><span class="zh">世界 是我的舞台</span></b>: a ruined amphitheater, one spotlight per stutter stop on each of you.</div></div>
+    <div class="beat"><span class="tc">1:50</span><div><b>Rap: the bug dance battle.</b> Syntax textbooks topple, flowers burst out of a screen, cute bugs swarm and get danced into features (firefly → lamp, beetle → wheel). On <span class="zh">Fixtures 打底 functions 上色</span> a wave of colored-pencil hatching floods the whole world with color.</div></div>
+    <div class="beat"><span class="tc">2:03</span><div><b>Bridge.</b> The Eraser rises at dusk and wipes the world to white paper. Pencil cutscene close-ups of you singing, holding a page that is a drawing on one side and code on the other. Ricky's sustained note spirals up to a vantage point; Charlie's hat launches you onto it.</div></div>
+    <div class="beat"><span class="tc">2:17</span><div><b>The perspective lock.</b> Band stop, lone hit, stop, slam: from your eye-line, the scattered fragments and The Eraser's own white trails line up into one colossal 画. Erasing was drawing all along. You color The Eraser pink and it joins the gang vocals with the bugs.</div></div>
+    <div class="beat"><span class="tc">2:54</span><div><b>Drop 2, NEW · the resolution goes up again.</b> The camera rockets straight up; every level we crossed spells 一笔一画 across the landscape. Then the voxels subdivide in a wave, in stroke order, into a photoreal aerial of real terraced fields still shaped like the characters. Pixel, then voxel, then the real world, then the real 2011 photo in the outro. "Fixtures!" turns the real world into a pencil drawing of itself; "Functions!" brings it back to life.</div></div>
+    <div class="beat"><span class="tc">3:07</span><div><b>Outro.</b> A pencil drawing of the three of you dissolves into the real 2011 jam photo: "Charlie wrote this in 2011. We finally shipped it in 2026." The cartridge ejects: SHIPPED ✓.</div></div>
+  </div>
+</section>
+
+<section class="stack" id="singing">
+  <p class="label">NEW · Your first singing cutscene · bridge, 2:05.8–2:09.4</p>
+  <h2>一笔一画 都是我的回答</h2>
+  <div class="col"><p>Seedance animated your v9 likeness holding up the painting/code page. You picked timing B, which is installed and now wired into Act IV (the full bridge slot below plays inside the engine). With your OK for a temporary public link, the good take is being re-rendered at sharp 16:9 720p: it goes up on a link that expires after an hour. And per your note, Charlie and Ricky are being redone <b>playing</b> their guitars instead of listening; those shots drop into the split frame automatically.</p></div>
+  <div class="grid2">
+    <figure><video src="sing_card.mp4" controls playsinline preload="metadata"></video><figcaption>Installed: the best-synced take mounted as a sketchbook card in the 16:9 frame, with the song</figcaption></figure>
+    <figure><video src="act4_v5_bridge.mp4" controls playsinline preload="metadata"></video><figcaption>Wired into Act IV (2:00–2:25): your card, then Charlie and Ricky playing</figcaption></figure>
+    <figure><video src="sing_lag_options.mp4" controls playsinline preload="metadata"></video><figcaption>Lip-sync timing options A / B / C (B is installed)</figcaption></figure>
+  </div>
+  <figure class="wide"><img src="img/review_bridge_sheet.jpg" alt="Bridge cutscene frames"><figcaption>Frames from the take and the reaction shots</figcaption></figure>
+</section>
+
+<section class="stack" id="act1">
+  <p class="label">NEW · Real renders · 540p review passes with audio</p>
+  <h2>Rough cut: every act, start to finish</h2>
+  <div class="col"><p><b>Act I v2 (0:00–0:41).</b> All five weak spots are fixed: PRESS START slams each character in on its syllable, a graphite bridge crumbles behind you at 0:24, the void speech bubble is twice the size and 说出来 lands clean, PAINT IT has room, and the 笔 steps flash as you land on them.</p></div>
+  <video src="act1_v2.mp4" controls playsinline preload="metadata" poster="img/act1_v2_sheet.jpg"></video>
+  <div class="col"><p><b>Act II v1 (0:41–1:17).</b> The void chorus: pages stream past as stepping stones, you freeze reading on the stop under "read", <code>&gt; what do I need?</code> types on the syllables, the graphite pencil sweeps the gray-box fixtures and the rainbow pencil brings the functions to life, Ricky flips a switch on each "oh", the level spreads out on "there", and 出发 erupts on the chant. Weakest moment: the pull-back at 1:07–1:08 is busy and chunky.</p></div>
+  <video src="act2_v1.mp4" controls playsinline preload="metadata" poster="img/act2_v1_sheet.jpg"></video>
+  <div class="col"><p><b>Act III v6 (1:17–2:03).</b> The launch, the turn, the plaster world, the co-op crossing, the stage, the rap and the paint flood. The level you drew stays colored as a causeway, and every interaction colors one object. New in v5: the paint flood is now an aerial shot of the hatching racing to the horizon, followed by a pull-back over a fully colored world. The characters read as solid 3D figures, the reveal after the turn is wider, and the 一 bridge is a real calligraphy stroke that turns rainbow under your feet. v6: the stage now has front spotlights (warm white, magenta, cyan) so faces and outfits keep their true colors, and the co-op crossing framing is cleaner.</p></div>
+  <video src="act3_v6.mp4" controls playsinline preload="metadata" poster="img/act3_grid.jpg"></video>
+  <figure class="wide"><img src="img/act3_grid.jpg" alt="Act III stills"><figcaption>Act III v5 stills: 1:22.6 after the turn (hand-colored cypresses) · 1:43 co-op crossing · 1:48.4 the stage · 1:59.9 the flood racing outward · 2:01 the pull-back · 2:02.8 back with the band</figcaption></figure>
+  <div class="col"><p><b>Act IV v4 (2:03–2:53).</b> The bridge and final chorus. The Eraser rises at dusk, Ricky's sound bridge spirals up, and the perspective lock lands on the real slam (measured at 2:19.40; the timing map was 0.3 s off here). From your eye-line, the floating graphite shards and the Eraser's white rub trails line up into 画, which then ignites in rainbow hatching. You color the Eraser, and everyone sings the gang vocals. Your singing shot is a placeholder until you sign off on the likeness. v4 fixes: the Eraser is the classic pink now, it rises half-sunk over the horizon at dusk, color returns as a racing wavefront of pencil hatching, the 出发 launch has a lower, closer camera, and you color the Eraser in an over-the-shoulder close-up. Still weak: the static Eraser close-up at 2:21 and heavy sun bloom around 2:09. (Stills below are from v3.)</p></div>
+  <video src="act4_v4.mp4" controls playsinline preload="metadata" poster="img/act4_grid.jpg"></video>
+  <figure class="wide"><img src="img/act4_grid.jpg" alt="Act IV stills: dusk Eraser, sound bridge, the lock before and after the slam, coloring the Eraser, gang vocals"><figcaption>Act IV stills: 2:05 dusk Eraser · 2:12 sound bridge · 2:18.9 just before the slam · 2:19.6 the lock · 2:27 coloring the Eraser · 2:37 gang vocals</figcaption></figure>
+  <div class="col"><p><b>Act V + outro v3 (2:53–3:27).</b> Drop 2 rockets up to the 一笔一画 aerial, and the voxel world subdivides in stroke order into real terraced land with villages and coastline, the four characters still traced across it. "Fixtures!" turns the landscape into a pencil drawing of itself, and "Functions!" brings it back to life. Then the dive into 一, the sketchbook outro (animated with Veo: twinkling lights, the three of you breathing and smiling), the cartridge popping out of Charlie's hat on the final hit, and the last screen with the credits written into the sketchbook. It never cuts to black.</p></div>
+  <video src="act5_v3.mp4" controls playsinline preload="metadata" poster="img/act5_grid.jpg"></video>
+  <figure class="wide"><img src="img/act5_grid.jpg" alt="Act V stills"><figcaption>Act V v3 stills: 2:55.9 the subdivision wave · 2:58 the real-world aerial · 3:01 "Fixtures!" pencil view · 3:09 the sketchbook outro</figcaption></figure>
+  <div class="grid2">
+    <figure><img src="img/act1_v2_sheet.jpg" alt="Act I v2 contact sheet"><figcaption>Act I v2, one frame per beat</figcaption></figure>
+    <figure><img src="img/act2_v1_sheet.jpg" alt="Act II v1 contact sheet"><figcaption>Act II v1, one frame per beat</figcaption></figure>
+  </div>
+</section>
+
+<section class="stack">
+  <p class="label">Engine test · real renderer, deterministic, ~0.1 s per frame on the 3090</p>
+  <h2>The turn</h2>
+  <div class="col"><p>The pixel game and the 3D world are the same scene. The 2D look is an orthographic side camera with a palette shader; the turn swings the camera and blends the projection, so it reads as the flat world opening up. The heroes here are rough placeholders; the real sprites below drop in next.</p></div>
+  <video src="turn_demo.mp4" controls muted playsinline loop preload="metadata" poster="img/turn_000.jpg"></video>
+  <div class="grid4">
+    <figure><img src="img/turn_000.jpg" alt="Turn at 0%: flat pixel side view"><figcaption>0%: pixel side view</figcaption></figure>
+    <figure><img src="img/turn_033.jpg" alt="Turn at 33%"><figcaption>33%: depth appears</figcaption></figure>
+    <figure><img src="img/turn_066.jpg" alt="Turn at 66%"><figcaption>66%: sunlight floods in</figcaption></figure>
+    <figure><img src="img/turn_100.jpg" alt="Turn at 100%: golden-hour plaster world"><figcaption>100%: the plaster world</figcaption></figure>
+  </div>
+  <div class="grid3">
+    <figure><img src="img/talos_hero_low.jpg" alt="Low hero shot in the colonnade"><figcaption>Colonnade hero shot (strongest so far)</figcaption></figure>
+    <figure><img src="img/talos_paintwave.jpg" alt="Paint flood wavefront"><figcaption>Paint flood, mid-wave (functions 上色)</figcaption></figure>
+    <figure><img src="img/talos_establishing.jpg" alt="Establishing shot"><figcaption>Establishing (weakest: sand reads flat)</figcaption></figure>
+  </div>
+  <p class="note col">Known gaps I'll fix overnight: sun glare at the end of the turn, flat sand terrain in wide shots, placeholder heroes, grass that reads as gravel.</p>
+</section>
+
+<section class="stack">
+  <p class="label">Video model test · Veo 3.1 and Seedance 2.0 · $7.41</p>
+  <h2>Veo, tested</h2>
+  <div class="col"><p>Veo 3.1 runs through the unified catalog (there's no Cloudflare-hosted Veo yet, so that's the only route). It takes a first frame but not a last frame. It keeps the glyphs rigid and makes clouds and water look real, and it held the colored-pencil look on a silent cutscene. Plan: Veo takes the drop-2 top-down sweep, the dive into 一, and the silent paper reaction shots. Seedance 2.0 takes the moment the photoreal world has to line up exactly with the engine render, because only it can land on a chosen last frame. Singing stays on Seedance 2.5.</p></div>
+  <div class="grid3">
+    <figure><video src="veo_aerial.mp4" controls muted playsinline loop preload="metadata"></video><figcaption><span class="tc">2:56</span>Veo 3.1 Fast: top-down drift, glyphs hold</figcaption></figure>
+    <figure><video src="sd20_lock.mp4" controls muted playsinline loop preload="metadata"></video><figcaption><span class="tc">2:55.5</span>Seedance 2.0: first + last frame locked</figcaption></figure>
+    <figure><video src="veo_paper.mp4" controls muted playsinline loop preload="metadata"></video><figcaption>Veo 3.1: silent paper cutscene, Charlie and Ricky</figcaption></figure>
+  </div>
+</section>
+
+<section class="stack">
+  <p class="label">Concept frames · image-model paintings to set the target, not final renders</p>
+  <h2>Keyframes</h2>
+  <figure class="wide"><img src="img/contact_sheet.jpg" alt="All 16 concept keyframes in story order"><figcaption>All 16 in story order, latest versions. UPDATED · Canon pass done: your hair is up with pencils through the bun, or down with pencils in hand, never both. Your bios are on the character select, and the caterpillar has lost its wings.</figcaption></figure>
+  <div class="grid2">
+<figure class="kf"><img src="img/k01_cold_open.jpg" alt="Cold open: the title draws itself under her feet" loading="lazy"><figcaption><span class="tc">0:02</span>Cold open: the title draws itself under her feet</figcaption></figure>
+<figure class="kf"><img src="img/k02_run_it.jpg" alt="Paint it / run it / ship it" loading="lazy"><figcaption><span class="tc">0:05</span>Paint it / run it / ship it</figcaption></figure>
+<figure class="kf"><img src="img/k03_character_select.jpg" alt="Character select" loading="lazy"><figcaption><span class="tc">0:09</span>Character select</figcaption></figure>
+<figure class="kf"><img src="img/k04_kaizo_eraser.jpg" alt="Verse 1: The Eraser chases; the &quot;linked&quot; chain" loading="lazy"><figcaption><span class="tc">0:22</span>Verse 1: The Eraser chases; the &quot;linked&quot; chain</figcaption></figure>
+<figure class="kf"><img src="img/k05_void.jpg" alt="The void: sung words become platforms" loading="lazy"><figcaption><span class="tc">0:36</span>The void: sung words become platforms</figcaption></figure>
+<figure class="kf"><img src="img/k06_fixtures_functions.jpg" alt="Fixtures (graphite) and functions (color)" loading="lazy"><figcaption><span class="tc">0:56</span>Fixtures (graphite) and functions (color)</figcaption></figure>
+<figure class="kf"><img src="img/k07_the_turn_plaster.jpg" alt="Just after the turn: the plaster world" loading="lazy"><figcaption><span class="tc">1:22</span>Just after the turn: the plaster world</figcaption></figure>
+<figure class="kf"><img src="img/k08_world_is_my_stage.jpg" alt="世界是我的舞台: three spotlights" loading="lazy"><figcaption><span class="tc">1:48</span>世界是我的舞台: three spotlights</figcaption></figure>
+<figure class="kf"><img src="img/k08b_coop_crossing.jpg" alt="NEW · Co-op crossing: plate, tripod, sound beam, hat holds the plate" loading="lazy"><figcaption><span class="tc">1:43</span>NEW · Co-op crossing: plate, tripod, sound beam, hat holds the plate</figcaption></figure>
+<figure class="kf"><img src="img/k09_bug_dance_paint_flood.jpg" alt="Bug dance battle + the paint flood" loading="lazy"><figcaption><span class="tc">1:57</span>Bug dance battle + the paint flood</figcaption></figure>
+<figure class="kf"><img src="img/k10_bridge_paper.jpg" alt="UPDATED · Bridge: paper cutscene, painting / code (v1 face, canon pencils)" loading="lazy"><figcaption><span class="tc">2:05</span>UPDATED · Bridge: paper cutscene, painting / code (v1 face, canon pencils)</figcaption></figure>
+<figure class="kf"><img src="img/k11_perspective_lock.jpg" alt="The perspective lock: 画" loading="lazy"><figcaption><span class="tc">2:19</span>The perspective lock: 画</figcaption></figure>
+<figure class="kf"><img src="img/k12_aerial_yibiyihua.jpg" alt="Drop 2: the world spells 一笔一画" loading="lazy"><figcaption><span class="tc">2:55</span>Drop 2: the world spells 一笔一画</figcaption></figure>
+<figure class="kf"><img src="img/k13_drop2_photoreal.jpg" alt="NEW · Drop 2 goes photoreal: the strokes are terraced fields" loading="lazy"><figcaption><span class="tc">2:56</span>NEW · Drop 2 goes photoreal: the strokes are terraced fields</figcaption></figure>
+<figure class="kf"><img src="img/k13b_drop2_fixtures_pencil.jpg" alt="NEW · &quot;Fixtures!&quot;: the real world as a pencil drawing of itself" loading="lazy"><figcaption><span class="tc">3:00</span>NEW · &quot;Fixtures!&quot;: the real world as a pencil drawing of itself</figcaption></figure>
+<figure class="kf"><img src="img/k13c_subdivision_mid.jpg" alt="NEW · The second turn, mid-wave: voxels subdivide into the real world" loading="lazy"><figcaption><span class="tc">2:55.6</span>NEW · The second turn, mid-wave: voxels subdivide into the real world</figcaption></figure>
+  </div>
+</section>
+
+<section class="stack">
+  <p class="label">Character sheets</p>
+  <h2>The party, the boss, the bugs</h2>
+  <figure class="wide"><img src="img/sheet_pixel.jpg" alt="Pixel sprite sheet for Jade, Charlie and Ricky"><figcaption>16-bit sprites, engine-ready (36×44 px). Charlie's hat does five jobs; the last one pulls more hats out of the hat.</figcaption></figure>
+  <div class="grid2">
+    <figure class="wide"><img src="img/sheet_eraser.jpg" alt="The Eraser boss sheet"><figcaption>The Eraser: chasing, looming, redeemed pink</figcaption></figure>
+    <figure class="wide"><img src="img/sheet_bugs.jpg" alt="Bug sheet"><figcaption>Bugs, their dance poses, and the features they become</figcaption></figure>
+  </div>
+  <figure class="wide"><img src="img/jade_brows.jpg" alt="Brow options: v3, v4, v9"><figcaption>APPROVED · v9 (right): the image model drew the brows as part of the illustration (like v4), and only a soft band from forehead to lids was kept; everything else is v3. The weight sits between v3 and v4: the left brow in the picture is straight, the right one slightly arched, in your hair's soft black. Small quirks: the front view is slightly heavier, and the sing-loud and determined panels gained faint furrow lines.</figcaption></figure>
+  <figure class="wide"><img src="img/jade_v9_full.jpg" alt="v9 full body: turnaround and lineup"><figcaption>v9 full body: the turnaround (front, 3/4, side, back) and the lineup with Charlie and Ricky.</figcaption></figure>
+  <figure class="wide"><img src="img/jade_likeness.jpg" alt="v1 next to v3 paper Jade"><figcaption>v1 (left) and v3 (right), for reference. v3 keeps v1's own face, eyes, hair volume and hairline pixel for pixel; only the brows are about 1 px thicker. Costume and pencils are fixed: jacket-base collar and epaulets, chest dot, the real 1420 MHz patch, RARE EARTH on the back, crossed pencils through the bun with a rainbow lead on the blue-cap one. HUD portraits at the bottom.</figcaption></figure>
+  <figure class="wide"><img src="img/sheet_paper.jpg" alt="Paper cutscene character sheet"><figcaption>v5 paper sheet (v1 face, brows from your trace) with your notes applied: hair rule, crossed pencils with yellow bodies and blue/pink caps, the jacket-base collar and epaulets, chest dot, the real 1420 MHz patch, and RARE EARTH on the back (both composited from the costume artwork).</figcaption></figure>
+  <figure class="wide"><img src="img/sheet_hud.jpg" alt="HUD portraits"><figcaption>UPDATED · Lost Vikings HUD portraits: the pencil tips are gone from your forehead; only the caps and yellow bodies stick out of the bun.</figcaption></figure>
+</section>
+
+<section class="stack" id="decide">
+  <p class="label">Before you sleep</p>
+  <h2>Choices I need from you</h2>
+  <p class="muted">Already decided (saved in docs/decisions.md): $500 budget; no real photos, illustrations only; names held until you ask Charlie and Ricky; paper pencil look with your sign-off before animation; your bio wording; Codex yes; no glasses; subtitles both ways; credits in the final image.</p>
+  <p id="dbstate" class="muted">Connecting to the decision store…</p>
+  <div class="dec-list" id="decs"></div>
+</section>
+</main>
+
+<script>
+const SONG = 201.16;
+const SEGS = [[0,14.01,'cart','INTRO'],[14.01,34.3,'cart','VERSE 1'],[34.3,80.81,'void','VOID · PRE + CHORUS 1'],[80.81,119.02,'talos','TALOS · DROP 1 · V2 · RAP'],[119.02,123.35,'color',''],[123.35,136.21,'paper','BRIDGE'],[136.21,187.04,'color','FINAL CHORUS · DROP 2'],[187.04,201.16,'paper','OUTRO']];
+const MARKS = [[80.81,'TURN'],[119.02,'FLOOD'],[139.7,'LOCK'],[174.4,'DROP 2']];
+(function drawTimeline(){
+  const bar = document.getElementById('tlbar');
+  const pct = t => (t / SONG * 100) + '%';
+  for (const [a,b,cls,txt] of SEGS) { const d = document.createElement('div'); d.className = 'seg ' + cls; d.style.left = pct(a); d.style.width = `calc(${(b-a)/SONG*100}% )`; d.textContent = txt; bar.appendChild(d); }
+  for (const [t,txt] of MARKS) { const m = document.createElement('span'); m.className = 'mark'; m.style.left = pct(t); m.textContent = txt; bar.appendChild(m); }
+  const ticks = document.createElement('div'); ticks.className = 'ticks';
+  for (let t = 0; t <= 180; t += 30) { const s = document.createElement('span'); s.style.left = pct(t); s.textContent = `${Math.floor(t/60)}:${String(t%60).padStart(2,'0')}`; ticks.appendChild(s); }
+  bar.appendChild(ticks);
+})();
+
+const DECISIONS = [
+  { id: 'loc', q: 'The HUD "LINES OF CODE" counter: count up, or stay at 0?', why: 'The script had it stuck at 0 on purpose (vibe coding: you never write a line), and I missed that joke and asked for it to count up. Now it climbs with every stroke, to about 1,900 by 1:17. Either one is a one-line switch.',
+    opts: [['count','Count up with every stroke'],['zero','Always 0 (the joke)']] },
+  { id: 'cut1', q: 'Rough cut v2: notes?', why: 'Watch both halves with sound. My notes are listed in the rough-cut section above and are already being fixed.',
+    opts: [['ok','My list covers it'],['notes','More notes (see note)']] },
+];
+
+const decs = document.getElementById('decs');
+const state = {};
+function render() {
+  decs.replaceChildren();
+  for (const d of DECISIONS) {
+    const cur = state[d.id] || {};
+    const card = document.createElement('div'); card.className = 'dec';
+    const h = document.createElement('h3'); h.textContent = d.q;
+    const p = document.createElement('p'); p.className = 'muted'; p.textContent = d.why;
+    const opts = document.createElement('div'); opts.className = 'opts';
+    for (const [val, label, rec] of d.opts) {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'opt'; b.id = `opt-${d.id}-${val}`;
+      b.setAttribute('aria-pressed', cur.choice === val ? 'true' : 'false');
+      b.textContent = label;
+      if (rec) { const s = document.createElement('span'); s.className = 'rec'; s.textContent = ` · ${rec}`; b.appendChild(s); }
+      b.addEventListener('click', () => save(d.id, { choice: val }));
+      opts.appendChild(b);
+    }
+    const ta = document.createElement('textarea'); ta.id = `note-${d.id}`; ta.placeholder = 'Note (optional)'; ta.value = cur.note || '';
+    ta.setAttribute('aria-label', `Note for: ${d.q}`);
+    ta.addEventListener('change', () => save(d.id, { note: ta.value }));
+    const st = document.createElement('span'); st.className = 'status' + (cur.choice ? ' saved' : ''); st.id = `st-${d.id}`;
+    st.textContent = cur.choice ? 'Saved' : 'Not chosen yet';
+    card.append(h, p, opts, ta, st); decs.appendChild(card);
+  }
+}
+render();
+
+let db = null;
+async function save(id, patch) {
+  state[id] = Object.assign({}, state[id], patch);
+  const active = document.activeElement && document.activeElement.id;
+  render();
+  if (active) { const el = document.getElementById(active); if (el) el.focus(); }
+  const st = document.getElementById('st-' + id);
+  if (!db) { st.textContent = 'Not saved: sign in to claude.ai to record choices'; st.className = 'status'; return; }
+  try { await db.collection('decisions').doc(id).set(Object.assign({}, state[id], { at: new Date().toISOString() })); st.textContent = 'Saved'; st.className = 'status saved'; }
+  catch (e) { st.textContent = 'Could not save: ' + (e && e.code || 'error') + '. Try again in a moment.'; st.className = 'status'; }
+}
+(async () => {
+  const dbstate = document.getElementById('dbstate');
+  db = window.claude ? await window.claude.use('db') : null;
+  if (!db) { dbstate.textContent = 'Choices are not being saved in this view. Open the page signed in to claude.ai to record them.'; return; }
+  dbstate.textContent = 'Choices save as you click. Notes save when you leave the box.';
+  db.collection('decisions').onSnapshot(snap => {
+    for (const doc of snap.docs) { const v = doc.data(); if (v) state[doc.id] = { choice: v.choice, note: v.note }; }
+    if (!(document.activeElement && document.activeElement.tagName === 'TEXTAREA')) render();
+  }, () => { dbstate.textContent = 'Lost the connection to the decision store; reload to retry.'; });
+})();
+</script>

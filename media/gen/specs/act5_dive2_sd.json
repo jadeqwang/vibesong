@@ -1,0 +1,14 @@
+{
+ "model": "bytedance/seedance-2.0",
+ "tag": "act5_dive2_sd",
+ "notes": "Act V dive 183.87-186.65: first = conformed sweep frame 112, last = NBP close-up of the first \u4e00 (dive_last)",
+ "input": {
+  "prompt": "Aerial drone shot looking straight down the whole time: the camera dives straight down and slightly left toward the long red flower field shaped like a long horizontal brush stroke on the left (the long horizontal stroke), accelerating smoothly, descending until the long red flower stroke with its stone edge fills the frame. Never tilts toward the horizon, no rotation. The landscape is solid and static: the character-shaped fields, rice terraces, fields and coastline never morph or change shape; only the camera moves. Late-afternoon golden sunlight, a light breeze in the flowers, photorealistic.",
+  "image": "file:media/act5/stills/sweep2_dive_f112.jpg",
+  "last_frame_image": "file:media/act5/stills/dive_last2.jpg",
+  "duration": 4,
+  "resolution": "1080p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false
+ }
+}

@@ -1,0 +1,9 @@
+16-bit SNES-era pixel art sprite sheet in the exact style of The Lost Vikings (1993, Silicon & Synapse / Blizzard): chunky, instantly readable silhouettes, slightly big heads, 3-4 shade color ramps per material, crisp 1-pixel near-black outlines around every sprite, flat pixel clusters, NO anti-aliasing, NO soft gradients, NO blur. Every sprite is drawn on the same coarse pixel grid: each sprite is roughly 32 pixels wide and 48 pixels tall in game pixels, shown enlarged with big square pixels. Side-view platformer, character faces RIGHT. Transparent background. Sprites evenly spaced in clean rows, all at exactly the same scale, feet on a shared baseline in each row. No text, no labels, no numbers, no grid lines, no UI.
+
+Character: CHARLIE, matching the attached character sheet: a slim young man, curly dark-brown hair poking out under a BEIGE flat cap (newsboy cap); charcoal-gray t-shirt; blue jeans; brown leather boots; an acoustic guitar (warm honey wood, brown strap) slung on his BACK.
+
+Layout (4 rows):
+Row 1: idle stance (2 frames, subtle breathing), jump (2 frames: rising, falling).
+Row 2: run cycle, 6 frames, side view running to the right, guitar bouncing on his back.
+Row 3: holding the beige cap overhead with both hands as a SHIELD (ink drops bouncing off it); drifting down holding the cap above his head like a PARACHUTE (cap drawn enlarged); the cap flipped upside-down on the ground, enlarged into a TRAMPOLINE, with Charlie crouching beside it.
+Row 4: throwing the cap like a BOOMERANG (throwing pose + the spinning cap flying with motion arcs); reaching into the upturned cap and PULLING OUT another cap like a magician, surprised happy face.

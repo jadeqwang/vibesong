@@ -1,0 +1,14 @@
+{
+ "model": "bytedance/seedance-2.0",
+ "tag": "act5_resolve2",
+ "notes": "Act V resolve 175.5-176.6: first=last=aerial_photo (registration to the engine frame), played compressed",
+ "input": {
+  "prompt": "Locked-off aerial drone shot from high above, camera looking straight down and completely still: no camera movement, no zoom, no pan. Only gentle natural motion: a light breeze ripples the rice terraces and trees, sparkles glint on the lakes, soft waves roll onto the sandy beaches, tiny cypress trees sway slightly. The giant character-shaped fields, fields, ruins and coastline stay exactly the same. Photorealistic, golden late-afternoon light.",
+  "image": "file:media/act5/stills/aerial_photo2.jpg",
+  "last_frame_image": "file:media/act5/stills/aerial_photo2.jpg",
+  "duration": 4,
+  "resolution": "1080p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false
+ }
+}

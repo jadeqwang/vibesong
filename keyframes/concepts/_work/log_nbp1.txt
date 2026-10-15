@@ -1,0 +1,18 @@
+[cf] google/nano-banana-pro 36.1s
+[cf] google/nano-banana-pro -> keyframes/concepts/_work/raw/k10_v1.png  ($0.1344 est, 37.1s)
+[cf] google/nano-banana-pro 38.6s
+[cf] google/nano-banana-pro -> keyframes/concepts/_work/raw/k09_v1.png  ($0.1344 est, 39.3s)
+[cf] google/nano-banana-pro 40.4s
+[cf] google/nano-banana-pro 40.7s
+[cf] google/nano-banana-pro 40.9s
+[cf] google/nano-banana-pro -> keyframes/concepts/_work/raw/k12_v1.png  ($0.1344 est, 41.0s)
+[cf] google/nano-banana-pro -> keyframes/concepts/_work/raw/k08_v1.png  ($0.1344 est, 41.6s)
+[cf] google/nano-banana-pro -> keyframes/concepts/_work/raw/k11_v1.png  ($0.1344 est, 41.6s)
+[cf] google/nano-banana-pro 47.7s
+[cf] google/nano-banana-pro -> keyframes/concepts/_work/raw/k07_v1.jpg  ($0.1344 est, 48.3s)
+k10 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k10_v1.png spent=1.46
+k09 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k09_v1.png spent=1.60
+k12 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k12_v1.png spent=1.73
+k08 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k08_v1.png spent=1.87
+k11 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k11_v1.png spent=2.00
+k07 OK /home/jade/Documents/vibesong/keyframes/concepts/_work/raw/k07_v1.jpg spent=2.13

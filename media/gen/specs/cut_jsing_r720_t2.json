@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "cut_jsing_r720_t2",
+ "notes": "jade_sing_bridge_1 720p; audio = song 125.56+6s; ff media/cutscenes/_work/r720/ff16x9_final.jpg",
+ "input": {
+  "prompt": "A graphite and coloured-pencil drawing on cream paper comes to life, still a pencil drawing in every frame: the same fine pencil lines, the same paper texture, the same dusk-sky hatching as the first frame. The young woman sings softly and sultrily, in Mandarin, the words from the reference audio, 'yi bi yi hua, dou shi wo de hui da', her lips shaping each syllable in time with the voice: lips closing on the 'b' of 'bi', opening gently on 'hua' and 'da'. She sings with quiet feeling: a slow breath, her eyelids lowering softly on the held notes, a small tilt of her head, warmth in her eyes. She holds the sheet of paper steady with both hands, square to the camera; it sways only slightly. The sheet always shows the same coloured-pencil landscape drawing as in the first frame (purple dusk sky, soft hills, a setting sun, a winding blue river, wildflowers) with the faint mirrored lines of code showing through the thin paper; the drawing stays clearly visible and unchanged the whole time, never blank. Through all of it she stays the same person as in the first frame: the same large head, wide heart-shaped face with its tapering chin, high broad forehead with the centre-parted hairline high above her brows, the two slightly different eyebrows, the same big dark eyes. Her hair stays up in the bun with the two yellow pencils crossing through it in an X (one blue cap, one pink cap), never falling. The orange headphones stay round her neck; the white cropped jacket with orange stripes stays the same. Natural lips, no gloss, no lipstick, no makeup: her lips keep the soft matte colour of the first frame. Do not redraw, beautify, slim, age or restyle her face; no added lines; forehead smooth, brows relaxed. Static locked-off camera, no zoom or push-in: she stays framed chest-up exactly as in the first frame, never a face close-up, the top of her head and the pencils stay in frame. The dusk light warms very slowly. No captions, no subtitles, no new objects.",
+  "image": "file:media/cutscenes/_work/r720/ff16x9_final.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/audio/bridge1_125.56_6s.mp3"
+  ],
+  "duration": 6,
+  "resolution": "720p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

@@ -1,0 +1,3 @@
+[cf] openai/gpt-image-2.5-sunburst 37.5s
+[cf] openai/gpt-image-2.5-sunburst -> assets/sheets/raw/jade2_expr_gpt_b.png  ($0.2256 est, 38.1s)
+['assets/sheets/raw/jade2_expr_gpt_b.png']

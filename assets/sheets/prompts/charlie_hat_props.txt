@@ -1,0 +1,5 @@
+16-bit SNES pixel art prop sprite sheet, same resolution, palette and pixel size as the attached Charlie pixel sheet (Lost Vikings 1993 style: every game pixel a big square block on one global grid, 1-pixel near-black outline, 3-4 shade ramps, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no characters, ONLY the beige flat cap (newsboy cap) as a magic prop, in the same beige colours as Charlie's cap.
+
+Row 1: HAT TRAMPOLINE, 3 frames: the cap flipped upside-down and grown wide (about 40 game pixels wide), sitting on the ground like a springy trampoline: (a) at rest, (b) squashed flat and wide (someone landing), (c) stretched up and springing back with small motion lines.
+Row 2: HAT BOOMERANG, 4 frames: the cap spinning flat in the air, seen from the side, rotating through 4 angles, with small speed lines.
+Row 3: HAT PARACHUTE canopy alone, enlarged (about 36 game pixels wide), 2 frames gently swaying; then a STACK of 3 extra caps popping out of a cap like a magician's trick (1 frame).

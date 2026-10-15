@@ -1,0 +1,106 @@
+{
+ "raw": [
+  "Duration: 00:00:08.00, start: 0.000000, bitrate: 9881 kb/s",
+  "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080, 9870 kb/s, 24 fps, 24 tbr, 12288 tbn (default)"
+ ],
+ "width": 1920,
+ "height": 1080,
+ "fps": 24.0,
+ "frames": 192,
+ "duration": 8.0,
+ "has_audio": false,
+ "decoded_frames": 192,
+ "sheet_frames": [
+  0,
+  38,
+  76,
+  115,
+  153,
+  191
+ ],
+ "frame0_vs_input": {
+  "edge_ncc": 0.905,
+  "mad": 3.82,
+  "scale": 1.0,
+  "shift_px": [
+   -0.0,
+   0.0
+  ]
+ },
+ "dup_frames": 12,
+ "texture_laplacian_var": [
+  5203.9,
+  5007.7,
+  5703.4,
+  5622.8,
+  6657.8,
+  6495.6
+ ],
+ "stability_vs_frame0": [
+  {
+   "frame": 38,
+   "inlier_ratio": 0.843,
+   "matches": 5157,
+   "edge_ncc_after_align": 0.881,
+   "mad_after_align": 3.28,
+   "overlap": 1.0,
+   "scale": 1.0009,
+   "shift_px": [
+    -0.2,
+    0.1
+   ]
+  },
+  {
+   "frame": 76,
+   "inlier_ratio": 0.976,
+   "matches": 4288,
+   "edge_ncc_after_align": 0.932,
+   "mad_after_align": 3.32,
+   "overlap": 1.0,
+   "scale": 0.9997,
+   "shift_px": [
+    -0.1,
+    0.0
+   ]
+  },
+  {
+   "frame": 115,
+   "inlier_ratio": 0.809,
+   "matches": 2556,
+   "edge_ncc_after_align": 0.737,
+   "mad_after_align": 7.45,
+   "overlap": 0.999,
+   "scale": 0.9995,
+   "shift_px": [
+    0.8,
+    0.1
+   ]
+  },
+  {
+   "frame": 153,
+   "inlier_ratio": 0.596,
+   "matches": 1590,
+   "edge_ncc_after_align": 0.686,
+   "mad_after_align": 10.62,
+   "overlap": 1.0,
+   "scale": 1.0007,
+   "shift_px": [
+    -0.3,
+    0.1
+   ]
+  },
+  {
+   "frame": 191,
+   "inlier_ratio": 0.714,
+   "matches": 1403,
+   "edge_ncc_after_align": 0.733,
+   "mad_after_align": 10.43,
+   "overlap": 0.999,
+   "scale": 0.9988,
+   "shift_px": [
+    -0.1,
+    -0.1
+   ]
+  }
+ ]
+}

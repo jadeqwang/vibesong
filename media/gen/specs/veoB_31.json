@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1",
+ "tag": "veoB_31",
+ "notes": "",
+ "input": {
+  "prompt": "Hand-drawn colored-pencil animation on cream drawing paper, keeping exactly the same drawing style, pencil strokes, hatching and paper texture in every frame. Static camera, quiet moment at dusk. The two young musicians sit on the bench listening to music, breathing softly. After a moment the man in the flat cap slowly turns his head a little toward his friend and they both break into a warm, gentle smile; they do not speak or sing, mouths closed. The dusk light slowly shifts warmer, a soft peach glow deepening across them. Minimal, subtle motion only; no camera movement, no new people, no text.",
+  "image_input": "file:media/veo_tests/refs/B_first.jpg",
+  "duration": "8s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

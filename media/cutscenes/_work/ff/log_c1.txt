@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 53.8s
+[cf] google/nano-banana-pro -> media/cutscenes/_work/ff/ff_charlie1.png  ($0.1344 est, 96.8s)
+['media/cutscenes/_work/ff/ff_charlie1.png']

@@ -1,0 +1,9 @@
+16-bit SNES-era pixel art sprite sheet in the exact style of The Lost Vikings (1993, Silicon & Synapse / Blizzard): chunky, instantly readable silhouettes, slightly big heads, 3-4 shade color ramps per material, crisp 1-pixel near-black outlines around every sprite, flat pixel clusters, NO anti-aliasing, NO soft gradients, NO blur. Every sprite is drawn on the same coarse pixel grid: each sprite is roughly 32 pixels wide and 48 pixels tall in game pixels, shown enlarged with big square pixels. Side-view platformer, character faces RIGHT. Transparent background. Sprites evenly spaced in clean rows, all at exactly the same scale, feet on a shared baseline in each row. No text, no labels, no numbers, no grid lines, no UI.
+
+Character: JADE, matching the attached character sheets: a young East-Asian woman, long straight black hair pulled up into a messy bun with a few loose strands; TWO pencils stuck through the bun forming a V, one BLUE pencil and one ORANGE pencil (both clearly visible, bright); orange-and-black over-ear headphones resting around her neck; white cropped bomber jacket with a single bold horizontal orange stripe across the chest and both sleeves (no patches, no logos); black crop top with a sliver of midriff; very wide navy-blue cargo pants with dangling orange straps and buckles; chunky white sneakers.
+
+Layout (4 rows):
+Row 1: idle stance (2 frames, subtle breathing), jump (2 frames: rising with knees tucked, falling with arms up).
+Row 2: run cycle, 6 frames, side view running to the right, hair bun and straps bouncing.
+Row 3: drawing in the air with the BLUE pencil, a glowing blue line trailing from the tip (2 frames); singing into the ORANGE pencil held like a microphone, eyes closed, mouth open (2 frames).
+Row 4: drumming with BOTH pencils as drumsticks, one blue one orange (2 frames: left stick down, right stick down); a happy victory pose with both pencils raised.

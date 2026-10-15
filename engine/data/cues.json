@@ -1,0 +1,206 @@
+{
+ "_doc": "Measured micro-cues (seconds, song timeline) that are finer than or correct analysis/timing.json. Measured from the demucs stems (work/demucs/htdemucs_ft/song) with 5 ms RMS envelopes and an FFT pitch track (2026-10-14, engine lead). Post-stop accent hits land 50-80 ms AFTER the grid times listed in timing.json accent_hits; use these. Access in code: T.cue('act1.whistle_notes')[i].",
+ "act1": {
+  "first_kick": 0.343,
+  "whistle_notes": [
+   0.91,
+   1.35,
+   1.78,
+   2.63
+  ],
+  "whistle_note_ends": [
+   1.14,
+   1.56,
+   2.24,
+   3.75
+  ],
+  "whistle_note_names": [
+   "yi",
+   "bi",
+   "yi",
+   "hua (held)"
+  ],
+  "bar3_hit": 3.763,
+  "chant_words": [
+   4.19,
+   4.617,
+   5.045,
+   5.472,
+   5.9,
+   6.328
+  ],
+  "chant_word_text": [
+   "PAINT",
+   "IT",
+   "RUN",
+   "IT",
+   "SHIP",
+   "IT"
+  ],
+  "chant_stabs": [
+   4.395,
+   5.04,
+   5.89,
+   6.745
+  ],
+  "bass_808": 7.01,
+  "bar5_hit": 7.183,
+  "select_hops": [
+   7.183,
+   8.894,
+   10.563
+  ],
+  "breathy_syllables": [
+   11.14,
+   11.4,
+   11.68,
+   12.31
+  ],
+  "breathy_text": [
+   "一",
+   "笔",
+   "一",
+   "画"
+  ],
+  "melisma": [
+   13.02,
+   13.82
+  ],
+  "verse_drop": 14.012,
+  "stop1": [
+   16.73,
+   17.44
+  ],
+  "stop1_note": "re-hit transient measured at 17.44 (soft pickup at 17.39)",
+  "stop2": [
+   23.695,
+   24.22
+  ],
+  "stutter_hits": [
+   29.3,
+   29.52,
+   29.72,
+   30.15,
+   30.36,
+   30.57,
+   30.78,
+   31.0
+  ],
+  "stutter_span": [
+   29.08,
+   31.0
+  ],
+  "pre_accents": [
+   35.64,
+   36.49
+  ],
+  "pre_chop_gaps": [
+   [
+    35.88,
+    36.27
+   ],
+   [
+    36.73,
+    36.89
+   ]
+  ],
+  "pre_chop_hits": [
+   36.28,
+   36.9
+  ],
+  "laai_hold": [
+   40.06,
+   41.6
+  ],
+  "chorus_downbeat": 41.028
+ },
+ "act4": {
+  "_doc": "Team C, measured 2026-10-14 from the demucs stems + out/cache/song.wav (5 ms RMS). NOTE: timing.json's final-chorus stop/hit times are ~0.3 s LATE: the band actually cuts at 137.03 (bass off, last drum 136.80), the lone hit transient is 138.595 (on beat 138.612), and the SLAM transient is 139.395 (on beat 139.411; the 808 swells to full by ~139.70). Bridge triplet roll actually runs 133.105-135.81 (triplet 8ths, ~0.134 s).",
+  "bridge_start": 123.354,
+  "drums_out": 124.525,
+  "bridge_accent": 125.769,
+  "drums_back": 129.385,
+  "halftime_hits": [
+   129.385,
+   130.585,
+   131.785,
+   132.985
+  ],
+  "triplet_roll": [
+   133.105,
+   135.81
+  ],
+  "climb_steps": [
+   135.0,
+   135.405,
+   135.81
+  ],
+  "final_chorus": 136.212,
+  "band_stop": 137.03,
+  "lone_hit": 138.595,
+  "stop2": 138.9,
+  "slam": 139.395,
+  "mini_stops": [
+   [
+    150.755,
+    150.96
+   ],
+   [
+    151.05,
+    151.36
+   ]
+  ],
+  "snare_roll": [
+   160.83,
+   161.715
+  ],
+  "build": 161.728,
+  "chufa": 165.87,
+  "chufa_accent": 166.275,
+  "eights": 168.075,
+  "pencil_shot": 172.44,
+  "yibi": 172.795,
+  "yibi_words": [
+   172.795,
+   173.0
+  ],
+  "last_hit": 173.02
+ },
+ "act5": {
+  "_doc": "Team D, measured 2026-10-14 from demucs stems (5-20 ms RMS). timing.json drop-2 stops are ~0.3-0.4 s late; the impact 174.395 is right (drum pickups at 174.015/174.22 lead into it).",
+  "last_hit": 173.01,
+  "silence": [
+   173.19,
+   173.58
+  ],
+  "pickups": [
+   174.015,
+   174.22
+  ],
+  "impact": 174.4,
+  "fixtures_accent": 180.21,
+  "stop1": [
+   180.2,
+   180.7
+  ],
+  "functions_accent": 183.3,
+  "stop2": [
+   183.3,
+   183.86
+  ],
+  "riser": [
+   183.87,
+   186.6
+  ],
+  "outro_vocal": 186.65,
+  "tag_hit": 197.58,
+  "final_tag": 198.035,
+  "chop": [
+   199.265,
+   199.5,
+   200.14,
+   200.45
+  ],
+  "song_end": 201.1
+ }
+}

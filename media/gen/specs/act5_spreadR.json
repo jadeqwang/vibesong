@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "act5_spreadR",
+ "notes": "silent living-illustration of the outro spread (registered crop; see stills/*.txt for the crop rect in spread uv)",
+ "input": {
+  "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static, no zoom, no pan; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nVery subtle motion only: the three friends sitting on the rainbow bench breathe softly and smile; the young man in the flat cap lightly strums his acoustic guitar; the young woman in the middle tilts her head a little and smiles; the young man on the right nods slightly as he plays his electric guitar; the sunset glow shimmers softly, the drawn clouds drift a tiny bit. Everything else stays still. Silent.",
+  "image_input": "file:media/act5/stills/spread_right_crop.jpg",
+  "duration": "8s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

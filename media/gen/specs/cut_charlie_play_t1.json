@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1",
+ "tag": "cut_charlie_play_t1",
+ "notes": "charlie_play_bridge_1; ff media/cutscenes/_work/play/ff_charlie_play1_ref.jpg",
+ "input": {
+  "prompt": "Hand-drawn coloured-pencil animation on cream drawing paper, keeping exactly the same drawing style, pencil strokes, hatching and paper texture in every frame. Static locked-off camera, waist-up framing stays exactly as in the first frame. Dusk: the young man in the flat cap plays his acoustic guitar: his right hand strums the strings over the sound hole in a steady relaxed rhythm, down-strokes on the beat at about 150 beats per minute, while the fingers of his left hand hold and change a chord on the neck. His hands stay on the guitar, five fingers each, moving naturally; the guitar stays the same shape. He nods his head gently to the beat with a small, closed-mouth smile; he does not sing or speak. His face, hair and clothes stay exactly as drawn. Minimal camera motion: none, no zoom, no new people, no text.",
+  "image_input": "file:media/cutscenes/_work/play/ff_charlie_play1_ref.jpg",
+  "duration": "4s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

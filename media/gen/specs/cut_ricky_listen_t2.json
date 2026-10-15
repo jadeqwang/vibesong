@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1",
+ "tag": "cut_ricky_listen_t2",
+ "notes": "ricky_listen_bridge_1 silent reaction; ff media/cutscenes/_work/ff/ff_ricky1.jpg",
+ "input": {
+  "prompt": "Hand-drawn coloured-pencil animation on cream drawing paper, keeping exactly the same drawing style, pencil strokes, hatching and paper texture in every frame. Static locked-off camera, chest-up framing stays exactly as in the first frame. A silent, still moment at dusk: the young man in the striped shirt with his electric guitar stands quietly, listening to music, breathing gently. His lips stay gently closed the whole time: he never speaks, never sings, never opens his mouth. His eyes soften and a small closed-mouth smile slowly forms at the corners of his lips. His hands rest still on the guitar; he does not play. His face, hair and clothes stay exactly as drawn. The dusk light slowly warms a little. Minimal, subtle motion only; no camera movement, no zoom, no new people, no text.",
+  "image_input": "file:media/cutscenes/_work/ff/ff_ricky1.jpg",
+  "duration": "4s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

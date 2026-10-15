@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 98.9s
+[cf] google/nano-banana-pro -> assets/sheets/raw/v5_turn_nbp.png  ($0.1344 est, 99.5s)
+['assets/sheets/raw/v5_turn_nbp.png']

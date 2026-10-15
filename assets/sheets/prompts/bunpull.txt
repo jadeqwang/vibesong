@@ -1,0 +1,6 @@
+16-bit SNES pixel art sprite sheet, The Lost Vikings (1993) style, EXACTLY the same resolution, pixel size, palette and character designs as the attached pixel sheets (each character about 40 game-pixels tall, every game pixel a big square block on one global grid, 1-px near-black outline, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no grid lines. Side view facing RIGHT unless stated.
+
+JADE (exactly as in the attached sheets: white cropped jacket with orange stripe, orange headphones round neck, black crop top, navy cargo pants with orange straps, white sneakers). A single row of exactly 3 frames, standing, facing right, the transition from hair-up to hair-down:
+Frame 1: hair UP in a bun with TWO yellow pencils crossing in an X through the bun (one BLUE eraser cap, one PINK eraser cap); her right hand reaching up to the bun.
+Frame 2: she pulls the BLUE-capped pencil out of the bun (pencil in her raised hand), the bun loosening, long black hair half falling down her back; the pink-capped pencil still in the loosening hair.
+Frame 3: hair fully DOWN, long straight black hair falling past her shoulders to mid-back, holding BOTH pencils in her hands (blue-capped one raised in front of her, its sharpened tip multicolour), triumphant smile.

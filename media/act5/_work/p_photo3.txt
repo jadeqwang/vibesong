@@ -1,0 +1,7 @@
+Image 1 is a stylised voxel render that gives the COMPOSITION ONLY. Image 2 is a STYLE reference only (do not copy its layout). Create a real aerial photograph, shot by a drone from about 1.5 km looking almost straight down, golden-hour sunlight from the upper left with long soft shadows, natural colours, crisp detail, like a National Geographic aerial.
+
+KEEP from image 1, exactly: the camera and framing; the four giant Chinese characters 一 笔 一 画 with EXACTLY the same stroke shapes, thicknesses, positions and sizes; the general layout of land and water (sea in the lower left and bottom, the lakes in the upper middle and upper right, the bay at the bottom centre).
+
+REPLACE everything else with real, organic landscape, as in image 2: there must be NO cubes, NO voxels, NO stair-stepped cliffs, NO square blocky fields, NO pixel coastlines anywhere. Rolling hills covered in curving rice terraces that follow the contour lines, winding rivers and dirt roads, natural irregular coastlines with sandy beaches and turquoise shallows, real forests and scattered trees, small villages with tiled roofs, morning-mist wisps in the valleys. The four characters are formed by the land itself: each stroke is a raised plateau of flooded and planted rice terraces and flower fields (its colour following the input: red, orange-yellow, green, teal, blue, purple, magenta), edged by a natural stone wall, so the characters read clearly from the air in full colour.
+
+On the left horizontal stroke, three tiny people (a few pixels each). No text, letters, labels or watermarks.

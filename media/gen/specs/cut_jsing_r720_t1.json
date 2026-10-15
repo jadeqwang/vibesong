@@ -1,0 +1,23 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "cut_jsing_r720_t1",
+ "notes": "720p 16:9 re-render of keeper centre_t2 motion via reference_videos; audio = song 125.56+6s",
+ "input": {
+  "prompt": "Re-render the reference video as a wide 16:9 landscape shot that starts exactly on the first frame. Take ONLY the motion from the reference video: copy her head movement, blinks, the wink, her expressions and above all her lip and mouth shapes frame for frame and with exactly the same timing, singing the words of the reference audio, 'yi bi yi hua, dou shi wo de hui da'. Everything you see comes from the first frame: a graphite and coloured-pencil drawing on cream paper with a dusk sky in loose diagonal hatching, the same fine pencil lines and paper texture in every frame. She holds the sheet with the coloured-pencil landscape drawing (hills, sun, winding river, wildflowers, faint mirrored code showing through) steady with both hands; it stays visible and unchanged. She stays the same person as in the first frame and the reference image: large head, wide heart-shaped face with a tapering chin, high broad forehead with the centre-parted hairline high above her brows, two slightly different eyebrows, big dark eyes. Natural lips, no gloss, no lipstick, no makeup: her lips keep the soft matte colour of the first frame. Hair stays up in the bun with the two yellow pencils crossing through it in an X (one blue cap, one pink cap). Orange headphones round her neck; white cropped jacket with orange stripes. Do not redraw, beautify, slim or age her face; forehead smooth, brows relaxed. Static locked-off camera, no zoom or push-in, chest-up exactly as framed in the first frame, never a face close-up; the dusk sky stays wide on both sides. No captions, no subtitles, no new objects.",
+  "image": "file:media/cutscenes/_work/r720/ff16x9_final.jpg",
+  "reference_videos": [
+   "file:media/gen/cut_jsing_centre_t2_52c49390c2.mp4"
+  ],
+  "reference_images": [
+   "file:media/cutscenes/_work/r720/v9_front_ref.jpg"
+  ],
+  "reference_audios": [
+   "file:media/cutscenes/_work/audio/bridge1_125.56_6s.mp3"
+  ],
+  "duration": 6,
+  "resolution": "720p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

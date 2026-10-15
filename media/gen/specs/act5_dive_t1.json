@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "act5_dive_t1",
+ "notes": "Act V dive into the first \u4e00, 183.87-186.65; first frame = conformed sweep frame 112 (clip 3.733 s)",
+ "input": {
+  "prompt": "Aerial drone shot looking straight down: the camera dives straight down toward the long red poppy flower plateau on the left side of the frame (the single long horizontal stroke), accelerating smoothly, descending fast, the plateau growing larger and larger until the red poppy flowers fill the whole frame at the end. No tilt toward the horizon, no rotation. The landscape is solid and static: the character-shaped plateaus, fields and coastline never morph or change shape; only the camera moves. Late-afternoon golden light, photorealistic 4K drone footage.",
+  "image_input": "file:media/act5/stills/sweep_dive_f112.jpg",
+  "duration": "6s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

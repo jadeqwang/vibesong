@@ -1,0 +1,2 @@
+spreadF 1080 223 frames @ 30
+spreadF 540 223 frames @ 30

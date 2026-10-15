@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 59.6s
+[cf] google/nano-banana-pro -> assets/sheets/raw/v9_lineup_c.png  ($0.1344 est, 60.2s)
+['assets/sheets/raw/v9_lineup_c.png']

@@ -1,0 +1,45 @@
+# Local environments, dependencies, and machine-specific settings
+.venv/
+venv/
+node_modules/
+__pycache__/
+*.py[cod]
+.claude/
+.agents/
+.aws/
+.codex/
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Local service configuration and credentials
+/work/cf_account_id.txt
+/work/gen_kv_ns.txt
+
+# Video files stay local; source artwork and project files are tracked
+*.[mM][pP]4
+*.[mM][oO][vV]
+*.[mM][kK][vV]
+*.[wW][eE][bB][mM]
+*.[aA][vV][iI]
+*.[mM]4[vV]
+*.[mM][pP][eE][gG]
+*.[mM][pP][gG]
+
+# Reproducible renders, extracted frames, and intermediate audio
+/engine/out/
+/engine/frames/
+/media/act5/frames/
+/work/demucs/
+/work/viz/
+*.wav
+*.npy
+*.npz
+*.log
+/media/genlog.jsonl
+**/_work/**/*.png
+**/_work/**/*.jpg
+**/_work/**/*.jpeg
+**/_work/**/*.webp
+**/_work/**/*.mp3

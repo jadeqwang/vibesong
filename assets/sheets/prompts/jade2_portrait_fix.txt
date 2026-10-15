@@ -1,0 +1,4 @@
+Edit the FIRST attached image (two pixel-art portraits). Keep everything exactly the same (face, expressions, hair, headphones, jacket, collar tab, blue dot, pixel grid, transparent background) EXCEPT the pencils in her bun, which are wrong. In BOTH portraits there must be EXACTLY TWO pencils, forming ONE clear big X centred on her bun (like the X on the back of the head in the second attached image):
+- pencil 1 goes from the upper-LEFT (its BLUE eraser cap, 2x3 px, with a 1 px gray ferrule) down through the bun to the lower-RIGHT, where its sharpened tip (pale wood + dark point) pokes out of the hair;
+- pencil 2 goes from the upper-RIGHT (its PINK eraser cap) down through the bun to the lower-LEFT, where its tip pokes out;
+- both bodies are the same YELLOW, 2 px thick; they cross over the middle of the bun. No third pencil anywhere. Remove the soft glow around the sprites: hard pixel edges only.

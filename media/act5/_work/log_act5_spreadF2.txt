@@ -1,0 +1,3 @@
+[cf] google/veo-3.1-fast 115.7s
+[cf] google/veo-3.1-fast -> media/gen/act5_spreadF2.mp4  ($0.8 est, 116.3s)
+['media/gen/act5_spreadF2.mp4']

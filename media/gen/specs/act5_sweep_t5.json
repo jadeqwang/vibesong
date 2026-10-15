@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "act5_sweep_t5",
+ "notes": "Act V top-down sweep, retry (nadir wording), 6s",
+ "input": {
+  "prompt": "Nadir aerial drone shot: the camera points straight down at the ground (90 degrees down) for the entire shot and never tilts up, never shows the horizon or sky. It slides slowly and smoothly sideways to the right at constant height, like a satellite map panning, passing over the four giant flower-field plateaus shaped like characters. Late-afternoon golden sunlight, long soft shadows. A light breeze ripples the flower fields and meadows, sparkles glint on the lakes, soft waves roll onto the sandy beaches. The landscape is completely solid and static: the character-shaped plateaus, stone walls, fields, trees, ruins, lakes and coastline never move, morph or change shape. No tilt, no rotation, no zoom, no cuts. Photorealistic, natural colors, 4K drone documentary footage.",
+  "image_input": "file:media/act5/stills/aerial_photo.jpg",
+  "duration": "6s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

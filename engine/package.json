@@ -1,0 +1,20 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "vibesong deterministic Three.js frame renderer (dimensional turn PoC)",
+  "main": "render.js",
+  "type": "module",
+  "scripts": {
+    "sprites": "node tools/make_sprites.js",
+    "render": "node render.js --scene turn_demo --from 0 --to 6 --fps 30 --out frames/turn_demo --mp4 out/turn_demo.mp4",
+    "serve": "node render.js --serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pngjs": "^7.0.0",
+    "puppeteer-core": "^23.11.1",
+    "three": "^0.170.0"
+  }
+}

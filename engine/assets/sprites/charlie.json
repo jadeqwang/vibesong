@@ -1,0 +1,20 @@
+{
+  "image": "charlie.png",
+  "frameWidth": 24,
+  "frameHeight": 40,
+  "frames": 2,
+  "anims": {
+    "idle": {
+      "frames": [
+        0,
+        1
+      ],
+      "fps": 2
+    }
+  },
+  "voxel": {
+    "baseDepth": 2,
+    "depthPerPixel": 2,
+    "maxDepth": 10
+  }
+}

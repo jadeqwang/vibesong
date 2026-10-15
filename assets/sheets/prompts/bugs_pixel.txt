@@ -1,0 +1,8 @@
+16-bit SNES pixel art sprite sheet in the style of The Lost Vikings (1993): cute small insect critters, every game pixel a big perfectly square block on one global grid, 1-pixel near-black outline, 3-4 shade ramps, flat colour clusters, no anti-aliasing, no gradients, no glow. Transparent background. No text, no labels, no grid lines. Each bug is about 20-24 game pixels big, side view facing RIGHT, big friendly eyes (cute, harmless, never scary).
+
+Layout: 5 rows, one row per bug, 4 sprites per row in this order: idle frame A, idle frame B (small bob / wing or antenna twitch), DANCE pose (on hind legs, arms up, grooving, a pixel music note), and FEATURE form (what the bug turns into after a dance battle, same colours, recognisably the same bug):
+Row 1: LADYBUG (red with black spots) -> FEATURE: a round red pressable BUTTON with black spots and a little smiling face, on a small base.
+Row 2: BEETLE (glossy dark blue-green shell) -> FEATURE: the beetle curled into a WHEEL, or riding on top of a small moving platform with wheels.
+Row 3: MOTH (soft cream-and-brown fuzzy wings) -> FEATURE: the moth with wings spread wide and flat as a GLIDER that a character can hang from.
+Row 4: CATERPILLAR (green segmented, little feet) -> FEATURE: the caterpillar stretched out long and straight as a BRIDGE plank spanning a gap.
+Row 5: FIREFLY (dark body, glowing yellow-green tail) -> FEATURE: the firefly sitting in a little hanging LAMP / lantern, glowing.

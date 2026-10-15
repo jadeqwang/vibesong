@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 45.7s
+[cf] google/nano-banana-pro -> assets/sheets/raw/paper_lineup_nbp_t1.jpg  ($0.1344 est, 46.3s)
+['assets/sheets/raw/paper_lineup_nbp_t1.jpg']

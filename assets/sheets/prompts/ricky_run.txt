@@ -1,0 +1,10 @@
+16-bit SNES pixel art, The Lost Vikings (1993) style, same resolution, palette and pixel size as the attached pixel sheet (each sprite about 40 game-pixels tall, every game pixel a big square block on one global grid, 1-pixel near-black outline, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no grid.
+
+A single horizontal row of exactly 6 frames: a proper side-view RUN CYCLE of RICKY exactly as in the attached pixel sheet (short spiky black hair, blue-and-white vertical-striped shirt with rolled sleeves, blue jeans, white sneakers, natural-wood Stratocaster held across his front), running to the RIGHT. All frames at the same scale, evenly spaced, same baseline. The frames must be clearly DIFFERENT key poses:
+1. CONTACT: right leg reaching far forward, heel touching ground, left leg extended behind; left arm forward.
+2. DOWN: right knee bent taking the weight, body at its lowest, left foot lifting behind.
+3. PASSING: right leg straight under the body, left knee driven up high in front, body at its highest; arms crossing the torso.
+4. CONTACT: LEFT leg reaching far forward, right leg extended behind; right arm forward (mirror of frame 1).
+5. DOWN: left knee bent taking the weight, body lowest, right foot lifting behind.
+6. PASSING: left leg straight under the body, right knee driven up high in front, body highest.
+Head and torso stay the same size in every frame; only legs, arms and a slight vertical bob change.

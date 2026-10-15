@@ -1,0 +1,2656 @@
+[
+ {
+  "id": 1,
+  "section": "Intro",
+  "text": "(Paint it, run it, ship it!)",
+  "align_text": "Paint it, run it, ship it!",
+  "lang": "en",
+  "win": [
+   3.3,
+   7.0
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " Paint",
+    "start": 4.215,
+    "end": 4.68,
+    "p": 0.0,
+    "start_raw": 3.6,
+    "fixed": "start->onset",
+    "vocal_cov": 0.63,
+    "vocal_db": -23.2
+   },
+   {
+    "w": " it,",
+    "start": 4.68,
+    "end": 4.98,
+    "p": 0.715,
+    "vocal_cov": 1.0,
+    "vocal_db": -27.2
+   },
+   {
+    "w": " run",
+    "start": 5.06,
+    "end": 5.46,
+    "p": 0.039,
+    "vocal_cov": 0.47,
+    "vocal_db": -35.9
+   },
+   {
+    "w": " it,",
+    "start": 5.46,
+    "end": 5.84,
+    "p": 0.932,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.2
+   },
+   {
+    "w": " ship",
+    "start": 6.04,
+    "end": 6.36,
+    "p": 0.48,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.2
+   },
+   {
+    "w": " it!",
+    "start": 6.36,
+    "end": 6.7,
+    "p": 0.601,
+    "vocal_cov": 0.9,
+    "vocal_db": -24.4
+   }
+  ],
+  "start": 4.215,
+  "end": 6.7,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.83,
+  "pre_db": -52.1,
+  "in_db": -34.4
+ },
+ {
+  "id": 2,
+  "section": "Verse 1",
+  "text": "Everything I love about life just blossoms",
+  "align_text": "Everything I love about life just blossoms",
+  "lang": "en",
+  "win": [
+   7.2,
+   18.4
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " Everything",
+    "start": 13.42,
+    "end": 14.38,
+    "p": 0.564,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.2
+   },
+   {
+    "w": " I",
+    "start": 14.38,
+    "end": 14.66,
+    "p": 0.993,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.6
+   },
+   {
+    "w": " love",
+    "start": 14.66,
+    "end": 14.94,
+    "p": 0.997,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.7
+   },
+   {
+    "w": " about",
+    "start": 14.94,
+    "end": 15.3,
+    "p": 0.997,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.3
+   },
+   {
+    "w": " life",
+    "start": 15.3,
+    "end": 15.78,
+    "p": 0.996,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.7
+   },
+   {
+    "w": " just",
+    "start": 15.78,
+    "end": 16.54,
+    "p": 0.224,
+    "flag": "long",
+    "vocal_cov": 0.98,
+    "vocal_db": -22.9
+   },
+   {
+    "w": " blossoms",
+    "start": 16.54,
+    "end": 17.2,
+    "p": 0.01,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.9
+   }
+  ],
+  "start": 13.42,
+  "end": 17.2,
+  "onset_dev_ms": 454.0,
+  "line_cov": 1.0,
+  "pre_db": -22.4,
+  "in_db": -23.2
+ },
+ {
+  "id": 3,
+  "section": "Verse 1",
+  "text": "because",
+  "align_text": "because",
+  "lang": "en",
+  "win": [
+   17.6,
+   20.3
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " because",
+    "start": 17.81,
+    "end": 18.68,
+    "p": 0.025,
+    "start_raw": 17.6,
+    "fixed": "start->onset",
+    "vocal_cov": 0.91,
+    "vocal_db": -23.9
+   }
+  ],
+  "start": 17.81,
+  "end": 18.68,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.91,
+  "pre_db": -50.4,
+  "in_db": -31.3
+ },
+ {
+  "id": 4,
+  "section": "Verse 1",
+  "text": "my imagination is linked to my everyday life",
+  "align_text": "my imagination is linked to my everyday life",
+  "lang": "en",
+  "win": [
+   19.8,
+   27.2
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " my",
+    "start": 20.816,
+    "end": 21.18,
+    "p": 0.011,
+    "start_raw": 19.8,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -26.0
+   },
+   {
+    "w": " imagination",
+    "start": 21.18,
+    "end": 22.4,
+    "p": 0.939,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.5
+   },
+   {
+    "w": " is",
+    "start": 22.4,
+    "end": 23.18,
+    "p": 0.987,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.8
+   },
+   {
+    "w": " linked",
+    "start": 23.18,
+    "end": 23.46,
+    "p": 0.982,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.3
+   },
+   {
+    "w": " to",
+    "start": 23.46,
+    "end": 23.78,
+    "p": 0.998,
+    "vocal_cov": 0.92,
+    "vocal_db": -25.2
+   },
+   {
+    "w": " my",
+    "start": 23.78,
+    "end": 23.98,
+    "p": 0.994,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.5
+   },
+   {
+    "w": " everyday",
+    "start": 23.98,
+    "end": 25.42,
+    "p": 0.884,
+    "vocal_cov": 0.94,
+    "vocal_db": -23.3
+   },
+   {
+    "w": " life",
+    "start": 25.42,
+    "end": 26.04,
+    "p": 0.974,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.3
+   }
+  ],
+  "start": 20.816,
+  "end": 26.04,
+  "onset_dev_ms": 356.0,
+  "line_cov": 0.98,
+  "pre_db": -24.9,
+  "in_db": -31.1
+ },
+ {
+  "id": 5,
+  "section": "Verse 1",
+  "text": "每一天 都是色彩",
+  "align_text": "每一天都是色彩",
+  "lang": "zh",
+  "win": [
+   26.8,
+   30.9
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 每",
+    "start": 27.956,
+    "end": 28.32,
+    "p": 0.456,
+    "start_raw": 26.8,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.8
+   },
+   {
+    "w": "一",
+    "start": 28.32,
+    "end": 28.62,
+    "p": 0.985,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.4
+   },
+   {
+    "w": "天",
+    "start": 28.62,
+    "end": 29.14,
+    "p": 0.999,
+    "vocal_cov": 0.89,
+    "vocal_db": -24.8
+   },
+   {
+    "w": "都是",
+    "start": 29.14,
+    "end": 29.76,
+    "p": 0.975,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.2
+   },
+   {
+    "w": "色",
+    "start": 30.04,
+    "end": 30.14,
+    "p": 1.0,
+    "vocal_cov": 1.0,
+    "vocal_db": -26.9
+   },
+   {
+    "w": "彩",
+    "start": 30.14,
+    "end": 30.62,
+    "p": 1.0,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.8
+   }
+  ],
+  "start": 27.956,
+  "end": 30.62,
+  "onset_dev_ms": 913.0,
+  "line_cov": 0.98,
+  "pre_db": -26.1,
+  "in_db": -26.4
+ },
+ {
+  "id": 6,
+  "section": "Verse 1",
+  "text": "真世界 就画出来",
+  "align_text": "真世界就画出来",
+  "lang": "zh",
+  "win": [
+   30.6,
+   33.9
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 真",
+    "start": 31.279,
+    "end": 31.72,
+    "p": 0.002,
+    "start_raw": 30.6,
+    "fixed": "start->onset",
+    "vocal_cov": 0.97,
+    "vocal_db": -25.4
+   },
+   {
+    "w": "世界",
+    "start": 31.72,
+    "end": 32.36,
+    "p": 0.108,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.6
+   },
+   {
+    "w": "就",
+    "start": 32.36,
+    "end": 33.02,
+    "p": 0.721,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.5
+   },
+   {
+    "w": "画",
+    "start": 33.02,
+    "end": 33.24,
+    "p": 0.049,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.4
+   },
+   {
+    "w": "出来",
+    "start": 33.24,
+    "end": 33.48,
+    "p": 0.047,
+    "vocal_cov": 0.9,
+    "vocal_db": -25.0
+   }
+  ],
+  "start": 31.279,
+  "end": 33.48,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.98,
+  "pre_db": -40.7,
+  "in_db": -26.4
+ },
+ {
+  "id": 7,
+  "section": "Pre-Chorus",
+  "text": "说出来 它就存在",
+  "align_text": "说出来它就存在",
+  "lang": "zh",
+  "win": [
+   33.5,
+   37.9
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 说",
+    "start": 34.686,
+    "end": 35.04,
+    "p": 0.382,
+    "start_raw": 33.5,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.9
+   },
+   {
+    "w": "出来",
+    "start": 35.04,
+    "end": 35.56,
+    "p": 0.991,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.1
+   },
+   {
+    "w": "它",
+    "start": 35.56,
+    "end": 35.96,
+    "p": 0.276,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.0
+   },
+   {
+    "w": "就",
+    "start": 35.96,
+    "end": 36.26,
+    "p": 0.998,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.2
+   },
+   {
+    "w": "存",
+    "start": 36.26,
+    "end": 36.58,
+    "p": 0.998,
+    "vocal_cov": 0.95,
+    "vocal_db": -23.5
+   },
+   {
+    "w": "在",
+    "start": 36.58,
+    "end": 37.26,
+    "p": 1.0,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.1
+   }
+  ],
+  "start": 34.686,
+  "end": 37.26,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.99,
+  "pre_db": -27.8,
+  "in_db": -26.3
+ },
+ {
+  "id": 8,
+  "section": "Pre-Chorus",
+  "text": "彩色笔 画出未来",
+  "align_text": "彩色笔画出未来",
+  "lang": "zh",
+  "win": [
+   37.6,
+   41.2
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 彩",
+    "start": 37.6,
+    "end": 38.56,
+    "p": 0.328,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.6
+   },
+   {
+    "w": "色",
+    "start": 38.56,
+    "end": 38.74,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.4
+   },
+   {
+    "w": "笔",
+    "start": 38.74,
+    "end": 39.04,
+    "p": 0.531,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.7
+   },
+   {
+    "w": "画",
+    "start": 39.04,
+    "end": 39.34,
+    "p": 0.549,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.5
+   },
+   {
+    "w": "出",
+    "start": 39.34,
+    "end": 39.56,
+    "p": 0.942,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.0
+   },
+   {
+    "w": "未",
+    "start": 39.56,
+    "end": 39.96,
+    "p": 0.905,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.7
+   },
+   {
+    "w": "来",
+    "start": 39.96,
+    "end": 40.4,
+    "p": 0.999,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.3
+   }
+  ],
+  "start": 37.6,
+  "end": 40.4,
+  "onset_dev_ms": 1092.0,
+  "line_cov": 1.0,
+  "pre_db": -23.8,
+  "in_db": -25.7
+ },
+ {
+  "id": 9,
+  "section": "Chorus",
+  "text": "I think about stuff I read",
+  "align_text": "I think about stuff I read",
+  "lang": "en",
+  "win": [
+   39.4,
+   45.0
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " I",
+    "start": 41.256,
+    "end": 41.62,
+    "p": 0.307,
+    "start_raw": 39.4,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.8
+   },
+   {
+    "w": " think",
+    "start": 41.62,
+    "end": 41.84,
+    "p": 0.627,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.8
+   },
+   {
+    "w": " about",
+    "start": 41.84,
+    "end": 42.28,
+    "p": 0.982,
+    "vocal_cov": 0.98,
+    "vocal_db": -25.1
+   },
+   {
+    "w": " stuff",
+    "start": 42.28,
+    "end": 42.7,
+    "p": 0.985,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.9
+   },
+   {
+    "w": " I",
+    "start": 42.7,
+    "end": 43.72,
+    "p": 0.903,
+    "vocal_cov": 0.99,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " read",
+    "start": 43.72,
+    "end": 44.1,
+    "p": 0.876,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.1
+   }
+  ],
+  "start": 41.256,
+  "end": 44.1,
+  "onset_dev_ms": 339.0,
+  "line_cov": 0.99,
+  "pre_db": -30.5,
+  "in_db": -25.6
+ },
+ {
+  "id": 10,
+  "section": "Chorus",
+  "text": "I just ask myself what it is that I need?",
+  "align_text": "I just ask myself what it is that I need",
+  "lang": "en",
+  "win": [
+   44.6,
+   53.4
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " I",
+    "start": 47.52,
+    "end": 48.66,
+    "p": 0.892,
+    "vocal_cov": 0.76,
+    "vocal_db": -27.8
+   },
+   {
+    "w": " just",
+    "start": 48.66,
+    "end": 48.86,
+    "p": 0.985,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.3
+   },
+   {
+    "w": " ask",
+    "start": 48.86,
+    "end": 49.56,
+    "p": 0.836,
+    "vocal_cov": 0.96,
+    "vocal_db": -21.7
+   },
+   {
+    "w": " myself",
+    "start": 49.56,
+    "end": 50.26,
+    "p": 0.998,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.2
+   },
+   {
+    "w": " what",
+    "start": 50.26,
+    "end": 50.72,
+    "p": 0.982,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.4
+   },
+   {
+    "w": " it",
+    "start": 50.72,
+    "end": 50.94,
+    "p": 0.993,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.0
+   },
+   {
+    "w": " is",
+    "start": 50.94,
+    "end": 51.4,
+    "p": 0.999,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.8
+   },
+   {
+    "w": " that",
+    "start": 51.4,
+    "end": 51.96,
+    "p": 0.964,
+    "vocal_cov": 0.99,
+    "vocal_db": -24.7
+   },
+   {
+    "w": " I",
+    "start": 51.96,
+    "end": 52.32,
+    "p": 0.994,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.6
+   },
+   {
+    "w": " need",
+    "start": 52.32,
+    "end": 52.72,
+    "p": 0.998,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.6
+   }
+  ],
+  "start": 47.52,
+  "end": 52.72,
+  "onset_dev_ms": 1240.0,
+  "line_cov": 0.94,
+  "pre_db": -40.7,
+  "in_db": -38.0
+ },
+ {
+  "id": 11,
+  "section": "Chorus",
+  "text": "That's it, the fixtures and the functions",
+  "align_text": "That's it, the fixtures and the functions",
+  "lang": "en",
+  "win": [
+   53.0,
+   58.4
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " That's",
+    "start": 54.876,
+    "end": 55.24,
+    "p": 0.485,
+    "start_raw": 53.54,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -23.3
+   },
+   {
+    "w": " it,",
+    "start": 55.24,
+    "end": 55.46,
+    "p": 0.692,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.7
+   },
+   {
+    "w": " the",
+    "start": 55.68,
+    "end": 55.82,
+    "p": 0.316,
+    "vocal_cov": 1.0,
+    "vocal_db": -29.3
+   },
+   {
+    "w": " fixtures",
+    "start": 55.82,
+    "end": 56.26,
+    "p": 0.908,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.0
+   },
+   {
+    "w": " and",
+    "start": 56.26,
+    "end": 56.82,
+    "p": 0.585,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.2
+   },
+   {
+    "w": " the",
+    "start": 56.82,
+    "end": 57.34,
+    "p": 0.853,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   },
+   {
+    "w": " functions",
+    "start": 57.34,
+    "end": 57.72,
+    "p": 0.924,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.7
+   }
+  ],
+  "start": 54.876,
+  "end": 57.72,
+  "onset_dev_ms": 738.0,
+  "line_cov": 1.0,
+  "pre_db": -25.5,
+  "in_db": -24.9
+ },
+ {
+  "id": 12,
+  "section": "Chorus",
+  "text": "And everything goes from there",
+  "align_text": "And everything goes from there",
+  "lang": "en",
+  "win": [
+   57.4,
+   66.8
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " And",
+    "start": 61.336,
+    "end": 61.7,
+    "p": 0.633,
+    "start_raw": 59.2,
+    "fixed": "start->onset",
+    "vocal_cov": 0.96,
+    "vocal_db": -26.4
+   },
+   {
+    "w": " everything",
+    "start": 61.7,
+    "end": 62.48,
+    "p": 0.995,
+    "vocal_cov": 0.94,
+    "vocal_db": -22.0
+   },
+   {
+    "w": " goes",
+    "start": 62.48,
+    "end": 63.6,
+    "p": 0.975,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.1
+   },
+   {
+    "w": " from",
+    "start": 63.6,
+    "end": 64.14,
+    "p": 0.03,
+    "flag": "long",
+    "vocal_cov": 1.0,
+    "vocal_db": -23.2
+   },
+   {
+    "w": " there",
+    "start": 64.14,
+    "end": 65.92,
+    "p": 0.991,
+    "flag": "long",
+    "vocal_cov": 0.98,
+    "vocal_db": -21.5
+   }
+  ],
+  "start": 61.336,
+  "end": 65.92,
+  "onset_dev_ms": 339.0,
+  "line_cov": 0.98,
+  "pre_db": -29.6,
+  "in_db": -28.8
+ },
+ {
+  "id": 13,
+  "section": "Build",
+  "text": "(一切从这里出发!)",
+  "align_text": "一切从这里出发",
+  "lang": "zh",
+  "win": [
+   70.0,
+   74.6
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " 一",
+    "start": 71.9,
+    "end": 72.14,
+    "p": 0.001,
+    "vocal_cov": 0.79,
+    "vocal_db": -30.1
+   },
+   {
+    "w": "切",
+    "start": 72.14,
+    "end": 72.4,
+    "p": 0.419,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.7
+   },
+   {
+    "w": "从",
+    "start": 72.4,
+    "end": 72.58,
+    "p": 0.662,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.7
+   },
+   {
+    "w": "这里",
+    "start": 72.58,
+    "end": 72.98,
+    "p": 0.952,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   },
+   {
+    "w": "出",
+    "start": 72.98,
+    "end": 73.16,
+    "p": 0.994,
+    "vocal_cov": 1.0,
+    "vocal_db": -26.3
+   },
+   {
+    "w": "发",
+    "start": 73.16,
+    "end": 73.66,
+    "p": 0.998,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.9
+   }
+  ],
+  "start": 71.9,
+  "end": 73.66,
+  "onset_dev_ms": 33.0,
+  "line_cov": 0.97,
+  "pre_db": -51.9,
+  "in_db": -33.1
+ },
+ {
+  "id": 14,
+  "section": "Build",
+  "text": "(一笔一画!)",
+  "align_text": "一笔一画",
+  "lang": "zh",
+  "win": [
+   77.0,
+   80.9
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " 一",
+    "start": 79.36,
+    "end": 79.5,
+    "p": 0.0,
+    "vocal_cov": 0.93,
+    "vocal_db": -22.8
+   },
+   {
+    "w": "笔",
+    "start": 79.5,
+    "end": 79.76,
+    "p": 0.541,
+    "vocal_cov": 0.9,
+    "vocal_db": -23.4
+   },
+   {
+    "w": "一",
+    "start": 79.76,
+    "end": 80.22,
+    "p": 0.801,
+    "vocal_cov": 0.72,
+    "vocal_db": -26.5
+   },
+   {
+    "w": "画",
+    "start": 80.22,
+    "end": 80.52,
+    "p": 0.712,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.6
+   }
+  ],
+  "start": 79.36,
+  "end": 80.52,
+  "onset_dev_ms": 15.0,
+  "line_cov": 0.86,
+  "pre_db": -56.4,
+  "in_db": -25.8
+ },
+ {
+  "id": 15,
+  "section": "Post-Chorus Drop 1",
+  "text": "(Fixtures!)",
+  "align_text": "Fixtures!",
+  "lang": "en",
+  "win": [
+   85.6,
+   87.4
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " Fixtures!",
+    "start": 86.633,
+    "end": 87.16,
+    "p": 0.243,
+    "start_raw": 85.96,
+    "fixed": "start->onset",
+    "vocal_cov": 0.96,
+    "vocal_db": -24.2
+   }
+  ],
+  "start": 86.633,
+  "end": 87.16,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.96,
+  "pre_db": -46.8,
+  "in_db": -30.2
+ },
+ {
+  "id": 16,
+  "section": "Post-Chorus Drop 1",
+  "text": "(Functions!)",
+  "align_text": "Functions!",
+  "lang": "en",
+  "win": [
+   88.4,
+   91.2
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " Functions!",
+    "start": 89.871,
+    "end": 90.62,
+    "p": 0.398,
+    "start_raw": 88.94,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.0
+   }
+  ],
+  "start": 89.871,
+  "end": 90.62,
+  "onset_dev_ms": 0.0,
+  "line_cov": 1.0,
+  "pre_db": -27.2,
+  "in_db": -29.5
+ },
+ {
+  "id": 17,
+  "section": "Verse 2",
+  "text": "Everything I love about life just blossoms",
+  "align_text": "Everything I love about life just blossoms",
+  "lang": "en",
+  "win": [
+   91.0,
+   99.7
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " Everything",
+    "start": 92.98,
+    "end": 94.38,
+    "p": 0.268,
+    "vocal_cov": 0.95,
+    "vocal_db": -23.2
+   },
+   {
+    "w": " I",
+    "start": 94.38,
+    "end": 94.84,
+    "p": 0.989,
+    "vocal_cov": 0.89,
+    "vocal_db": -24.1
+   },
+   {
+    "w": " love",
+    "start": 94.84,
+    "end": 95.12,
+    "p": 0.997,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   },
+   {
+    "w": " about",
+    "start": 95.12,
+    "end": 95.38,
+    "p": 0.995,
+    "vocal_cov": 0.85,
+    "vocal_db": -25.2
+   },
+   {
+    "w": " life",
+    "start": 95.42,
+    "end": 96.12,
+    "p": 0.997,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.1
+   },
+   {
+    "w": " just",
+    "start": 96.12,
+    "end": 96.72,
+    "p": 0.412,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.9
+   },
+   {
+    "w": " blossoms",
+    "start": 96.72,
+    "end": 97.38,
+    "p": 0.433,
+    "vocal_cov": 0.98,
+    "vocal_db": -22.4
+   }
+  ],
+  "start": 92.98,
+  "end": 97.38,
+  "onset_dev_ms": 21.0,
+  "line_cov": 0.95,
+  "pre_db": -37.9,
+  "in_db": -25.1
+ },
+ {
+  "id": 18,
+  "section": "Verse 2",
+  "text": "because",
+  "align_text": "because",
+  "lang": "en",
+  "win": [
+   98.4,
+   100.6
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " because",
+    "start": 99.24,
+    "end": 100.02,
+    "p": 0.187,
+    "start_raw": 98.4,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.4
+   }
+  ],
+  "start": 99.24,
+  "end": 100.02,
+  "onset_dev_ms": 862.0,
+  "line_cov": 1.0,
+  "pre_db": -24.4,
+  "in_db": -27.1
+ },
+ {
+  "id": 19,
+  "section": "Verse 2",
+  "text": "my imagination is linked to my everyday life",
+  "align_text": "my imagination is linked to my everyday life",
+  "lang": "en",
+  "win": [
+   99.6,
+   106.7
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " my",
+    "start": 100.996,
+    "end": 101.36,
+    "p": 0.015,
+    "start_raw": 99.6,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -25.1
+   },
+   {
+    "w": " imagination",
+    "start": 101.36,
+    "end": 102.26,
+    "p": 0.798,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.3
+   },
+   {
+    "w": " is",
+    "start": 102.26,
+    "end": 103.04,
+    "p": 0.951,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.0
+   },
+   {
+    "w": " linked",
+    "start": 103.04,
+    "end": 103.32,
+    "p": 0.907,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.4
+   },
+   {
+    "w": " to",
+    "start": 103.32,
+    "end": 103.6,
+    "p": 0.985,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.4
+   },
+   {
+    "w": " my",
+    "start": 103.6,
+    "end": 103.78,
+    "p": 0.911,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.1
+   },
+   {
+    "w": " everyday",
+    "start": 103.78,
+    "end": 105.2,
+    "p": 0.633,
+    "vocal_cov": 0.9,
+    "vocal_db": -22.0
+   },
+   {
+    "w": " life",
+    "start": 105.2,
+    "end": 105.82,
+    "p": 0.85,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.4
+   }
+  ],
+  "start": 100.996,
+  "end": 105.82,
+  "onset_dev_ms": 759.0,
+  "line_cov": 0.97,
+  "pre_db": -25.6,
+  "in_db": -27.4
+ },
+ {
+  "id": 20,
+  "section": "Verse 2",
+  "text": "世界 是我的舞台",
+  "align_text": "世界是我的舞台",
+  "lang": "zh",
+  "win": [
+   106.3,
+   110.3
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 世界",
+    "start": 107.148,
+    "end": 107.72,
+    "p": 0.485,
+    "start_raw": 106.3,
+    "fixed": "start->onset",
+    "vocal_cov": 0.93,
+    "vocal_db": -24.2
+   },
+   {
+    "w": "是",
+    "start": 107.72,
+    "end": 108.42,
+    "p": 0.966,
+    "vocal_cov": 0.99,
+    "vocal_db": -23.5
+   },
+   {
+    "w": "我的",
+    "start": 108.42,
+    "end": 109.14,
+    "p": 0.988,
+    "vocal_cov": 0.99,
+    "vocal_db": -25.7
+   },
+   {
+    "w": "舞",
+    "start": 109.14,
+    "end": 109.66,
+    "p": 0.976,
+    "vocal_cov": 0.94,
+    "vocal_db": -23.9
+   },
+   {
+    "w": "台",
+    "start": 109.66,
+    "end": 110.02,
+    "p": 0.978,
+    "vocal_cov": 0.85,
+    "vocal_db": -23.4
+   }
+  ],
+  "start": 107.148,
+  "end": 110.02,
+  "onset_dev_ms": 567.0,
+  "line_cov": 0.95,
+  "pre_db": -24.2,
+  "in_db": -25.6
+ },
+ {
+  "id": 21,
+  "section": "Rap Verse",
+  "text": "不用背语法 我只说出想法",
+  "align_text": "不用背语法我只说出想法",
+  "lang": "zh",
+  "win": [
+   109.9,
+   112.8
+  ],
+  "kind": "rap",
+  "words": [
+   {
+    "w": " 不",
+    "start": 110.409,
+    "end": 110.56,
+    "p": 0.002,
+    "start_raw": 110.02,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -23.4
+   },
+   {
+    "w": "用",
+    "start": 110.56,
+    "end": 110.76,
+    "p": 0.996,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.5
+   },
+   {
+    "w": "背",
+    "start": 110.76,
+    "end": 110.88,
+    "p": 0.018,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.5
+   },
+   {
+    "w": "语",
+    "start": 110.88,
+    "end": 111.18,
+    "p": 0.917,
+    "vocal_cov": 0.85,
+    "vocal_db": -21.9
+   },
+   {
+    "w": "法",
+    "start": 111.18,
+    "end": 111.3,
+    "p": 0.956,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.3
+   },
+   {
+    "w": "我",
+    "start": 111.3,
+    "end": 111.48,
+    "p": 0.732,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.4
+   },
+   {
+    "w": "只",
+    "start": 111.48,
+    "end": 111.54,
+    "p": 0.983,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.5
+   },
+   {
+    "w": "说",
+    "start": 111.54,
+    "end": 111.7,
+    "p": 0.99,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.4
+   },
+   {
+    "w": "出",
+    "start": 111.7,
+    "end": 111.82,
+    "p": 0.997,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.4
+   },
+   {
+    "w": "想",
+    "start": 111.82,
+    "end": 112.04,
+    "p": 0.993,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.3
+   },
+   {
+    "w": "法",
+    "start": 112.04,
+    "end": 112.32,
+    "p": 0.999,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.0
+   }
+  ],
+  "start": 110.409,
+  "end": 112.32,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.98,
+  "pre_db": -21.7,
+  "in_db": -28.2
+ },
+ {
+  "id": 22,
+  "section": "Rap Verse",
+  "text": "一句话 屏幕上就开出花",
+  "align_text": "一句话屏幕上就开出花",
+  "lang": "zh",
+  "win": [
+   112.4,
+   115.8
+  ],
+  "kind": "rap",
+  "words": [
+   {
+    "w": " 一",
+    "start": 113.496,
+    "end": 113.86,
+    "p": 0.001,
+    "start_raw": 112.4,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.0
+   },
+   {
+    "w": "句",
+    "start": 113.86,
+    "end": 114.0,
+    "p": 0.98,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.4
+   },
+   {
+    "w": "话",
+    "start": 114.0,
+    "end": 114.18,
+    "p": 0.606,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.8
+   },
+   {
+    "w": "屏",
+    "start": 114.18,
+    "end": 114.38,
+    "p": 0.98,
+    "vocal_cov": 0.9,
+    "vocal_db": -22.5
+   },
+   {
+    "w": "幕",
+    "start": 114.38,
+    "end": 114.54,
+    "p": 1.0,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.8
+   },
+   {
+    "w": "上",
+    "start": 114.54,
+    "end": 114.72,
+    "p": 0.994,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.6
+   },
+   {
+    "w": "就",
+    "start": 114.72,
+    "end": 114.92,
+    "p": 0.993,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.0
+   },
+   {
+    "w": "开",
+    "start": 114.92,
+    "end": 115.14,
+    "p": 0.952,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.6
+   },
+   {
+    "w": "出",
+    "start": 115.14,
+    "end": 115.32,
+    "p": 0.969,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   },
+   {
+    "w": "花",
+    "start": 115.32,
+    "end": 115.46,
+    "p": 0.867,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.7
+   }
+  ],
+  "start": 113.496,
+  "end": 115.46,
+  "onset_dev_ms": 455.0,
+  "line_cov": 0.99,
+  "pre_db": -25.8,
+  "in_db": -26.7
+ },
+ {
+  "id": 23,
+  "section": "Rap Verse",
+  "text": "Bug 也不怕 就当草稿再画",
+  "align_text": "Bug也不怕就当草稿再画",
+  "lang": "zh",
+  "win": [
+   115.2,
+   119.0
+  ],
+  "kind": "rap",
+  "words": [
+   {
+    "w": " Bug",
+    "start": 115.882,
+    "end": 116.04,
+    "p": 0.0,
+    "start_raw": 115.2,
+    "fixed": "start->onset",
+    "vocal_cov": 0.97,
+    "vocal_db": -23.7
+   },
+   {
+    "w": "也",
+    "start": 116.04,
+    "end": 117.2,
+    "p": 0.019,
+    "flag": "long",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.3
+   },
+   {
+    "w": "不",
+    "start": 117.2,
+    "end": 117.32,
+    "p": 0.997,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.0
+   },
+   {
+    "w": "怕",
+    "start": 117.32,
+    "end": 117.6,
+    "p": 0.995,
+    "vocal_cov": 0.84,
+    "vocal_db": -23.8
+   },
+   {
+    "w": "就",
+    "start": 117.6,
+    "end": 117.74,
+    "p": 0.361,
+    "vocal_cov": 0.96,
+    "vocal_db": -24.3
+   },
+   {
+    "w": "当",
+    "start": 117.74,
+    "end": 117.94,
+    "p": 0.759,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.9
+   },
+   {
+    "w": "草",
+    "start": 117.94,
+    "end": 118.24,
+    "p": 0.914,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.8
+   },
+   {
+    "w": "稿",
+    "start": 118.24,
+    "end": 118.44,
+    "p": 0.962,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.3
+   },
+   {
+    "w": "再",
+    "start": 118.44,
+    "end": 118.6,
+    "p": 0.022,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   },
+   {
+    "w": "画",
+    "start": 118.6,
+    "end": 118.66,
+    "p": 0.928,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   }
+  ],
+  "start": 115.882,
+  "end": 118.66,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.98,
+  "pre_db": -27.8,
+  "in_db": -26.1
+ },
+ {
+  "id": 24,
+  "section": "Rap Verse",
+  "text": "Fixtures 打底 functions 上色",
+  "align_text": "Fixtures打底functions上色",
+  "lang": "zh",
+  "win": [
+   118.4,
+   122.8
+  ],
+  "kind": "rap",
+  "words": [
+   {
+    "w": " Fi",
+    "start": 119.024,
+    "end": 119.24,
+    "p": 0.001,
+    "start_raw": 118.4,
+    "fixed": "start->onset",
+    "vocal_cov": 0.86,
+    "vocal_db": -28.8
+   },
+   {
+    "w": "xtures",
+    "start": 119.24,
+    "end": 119.7,
+    "p": 0.917,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.1
+   },
+   {
+    "w": "打",
+    "start": 119.7,
+    "end": 120.12,
+    "p": 0.0,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   },
+   {
+    "w": "底",
+    "start": 120.12,
+    "end": 120.62,
+    "p": 0.321,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.9
+   },
+   {
+    "w": "fun",
+    "start": 120.62,
+    "end": 120.92,
+    "p": 0.007,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.6
+   },
+   {
+    "w": "ctions",
+    "start": 120.92,
+    "end": 121.52,
+    "p": 0.949,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.1
+   },
+   {
+    "w": "上",
+    "start": 121.52,
+    "end": 121.88,
+    "p": 0.581,
+    "vocal_cov": 1.0,
+    "vocal_db": -26.4
+   },
+   {
+    "w": "色",
+    "start": 121.88,
+    "end": 122.26,
+    "p": 0.062,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.8
+   }
+  ],
+  "start": 119.024,
+  "end": 122.26,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.99,
+  "pre_db": -24.0,
+  "in_db": -32.0
+ },
+ {
+  "id": 25,
+  "section": "Bridge",
+  "text": "是一幅画 也是一段代码",
+  "align_text": "是一幅画也是一段代码",
+  "lang": "zh",
+  "win": [
+   122.2,
+   126.2
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 是",
+    "start": 123.176,
+    "end": 123.54,
+    "p": 0.001,
+    "start_raw": 122.2,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -27.4
+   },
+   {
+    "w": "一",
+    "start": 123.54,
+    "end": 123.78,
+    "p": 0.987,
+    "vocal_cov": 0.67,
+    "vocal_db": -26.1
+   },
+   {
+    "w": "幅",
+    "start": 123.78,
+    "end": 124.02,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.8
+   },
+   {
+    "w": "画",
+    "start": 124.02,
+    "end": 124.24,
+    "p": 0.828,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.8
+   },
+   {
+    "w": "也是",
+    "start": 124.24,
+    "end": 124.66,
+    "p": 0.812,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.5
+   },
+   {
+    "w": "一",
+    "start": 124.66,
+    "end": 124.98,
+    "p": 0.995,
+    "vocal_cov": 0.66,
+    "vocal_db": -25.2
+   },
+   {
+    "w": "段",
+    "start": 124.98,
+    "end": 125.2,
+    "p": 0.987,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.6
+   },
+   {
+    "w": "代",
+    "start": 125.2,
+    "end": 125.46,
+    "p": 0.551,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.5
+   },
+   {
+    "w": "码",
+    "start": 125.46,
+    "end": 125.9,
+    "p": 0.907,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.9
+   }
+  ],
+  "start": 123.176,
+  "end": 125.9,
+  "onset_dev_ms": 513.0,
+  "line_cov": 0.93,
+  "pre_db": -29.0,
+  "in_db": -32.6
+ },
+ {
+  "id": 26,
+  "section": "Bridge",
+  "text": "一笔一画 都是我的回答",
+  "align_text": "一笔一画都是我的回答",
+  "lang": "zh",
+  "win": [
+   125.6,
+   129.4
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 一",
+    "start": 125.856,
+    "end": 126.22,
+    "p": 0.001,
+    "start_raw": 125.6,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.0
+   },
+   {
+    "w": "笔",
+    "start": 126.22,
+    "end": 126.52,
+    "p": 0.607,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.7
+   },
+   {
+    "w": "一",
+    "start": 126.52,
+    "end": 127.0,
+    "p": 0.992,
+    "vocal_cov": 0.81,
+    "vocal_db": -26.0
+   },
+   {
+    "w": "画",
+    "start": 127.0,
+    "end": 127.46,
+    "p": 0.311,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.4
+   },
+   {
+    "w": "都是",
+    "start": 127.46,
+    "end": 127.86,
+    "p": 0.888,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.1
+   },
+   {
+    "w": "我的",
+    "start": 127.86,
+    "end": 128.26,
+    "p": 0.994,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.0
+   },
+   {
+    "w": "回",
+    "start": 128.26,
+    "end": 128.62,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.6
+   },
+   {
+    "w": "答",
+    "start": 128.62,
+    "end": 129.06,
+    "p": 0.989,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.1
+   }
+  ],
+  "start": 125.856,
+  "end": 129.06,
+  "onset_dev_ms": 511.0,
+  "line_cov": 0.97,
+  "pre_db": -22.1,
+  "in_db": -24.6
+ },
+ {
+  "id": 27,
+  "section": "Bridge",
+  "text": "是一幅画 也是一段代码",
+  "align_text": "是一幅画也是一段代码",
+  "lang": "zh",
+  "win": [
+   128.7,
+   132.7
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 是",
+    "start": 129.361,
+    "end": 129.94,
+    "p": 0.001,
+    "start_raw": 128.7,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -22.0
+   },
+   {
+    "w": "一",
+    "start": 129.94,
+    "end": 130.2,
+    "p": 0.997,
+    "vocal_cov": 0.71,
+    "vocal_db": -26.7
+   },
+   {
+    "w": "幅",
+    "start": 130.2,
+    "end": 130.46,
+    "p": 0.703,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.2
+   },
+   {
+    "w": "画",
+    "start": 130.46,
+    "end": 130.72,
+    "p": 0.817,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.5
+   },
+   {
+    "w": "也是",
+    "start": 130.72,
+    "end": 131.08,
+    "p": 0.155,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.7
+   },
+   {
+    "w": "一",
+    "start": 131.08,
+    "end": 131.38,
+    "p": 0.996,
+    "vocal_cov": 0.68,
+    "vocal_db": -27.0
+   },
+   {
+    "w": "段",
+    "start": 131.38,
+    "end": 131.66,
+    "p": 0.952,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.7
+   },
+   {
+    "w": "代",
+    "start": 131.66,
+    "end": 131.9,
+    "p": 0.921,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.3
+   },
+   {
+    "w": "码",
+    "start": 131.9,
+    "end": 132.3,
+    "p": 0.983,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.1
+   }
+  ],
+  "start": 129.361,
+  "end": 132.3,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.94,
+  "pre_db": -24.7,
+  "in_db": -23.3
+ },
+ {
+  "id": 28,
+  "section": "Bridge",
+  "text": "一笔一画 都是我的回答",
+  "align_text": "一笔一画都是我的回答",
+  "lang": "zh",
+  "win": [
+   132.0,
+   136.0
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " 一",
+    "start": 132.978,
+    "end": 133.28,
+    "p": 0.0,
+    "start_raw": 132.0,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": "笔",
+    "start": 133.28,
+    "end": 133.84,
+    "p": 0.138,
+    "flag": "long",
+    "vocal_cov": 0.9,
+    "vocal_db": -23.5
+   },
+   {
+    "w": "一",
+    "start": 133.84,
+    "end": 133.84,
+    "p": 0.107,
+    "vocal_cov": 0.0,
+    "vocal_db": null
+   },
+   {
+    "w": "画",
+    "start": 133.84,
+    "end": 133.84,
+    "p": 0.449,
+    "vocal_cov": 0.0,
+    "vocal_db": null
+   },
+   {
+    "w": "都是",
+    "start": 133.84,
+    "end": 134.32,
+    "p": 0.933,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.4
+   },
+   {
+    "w": "我的",
+    "start": 134.32,
+    "end": 134.72,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.9
+   },
+   {
+    "w": "回",
+    "start": 134.72,
+    "end": 135.04,
+    "p": 0.299,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.7
+   },
+   {
+    "w": "答",
+    "start": 135.04,
+    "end": 135.46,
+    "p": 0.891,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.9
+   }
+  ],
+  "start": 132.978,
+  "end": 135.46,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.98,
+  "pre_db": -25.1,
+  "in_db": -27.9
+ },
+ {
+  "id": 29,
+  "section": "Final Chorus",
+  "text": "I think about stuff I read",
+  "align_text": "I think about stuff I read",
+  "lang": "en",
+  "win": [
+   135.6,
+   139.7
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " I",
+    "start": 135.6,
+    "end": 136.78,
+    "p": 0.724,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.4
+   },
+   {
+    "w": " think",
+    "start": 136.78,
+    "end": 137.06,
+    "p": 0.922,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " about",
+    "start": 137.06,
+    "end": 137.42,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.1
+   },
+   {
+    "w": " stuff",
+    "start": 137.42,
+    "end": 137.78,
+    "p": 0.993,
+    "vocal_cov": 1.0,
+    "vocal_db": -19.5
+   },
+   {
+    "w": " I",
+    "start": 137.78,
+    "end": 138.7,
+    "p": 0.936,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.4
+   },
+   {
+    "w": " read",
+    "start": 138.7,
+    "end": 139.14,
+    "p": 0.939,
+    "vocal_cov": 1.0,
+    "vocal_db": -19.9
+   }
+  ],
+  "start": 135.6,
+  "end": 139.14,
+  "onset_dev_ms": 218.0,
+  "line_cov": 1.0,
+  "pre_db": -23.9,
+  "in_db": -22.9
+ },
+ {
+  "id": 30,
+  "section": "Final Chorus",
+  "text": "I just ask myself what it is that I need?",
+  "align_text": "I just ask myself what it is that I need",
+  "lang": "en",
+  "win": [
+   139.0,
+   148.2
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " I",
+    "start": 142.5,
+    "end": 143.48,
+    "p": 0.879,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " just",
+    "start": 143.48,
+    "end": 143.68,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.9
+   },
+   {
+    "w": " ask",
+    "start": 143.68,
+    "end": 144.32,
+    "p": 0.843,
+    "vocal_cov": 0.97,
+    "vocal_db": -22.3
+   },
+   {
+    "w": " myself",
+    "start": 144.32,
+    "end": 145.0,
+    "p": 0.999,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.5
+   },
+   {
+    "w": " what",
+    "start": 145.02,
+    "end": 145.46,
+    "p": 0.983,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.3
+   },
+   {
+    "w": " it",
+    "start": 145.46,
+    "end": 145.66,
+    "p": 0.998,
+    "vocal_cov": 1.0,
+    "vocal_db": -19.7
+   },
+   {
+    "w": " is",
+    "start": 145.66,
+    "end": 146.08,
+    "p": 1.0,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.1
+   },
+   {
+    "w": " that",
+    "start": 146.08,
+    "end": 146.68,
+    "p": 0.975,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " I",
+    "start": 146.68,
+    "end": 147.0,
+    "p": 0.998,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.9
+   },
+   {
+    "w": " need",
+    "start": 147.0,
+    "end": 147.44,
+    "p": 0.999,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.8
+   }
+  ],
+  "start": 142.5,
+  "end": 147.44,
+  "onset_dev_ms": 1672.0,
+  "line_cov": 1.0,
+  "pre_db": -24.3,
+  "in_db": -25.4
+ },
+ {
+  "id": 31,
+  "section": "Final Chorus",
+  "text": "That's it, the fixtures and the functions",
+  "align_text": "That's it, the fixtures and the functions",
+  "lang": "en",
+  "win": [
+   147.7,
+   152.7
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " That's",
+    "start": 149.216,
+    "end": 149.58,
+    "p": 0.089,
+    "start_raw": 148.62,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -21.9
+   },
+   {
+    "w": " it,",
+    "start": 149.58,
+    "end": 149.98,
+    "p": 0.623,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.8
+   },
+   {
+    "w": " the",
+    "start": 150.16,
+    "end": 150.16,
+    "p": 0.337,
+    "vocal_cov": 0.0,
+    "vocal_db": null
+   },
+   {
+    "w": " fixtures",
+    "start": 150.16,
+    "end": 150.78,
+    "p": 0.98,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.4
+   },
+   {
+    "w": " and",
+    "start": 150.78,
+    "end": 151.32,
+    "p": 0.644,
+    "vocal_cov": 1.0,
+    "vocal_db": -21.3
+   },
+   {
+    "w": " the",
+    "start": 151.32,
+    "end": 151.78,
+    "p": 0.8,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " functions",
+    "start": 151.78,
+    "end": 152.14,
+    "p": 0.889,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.9
+   }
+  ],
+  "start": 149.216,
+  "end": 152.14,
+  "onset_dev_ms": 948.0,
+  "line_cov": 1.0,
+  "pre_db": -26.0,
+  "in_db": -23.9
+ },
+ {
+  "id": 32,
+  "section": "Final Chorus",
+  "text": "And everything goes from there",
+  "align_text": "And everything goes from there",
+  "lang": "en",
+  "win": [
+   151.8,
+   160.8
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " And",
+    "start": 154.256,
+    "end": 154.62,
+    "p": 0.355,
+    "start_raw": 151.94,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -24.3
+   },
+   {
+    "w": " everything",
+    "start": 154.62,
+    "end": 156.68,
+    "p": 0.984,
+    "vocal_cov": 0.96,
+    "vocal_db": -23.5
+   },
+   {
+    "w": " goes",
+    "start": 156.68,
+    "end": 157.72,
+    "p": 0.907,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " from",
+    "start": 157.72,
+    "end": 159.22,
+    "p": 0.701,
+    "flag": "long",
+    "vocal_cov": 1.0,
+    "vocal_db": -22.7
+   },
+   {
+    "w": " there",
+    "start": 159.22,
+    "end": 160.02,
+    "p": 0.99,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   }
+  ],
+  "start": 154.256,
+  "end": 160.02,
+  "onset_dev_ms": 876.0,
+  "line_cov": 0.98,
+  "pre_db": -25.5,
+  "in_db": -25.3
+ },
+ {
+  "id": 33,
+  "section": "Build",
+  "text": "(一切从这里出发!)",
+  "align_text": "一切从这里出发",
+  "lang": "zh",
+  "win": [
+   163.8,
+   168.6
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " 一",
+    "start": 165.659,
+    "end": 165.88,
+    "p": 0.001,
+    "start_raw": 163.8,
+    "fixed": "start->onset",
+    "vocal_cov": 0.8,
+    "vocal_db": -37.7
+   },
+   {
+    "w": "切",
+    "start": 165.88,
+    "end": 166.16,
+    "p": 0.108,
+    "vocal_cov": 1.0,
+    "vocal_db": -29.1
+   },
+   {
+    "w": "从",
+    "start": 166.16,
+    "end": 166.3,
+    "p": 0.918,
+    "vocal_cov": 1.0,
+    "vocal_db": -25.1
+   },
+   {
+    "w": "这里",
+    "start": 166.3,
+    "end": 166.68,
+    "p": 0.979,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.9
+   },
+   {
+    "w": "出",
+    "start": 166.68,
+    "end": 166.94,
+    "p": 0.992,
+    "vocal_cov": 1.0,
+    "vocal_db": -26.8
+   },
+   {
+    "w": "发",
+    "start": 166.94,
+    "end": 167.4,
+    "p": 0.991,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.8
+   }
+  ],
+  "start": 165.659,
+  "end": 167.4,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.97,
+  "pre_db": -45.3,
+  "in_db": -39.1
+ },
+ {
+  "id": 34,
+  "section": "Build",
+  "text": "(一笔一画!)",
+  "align_text": "一笔一画",
+  "lang": "zh",
+  "win": [
+   170.8,
+   174.3
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " 一",
+    "start": 172.8,
+    "end": 172.92,
+    "p": 0.0,
+    "vocal_cov": 0.92,
+    "vocal_db": -20.7
+   },
+   {
+    "w": "笔",
+    "start": 172.92,
+    "end": 173.18,
+    "p": 0.537,
+    "vocal_cov": 0.88,
+    "vocal_db": -21.0
+   },
+   {
+    "w": "一",
+    "start": 173.18,
+    "end": 173.64,
+    "p": 0.745,
+    "vocal_cov": 0.74,
+    "vocal_db": -24.3
+   },
+   {
+    "w": "画",
+    "start": 173.64,
+    "end": 173.9,
+    "p": 0.436,
+    "vocal_cov": 1.0,
+    "vocal_db": -20.9
+   }
+  ],
+  "start": 172.8,
+  "end": 173.9,
+  "onset_dev_ms": 3.0,
+  "line_cov": 0.86,
+  "pre_db": -54.4,
+  "in_db": -22.4
+ },
+ {
+  "id": 35,
+  "section": "Post-Chorus Drop 2",
+  "text": "(Fixtures!)",
+  "align_text": "Fixtures!",
+  "lang": "en",
+  "win": [
+   177.4,
+   180.6
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " Fixtures!",
+    "start": 179.761,
+    "end": 180.3,
+    "p": 0.363,
+    "start_raw": 177.88,
+    "fixed": "start->onset",
+    "vocal_cov": 0.91,
+    "vocal_db": -22.9
+   }
+  ],
+  "start": 179.761,
+  "end": 180.3,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.91,
+  "pre_db": -49.9,
+  "in_db": -27.5
+ },
+ {
+  "id": 36,
+  "section": "Post-Chorus Drop 2",
+  "text": "(Functions!)",
+  "align_text": "Functions!",
+  "lang": "en",
+  "win": [
+   180.3,
+   184.0
+  ],
+  "kind": "chant",
+  "words": [
+   {
+    "w": " Functions!",
+    "start": 183.283,
+    "end": 183.6,
+    "p": 0.366,
+    "start_raw": 181.5,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -22.6
+   }
+  ],
+  "start": 183.283,
+  "end": 183.6,
+  "onset_dev_ms": 0.0,
+  "line_cov": 1.0,
+  "pre_db": -27.6,
+  "in_db": -24.6
+ },
+ {
+  "id": 37,
+  "section": "Outro",
+  "text": "Everything I love about life just blossoms",
+  "align_text": "Everything I love about life just blossoms",
+  "lang": "en",
+  "win": [
+   185.4,
+   191.8
+  ],
+  "kind": "lead",
+  "words": [
+   {
+    "w": " Everything",
+    "start": 186.7,
+    "end": 187.36,
+    "p": 0.787,
+    "vocal_cov": 0.86,
+    "vocal_db": -23.7
+   },
+   {
+    "w": " I",
+    "start": 187.36,
+    "end": 187.7,
+    "p": 0.989,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.2
+   },
+   {
+    "w": " love",
+    "start": 187.7,
+    "end": 187.98,
+    "p": 0.996,
+    "vocal_cov": 1.0,
+    "vocal_db": -22.8
+   },
+   {
+    "w": " about",
+    "start": 187.98,
+    "end": 188.36,
+    "p": 0.995,
+    "vocal_cov": 0.8,
+    "vocal_db": -25.0
+   },
+   {
+    "w": " life",
+    "start": 188.36,
+    "end": 188.98,
+    "p": 0.995,
+    "vocal_cov": 1.0,
+    "vocal_db": -23.1
+   },
+   {
+    "w": " just",
+    "start": 188.98,
+    "end": 189.68,
+    "p": 0.875,
+    "vocal_cov": 0.98,
+    "vocal_db": -24.3
+   },
+   {
+    "w": " blossoms",
+    "start": 189.68,
+    "end": 190.26,
+    "p": 0.604,
+    "vocal_cov": 1.0,
+    "vocal_db": -24.9
+   }
+  ],
+  "start": 186.7,
+  "end": 190.26,
+  "onset_dev_ms": 195.0,
+  "line_cov": 0.95,
+  "pre_db": -78.9,
+  "in_db": -37.4
+ },
+ {
+  "id": 38,
+  "section": "Outro",
+  "text": "(that's it.)",
+  "align_text": "That's it.",
+  "lang": "en",
+  "win": [
+   191.4,
+   194.3
+  ],
+  "kind": "adlib",
+  "words": [
+   {
+    "w": " That's",
+    "start": 193.196,
+    "end": 193.36,
+    "p": 0.498,
+    "start_raw": 191.96,
+    "fixed": "start->onset",
+    "vocal_cov": 1.0,
+    "vocal_db": -35.8
+   },
+   {
+    "w": " it.",
+    "start": 193.36,
+    "end": 193.64,
+    "p": 0.874,
+    "vocal_cov": 0.46,
+    "vocal_db": -30.4
+   }
+  ],
+  "start": 193.196,
+  "end": 193.64,
+  "onset_dev_ms": 0.0,
+  "line_cov": 0.65,
+  "pre_db": -34.1,
+  "in_db": -36.6
+ }
+]

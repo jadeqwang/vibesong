@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "act5_spreadF",
+ "notes": "silent living-illustration of the outro spread (registered crop; see stills/*.txt for the crop rect in spread uv)",
+ "input": {
+  "prompt": "An open sketchbook lying flat, seen from directly above, with two hand-drawn illustrations comes gently to life like a living illustration. Camera completely static: no zoom, no pan, no rotation; the book, the paper, the page edges and the drawing style stay exactly the same (pencil and colored-pencil hatching and paper grain hold steady, no new details, no text appears).\nVery subtle motion only: on the left page (gray pencil drawing) the little string lights twinkle softly one by one and the three young musicians sway gently as they play; on the right page (colored pencil) the three friends on the rainbow bench breathe softly and smile, the guitars are strummed lightly, the sunset glow shimmers and the clouds drift a tiny bit. Everything else stays perfectly still. Silent.",
+  "image_input": "file:media/act5/stills/spread_full_169.jpg",
+  "duration": "8s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

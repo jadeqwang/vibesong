@@ -1,0 +1,3 @@
+[cf] openai/gpt-image-2.5-sunburst 41.8s
+[cf] openai/gpt-image-2.5-sunburst -> assets/sheets/raw/charlie_pixel_t1.png  ($0.2 est, 42.3s)
+['assets/sheets/raw/charlie_pixel_t1.png']

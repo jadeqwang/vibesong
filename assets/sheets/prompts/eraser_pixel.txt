@@ -1,0 +1,9 @@
+16-bit SNES pixel art boss sprite sheet in the style of The Lost Vikings (1993): chunky, readable, every game pixel a big perfectly square block on one global grid, 1-pixel near-black outline, 3-4 shade ramps, flat colour clusters, no anti-aliasing, no gradients, no glow. Transparent background. No text, no labels, no UI.
+
+The boss: THE ERASER, a HUGE classic rectangular rubber eraser block (like a giant school eraser, slightly worn rounded corners, a faint paper-sleeve band around its middle), dull GRAY rubber, with a big SLEEPY-GRUMPY face: heavy half-closed droopy eyelids, bags under the eyes, a frowning wobbly mouth, a little drool of crumbs; small stubby arms. Eraser crumbs (gray rubber shavings) fall off it constantly. Each boss sprite is about 80 game pixels tall.
+
+Layout:
+Row 1 (CHASING, 3 frames): the eraser shown from the side, tilted, scrubbing forward to the RIGHT along the ground, leaving a smear of eraser crumbs and a blank white smudge behind it; frames show the scrubbing wobble.
+Row 1 end (LOOMING, 1 frame): the eraser rearing up tall and leaning over, front face toward the viewer, shadowed, eyes narrowed, crumbs raining.
+Row 2 (REDEEMED, 3 frames): the same eraser now a classic friendly PINK eraser (bubblegum pink, warm highlights), eyes wide open and happy, big smile, rosy cheeks, bouncing / singing (mouth open on frame 3), sparkles.
+Row 2 end: 4 small loose crumb particle sprites (gray) and 2 pink sparkle sprites.

@@ -1,0 +1,263 @@
+{
+ "root": "/home/jade/Documents/vibesong",
+ "out_dir": "/home/jade/Documents/vibesong/assets/sprites/",
+ "review_dir": "/home/jade/Documents/vibesong/assets/sheets/review",
+ "meta": "/home/jade/Documents/vibesong/assets/sprites/sprites.json",
+ "sheets": [
+  {
+   "name": "jade_hangsheet",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/hang_t1.png",
+   "target_h": 43,
+   "ref_box": [
+    527,
+    27,
+    732,
+    305
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/jade_bun_pull.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_graphite.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_back.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_drum.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run_hairdown.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_sing.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_rainbow.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_hang.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "align": "center",
+   "review_bg": [
+    104,
+    122,
+    140
+   ],
+   "anims": {
+    "hang": {
+     "name": "jade_hang",
+     "frames": [
+      [
+       [
+        527,
+        27,
+        732,
+        305
+       ]
+      ],
+      [
+       [
+        822,
+        27,
+        1009,
+        307
+       ]
+      ]
+     ],
+     "fps": 4,
+     "align": "center",
+     "note": "hanging from a bar/ledge (bar baked in at the top, hands at y~2): 0 legs forward, 1 legs back; anchor = hands"
+    }
+   }
+  },
+  {
+   "name": "charlie_hangsheet",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/hang_t1.png",
+   "target_h": 43,
+   "ref_box": [
+    527,
+    355,
+    736,
+    630
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_throw.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_parachute.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_boomerang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_shield.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_trampoline.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_pull.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "align": "center",
+   "review_bg": [
+    104,
+    122,
+    140
+   ],
+   "anims": {
+    "hang": {
+     "name": "charlie_hang",
+     "frames": [
+      [
+       [
+        527,
+        355,
+        736,
+        630
+       ]
+      ],
+      [
+       [
+        813,
+        354,
+        1009,
+        633
+       ]
+      ]
+     ],
+     "fps": 4,
+     "align": "center",
+     "note": "hanging from a bar/ledge (bar baked in at the top, hands at y~2): 0 legs forward, 1 legs back; anchor = hands"
+    }
+   }
+  },
+  {
+   "name": "ricky_hangsheet",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/hang_t1.png",
+   "target_h": 43,
+   "ref_box": [
+    527,
+    675,
+    733,
+    968
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_hang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_sustain.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_power_chord.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "align": "center",
+   "review_bg": [
+    104,
+    122,
+    140
+   ],
+   "anims": {
+    "hang": {
+     "name": "ricky_hang",
+     "frames": [
+      [
+       [
+        527,
+        675,
+        733,
+        968
+       ]
+      ],
+      [
+       [
+        823,
+        675,
+        1009,
+        971
+       ]
+      ]
+     ],
+     "fps": 4,
+     "align": "center",
+     "note": "hanging from a bar/ledge (bar baked in at the top, hands at y~2): 0 legs forward, 1 legs back; anchor = hands"
+    }
+   }
+  },
+  {
+   "name": "jade_bunpullsheet",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/bunpull_t1.png",
+   "target_h": 44,
+   "ref_box": [
+    0,
+    276,
+    1,
+    812
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/jade_bun_pull.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_graphite.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_back.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_drum.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run_hairdown.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_sing.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_rainbow.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_hang.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "bun_pull": {
+     "name": "jade_bun_pull",
+     "frames": [
+      [
+       [
+        135,
+        276,
+        423,
+        812
+       ]
+      ],
+      [
+       [
+        595,
+        302,
+        961,
+        812
+       ]
+      ],
+      [
+       [
+        1053,
+        322,
+        1448,
+        812
+       ]
+      ]
+     ],
+     "fps": 6,
+     "loop": false,
+     "note": "hair-up -> hair-down transition: 0 reach to bun, 1 blue pencil out + hair half down, 2 hair down, both pencils in hand"
+    }
+   }
+  }
+ ]
+}

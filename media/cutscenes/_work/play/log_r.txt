@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 47.0s
+[cf] google/nano-banana-pro -> media/cutscenes/_work/play/ff_ricky_play1.jpg  ($0.1344 est, 47.6s)
+['media/cutscenes/_work/play/ff_ricky_play1.jpg']

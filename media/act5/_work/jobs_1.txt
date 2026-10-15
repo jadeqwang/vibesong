@@ -1,0 +1,6 @@
+vibesong/act5_resolve-d3047b1d97  queued for cron minute 29867239 (starts in ~75s)  est $1.48 [4s x 0.37 (@1080p non-video input (per second))]
+vibesong/act5_sweep_t1-4129582b51  queued for cron minute 29867239 (starts in ~73s)  est $0.8 [8s x 0.1 (@1080p (per second))]
+vibesong/act5_sweep_t2-23b2d0cfc4  queued for cron minute 29867240 (starts in ~131s)  est $0.8 [8s x 0.1 (@1080p (per second))]
+vibesong/act5_sweep_t3-74140db288  queued for cron minute 29867240 (starts in ~130s)  est $0.8 [8s x 0.1 (@1080p (per second))]
+vibesong/act5_sweep_t4-3ef424d7d9  queued for cron minute 29867246 (starts in ~106s)  est $0.6 [6s x 0.1 (@1080p (per second))]
+vibesong/act5_sweep_t5-f8f30ab839  queued for cron minute 29867246 (starts in ~104s)  est $0.6 [6s x 0.1 (@1080p (per second))]

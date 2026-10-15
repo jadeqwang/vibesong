@@ -1,0 +1,11 @@
+16-bit SNES-era pixel art sprite sheet in the exact style of The Lost Vikings (1993, Silicon & Synapse / Blizzard). VERY LOW RESOLUTION: every character sprite is only about 28 game-pixels wide and 42 game-pixels tall (head about 12 pixels tall, eyes are single dark 1x2-pixel dots, mouth 1-2 pixels), and every game pixel is shown as a big, perfectly square, uniform block about 5x5 screen pixels, all aligned to ONE global pixel grid. Chunky readable silhouettes, 3-4 shade color ramps per material, a crisp 1-game-pixel near-black outline around every sprite, flat colour clusters, NO anti-aliasing, NO gradients, NO glow, NO blur, NO soft shadows. Side-view platformer, character faces RIGHT. Transparent background. Sprites evenly spaced in clean rows with generous gaps, all at exactly the same scale, feet on a shared baseline in each row. Any effects (lines, sparks, sound waves) are also drawn as hard-edged pixel art on the same grid, never glowing. No text, no labels, no numbers, no grid lines, no UI.
+
+The second attached image is a previous draft of this sheet: keep its character design, colours and poses, but redraw everything at this much lower, cleaner, grid-perfect resolution.
+
+Character: CHARLIE, matching the attached character sheet: a slim young man, curly dark-brown hair poking out under a BEIGE flat cap (newsboy cap); charcoal-gray t-shirt; blue jeans; brown leather boots; an acoustic guitar (warm honey wood, brown strap) slung on his BACK.
+
+Layout (4 rows):
+Row 1: idle stance (2 frames, subtle breathing), jump (2 frames: rising, falling).
+Row 2: run cycle, 6 frames, side view running to the right, guitar bouncing on his back.
+Row 3: holding the beige cap overhead with both hands as a SHIELD (ink drops bouncing off it); drifting down holding the cap above his head like a PARACHUTE (cap drawn enlarged); the cap flipped upside-down on the ground, enlarged into a TRAMPOLINE, with Charlie crouching beside it.
+Row 4: throwing the cap like a BOOMERANG (throwing pose + the spinning cap flying with motion arcs); reaching into the upturned cap and PULLING OUT another cap like a magician, surprised happy face.

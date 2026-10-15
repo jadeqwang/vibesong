@@ -1,0 +1,841 @@
+{
+ "root": "/home/jade/Documents/vibesong",
+ "out_dir": "/home/jade/Documents/vibesong/assets/sprites",
+ "review_dir": "/home/jade/Documents/vibesong/assets/sheets/review",
+ "meta": "/home/jade/Documents/vibesong/assets/sprites/sprites.json",
+ "sheets": [
+  {
+   "name": "eraser",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/eraser_pixel_t1.png",
+   "target_h": 53,
+   "ref_box": [
+    0,
+    228,
+    10,
+    546
+   ],
+   "frame": "auto",
+   "palette_n": 24,
+   "align": "center",
+   "review_bg": [
+    150,
+    170,
+    190
+   ],
+   "anims": {
+    "chase": {
+     "frames": [
+      [
+       [
+        20,
+        200,
+        400,
+        560
+       ]
+      ],
+      [
+       [
+        405,
+        200,
+        760,
+        560
+       ]
+      ],
+      [
+       [
+        765,
+        200,
+        1130,
+        560
+       ]
+      ]
+     ],
+     "fps": 6,
+     "note": "scrubbing right; erased white smear + crumbs baked in on the left"
+    },
+    "loom": {
+     "frames": [
+      [
+       [
+        1160,
+        60,
+        1515,
+        572
+       ]
+      ]
+     ],
+     "loop": false
+    },
+    "redeemed": {
+     "frames": [
+      [
+       [
+        50,
+        590,
+        400,
+        950
+       ]
+      ],
+      [
+       [
+        440,
+        590,
+        790,
+        950
+       ]
+      ],
+      [
+       [
+        790,
+        590,
+        1150,
+        950
+       ]
+      ]
+     ],
+     "fps": 6,
+     "note": "pink, frame 2 = singing"
+    },
+    "crumbs": {
+     "frames": [
+      [
+       [
+        1169,
+        680,
+        1245,
+        759
+       ]
+      ],
+      [
+       [
+        1268,
+        697,
+        1337,
+        771
+       ]
+      ],
+      [
+       [
+        1362,
+        703,
+        1415,
+        758
+       ]
+      ],
+      [
+       [
+        1446,
+        717,
+        1487,
+        758
+       ]
+      ]
+     ],
+     "frame": [
+      14,
+      14
+     ],
+     "loop": false,
+     "note": "particle variants, not an animation"
+    },
+    "sparkle": {
+     "frames": [
+      [
+       [
+        1225,
+        809,
+        1301,
+        897
+       ]
+      ],
+      [
+       [
+        1348,
+        834,
+        1404,
+        899
+       ]
+      ]
+     ],
+     "frame": [
+      14,
+      16
+     ],
+     "fps": 8
+    }
+   }
+  },
+  {
+   "name": "charlie_prop",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/charlie_hat_props_t1.png",
+   "target_h": 17,
+   "ref_box": [
+    0,
+    209,
+    1,
+    325
+   ],
+   "palette_n": 12,
+   "min_blob": 3,
+   "align": "center",
+   "fit_phase": true,
+   "inner": 0.6,
+   "anims": {
+    "trampoline": {
+     "name": "charlie_prop_trampoline",
+     "frames": [
+      [
+       [
+        230,
+        150,
+        540,
+        340
+       ]
+      ],
+      [
+       [
+        610,
+        220,
+        920,
+        340
+       ]
+      ],
+      [
+       [
+        960,
+        140,
+        1340,
+        340
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "fps": 12,
+     "loop": false,
+     "note": "0 rest, 1 squash (landing), 2 spring back"
+    },
+    "boomerang": {
+     "name": "charlie_prop_boomerang",
+     "frames": [
+      [
+       [
+        90,
+        420,
+        360,
+        580
+       ]
+      ],
+      [
+       [
+        460,
+        420,
+        700,
+        600
+       ]
+      ],
+      [
+       [
+        820,
+        440,
+        1080,
+        590
+       ]
+      ],
+      [
+       [
+        1180,
+        440,
+        1480,
+        580
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "fps": 16
+    },
+    "parachute": {
+     "name": "charlie_prop_parachute",
+     "frames": [
+      [
+       [
+        140,
+        690,
+        545,
+        895
+       ]
+      ],
+      [
+       [
+        610,
+        690,
+        1010,
+        895
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "fps": 4
+    },
+    "hat_stack": {
+     "name": "charlie_prop_hat_stack",
+     "frames": [
+      [
+       [
+        1120,
+        630,
+        1430,
+        920
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "loop": false,
+     "note": "more hats pulled from the hat"
+    }
+   }
+  },
+  {
+   "name": "bugs",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/bugs_pixel_t1.png",
+   "target_h": 23,
+   "ref_box": [
+    47,
+    142,
+    225,
+    304
+   ],
+   "palette_n": 24,
+   "min_blob": 4,
+   "anims": {
+    "ladybug_idle": {
+     "name": "bug_ladybug_idle",
+     "frames": [
+      [
+       [
+        47,
+        142,
+        225,
+        304
+       ]
+      ],
+      [
+       [
+        305,
+        139,
+        477,
+        304
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      34
+     ],
+     "fps": 3,
+     "align": "center"
+    },
+    "ladybug_dance": {
+     "name": "bug_ladybug_dance",
+     "frames": [
+      [
+       [
+        550,
+        96,
+        722,
+        318
+       ],
+       [
+        698,
+        78,
+        740,
+        131
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      40
+     ],
+     "align": "center",
+     "note": "pose + pixel music note"
+    },
+    "ladybug_feature": {
+     "name": "bug_ladybug_button",
+     "frames": [
+      [
+       [
+        803,
+        171,
+        1000,
+        306
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "align": "center",
+     "loop": false,
+     "note": "ladybug after the dance battle -> button"
+    },
+    "beetle_idle": {
+     "name": "bug_beetle_idle",
+     "frames": [
+      [
+       [
+        35,
+        411,
+        241,
+        588
+       ]
+      ],
+      [
+       [
+        289,
+        405,
+        509,
+        588
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      34
+     ],
+     "fps": 3,
+     "align": "center"
+    },
+    "beetle_dance": {
+     "name": "bug_beetle_dance",
+     "frames": [
+      [
+       [
+        558,
+        369,
+        722,
+        603
+       ],
+       [
+        719,
+        367,
+        760,
+        418
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      40
+     ],
+     "align": "center",
+     "note": "pose + pixel music note"
+    },
+    "beetle_feature": {
+     "name": "bug_beetle_wheel",
+     "frames": [
+      [
+       [
+        813,
+        441,
+        975,
+        603
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "align": "center",
+     "loop": false,
+     "note": "beetle after the dance battle -> wheel"
+    },
+    "moth_idle": {
+     "name": "bug_moth_idle",
+     "frames": [
+      [
+       [
+        26,
+        654,
+        234,
+        877
+       ]
+      ],
+      [
+       [
+        273,
+        667,
+        491,
+        877
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      34
+     ],
+     "fps": 3,
+     "align": "center"
+    },
+    "moth_dance": {
+     "name": "bug_moth_dance",
+     "frames": [
+      [
+       [
+        539,
+        633,
+        703,
+        887
+       ],
+       [
+        684,
+        645,
+        725,
+        697
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      40
+     ],
+     "align": "center",
+     "note": "pose + pixel music note"
+    },
+    "moth_feature": {
+     "name": "bug_moth_glider",
+     "frames": [
+      [
+       [
+        727,
+        686,
+        1017,
+        873
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "align": "center",
+     "loop": false,
+     "note": "moth after the dance battle -> glider"
+    },
+    "caterpillar_idle": {
+     "name": "bug_caterpillar_idle",
+     "frames": [
+      [
+       [
+        26,
+        980,
+        257,
+        1159
+       ]
+      ],
+      [
+       [
+        278,
+        967,
+        492,
+        1159
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      34
+     ],
+     "fps": 3,
+     "align": "center"
+    },
+    "caterpillar_dance": {
+     "name": "bug_caterpillar_dance",
+     "frames": [
+      [
+       [
+        531,
+        923,
+        690,
+        1169
+       ],
+       [
+        702,
+        935,
+        743,
+        987
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      40
+     ],
+     "align": "center",
+     "note": "pose + pixel music note"
+    },
+    "caterpillar_feature": {
+     "name": "bug_caterpillar_bridge",
+     "frames": [
+      [
+       [
+        686,
+        1007,
+        1006,
+        1149
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "align": "center",
+     "loop": false,
+     "note": "caterpillar after the dance battle -> bridge"
+    },
+    "firefly_idle": {
+     "name": "bug_firefly_idle",
+     "frames": [
+      [
+       [
+        58,
+        1272,
+        220,
+        1471
+       ]
+      ],
+      [
+       [
+        304,
+        1276,
+        468,
+        1471
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      34
+     ],
+     "fps": 3,
+     "align": "center"
+    },
+    "firefly_dance": {
+     "name": "bug_firefly_dance",
+     "frames": [
+      [
+       [
+        539,
+        1237,
+        704,
+        1463
+       ],
+       [
+        689,
+        1233,
+        731,
+        1285
+       ]
+      ]
+     ],
+     "frame": [
+      34,
+      40
+     ],
+     "align": "center",
+     "note": "pose + pixel music note"
+    },
+    "firefly_feature": {
+     "name": "bug_firefly_lamp",
+     "frames": [
+      [
+       [
+        811,
+        1192,
+        966,
+        1482
+       ]
+      ]
+     ],
+     "frame": "auto",
+     "align": "center",
+     "loop": false,
+     "note": "firefly after the dance battle -> lamp"
+    }
+   }
+  },
+  {
+   "name": "portraits_charlie",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/portraits_t1.png",
+   "target_h": 32,
+   "ref_box": [
+    0,
+    0,
+    1,
+    300
+   ],
+   "palette_n": 20,
+   "cover": 0.5,
+   "dark_boost": 1.0,
+   "fit_phase": true,
+   "inner": 0.6,
+   "anims": {
+    "charlie": {
+     "name": "portrait_charlie",
+     "frames": [
+      [
+       [
+        415,
+        382,
+        715,
+        682
+       ]
+      ],
+      [
+       [
+        816,
+        382,
+        1116,
+        682
+       ]
+      ]
+     ],
+     "frame": [
+      32,
+      32
+     ],
+     "align": "center",
+     "fps": 4,
+     "note": "0 = neutral, 1 = singing/excited"
+    }
+   }
+  },
+  {
+   "name": "portraits_ricky",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/portraits_t1.png",
+   "target_h": 32,
+   "ref_box": [
+    0,
+    0,
+    1,
+    300
+   ],
+   "palette_n": 20,
+   "cover": 0.5,
+   "dark_boost": 1.0,
+   "fit_phase": true,
+   "inner": 0.6,
+   "anims": {
+    "ricky": {
+     "name": "portrait_ricky",
+     "frames": [
+      [
+       [
+        414,
+        682,
+        714,
+        982
+       ]
+      ],
+      [
+       [
+        822,
+        682,
+        1122,
+        982
+       ]
+      ]
+     ],
+     "frame": [
+      32,
+      32
+     ],
+     "align": "center",
+     "fps": 4,
+     "note": "0 = neutral, 1 = singing/excited"
+    }
+   }
+  },
+  {
+   "name": "portraits_jade",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/jade2_portraits_b.png",
+   "target_h": 32,
+   "ref_box": [
+    0,
+    0,
+    1,
+    590
+   ],
+   "palette_n": 20,
+   "cover": 0.5,
+   "dark_boost": 1.0,
+   "fit_phase": true,
+   "inner": 0.6,
+   "force": [
+    [
+     248,
+     200,
+     40
+    ],
+    [
+     40,
+     100,
+     230
+    ],
+    [
+     240,
+     100,
+     140
+    ],
+    [
+     110,
+     170,
+     240
+    ]
+   ],
+   "protect": [
+    [
+     248,
+     200,
+     40
+    ],
+    [
+     40,
+     100,
+     230
+    ],
+    [
+     240,
+     100,
+     140
+    ],
+    [
+     110,
+     170,
+     240
+    ]
+   ],
+   "boost": 3.0,
+   "anims": {
+    "jade": {
+     "name": "portrait_jade",
+     "frames": [
+      [
+       [
+        148,
+        200,
+        738,
+        790
+       ]
+      ],
+      [
+       [
+        846,
+        200,
+        1436,
+        790
+       ]
+      ]
+     ],
+     "frame": [
+      32,
+      32
+     ],
+     "align": "center",
+     "fps": 4,
+     "note": "0 = neutral, 1 = singing; v2: racer collar + snap tab, chest dot, X pencils (blue / pink caps)"
+    }
+   }
+  }
+ ]
+}

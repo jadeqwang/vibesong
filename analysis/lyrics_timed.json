@@ -1,0 +1,2489 @@
+{
+ "audio": "inputs/The Vibe Coding song (一笔一画).mp3",
+ "time_base": "seconds from first decoded sample (ffmpeg/NLE timeline; MP3 start_time 0.023 s is encoder delay already trimmed)",
+ "method": [
+  "demucs htdemucs_ft vocal stem",
+  "faster-whisper large-v3 free transcription (en, zh) + windowed re-transcription",
+  "Whisper large-v3 teacher-forced likelihood tests of candidate texts",
+  "stable-ts forced alignment (Whisper large-v3) of canonical text per line",
+  "independent CTC forced alignment (torchaudio MMS_FA, pinyin for Mandarin)",
+  "per-line arbitration by vocal-stem spectrogram/note onsets; vocal-energy checks"
+ ],
+ "notes": [
+  "Text is canonical (lyric sheet / embedded Suno lyrics) as actually performed; ASR mishearings (全世界, 被, 阿弟...) corrected to canonical.",
+  "Performed structure differs from the .md sheet: \"I just ask myself...\" is sung ONCE per chorus (embedded tag lists it twice); the in-chorus (一笔一画!) chant after \"need?\" is NOT performed; bridge couplet is sung twice; intro 一笔 一画 is breathy at 11.1 s (after \"Paint it, run it, ship it!\"), not before it.",
+  "(一笔一画!) chants at 79.36 and 172.80 lead straight into the silences before each drop; (Fixtures!)/(Functions!) are shouted inside the drops between whistle-hook phrases.",
+  "Word \"end\" = next word start (legato) except the last word, whose end is measured from vocal-stem activity. Word confidence: high = aligners within 0.12 s, medium = within 0.3 s or single-source, low = aligners disagree (base aligner used).",
+  "vocal_accent (chants) = first 5 ms frame where the vocal stem exceeds -32 dBFS after the start, i.e. the loud hit of a shout (consonant onsets can be 0.1-0.5 s earlier and quiet).",
+  "check.vocal_active_frac = fraction of 5 ms frames inside the line where the vocal stem is above -42 dBFS; pre_onset_db = vocal level 30-250 ms before the start (low value = clean onset)."
+ ],
+ "lines": [
+  {
+   "id": 1,
+   "src_id": null,
+   "section": "Intro A",
+   "type": "hook",
+   "text": "[whistle-like synth / pitched vocal-chop hook: 4 notes in the rhythm of 一笔一画 (~2 kHz)]",
+   "start": 0.9,
+   "end": 3.75,
+   "confidence": "high (timing) / medium (identity)",
+   "evidence": "pure ~2 kHz tone with vibrato in vocal stem; ASR hears \"Beep x4\"; no sung lyric",
+   "words": [],
+   "start_bar": "1.2+0.30"
+  },
+  {
+   "id": 2,
+   "src_id": 1,
+   "section": "Intro A",
+   "type": "chant",
+   "text": "(Paint it, run it, ship it!)",
+   "start": 4.21,
+   "end": 6.91,
+   "start_bar": "3.2+0.05",
+   "confidence": "medium",
+   "evidence": "shouted chant; S word onsets fall on successive beats (4.19/4.62/5.05/5.48/5.91/6.34); CTC rejected by likelihood test",
+   "check": {
+    "vocal_active_frac": 0.84,
+    "vocal_db_p50": -32.6,
+    "pre_onset_db": -51.9,
+    "aligner_starts": {
+     "stable_ts": 4.215,
+     "ctc": 5.512
+    }
+   },
+   "words": [
+    {
+     "w": "Paint",
+     "start": 4.21,
+     "conf": "low",
+     "end": 4.67
+    },
+    {
+     "w": "it,",
+     "start": 4.68,
+     "conf": "low",
+     "end": 5.05
+    },
+    {
+     "w": "run",
+     "start": 5.06,
+     "conf": "low",
+     "end": 5.45
+    },
+    {
+     "w": "it,",
+     "start": 5.46,
+     "conf": "low",
+     "end": 6.148
+    },
+    {
+     "w": "ship",
+     "start": 6.158,
+     "conf": "medium",
+     "end": 6.408
+    },
+    {
+     "w": "it!",
+     "start": 6.418,
+     "conf": "high",
+     "end": 6.91
+    }
+   ],
+   "vocal_accent": 4.585
+  },
+  {
+   "id": 3,
+   "src_id": null,
+   "section": "Intro B",
+   "type": "hook",
+   "text": "[whistle hook, second phrase (~1.18 kHz)]",
+   "start": 7.6,
+   "end": 10.62,
+   "confidence": "high (timing) / medium (identity)",
+   "evidence": "sustained D6 (~1175 Hz) with breathy onsets; ASR hallucinates text; not a lyric",
+   "words": [],
+   "start_bar": "5.1+0.97"
+  },
+  {
+   "id": 4,
+   "src_id": null,
+   "section": "Intro B",
+   "type": "chant",
+   "text": "一笔 一画",
+   "start": 11.12,
+   "end": 12.86,
+   "confidence": "medium",
+   "evidence": "breathy/whispered; zh ASR \"一比一坏\" (homophone); likelihood 一笔一画 >> alternatives; high melisma tail 12.95-13.82",
+   "words": [
+    {
+     "w": "一",
+     "start": 11.12,
+     "end": 11.38,
+     "conf": "medium"
+    },
+    {
+     "w": "笔",
+     "start": 11.4,
+     "end": 11.74,
+     "conf": "medium"
+    },
+    {
+     "w": "一",
+     "start": 11.76,
+     "end": 12.28,
+     "conf": "low"
+    },
+    {
+     "w": "画",
+     "start": 12.3,
+     "end": 12.86,
+     "conf": "medium"
+    }
+   ],
+   "start_bar": "7.2+0.24",
+   "vocal_accent": 11.14
+  },
+  {
+   "id": 5,
+   "src_id": 2,
+   "section": "Verse 1",
+   "type": "lead",
+   "text": "Everything I love about life just blossoms",
+   "start": 14.11,
+   "end": 17.58,
+   "start_bar": "9.1+0.23",
+   "confidence": "high",
+   "evidence": "verse register (D4/B3) starts 14.11 on bar 9 downbeat; 13.0-13.8 is the high melisma ending the intro tag",
+   "check": {
+    "vocal_active_frac": 0.99,
+    "vocal_db_p50": -25.9,
+    "pre_onset_db": -25.0,
+    "aligner_starts": {
+     "stable_ts": 13.42,
+     "ctc": 14.132
+    }
+   },
+   "words": [
+    {
+     "w": "Everything",
+     "start": 14.11,
+     "conf": "low",
+     "end": 14.703
+    },
+    {
+     "w": "I",
+     "start": 14.713,
+     "conf": "low",
+     "end": 14.783
+    },
+    {
+     "w": "love",
+     "start": 14.793,
+     "conf": "medium",
+     "end": 15.027
+    },
+    {
+     "w": "about",
+     "start": 15.037,
+     "conf": "medium",
+     "end": 15.665
+    },
+    {
+     "w": "life",
+     "start": 15.675,
+     "conf": "low",
+     "end": 16.467
+    },
+    {
+     "w": "just",
+     "start": 16.477,
+     "conf": "low",
+     "end": 17.088
+    },
+    {
+     "w": "blossoms",
+     "start": 17.098,
+     "conf": "low",
+     "end": 17.58
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "src_id": 3,
+   "section": "Verse 1",
+   "type": "lead",
+   "text": "because",
+   "start": 18.1,
+   "end": 20.1,
+   "start_bar": "11.2+0.65",
+   "confidence": "medium",
+   "evidence": "voiced onset of \"be-\" in spectrogram",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -25.7,
+    "pre_onset_db": -31.0,
+    "aligner_starts": {
+     "stable_ts": 17.81,
+     "ctc": 18.144
+    }
+   },
+   "words": [
+    {
+     "w": "because",
+     "start": 18.1,
+     "conf": "low",
+     "end": 20.1
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 7,
+   "src_id": 4,
+   "section": "Verse 1",
+   "type": "lead",
+   "text": "my imagination is linked to my everyday life",
+   "start": 20.12,
+   "end": 27.78,
+   "start_bar": "12.3+0.42",
+   "confidence": "medium",
+   "evidence": "new note onset after held \"because\"; ASR my@20.34",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -25.9,
+    "pre_onset_db": -26.0,
+    "aligner_starts": {
+     "stable_ts": 20.816,
+     "ctc": 21.585
+    }
+   },
+   "words": [
+    {
+     "w": "my",
+     "start": 20.12,
+     "conf": "low",
+     "end": 21.17
+    },
+    {
+     "w": "imagination",
+     "start": 21.18,
+     "conf": "low",
+     "end": 22.39
+    },
+    {
+     "w": "is",
+     "start": 22.4,
+     "conf": "low",
+     "end": 23.235
+    },
+    {
+     "w": "linked",
+     "start": 23.245,
+     "conf": "medium",
+     "end": 23.565
+    },
+    {
+     "w": "to",
+     "start": 23.575,
+     "conf": "medium",
+     "end": 23.836
+    },
+    {
+     "w": "my",
+     "start": 23.846,
+     "conf": "medium",
+     "end": 23.97
+    },
+    {
+     "w": "everyday",
+     "start": 23.98,
+     "conf": "low",
+     "end": 25.41
+    },
+    {
+     "w": "life",
+     "start": 25.42,
+     "conf": "low",
+     "end": 27.78
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 8,
+   "src_id": 5,
+   "section": "Verse 1",
+   "type": "lead",
+   "text": "每一天 都是色彩",
+   "start": 27.8,
+   "end": 31.26,
+   "start_bar": "17.1+0.59",
+   "confidence": "low",
+   "evidence": "onset after held low D3 \"life\"; aligners disagree 27.96/28.37",
+   "check": {
+    "vocal_active_frac": 0.97,
+    "vocal_db_p50": -26.7,
+    "pre_onset_db": -29.2,
+    "aligner_starts": {
+     "stable_ts": 27.956,
+     "ctc": 28.368
+    }
+   },
+   "words": [
+    {
+     "w": "每",
+     "start": 27.8,
+     "conf": "low",
+     "end": 28.31
+    },
+    {
+     "w": "一",
+     "start": 28.32,
+     "conf": "low",
+     "end": 28.745
+    },
+    {
+     "w": "天",
+     "start": 28.755,
+     "conf": "medium",
+     "end": 29.13
+    },
+    {
+     "w": "都是",
+     "start": 29.14,
+     "conf": "low",
+     "end": 30.028
+    },
+    {
+     "w": "色",
+     "start": 30.038,
+     "conf": "high",
+     "end": 30.279
+    },
+    {
+     "w": "彩",
+     "start": 30.289,
+     "conf": "medium",
+     "end": 31.26
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "src_id": 6,
+   "section": "Verse 1",
+   "type": "lead",
+   "text": "真世界 就画出来",
+   "start": 31.28,
+   "end": 34.67,
+   "start_bar": "19.1+0.84",
+   "confidence": "medium",
+   "evidence": "onset visible; windowed ASR 31.18",
+   "check": {
+    "vocal_active_frac": 0.97,
+    "vocal_db_p50": -26.6,
+    "pre_onset_db": -38.2,
+    "aligner_starts": {
+     "stable_ts": 31.279,
+     "ctc": 31.687
+    }
+   },
+   "words": [
+    {
+     "w": "真",
+     "start": 31.28,
+     "conf": "low",
+     "end": 31.834
+    },
+    {
+     "w": "世界",
+     "start": 31.844,
+     "conf": "medium",
+     "end": 32.35
+    },
+    {
+     "w": "就",
+     "start": 32.36,
+     "conf": "low",
+     "end": 33.088
+    },
+    {
+     "w": "画",
+     "start": 33.098,
+     "conf": "medium",
+     "end": 33.299
+    },
+    {
+     "w": "出来",
+     "start": 33.309,
+     "conf": "medium",
+     "end": 34.67
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 10,
+   "src_id": 7,
+   "section": "Pre-Chorus",
+   "type": "lead",
+   "text": "说出来 它就存在",
+   "start": 34.69,
+   "end": 38.23,
+   "start_bar": "21.1+0.93",
+   "confidence": "high",
+   "evidence": "\"sh\" fricative onset after held note; bar 21 starts 34.30",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -25.8,
+    "pre_onset_db": -28.1,
+    "aligner_starts": {
+     "stable_ts": 34.686,
+     "ctc": 35.007
+    }
+   },
+   "words": [
+    {
+     "w": "说",
+     "start": 34.69,
+     "conf": "low",
+     "end": 35.154
+    },
+    {
+     "w": "出来",
+     "start": 35.164,
+     "conf": "medium",
+     "end": 35.55
+    },
+    {
+     "w": "它",
+     "start": 35.56,
+     "conf": "low",
+     "end": 36.066
+    },
+    {
+     "w": "就",
+     "start": 36.076,
+     "conf": "medium",
+     "end": 36.387
+    },
+    {
+     "w": "存",
+     "start": 36.397,
+     "conf": "medium",
+     "end": 36.57
+    },
+    {
+     "w": "在",
+     "start": 36.58,
+     "conf": "low",
+     "end": 38.23
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 11,
+   "src_id": 8,
+   "section": "Pre-Chorus",
+   "type": "lead",
+   "text": "彩色笔 画出未来",
+   "start": 38.25,
+   "end": 41.2,
+   "start_bar": "23.2+0.39",
+   "confidence": "low",
+   "evidence": "affricate after gap; aligners 37.60/38.48",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -24.6,
+    "pre_onset_db": -24.7,
+    "aligner_starts": {
+     "stable_ts": 37.6,
+     "ctc": 38.485
+    }
+   },
+   "words": [
+    {
+     "w": "彩",
+     "start": 38.25,
+     "conf": "low",
+     "end": 38.593
+    },
+    {
+     "w": "色",
+     "start": 38.603,
+     "conf": "high",
+     "end": 38.804
+    },
+    {
+     "w": "笔",
+     "start": 38.814,
+     "conf": "medium",
+     "end": 39.135
+    },
+    {
+     "w": "画",
+     "start": 39.145,
+     "conf": "medium",
+     "end": 39.415
+    },
+    {
+     "w": "出",
+     "start": 39.425,
+     "conf": "medium",
+     "end": 39.963
+    },
+    {
+     "w": "未",
+     "start": 39.973,
+     "conf": "low",
+     "end": 40.526
+    },
+    {
+     "w": "来",
+     "start": 40.536,
+     "conf": "low",
+     "end": 41.2
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 12,
+   "src_id": 9,
+   "section": "Chorus 1",
+   "type": "lead",
+   "text": "I think about stuff I read",
+   "start": 41.22,
+   "end": 45.805,
+   "start_bar": "25.1+0.46",
+   "confidence": "high",
+   "evidence": "clear note change after held 来; CTC start lies inside the held note",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -26.9,
+    "pre_onset_db": -26.0,
+    "aligner_starts": {
+     "stable_ts": 41.256,
+     "ctc": 40.363
+    }
+   },
+   "words": [
+    {
+     "w": "I",
+     "start": 41.22,
+     "conf": "low",
+     "end": 41.705
+    },
+    {
+     "w": "think",
+     "start": 41.715,
+     "conf": "medium",
+     "end": 41.83
+    },
+    {
+     "w": "about",
+     "start": 41.84,
+     "conf": "low",
+     "end": 42.406
+    },
+    {
+     "w": "stuff",
+     "start": 42.416,
+     "conf": "medium",
+     "end": 42.69
+    },
+    {
+     "w": "I",
+     "start": 42.7,
+     "conf": "low",
+     "end": 43.71
+    },
+    {
+     "w": "read",
+     "start": 43.72,
+     "conf": "low",
+     "end": 45.805
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "src_id": 10,
+   "section": "Chorus 1",
+   "type": "lead",
+   "text": "I just ask myself what it is that I need?",
+   "start": 48.62,
+   "end": 54.82,
+   "start_bar": "29.3+0.13",
+   "confidence": "high",
+   "evidence": "new phrase after long held note; S start lies inside the held note",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -25.5,
+    "pre_onset_db": -31.2,
+    "aligner_starts": {
+     "stable_ts": 47.52,
+     "ctc": 48.689
+    }
+   },
+   "words": [
+    {
+     "w": "I",
+     "start": 48.62,
+     "conf": "low",
+     "end": 48.694
+    },
+    {
+     "w": "just",
+     "start": 48.704,
+     "conf": "high",
+     "end": 49.461
+    },
+    {
+     "w": "ask",
+     "start": 49.471,
+     "conf": "low",
+     "end": 49.666
+    },
+    {
+     "w": "myself",
+     "start": 49.676,
+     "conf": "medium",
+     "end": 50.644
+    },
+    {
+     "w": "what",
+     "start": 50.654,
+     "conf": "low",
+     "end": 50.837
+    },
+    {
+     "w": "it",
+     "start": 50.847,
+     "conf": "medium",
+     "end": 51.047
+    },
+    {
+     "w": "is",
+     "start": 51.057,
+     "conf": "medium",
+     "end": 51.846
+    },
+    {
+     "w": "that",
+     "start": 51.856,
+     "conf": "low",
+     "end": 52.528
+    },
+    {
+     "w": "I",
+     "start": 52.538,
+     "conf": "low",
+     "end": 52.608
+    },
+    {
+     "w": "need",
+     "start": 52.618,
+     "conf": "medium",
+     "end": 54.82
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 14,
+   "src_id": 11,
+   "section": "Chorus 1",
+   "type": "lead",
+   "text": "That's it, the fixtures and the functions",
+   "start": 54.84,
+   "end": 59.43,
+   "start_bar": "33.2+0.00",
+   "confidence": "high",
+   "evidence": "aligners agree (54.88/54.81)",
+   "check": {
+    "vocal_active_frac": 0.99,
+    "vocal_db_p50": -27.1,
+    "pre_onset_db": -25.5,
+    "aligner_starts": {
+     "stable_ts": 54.876,
+     "ctc": 54.807
+    }
+   },
+   "words": [
+    {
+     "w": "That's",
+     "start": 54.84,
+     "conf": "high",
+     "end": 55.284
+    },
+    {
+     "w": "it,",
+     "start": 55.294,
+     "conf": "high",
+     "end": 55.635
+    },
+    {
+     "w": "the",
+     "start": 55.645,
+     "conf": "high",
+     "end": 55.815
+    },
+    {
+     "w": "fixtures",
+     "start": 55.825,
+     "conf": "high",
+     "end": 56.25
+    },
+    {
+     "w": "and",
+     "start": 56.26,
+     "conf": "low",
+     "end": 56.81
+    },
+    {
+     "w": "the",
+     "start": 56.82,
+     "conf": "low",
+     "end": 57.409
+    },
+    {
+     "w": "functions",
+     "start": 57.419,
+     "conf": "medium",
+     "end": 59.43
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 15,
+   "src_id": null,
+   "section": "Chorus 1",
+   "type": "adlib",
+   "text": "(Oh, oh, oh, oh, oh)",
+   "start": 59.45,
+   "end": 61.25,
+   "confidence": "medium",
+   "evidence": "windowed ASR, melodic run after \"functions\"",
+   "words": [],
+   "start_bar": "36.1+0.04"
+  },
+  {
+   "id": 16,
+   "src_id": 12,
+   "section": "Chorus 1",
+   "type": "lead",
+   "text": "And everything goes from there",
+   "start": 61.3,
+   "end": 68.155,
+   "start_bar": "37.1+0.47",
+   "confidence": "high",
+   "evidence": "preceded by \"Oh oh oh\" ad-lib run 59.45-61.25 (windowed ASR); ASR And@61.30",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -23.8,
+    "pre_onset_db": -29.1,
+    "aligner_starts": {
+     "stable_ts": 61.336,
+     "ctc": 61.729
+    }
+   },
+   "words": [
+    {
+     "w": "And",
+     "start": 61.3,
+     "conf": "low",
+     "end": 61.69
+    },
+    {
+     "w": "everything",
+     "start": 61.7,
+     "conf": "low",
+     "end": 62.47
+    },
+    {
+     "w": "goes",
+     "start": 62.48,
+     "conf": "low",
+     "end": 63.59
+    },
+    {
+     "w": "from",
+     "start": 63.6,
+     "conf": "low",
+     "end": 64.13
+    },
+    {
+     "w": "there",
+     "start": 64.14,
+     "conf": "low",
+     "end": 68.155
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "src_id": 13,
+   "section": "Chorus 1 tag / build (snare roll -> silence)",
+   "type": "chant",
+   "text": "(一切从这里出发!)",
+   "start": 72.13,
+   "end": 74.93,
+   "start_bar": "43.3+0.45",
+   "confidence": "high",
+   "evidence": "sharp voiced onset; aligners within 0.25 s",
+   "check": {
+    "vocal_active_frac": 0.97,
+    "vocal_db_p50": -26.3,
+    "pre_onset_db": -50.6,
+    "aligner_starts": {
+     "stable_ts": 71.9,
+     "ctc": 72.149
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 72.13,
+     "conf": "medium",
+     "end": 72.215
+    },
+    {
+     "w": "切",
+     "start": 72.225,
+     "conf": "medium",
+     "end": 72.456
+    },
+    {
+     "w": "从",
+     "start": 72.466,
+     "conf": "medium",
+     "end": 72.646
+    },
+    {
+     "w": "这里",
+     "start": 72.656,
+     "conf": "medium",
+     "end": 73.047
+    },
+    {
+     "w": "出",
+     "start": 73.057,
+     "conf": "medium",
+     "end": 73.545
+    },
+    {
+     "w": "发",
+     "start": 73.555,
+     "conf": "low",
+     "end": 74.93
+    }
+   ],
+   "vocal_accent": 72.125
+  },
+  {
+   "id": 18,
+   "src_id": 14,
+   "section": "Chorus 1 tag / build (snare roll -> silence)",
+   "type": "chant",
+   "text": "(一笔一画!)",
+   "start": 79.36,
+   "end": 81.02,
+   "start_bar": "47.4+0.88",
+   "confidence": "high",
+   "evidence": "aligners agree (79.36/79.37); 画 rings into the silence",
+   "check": {
+    "vocal_active_frac": 0.79,
+    "vocal_db_p50": -29.5,
+    "pre_onset_db": -56.3,
+    "aligner_starts": {
+     "stable_ts": 79.36,
+     "ctc": 79.372
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 79.36,
+     "conf": "high",
+     "end": 79.526
+    },
+    {
+     "w": "笔",
+     "start": 79.536,
+     "conf": "high",
+     "end": 79.757
+    },
+    {
+     "w": "一",
+     "start": 79.767,
+     "conf": "high",
+     "end": 80.299
+    },
+    {
+     "w": "画",
+     "start": 80.309,
+     "conf": "medium",
+     "end": 81.02
+    }
+   ],
+   "vocal_accent": 79.56
+  },
+  {
+   "id": 19,
+   "src_id": null,
+   "section": "Post-Chorus Drop 1",
+   "type": "hook",
+   "text": "[whistle hook phrase]",
+   "start": 81.87,
+   "end": 86.15,
+   "confidence": "high",
+   "evidence": "1.3-2.0 kHz pure tone in vocal stem (pyin)",
+   "words": [],
+   "start_bar": "49.2+0.97"
+  },
+  {
+   "id": 20,
+   "src_id": 15,
+   "section": "Post-Chorus Drop 1",
+   "type": "chant",
+   "text": "(Fixtures!)",
+   "start": 86.63,
+   "end": 87.86,
+   "start_bar": "52.2+0.54",
+   "confidence": "medium",
+   "evidence": "F-fricative 86.63, loud vowel 86.75; whistle hook ends ~86.2",
+   "check": {
+    "vocal_active_frac": 0.86,
+    "vocal_db_p50": -28.1,
+    "pre_onset_db": -42.1,
+    "aligner_starts": {
+     "stable_ts": 86.633,
+     "ctc": 86.753
+    }
+   },
+   "words": [
+    {
+     "w": "Fixtures!",
+     "start": 86.63,
+     "conf": "medium",
+     "end": 87.86
+    }
+   ],
+   "vocal_accent": 86.87
+  },
+  {
+   "id": 21,
+   "src_id": null,
+   "section": "Post-Chorus Drop 1",
+   "type": "hook",
+   "text": "[whistle hook answer]",
+   "start": 88.48,
+   "end": 89.88,
+   "confidence": "high",
+   "evidence": "pyin",
+   "words": [],
+   "start_bar": "53.3+0.04"
+  },
+  {
+   "id": 22,
+   "src_id": 16,
+   "section": "Post-Chorus Drop 1",
+   "type": "chant",
+   "text": "(Functions!)",
+   "start": 89.95,
+   "end": 90.739,
+   "start_bar": "54.2+0.62",
+   "confidence": "medium",
+   "evidence": "whistle ends 89.88-90.08, shout from ~89.95",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -26.9,
+    "pre_onset_db": -23.8,
+    "aligner_starts": {
+     "stable_ts": 89.871,
+     "ctc": 90.052
+    }
+   },
+   "words": [
+    {
+     "w": "Functions!",
+     "start": 89.95,
+     "conf": "medium",
+     "end": 90.739
+    }
+   ],
+   "vocal_accent": 89.95
+  },
+  {
+   "id": 23,
+   "src_id": null,
+   "section": "Post-Chorus Drop 1",
+   "type": "adlib",
+   "text": "(Hey, hey, hey)",
+   "start": 92.56,
+   "end": 93.9,
+   "confidence": "medium",
+   "evidence": "windowed ASR + likelihood test; pickup into verse 2",
+   "words": [
+    {
+     "w": "Hey",
+     "start": 92.56,
+     "end": 92.9,
+     "conf": "medium"
+    },
+    {
+     "w": "hey",
+     "start": 93.18,
+     "end": 93.5,
+     "conf": "medium"
+    },
+    {
+     "w": "hey",
+     "start": 93.58,
+     "end": 93.9,
+     "conf": "medium"
+    }
+   ],
+   "start_bar": "55.4+0.99"
+  },
+  {
+   "id": 24,
+   "src_id": 17,
+   "section": "Verse 2",
+   "type": "lead",
+   "text": "Everything I love about life just blossoms",
+   "start": 94.22,
+   "end": 100.1,
+   "start_bar": "57.1+0.04",
+   "confidence": "high",
+   "evidence": "preceded by \"Hey, hey, hey\" ad-lib 92.56-93.9 (confirmed by likelihood test); on bar 57 downbeat",
+   "check": {
+    "vocal_active_frac": 0.88,
+    "vocal_db_p50": -26.5,
+    "pre_onset_db": -24.9,
+    "aligner_starts": {
+     "stable_ts": 92.98,
+     "ctc": 94.288
+    }
+   },
+   "words": [
+    {
+     "w": "Everything",
+     "start": 94.22,
+     "conf": "low",
+     "end": 94.879
+    },
+    {
+     "w": "I",
+     "start": 94.889,
+     "conf": "low",
+     "end": 94.959
+    },
+    {
+     "w": "love",
+     "start": 94.969,
+     "conf": "medium",
+     "end": 95.245
+    },
+    {
+     "w": "about",
+     "start": 95.255,
+     "conf": "medium",
+     "end": 95.821
+    },
+    {
+     "w": "life",
+     "start": 95.831,
+     "conf": "low",
+     "end": 96.603
+    },
+    {
+     "w": "just",
+     "start": 96.613,
+     "conf": "low",
+     "end": 98.227
+    },
+    {
+     "w": "blossoms",
+     "start": 98.237,
+     "conf": "low",
+     "end": 100.1
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 25,
+   "src_id": 18,
+   "section": "Verse 2",
+   "type": "lead",
+   "text": "because",
+   "start": 100.12,
+   "end": 100.98,
+   "start_bar": "60.3+0.49",
+   "confidence": "medium",
+   "evidence": "before 100.12 is a held note",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -26.4,
+    "pre_onset_db": -25.2,
+    "aligner_starts": {
+     "stable_ts": 99.24,
+     "ctc": 100.116
+    }
+   },
+   "words": [
+    {
+     "w": "because",
+     "start": 100.12,
+     "conf": "low",
+     "end": 100.98
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 26,
+   "src_id": 19,
+   "section": "Verse 2",
+   "type": "lead",
+   "text": "my imagination is linked to my everyday life",
+   "start": 101.0,
+   "end": 107.13,
+   "start_bar": "61.1+0.65",
+   "confidence": "medium",
+   "evidence": "onset visible; same phrasing as verse 1 line",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -25.4,
+    "pre_onset_db": -24.5,
+    "aligner_starts": {
+     "stable_ts": 100.996,
+     "ctc": 101.505
+    }
+   },
+   "words": [
+    {
+     "w": "my",
+     "start": 101.0,
+     "conf": "low",
+     "end": 101.35
+    },
+    {
+     "w": "imagination",
+     "start": 101.36,
+     "conf": "low",
+     "end": 102.25
+    },
+    {
+     "w": "is",
+     "start": 102.26,
+     "conf": "low",
+     "end": 103.095
+    },
+    {
+     "w": "linked",
+     "start": 103.105,
+     "conf": "medium",
+     "end": 103.415
+    },
+    {
+     "w": "to",
+     "start": 103.425,
+     "conf": "medium",
+     "end": 103.666
+    },
+    {
+     "w": "my",
+     "start": 103.676,
+     "conf": "medium",
+     "end": 103.77
+    },
+    {
+     "w": "everyday",
+     "start": 103.78,
+     "conf": "low",
+     "end": 105.19
+    },
+    {
+     "w": "life",
+     "start": 105.2,
+     "conf": "low",
+     "end": 107.13
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 27,
+   "src_id": 20,
+   "section": "Verse 2",
+   "type": "lead",
+   "text": "世界 是我的舞台",
+   "start": 107.15,
+   "end": 110.39,
+   "start_bar": "64.4+0.78",
+   "confidence": "high",
+   "evidence": "aligners agree (107.15/107.16)",
+   "check": {
+    "vocal_active_frac": 0.96,
+    "vocal_db_p50": -25.6,
+    "pre_onset_db": -23.4,
+    "aligner_starts": {
+     "stable_ts": 107.148,
+     "ctc": 107.164
+    }
+   },
+   "words": [
+    {
+     "w": "世界",
+     "start": 107.15,
+     "conf": "high",
+     "end": 107.71
+    },
+    {
+     "w": "是",
+     "start": 107.72,
+     "conf": "low",
+     "end": 108.41
+    },
+    {
+     "w": "我的",
+     "start": 108.42,
+     "conf": "low",
+     "end": 109.13
+    },
+    {
+     "w": "舞",
+     "start": 109.14,
+     "conf": "low",
+     "end": 109.799
+    },
+    {
+     "w": "台",
+     "start": 109.809,
+     "conf": "medium",
+     "end": 110.39
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 28,
+   "src_id": 21,
+   "section": "Rap Verse",
+   "type": "rap",
+   "text": "不用背语法 我只说出想法",
+   "start": 110.41,
+   "end": 112.28,
+   "start_bar": "66.4+0.90",
+   "confidence": "high",
+   "evidence": "clear break after held 台; rap starts on bar 67 (110.45)",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -24.6,
+    "pre_onset_db": -25.6,
+    "aligner_starts": {
+     "stable_ts": 110.409,
+     "ctc": 110.625
+    }
+   },
+   "words": [
+    {
+     "w": "不",
+     "start": 110.41,
+     "conf": "medium",
+     "end": 110.633
+    },
+    {
+     "w": "用",
+     "start": 110.643,
+     "conf": "medium",
+     "end": 110.793
+    },
+    {
+     "w": "背",
+     "start": 110.803,
+     "conf": "high",
+     "end": 110.964
+    },
+    {
+     "w": "语",
+     "start": 110.974,
+     "conf": "medium",
+     "end": 111.185
+    },
+    {
+     "w": "法",
+     "start": 111.195,
+     "conf": "high",
+     "end": 111.365
+    },
+    {
+     "w": "我",
+     "start": 111.375,
+     "conf": "medium",
+     "end": 111.506
+    },
+    {
+     "w": "只",
+     "start": 111.516,
+     "conf": "high",
+     "end": 111.586
+    },
+    {
+     "w": "说",
+     "start": 111.596,
+     "conf": "high",
+     "end": 111.757
+    },
+    {
+     "w": "出",
+     "start": 111.767,
+     "conf": "medium",
+     "end": 111.907
+    },
+    {
+     "w": "想",
+     "start": 111.917,
+     "conf": "medium",
+     "end": 112.138
+    },
+    {
+     "w": "法",
+     "start": 112.148,
+     "conf": "medium",
+     "end": 112.28
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 29,
+   "src_id": null,
+   "section": "Rap Verse",
+   "type": "adlib",
+   "text": "(Eh, eh, eh)",
+   "start": 112.3,
+   "end": 113.4,
+   "confidence": "medium",
+   "evidence": "full ASR + likelihood test",
+   "words": [],
+   "start_bar": "68.1+0.58"
+  },
+  {
+   "id": 30,
+   "src_id": 22,
+   "section": "Rap Verse",
+   "type": "rap",
+   "text": "一句话 屏幕上就开出花",
+   "start": 113.82,
+   "end": 115.58,
+   "start_bar": "69.1+0.34",
+   "confidence": "medium",
+   "evidence": "preceded by \"Eh, eh, eh\" ad-lib 112.3-113.4 (confirmed)",
+   "check": {
+    "vocal_active_frac": 0.99,
+    "vocal_db_p50": -26.2,
+    "pre_onset_db": -25.0,
+    "aligner_starts": {
+     "stable_ts": 113.496,
+     "ctc": 113.889
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 113.82,
+     "conf": "low",
+     "end": 113.905
+    },
+    {
+     "w": "句",
+     "start": 113.915,
+     "conf": "high",
+     "end": 114.025
+    },
+    {
+     "w": "话",
+     "start": 114.035,
+     "conf": "high",
+     "end": 114.216
+    },
+    {
+     "w": "屏",
+     "start": 114.226,
+     "conf": "high",
+     "end": 114.416
+    },
+    {
+     "w": "幕",
+     "start": 114.426,
+     "conf": "high",
+     "end": 114.587
+    },
+    {
+     "w": "上",
+     "start": 114.597,
+     "conf": "high",
+     "end": 114.787
+    },
+    {
+     "w": "就",
+     "start": 114.797,
+     "conf": "medium",
+     "end": 114.988
+    },
+    {
+     "w": "开",
+     "start": 114.998,
+     "conf": "medium",
+     "end": 115.209
+    },
+    {
+     "w": "出",
+     "start": 115.219,
+     "conf": "medium",
+     "end": 115.389
+    },
+    {
+     "w": "花",
+     "start": 115.399,
+     "conf": "medium",
+     "end": 115.58
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 31,
+   "src_id": null,
+   "section": "Rap Verse",
+   "type": "adlib",
+   "text": "(Yeah / eh)",
+   "start": 115.6,
+   "end": 116.8,
+   "confidence": "low",
+   "evidence": "full ASR heard \"Eh, eh, eh\", likelihood prefers \"Yeah\"",
+   "words": [],
+   "start_bar": "70.1+0.74"
+  },
+  {
+   "id": 32,
+   "src_id": 23,
+   "section": "Rap Verse",
+   "type": "rap",
+   "text": "Bug 也不怕 就当草稿再画",
+   "start": 116.88,
+   "end": 119.0,
+   "start_bar": "70.4+0.91",
+   "confidence": "medium",
+   "evidence": "preceded by short \"yeah/eh\" ad-lib 115.6-116.8",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -25.8,
+    "pre_onset_db": -26.1,
+    "aligner_starts": {
+     "stable_ts": 115.882,
+     "ctc": 116.909
+    }
+   },
+   "words": [
+    {
+     "w": "Bug",
+     "start": 116.88,
+     "conf": "low",
+     "end": 117.221
+    },
+    {
+     "w": "也",
+     "start": 117.231,
+     "conf": "low",
+     "end": 117.301
+    },
+    {
+     "w": "不",
+     "start": 117.311,
+     "conf": "high",
+     "end": 117.396
+    },
+    {
+     "w": "怕",
+     "start": 117.406,
+     "conf": "medium",
+     "end": 117.637
+    },
+    {
+     "w": "就",
+     "start": 117.647,
+     "conf": "high",
+     "end": 117.817
+    },
+    {
+     "w": "当",
+     "start": 117.827,
+     "conf": "medium",
+     "end": 118.007
+    },
+    {
+     "w": "草",
+     "start": 118.017,
+     "conf": "medium",
+     "end": 118.268
+    },
+    {
+     "w": "稿",
+     "start": 118.278,
+     "conf": "high",
+     "end": 118.459
+    },
+    {
+     "w": "再",
+     "start": 118.469,
+     "conf": "high",
+     "end": 118.649
+    },
+    {
+     "w": "画",
+     "start": 118.659,
+     "conf": "high",
+     "end": 119.0
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 33,
+   "src_id": 24,
+   "section": "Rap Verse",
+   "type": "rap",
+   "text": "Fixtures 打底 functions 上色",
+   "start": 119.02,
+   "end": 123.16,
+   "start_bar": "72.2+0.23",
+   "confidence": "medium",
+   "evidence": "F-fricative onset visible",
+   "check": {
+    "vocal_active_frac": 0.99,
+    "vocal_db_p50": -26.8,
+    "pre_onset_db": -23.7,
+    "aligner_starts": {
+     "stable_ts": 119.024,
+     "ctc": 119.284
+    }
+   },
+   "words": [
+    {
+     "w": "Fixtures",
+     "start": 119.02,
+     "conf": "medium",
+     "end": 119.69
+    },
+    {
+     "w": "打",
+     "start": 119.7,
+     "conf": "low",
+     "end": 120.11
+    },
+    {
+     "w": "底",
+     "start": 120.12,
+     "conf": "low",
+     "end": 120.746
+    },
+    {
+     "w": "functions",
+     "start": 120.756,
+     "conf": "medium",
+     "end": 121.51
+    },
+    {
+     "w": "上",
+     "start": 121.52,
+     "conf": "low",
+     "end": 121.87
+    },
+    {
+     "w": "色",
+     "start": 121.88,
+     "conf": "medium",
+     "end": 123.16
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 34,
+   "src_id": 25,
+   "section": "Bridge (stripped, half-time)",
+   "type": "lead",
+   "text": "是一幅画 也是一段代码",
+   "start": 123.18,
+   "end": 125.84,
+   "start_bar": "74.4+0.57",
+   "confidence": "medium",
+   "evidence": "\"sh\" onset visible; bridge bar 75 = 123.35",
+   "check": {
+    "vocal_active_frac": 0.93,
+    "vocal_db_p50": -27.4,
+    "pre_onset_db": -26.5,
+    "aligner_starts": {
+     "stable_ts": 123.176,
+     "ctc": 123.507
+    }
+   },
+   "words": [
+    {
+     "w": "是",
+     "start": 123.18,
+     "conf": "low",
+     "end": 123.624
+    },
+    {
+     "w": "一",
+     "start": 123.634,
+     "conf": "medium",
+     "end": 123.845
+    },
+    {
+     "w": "幅",
+     "start": 123.855,
+     "conf": "medium",
+     "end": 124.055
+    },
+    {
+     "w": "画",
+     "start": 124.065,
+     "conf": "high",
+     "end": 124.376
+    },
+    {
+     "w": "也是",
+     "start": 124.386,
+     "conf": "medium",
+     "end": 124.787
+    },
+    {
+     "w": "一",
+     "start": 124.797,
+     "conf": "medium",
+     "end": 125.048
+    },
+    {
+     "w": "段",
+     "start": 125.058,
+     "conf": "medium",
+     "end": 125.268
+    },
+    {
+     "w": "代",
+     "start": 125.278,
+     "conf": "medium",
+     "end": 125.579
+    },
+    {
+     "w": "码",
+     "start": 125.589,
+     "conf": "medium",
+     "end": 125.84
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 35,
+   "src_id": 26,
+   "section": "Bridge (stripped, half-time)",
+   "type": "lead",
+   "text": "一笔一画 都是我的回答",
+   "start": 125.86,
+   "end": 129.34,
+   "start_bar": "76.3+0.23",
+   "confidence": "medium",
+   "evidence": "note change after held 码",
+   "check": {
+    "vocal_active_frac": 0.97,
+    "vocal_db_p50": -25.0,
+    "pre_onset_db": -25.7,
+    "aligner_starts": {
+     "stable_ts": 125.856,
+     "ctc": 126.183
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 125.86,
+     "conf": "low",
+     "end": 126.282
+    },
+    {
+     "w": "笔",
+     "start": 126.292,
+     "conf": "medium",
+     "end": 126.51
+    },
+    {
+     "w": "一",
+     "start": 126.52,
+     "conf": "low",
+     "end": 126.99
+    },
+    {
+     "w": "画",
+     "start": 127.0,
+     "conf": "low",
+     "end": 127.596
+    },
+    {
+     "w": "都是",
+     "start": 127.606,
+     "conf": "medium",
+     "end": 127.85
+    },
+    {
+     "w": "我的",
+     "start": 127.86,
+     "conf": "low",
+     "end": 128.387
+    },
+    {
+     "w": "回",
+     "start": 128.397,
+     "conf": "medium",
+     "end": 128.61
+    },
+    {
+     "w": "答",
+     "start": 128.62,
+     "conf": "low",
+     "end": 129.34
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 36,
+   "src_id": 27,
+   "section": "Bridge (stripped, half-time)",
+   "type": "lead",
+   "text": "是一幅画 也是一段代码",
+   "start": 129.36,
+   "end": 132.96,
+   "start_bar": "78.3+0.93",
+   "confidence": "high",
+   "evidence": "clear onset; CTC start rejected by likelihood test",
+   "check": {
+    "vocal_active_frac": 0.95,
+    "vocal_db_p50": -24.9,
+    "pre_onset_db": -24.5,
+    "aligner_starts": {
+     "stable_ts": 129.361,
+     "ctc": 129.966
+    }
+   },
+   "words": [
+    {
+     "w": "是",
+     "start": 129.36,
+     "conf": "low",
+     "end": 130.064
+    },
+    {
+     "w": "一",
+     "start": 130.074,
+     "conf": "medium",
+     "end": 130.264
+    },
+    {
+     "w": "幅",
+     "start": 130.274,
+     "conf": "medium",
+     "end": 130.504
+    },
+    {
+     "w": "画",
+     "start": 130.514,
+     "conf": "high",
+     "end": 130.836
+    },
+    {
+     "w": "也是",
+     "start": 130.846,
+     "conf": "medium",
+     "end": 131.07
+    },
+    {
+     "w": "一",
+     "start": 131.08,
+     "conf": "low",
+     "end": 131.478
+    },
+    {
+     "w": "段",
+     "start": 131.488,
+     "conf": "medium",
+     "end": 131.708
+    },
+    {
+     "w": "代",
+     "start": 131.718,
+     "conf": "high",
+     "end": 132.028
+    },
+    {
+     "w": "码",
+     "start": 132.038,
+     "conf": "medium",
+     "end": 132.96
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 37,
+   "src_id": 28,
+   "section": "Bridge (stripped, half-time)",
+   "type": "lead",
+   "text": "一笔一画 都是我的回答",
+   "start": 132.98,
+   "end": 135.58,
+   "start_bar": "80.4+0.94",
+   "confidence": "medium",
+   "evidence": "note change after held 答",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -24.8,
+    "pre_onset_db": -24.8,
+    "aligner_starts": {
+     "stable_ts": 132.978,
+     "ctc": 133.206
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 132.98,
+     "conf": "medium",
+     "end": 133.324
+    },
+    {
+     "w": "笔",
+     "start": 133.334,
+     "conf": "high",
+     "end": 133.694
+    },
+    {
+     "w": "一",
+     "start": 133.704,
+     "conf": "medium",
+     "end": 133.775
+    },
+    {
+     "w": "画",
+     "start": 133.785,
+     "conf": "high",
+     "end": 133.83
+    },
+    {
+     "w": "都是",
+     "start": 133.84,
+     "conf": "low",
+     "end": 134.447
+    },
+    {
+     "w": "我的",
+     "start": 134.457,
+     "conf": "medium",
+     "end": 134.837
+    },
+    {
+     "w": "回",
+     "start": 134.847,
+     "conf": "medium",
+     "end": 135.03
+    },
+    {
+     "w": "答",
+     "start": 135.04,
+     "conf": "low",
+     "end": 135.58
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 38,
+   "src_id": 29,
+   "section": "Final Chorus",
+   "type": "lead",
+   "text": "I think about stuff I read",
+   "start": 135.6,
+   "end": 142.715,
+   "start_bar": "82.3+0.47",
+   "confidence": "high",
+   "evidence": "clear pitch-jump onset; CTC start rejected by likelihood test",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -24.7,
+    "pre_onset_db": -22.2,
+    "aligner_starts": {
+     "stable_ts": 135.6,
+     "ctc": 136.947
+    }
+   },
+   "words": [
+    {
+     "w": "I",
+     "start": 135.6,
+     "conf": "low",
+     "end": 136.864
+    },
+    {
+     "w": "think",
+     "start": 136.874,
+     "conf": "medium",
+     "end": 137.194
+    },
+    {
+     "w": "about",
+     "start": 137.204,
+     "conf": "medium",
+     "end": 137.535
+    },
+    {
+     "w": "stuff",
+     "start": 137.545,
+     "conf": "medium",
+     "end": 137.77
+    },
+    {
+     "w": "I",
+     "start": 137.78,
+     "conf": "low",
+     "end": 138.69
+    },
+    {
+     "w": "read",
+     "start": 138.7,
+     "conf": "low",
+     "end": 142.715
+    }
+   ]
+  },
+  {
+   "id": 39,
+   "src_id": 30,
+   "section": "Final Chorus",
+   "type": "lead",
+   "text": "I just ask myself what it is that I need?",
+   "start": 143.48,
+   "end": 149.2,
+   "start_bar": "87.3+0.19",
+   "confidence": "high",
+   "evidence": "mirrors chorus 1 (read -> I gap scaled by tempo); S start inside held note",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -24.5,
+    "pre_onset_db": -23.4,
+    "aligner_starts": {
+     "stable_ts": 142.5,
+     "ctc": 143.51
+    }
+   },
+   "words": [
+    {
+     "w": "I",
+     "start": 143.48,
+     "conf": "low",
+     "end": 143.535
+    },
+    {
+     "w": "just",
+     "start": 143.545,
+     "conf": "medium",
+     "end": 144.261
+    },
+    {
+     "w": "ask",
+     "start": 144.271,
+     "conf": "low",
+     "end": 144.436
+    },
+    {
+     "w": "myself",
+     "start": 144.446,
+     "conf": "medium",
+     "end": 145.344
+    },
+    {
+     "w": "what",
+     "start": 145.354,
+     "conf": "low",
+     "end": 145.567
+    },
+    {
+     "w": "it",
+     "start": 145.577,
+     "conf": "medium",
+     "end": 145.777
+    },
+    {
+     "w": "is",
+     "start": 145.787,
+     "conf": "medium",
+     "end": 146.546
+    },
+    {
+     "w": "that",
+     "start": 146.556,
+     "conf": "low",
+     "end": 147.208
+    },
+    {
+     "w": "I",
+     "start": 147.218,
+     "conf": "low",
+     "end": 147.348
+    },
+    {
+     "w": "need",
+     "start": 147.358,
+     "conf": "low",
+     "end": 149.2
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 40,
+   "src_id": 31,
+   "section": "Final Chorus",
+   "type": "lead",
+   "text": "That's it, the fixtures and the functions",
+   "start": 149.22,
+   "end": 154.24,
+   "start_bar": "91.1+0.58",
+   "confidence": "high",
+   "evidence": "clear onset; aligners within 0.15 s",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -25.1,
+    "pre_onset_db": -23.5,
+    "aligner_starts": {
+     "stable_ts": 149.216,
+     "ctc": 149.367
+    }
+   },
+   "words": [
+    {
+     "w": "That's",
+     "start": 149.22,
+     "conf": "medium",
+     "end": 149.715
+    },
+    {
+     "w": "it,",
+     "start": 149.725,
+     "conf": "medium",
+     "end": 150.145
+    },
+    {
+     "w": "the",
+     "start": 150.155,
+     "conf": "high",
+     "end": 150.245
+    },
+    {
+     "w": "fixtures",
+     "start": 150.255,
+     "conf": "medium",
+     "end": 150.77
+    },
+    {
+     "w": "and",
+     "start": 150.78,
+     "conf": "low",
+     "end": 151.31
+    },
+    {
+     "w": "the",
+     "start": 151.32,
+     "conf": "low",
+     "end": 151.848
+    },
+    {
+     "w": "functions",
+     "start": 151.858,
+     "conf": "medium",
+     "end": 154.24
+    }
+   ],
+   "end_capped_by_next_event": true
+  },
+  {
+   "id": 41,
+   "src_id": 32,
+   "section": "Final Chorus",
+   "type": "lead",
+   "text": "And everything goes from there",
+   "start": 154.26,
+   "end": 162.815,
+   "start_bar": "94.2+0.23",
+   "confidence": "low",
+   "evidence": "held \"functions\" glide ends ~154.2; aligners 154.26/154.75",
+   "check": {
+    "vocal_active_frac": 0.98,
+    "vocal_db_p50": -24.8,
+    "pre_onset_db": -22.8,
+    "aligner_starts": {
+     "stable_ts": 154.256,
+     "ctc": 154.747
+    }
+   },
+   "words": [
+    {
+     "w": "And",
+     "start": 154.26,
+     "conf": "low",
+     "end": 154.61
+    },
+    {
+     "w": "everything",
+     "start": 154.62,
+     "conf": "low",
+     "end": 156.67
+    },
+    {
+     "w": "goes",
+     "start": 156.68,
+     "conf": "low",
+     "end": 157.71
+    },
+    {
+     "w": "from",
+     "start": 157.72,
+     "conf": "low",
+     "end": 159.21
+    },
+    {
+     "w": "there",
+     "start": 159.22,
+     "conf": "low",
+     "end": 162.815
+    }
+   ]
+  },
+  {
+   "id": 42,
+   "src_id": 33,
+   "section": "Final Chorus tag / build (roll -> silence)",
+   "type": "chant",
+   "text": "(一切从这里出发!)",
+   "start": 165.87,
+   "end": 169.26,
+   "start_bar": "101.3+0.43",
+   "confidence": "high",
+   "evidence": "sharp voiced onset of 一",
+   "check": {
+    "vocal_active_frac": 0.87,
+    "vocal_db_p50": -30.9,
+    "pre_onset_db": -41.8,
+    "aligner_starts": {
+     "stable_ts": 165.659,
+     "ctc": 165.869
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 165.87,
+     "conf": "medium",
+     "end": 165.954
+    },
+    {
+     "w": "切",
+     "start": 165.964,
+     "conf": "medium",
+     "end": 166.205
+    },
+    {
+     "w": "从",
+     "start": 166.215,
+     "conf": "high",
+     "end": 166.376
+    },
+    {
+     "w": "这里",
+     "start": 166.386,
+     "conf": "medium",
+     "end": 166.757
+    },
+    {
+     "w": "出",
+     "start": 166.767,
+     "conf": "medium",
+     "end": 167.244
+    },
+    {
+     "w": "发",
+     "start": 167.254,
+     "conf": "low",
+     "end": 169.26
+    }
+   ],
+   "vocal_accent": 166.275
+  },
+  {
+   "id": 43,
+   "src_id": 34,
+   "section": "Final Chorus tag / build (roll -> silence)",
+   "type": "chant",
+   "text": "(一笔一画!)",
+   "start": 172.8,
+   "end": 174.595,
+   "start_bar": "105.4+0.91",
+   "confidence": "high",
+   "evidence": "aligners agree (172.80/172.81)",
+   "check": {
+    "vocal_active_frac": 0.69,
+    "vocal_db_p50": -30.4,
+    "pre_onset_db": -59.1,
+    "aligner_starts": {
+     "stable_ts": 172.8,
+     "ctc": 172.811
+    }
+   },
+   "words": [
+    {
+     "w": "一",
+     "start": 172.8,
+     "conf": "high",
+     "end": 172.947
+    },
+    {
+     "w": "笔",
+     "start": 172.957,
+     "conf": "high",
+     "end": 173.177
+    },
+    {
+     "w": "一",
+     "start": 173.187,
+     "conf": "high",
+     "end": 173.709
+    },
+    {
+     "w": "画",
+     "start": 173.719,
+     "conf": "medium",
+     "end": 174.595
+    }
+   ],
+   "vocal_accent": 173.205
+  },
+  {
+   "id": 44,
+   "src_id": null,
+   "section": "Post-Chorus Drop 2",
+   "type": "hook",
+   "text": "[whistle hook phrase]",
+   "start": 174.78,
+   "end": 179.31,
+   "confidence": "high",
+   "evidence": "pyin",
+   "words": [],
+   "start_bar": "107.1+0.92"
+  },
+  {
+   "id": 45,
+   "src_id": 35,
+   "section": "Post-Chorus Drop 2",
+   "type": "chant",
+   "text": "(Fixtures!)",
+   "start": 179.76,
+   "end": 181.115,
+   "start_bar": "110.2+0.54",
+   "confidence": "medium",
+   "evidence": "F-fricative 179.76, loud vowel 179.88",
+   "check": {
+    "vocal_active_frac": 0.67,
+    "vocal_db_p50": -28.1,
+    "pre_onset_db": -40.7,
+    "aligner_starts": {
+     "stable_ts": 179.761,
+     "ctc": 179.875
+    }
+   },
+   "words": [
+    {
+     "w": "Fixtures!",
+     "start": 179.76,
+     "conf": "high",
+     "end": 181.115
+    }
+   ],
+   "vocal_accent": 180.225
+  },
+  {
+   "id": 46,
+   "src_id": null,
+   "section": "Post-Chorus Drop 2",
+   "type": "hook",
+   "text": "[whistle hook answer]",
+   "start": 181.12,
+   "end": 183.1,
+   "confidence": "high",
+   "evidence": "pyin",
+   "words": [],
+   "start_bar": "111.1+0.99"
+  },
+  {
+   "id": 47,
+   "src_id": 36,
+   "section": "Post-Chorus Drop 2",
+   "type": "chant",
+   "text": "(Functions!)",
+   "start": 183.07,
+   "end": 183.719,
+   "start_bar": "112.2+0.93",
+   "confidence": "medium",
+   "evidence": "F-fricative 183.07, loud vowel 183.28; whistle ends 183.1",
+   "check": {
+    "vocal_active_frac": 1.0,
+    "vocal_db_p50": -26.9,
+    "pre_onset_db": -27.8,
+    "aligner_starts": {
+     "stable_ts": 183.283,
+     "ctc": 183.075
+    }
+   },
+   "words": [
+    {
+     "w": "Functions!",
+     "start": 183.07,
+     "conf": "medium",
+     "end": 183.719
+    }
+   ],
+   "vocal_accent": 183.07
+  },
+  {
+   "id": 48,
+   "src_id": 37,
+   "section": "Outro",
+   "type": "lead",
+   "text": "Everything I love about life just blossoms",
+   "start": 186.7,
+   "end": 190.79,
+   "start_bar": "114.4+0.14",
+   "confidence": "high",
+   "evidence": "first vocal after break; aligners 186.70/187.12, onset visible at 186.70",
+   "check": {
+    "vocal_active_frac": 0.85,
+    "vocal_db_p50": -26.8,
+    "pre_onset_db": -78.2,
+    "aligner_starts": {
+     "stable_ts": 186.7,
+     "ctc": 187.125
+    }
+   },
+   "words": [
+    {
+     "w": "Everything",
+     "start": 186.7,
+     "conf": "low",
+     "end": 187.35
+    },
+    {
+     "w": "I",
+     "start": 187.36,
+     "conf": "low",
+     "end": 187.784
+    },
+    {
+     "w": "love",
+     "start": 187.794,
+     "conf": "medium",
+     "end": 188.074
+    },
+    {
+     "w": "about",
+     "start": 188.084,
+     "conf": "medium",
+     "end": 188.35
+    },
+    {
+     "w": "life",
+     "start": 188.36,
+     "conf": "low",
+     "end": 188.97
+    },
+    {
+     "w": "just",
+     "start": 188.98,
+     "conf": "low",
+     "end": 189.67
+    },
+    {
+     "w": "blossoms",
+     "start": 189.68,
+     "conf": "low",
+     "end": 190.79
+    }
+   ]
+  },
+  {
+   "id": 49,
+   "src_id": 38,
+   "section": "Outro",
+   "type": "adlib",
+   "text": "(that's it.)",
+   "start": 191.3,
+   "end": 193.64,
+   "start_bar": "117.2+0.71",
+   "confidence": "medium",
+   "evidence": "\"That's\" onset after held \"blossoms\" (~191.25), \"it\" 193.2 (ASR it@193.46)",
+   "check": {
+    "vocal_active_frac": 0.83,
+    "vocal_db_p50": -30.3,
+    "pre_onset_db": -55.2,
+    "aligner_starts": {
+     "stable_ts": 193.196,
+     "ctc": 191.42
+    }
+   },
+   "words": [
+    {
+     "w": "That's",
+     "start": 191.3,
+     "end": 193.15,
+     "conf": "medium"
+    },
+    {
+     "w": "it.",
+     "start": 193.2,
+     "end": 193.64,
+     "conf": "high"
+    }
+   ]
+  },
+  {
+   "id": 50,
+   "src_id": null,
+   "section": "Outro",
+   "type": "chant",
+   "text": "(一笔一画!) — processed/pitched tag",
+   "start": 199.2,
+   "end": 200.8,
+   "confidence": "low",
+   "evidence": "4 vocal-stem bursts 199.25/199.55/200.15/200.45; ASR \"B.B.B.Y\" (yi-bi-yi-hua); heavily processed, may be a chop",
+   "words": [],
+   "start_bar": "121.4+0.71"
+  }
+ ]
+}
