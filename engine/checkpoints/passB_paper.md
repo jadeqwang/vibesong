@@ -293,3 +293,124 @@ Note: the first 6 frames (20.167-20.333) come from the 480p take with a lanczos 
   Checks vs that previous file: mouth-curve corr 0.989 at shift 0 (0.78 at +-1), closures identical frame for frame (21.233-21.367, 21.700-21.833, 23.533-23.667).
   Sharpness (Laplacian variance, head region) was 57-62 on frames 0-5 then about 1050 from frame 6 (the old seam); now 1295-1409 on every frame, no step;
   mean colour within 1 level across the old seam. Previews rebuilt. Paper unit spend now about $23.13 / $40.
+
+## v4.3 (Jade notes 10-19)
+Notes on full_v4.2:
+- **0:22, card 03:** the lips are in sync, but the pale-blue chest dot is on the wrong side, and the body is stiff ("reads as AI generated or glitched").
+- **0:49, card 04:** the same body-language note, and the lips are out of sync.
+
+Goal: a real singer in a music video, with lips synced per word. Spend for this task is **about $7.14 of the $15 cap**. Paper unit total is now about $30.27 / $40.
+
+**Review files.** All are 540p with the song, `--look k08b+cs --workers 1`, and 0 page errors.
+- `engine/out/review/v43/paper/v43_17-26.mp4` and `v43_45-53.mp4`: the sections with the swapped-in +6 cards.
+- `v43_before_after.jpg`: still 03 v2 against v3 (the dot), and old against new card frames at the same song times, with the motion numbers.
+- `var/p0X_{old,shift-2,+0,+2,+4,+6,+8}.mp4`: the timing variants. 03 covers song 17-26 s and 04 covers 45-53 s.
+- Comparison page source (NOT published): `docs/pages/v43_paper/` (`index.html`, `v/` with 14 videos, 32 MB, and `SOURCES.txt`). Publish with root = that dir.
+  It has two players, one per card. Each has 7 versions (the old v4.2 card plus 6 timings), and switching keeps the playhead. The loops are 19.9-22.4 ("because my imagination") and 48.3-50.9 ("I just ask myself").
+  It also has a per-word table and pick buttons with a copy-answer box. It was smoke-tested in headless Chrome at 390 px: 14/14 videos load, the playhead holds on a switch, and there is no horizontal scroll.
+
+### 1. Still 03 chest dot (no gen spend)
+- NEW `assets/v4_stills/03_paper_0020_v3.png`, made from the approved v2 (forehead lift kept). v2 itself is untouched.
+- The tool is `tools/cutscenes/pb_dotmove.py`. It does two things:
+  1. Erase: the dot on HER RIGHT (image-left, centre 440,755, r 26) is replaced by the cleanest nearby jacket patch (offset -74,-38, chosen for lowest edge energy) under a feathered mask, with its colour matched to the jacket.
+  2. Add: the ORIGINAL dot's own pencil pixels go back on as a multiply layer on HER LEFT (image-right front panel, centre 664,748). It is squashed to 0.62 width, because that panel is foreshortened in the 3/4 view.
+- Pixels change only in bbox x 407-680, y 722-787 (3,912 px).
+- `media/cutscenes/paper_0020/still.png` (the fallback) is now v3.
+
+### 2. Method bake-off: why Seedance again, and what changed
+- **The stiffness came from the prompt, not the model.** The M3 prompts asked for a locked, unchanged figure, so the motion went into the mouth. Seedance 2.5 480p (first frame + vocal-stem reference audio) stays the only catalog model that lip-syncs to OUR audio while keeping the drawing. That was verified in M1:
+  - Pruna avatar re-composes the frame.
+  - Veo / hh / wan / pixverse take no audio input.
+  - gemini-omni is $1.5/s.
+  - There is no @cf/ video model.
+- **Veo-motion + Seedance video-edit lip-sync was not needed.** It would cost about $3.2 per take (Seedance video input is $0.43/s). The cheap route reached 2.4-2.5x head and 4.7-5x torso motion with clean sync.
+- **Changes to the takes:** a new performance prompt, `tools/cutscenes/pb_specs43.py` (≤2000 chars). The takes are 5 s, not 6. Each reference starts earlier (03 S0 = 19.60, inside the held "blossoms" tail; 04 S0 = 48.00), so she is already moving when the card cuts in.
+- **Prompt variants:**
+  - a: performance (breathing, nods, tilts, shoulder sway, eye-line, expression).
+  - b: bigger, whole-upper-body.
+  - c: b plus lip-sync-first wording.
+  - c3/c4: c plus "the mouth stays open, never closing, through the long held 'cause'".
+- **Two new measures:**
+  - `tools/cutscenes/pb_motion.py`: COHERENT motion, the mean optical-flow vector (so pencil-texture boil cancels). Head = above the eyes; torso = the band under the chin. Units are px/s at 1080p.
+  - `tools/cutscenes/pb_tmplsync.py`: the lag from a phoneme TEMPLATE of expected mouth openness, built from the stem word maps (03 from M3; 04 newly measured). The envelope correlation is useless on legato lines. It then reports the per-labial closure error at the best lag.
+- **Card 04 stem map** (RMS + >3 kHz fricative share, vocals.wav):
+  - "I": 48.44-48.70
+  - "just": j 48.72-48.79, vowel 48.80-49.16, st 49.18-49.34
+  - "ask": 49.36-49.60, sk 49.62-49.71
+  - "myself": **m 49.72-49.77**, vowel 49.80-50.04, s 50.06-50.22, elf 50.24-50.50, f 50.52-50.58
+  - "what": 50.60+
+  - (whisper large-v3 agrees to within about 0.1 s)
+
+| take (media/gen/v43_*) | head / torso px/s | template lag (r) | verdict |
+|---|---|---|---|
+| v4.2 card 03 (old) | 23 / 8 | | stiff (Jade) |
+| 03 a1 `506c101517` | 29 / 12 | -0.12 (0.74) | hardly more motion than old; no "my" closure; extra closure inside "imagination" |
+| 03 b1 `d4aec653a9` | 36 / 21 | -0.08 (0.26) | lips shut mid-"cause" |
+| 03 b2 `df10fa2518` | 53 / 23 | -0.06 (0.43) | turns frontal mid-take, so the likeness drifts; shuts mid-"cause" |
+| 03 c2 `f5a49a5c69` | 62 / 38 | -0.05 (0.37) | lovely motion; shuts mid-"cause" (20.56-20.68) |
+| 03 c3 `169ad009f4` | 55 / 25 | -0.07 (0.40) | shuts mid-"cause" |
+| **03 c4 `43ddce81b8`** | **55 / 37** | **-0.05 (0.72)** | **chosen**: b closure on "be-", "cause" open throughout, m-closures for my (21.07-21.19) / imagination (21.44-21.61) |
+| v4.2 card 04 (old) | 16 / 5 | | stiff (Jade) |
+| 04 a1 `19d9ef3296` | 22 / 17 | -0.17 (0.74) | clean sync, modest motion (runner-up) |
+| 04 b1 `71cb9dd41e` | 44 / 21 | +0.06 (0.27) | loose sync (myself m +0.16) |
+| 04 b2 `5597b547d8` | 14 / 4 | +0.10 (0.52) | nearly frozen |
+| **04 c2 `189db1ab2f`** | **39 / 23** | **-0.18 (0.74)** | **chosen**: shrug, eyes up to the screen then inward, head tilts, an eyes-closed beat; closures t/m/f within ±0.08 |
+
+As shipped (+6 slot clips): card 03 has head 59 / torso 39 px/s (2.5x / 5x v4.2), and card 04 has 38 / 23 (2.4x / 4.7x).
+
+**Canon audit** (2-3x crops of every take at 5-7 times, plus the slot clips and the renders), both winners pass:
+- bun with the X and caps up, blue + pink (both stay inside the frame);
+- headphones on the neck;
+- ONE 1420 MHz patch on the image-right sleeve band;
+- ONE pale-blue chest dot on HER LEFT (image-right) in both cards;
+- jacket stripes horizontal;
+- face, brows and forehead match the v2/v3 stills.
+
+### 3. Upscale, slots, timing variants
+- **Upscale:** flux-video-upscale precise 2.25x, on segments covering every variant:
+  - 03: take frames 5-102 (`_work/passB/upscale/seg_03_v43c4.*`, out `media/gen/v43_03_c4_up_3498dcc010.mp4`).
+  - 04: frames 1-63 (`seg_04_v43c2.*`, out `v43_04_c2_up_b2dacc43e1.mp4`).
+- **Upscale alignment:** the upscaler returns +2 / -1 frames at the END only. The start is aligned (mouth-curve corr 0.994 / 0.991 at shift 0 vs about 0.7-0.8 at ±1; `tools/cutscenes/pb_upalign.py`).
+- **Slots** are built with `pb_slot.py` on the same names and time bases (03: 20.1667 -> 23.7667, 108 frames; 04: 48.5667 -> 50.6667, 63 frames). K = frames later picture:
+  - 03: `pb_slot.py v43_03_c4_up_3498dcc010.mp4 19.808333 (-0.05 - K/30) 20.1667 23.7667`
+  - 04: `pb_slot.py v43_04_c2_up_b2dacc43e1.mp4 48.041667 (-0.18 - K/30) 48.5667 50.6667`
+- **Variant files:** `media/cutscenes/paper_0020/paper_0020_v43_shift{-2,+0,+2,+4,+6,+8}.mp4` and `paper_0048/paper_0048_v43_shift{...}.mp4`.
+
+**Per word at +0, measured in the renders:**
+
+| card | word | stem | lips at +0 | offset |
+|---|---|---|---|---|
+| 03 | "my" | vowel 21.20 | open 21.233 | +0.03 |
+| 03 | "imagination" | vowel 21.65 | open 21.633 | -0.02 |
+| 04 | "ask" | 49.36 | open 49.40 | +0.04 |
+| 04 | "myself" | vowel 49.80 | m 49.733-49.80, open 49.833 | +0.03 |
+| 04 | "-elf" | 50.24 | open 50.267 | +0.03 |
+
+Each +K adds K/30 s. The template lag in the renders is 0.00 for +0, +0.14 for +4 and +0.21 for +6, as built.
+
+**Recommended variant: +6 on both cards, now in the show.**
+- Calibration from the same renders: Jade's +6 pick on the OLD card 03 opened "my" 0.20 s and "imagination" 0.22 s after the stem. The new +6 gives +0.23 / +0.18.
+- The OLD card 04 measured on time (+0.03 s), and Jade heard it as out of sync, which is the same preference.
+- So +6 reproduces her ear. +4 is the next choice.
+- If she reviews on Bluetooth audio, this offset is in her playback, and +0 would be right for everyone else. Worth asking her.
+
+### 4. Changes and backups
+- `media/cutscenes/paper_0020/paper_0020.mp4` = `paper_0020_v43_shift+6.mp4`.
+- `paper_0048/paper_0048.mp4` = `paper_0048_v43_shift+6.mp4`.
+- `paper_0020/still.png` = still v3.
+- `paper_00{20,48}_lanczos480.mp4` were rebuilt from the 480p takes at +6. They are unused by the engine.
+- Both previews (`preview_540p_with_song.mp4`) were rebuilt.
+- To switch to another variant: `cp media/cutscenes/paper_00XX/paper_00XX_v43_shift+K.mp4 media/cutscenes/paper_00XX/paper_00XX.mp4`. The engine re-decodes on mtime.
+- **No engine/src or show file was touched.** Cut times and names are unchanged; card 05 / paper_0147 is untouched.
+- **Backups** of everything replaced are in `engine/out/bak_v4b/paper/v43/`: `p0020_{paper_0020,paper_0020_lanczos480,still,preview_540p_with_song}` and `p0048_{...}`. The v4.2 timing variants `paper_0020_shift+K.mp4` are untouched.
+- NEW tools: `pb_dotmove.py`, `pb_specs43.py`, `pb_motion.py`, `pb_tmplsync.py`, `pb_upalign.py`, `pb_v43_sheet.py`. Specs are `media/gen/specs/v43_*.json`; refs are in `media/cutscenes/_work/passB/v43/`.
+- **Checks (540p):**
+  - 17-26: luma drops 23.767 (cut out) and 24.267 (act1's stab); cuts 23.767 +12 ms ON, 24.233/24.267 = act1's pre-existing cue cuts.
+  - 45-53: drops 50.667 / 52.667; cuts 48.567 +17 ms ON, 50.667 -19 ms ON, 52.633 pre-existing off-grid.
+  - Same as v4.2.
+- Spend logged in media/genlog.jsonl (tags `v43_*`):
+  - 12 x Seedance 2.5 480p 5 s = $6.17.
+  - The two upscales ($0.38 + $0.59) are hand-logged as `cost_note`.
+  - Total $7.14.
+- Disk: about 250 MB of new files. The per-variant engine clip caches were deleted. The current two remain, plus older pre-v4.3 caches from earlier units (`out/cache/clips/*paper_00{20,48}*`, about 500 MB; safe to clear).
+- Known and unchanged: the takes are 24 fps, resampled to 30 by the slot (as before).

@@ -142,6 +142,16 @@ export class MotionTrack {
   /** go to `to` and up / down whatever is in the way, decided at build time from the height change: walk (|dy| < 0.3 hip),
    *  hop (up to 0.85 hip up / 1.1 hip down), climb (taller, up) or jump (bigger drops) */
   traverse({ to, toY = null, speed = 'walk', ...o } = {}) { return this._push({ kind: 'traverse', to, toY, speed, o }); }
+  /**
+   * (v43 walk) follow a scripted root path: fn(t) -> [x, z] (song time) until song time `until`. The speed comes from the path
+   * (central difference), the gait / cadence / stride from the gait model, facing springs toward the direction of travel (or
+   * `face`), so a hand-timed position table gets real planted steps. fn(start) should equal the current position.
+   * cadence: a multiplier on the gait model's cadence (> 1 = quicker, shorter steps: a light jog for short legs; per-hero character).
+   */
+  follow(fn, { until, turn = 9, face = null, fade = null, cadence = 1 } = {}) { return this._push({ kind: 'follow', fn, until, turn, face, fade, cadence }); }
+  /** (v43 walk) start on the ground with a landing (as if dropped in at impact speed v, world u/s): squash + recovery + settle;
+   *  tail = standing time after the recovery (0: run straight out of it with a follow / move) */
+  land({ v = 250, recover = null, settle = true, tail = 0.3 } = {}) { return this._push({ kind: 'land', v, recover, settle, tail, fade: 0 }); }
   /** a one-shot mocap clip in place (u = progress); dur defaults to the clip's own duration / rate */
   clip(name, { dur = null, rate = 1, face = null, fade = null } = {}) { return this._push({ kind: 'clip', name, dur, rate, face, fade }); }
 
@@ -224,13 +234,17 @@ export class MotionTrack {
         this._needSettle = false; last = [{ k: 'loco', v: 0, w: 1 }];
       } else if (seg.kind === 'move') {
         last = this._move(seg, c, emit, turnTo, () => t, turnSteps, turnTime);
+      } else if (seg.kind === 'follow') {
+        last = this._follow(seg, c, emit, turnTo, () => t);
+      } else if (seg.kind === 'land') {
+        c.v = 0; c.hv = 0; seg.touch = t; last = this._landing(seg, c, emit, seg.v);
       } else if (seg.kind === 'jump') {
         last = this._jump(seg, c, emit, turnTo, () => t);
       } else if (seg.kind === 'climb') {
         last = this._climb(seg, c, emit, turnTo, () => t);
       }
       if (seg.kind === 'move') this._needSettle = !!seg.stop; else if (seg.kind !== 'idle') this._needSettle = false;
-      if (seg.kind === 'jump' || seg.kind === 'clip' || seg.kind === 'climb') c.ph = toIdleParity(c.ph);   // feet in the idle stance: the next walk starts from it
+      if (seg.kind === 'jump' || seg.kind === 'clip' || seg.kind === 'climb' || seg.kind === 'land') c.ph = toIdleParity(c.ph);   // feet in the idle stance: the next walk starts from it
       seg.t1 = t; this._lastY = c.y;
       prevEnd = last ? last.filter((q) => q.w > 1e-4) : prevEnd;
     }
@@ -310,6 +324,20 @@ export class MotionTrack {
     c.ph = S[S.length - 1].ph;
     return [{ k: 'loco', v: c.v, w: 1 }];
   }
+  /** (v43 walk) scripted root path: position from seg.fn(t), speed by central difference, cadence-driven phase */
+  _follow(seg, c, emit, turnTo, now) {
+    const fn = seg.fn, h = 0.02, n = Math.max(1, Math.round((seg.until - now()) / DT));
+    for (let i = 0; i < n; i++) {
+      const t = now(), p = fn(t), a = fn(t - h), b = fn(t + h);
+      const vx = (b[0] - a[0]) / (2 * h), vz = (b[1] - a[1]) / (2 * h), v = Math.hypot(vx, vz);
+      c.x = p[0]; c.z = p[1]; c.y = this.gnd(c.x, c.z); c.v = v;
+      const face = seg.face != null ? seg.face : v > 4 ? Math.atan2(vz, vx) : null;
+      if (face != null) turnTo(face, seg.turn, DT); else { c.hv *= 0.9; c.h += c.hv * DT; }
+      const f = gaitInfo(this.G, v).f * (seg.cadence ?? 1); c.f = f; if (v > 1e-4) c.ph += f * DT;
+      emit([{ k: 'loco', v, w: 1 }]);
+    }
+    return [{ k: 'loco', v: c.v, w: 1 }];
+  }
   /** footfalls on the beat grid: blend the natural phase into ph = c0 + (r / 2) * beatAt(t) (r steps per beat) */
   _lockBeats(S, i0, opt) {
     const T = this.timing, n = S.length - i0; const o = typeof opt === 'object' ? opt : {};
@@ -358,11 +386,15 @@ export class MotionTrack {
     }
     c.x = x1; c.z = z1; c.y = y1; c.v = 0; c.hv = 0;
     seg.touch = now();
+    return this._landing(seg, c, emit, vImp);
+  }
+  /** landing: squash scaled by the impact speed vImp, quick recovery, settle steps (shared by jump and land) */
+  _landing(seg, c, emit, vImp) {
     // landing: Jump_Land time-compressed (crouch peak at 0.08-0.1 s instead of 0.2, recovered by ~0.42 s), its weight = squash depth
     const d = clamp(0.08 + vImp / 450, 0.24, 1), tPk = 0.07 + 0.05 * d, tRec = (seg.recover ?? (0.3 + 0.35 * d)), uPk = 0.16, uRec = 0.6;
     const uOf = (tau) => (tau < tPk ? uPk * (tau / tPk) : uPk + (uRec - uPk) * (1 - Math.pow(1 - Math.min(1, (tau - tPk) / (tRec - tPk)), 2)));
     const settle = seg.settle === false ? null : { R: [tRec * 0.62, tRec * 0.62 + 0.15], L: [tRec * 0.62 + 0.11, tRec * 0.62 + 0.26] };
-    const nR = Math.round((tRec + 0.3) / DT);
+    const nR = Math.round((tRec + (seg.tail ?? 0.3)) / DT);
     const inW = (tau, w) => (w && tau >= w[0] && tau < w[1] ? 0 : 1);
     let last;
     for (let i = 0; i < nR; i++) { const tau = i * DT; const wI = smooth((tau - tRec * 0.55) / (tRec * 0.55)); const cR = inW(tau, settle?.R), cL = inW(tau, settle?.L);

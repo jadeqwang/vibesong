@@ -164,3 +164,35 @@ Verify (540p, audio, workers 1, 32 s, no page errors):
 - pencil close-up at 2-4 frame steps: `m3_pencil_198.3-199.4.jpg`. The tip stays on the ink edge. The pencil crosses the end-card lines and the stamp's left edge for <1 s, which reads as the pencil being above the page.
 
 Not changed: the spread's retired `ded` InkQuad (invisible since Pass B) still has the old wording in code ("For every idea that waited in a drawer.").
+
+## v4.3 (Jade notes 10-19)
+Notes on full_v4.2: (1) 0:03 swap the 2011 page's lines, new wording `a song about product management (2011)`; (2) 0:07 the 2011 song was "The Product Manager Song"; (3) check the outro.
+
+**Changes**
+- `assets/v4_stills/tools/passB_oc/build_pages.py:142-145` — text layers, same `hand()` font, grain and tilt:
+  - `ded01` now goes on top: (118,120), size 52 (was under the slate at 40). It is the larger line.
+  - `slate01` now goes under it: (122,208), size 40, text `a song about product management (2011)` (was `2011 · a song about product management` at 56 on top).
+  - Placements in `page_layout.json`: ded01 133,138 911x62; slate01 133,217 796x54. `cold_open.js` reads them from the JSON, so the wipe, hold and push-in timing are unchanged and need no code change. Layer z stays: ded01 4, slate01 12. Neither line meets the pencil path.
+- `assets/v4_stills/tools/passB_oc/build_save02.py:32` — save title `"The Product Manager Song"` at the same 4x PressStart2P in the same green. It is left-aligned at 708 and ends at x≈1540, inside the slot frame (inner edge ≈1600).
+- Both scripts were re-run. Every other output is byte-identical to the backup (all tex jpgs, the other pngs, save02/* except bg.png). Changed: `media/act5/tex/{slate01,ded01}.png`, `page_layout.json`, `save02/bg.png`, plus the work refs `ref01_text.jpg` and `ref02_layers.png`.
+- Comments and constant only:
+  - `engine/src/scenes/act1/cold_open.js:11` (header);
+  - `engine/src/scenes/act1/char_select.js:5` (header);
+  - `engine/src/show/cast.js:12` `SAVE_MARQUEE`. It is not referenced anywhere in src.
+- **Year roll:** the title is baked into bg.png, so it also shows in the 2026 state. It names the 2011 song, so it reads "The Product Manager Song" there too.
+- **Outro (spread.js, page 11):** nothing repeats the 2011 slate or the old song name.
+  - cap11a/cap11b and the dedication are unchanged.
+  - The retired spread captions (spread.js:127-128) are the approved wording, so I left them.
+  - "fixtures & functions" in main3d.js:972 is the 3D slab (lyric), not the song name.
+  - Not touched: `assets/v4_stills/tools/compose.py:52,128` (the approved-stills source) still has the old wording.
+
+**Backups:** `engine/out/bak_v4b/open_close/v43/`:
+- `tex/all/*.png` + `page_layout.json`;
+- `tex/save02/`;
+- `tex/jpg_md5.txt`;
+- `src/{cold_open,char_select}.js`, `cast.js`;
+- `tools/build_{pages,save02}.py`, `ref01_text.jpg`, `ref02_layers.png`, `ref11_text.jpg`.
+
+**Review:** `engine/out/review/v43/open_close/`:
+- `sbs_2.0.jpg` and `sbs_7.5.jpg` (before|after at 1080p; raw `before_*.png` / `after_*.png`). The before images were rendered with the backed-up layers swapped in for about 20 s, then restored (md5 checked).
+- `open_0-11.5.mp4` (540p, audio, 11.50 s, workers 1, 23 s render; log alongside).

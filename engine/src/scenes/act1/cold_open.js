@@ -8,7 +8,7 @@
 //  2.63-3.35  camera pulls back 2x -> 1x: the title 一笔一画; pinyin pops in; the gloss types on
 //  3.763  bar-3 hit: 1-frame flash, FREEZE (scene time held) through the gap to 4.19
 // (v4 Pass B, open_close) THE 2011 PAGE (approved still #01) opens the video, drawn over the level until the first whistle:
-//  0.00   the sketchbook page (graphite, Charlie alone), slate `2011 · a song about product management` + the dedication;
+//  0.00   the sketchbook page (graphite, Charlie alone), the dedication `For every partial project in a drawer.` over the slate `a song about product management (2011)` (v4.3 order);
 //         frame 0 = the approved still (the autoplay / thumbnail frame): the yellow pencil mid-stroke on the floor line
 //  0.00-0.21  the pencil draws on; 0.21-0.343 it SLASHES the rest of the 一 and stops on the kick (page nudge)
 //  0.343-0.85 the pencil lifts off up and out along its own axis (the shadow lets go of the page)

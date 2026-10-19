@@ -408,11 +408,11 @@ export async function buildProps({ scene, lib, groundY }) {
     scene.add(g); P.chant.push(g);
   }
   const tramp = new Actor(lib, { rest: 'charlie_prop_trampoline' }, { name: 'tramp' });
-  const tm = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); patchPaint(tm, { noPaint: true });
+  const tm = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); patchPaint(tm, { noPaint: true, hero: true });   // (v43 hat) Charlie's hat props are hero gear: the --r5 hero mask keeps their canon tan under the 3D grade (was greyed)
   P.tramp = tramp.voxel({ material: tm }); scene.add(P.tramp);
-  { const bm = new Actor(lib, { spin: 'charlie_hat_boomerang' }, { name: 'boomer' }); const mm = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); patchPaint(mm, { noPaint: true }); P.boomer = bm.voxel({ material: mm, scale: 1.4 }); scene.add(P.boomer); }
+  { const bm = new Actor(lib, { spin: 'charlie_hat_boomerang' }, { name: 'boomer' }); const mm = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); patchPaint(mm, { noPaint: true, hero: true }); P.boomer = bm.voxel({ material: mm, scale: 1.4 }); scene.add(P.boomer); }
   const hatStack = new Actor(lib, { rest: 'charlie_prop_hat_stack' }, { name: 'hats' });
-  const hm = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); patchPaint(hm, { noPaint: true });
+  const hm = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); patchPaint(hm, { noPaint: true, hero: true });   // (v43 hat)
   P.hatStack = hatStack.voxel({ material: hm }); scene.add(P.hatStack);
 
   // ---- drop 1: graphite slabs (FIXTURES / FUNCTIONS), connector beams, far switches

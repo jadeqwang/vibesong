@@ -203,3 +203,11 @@ Jade's notes on half2_v1: smoother gameplay that makes sense (esp. the Talos par
   regenerate them using the updated version?").
 - (coordinator) stage_3d M2 APPROVED + hooks H9-H13 done (flood plant only partly upright: no upright plant clip in the motion
   library; camera raised so her face reads). paper M2 APPROVED (all cards upscaled with flux-video-upscale, sync unchanged).
+
+## 2026-10-19 — Jade's notes on v4.2 (applied in v4.3)
+- Opening 2011 page: dedication first ("For every partial project in a drawer."), then "a song about product management (2011)".
+- Charlie's 2011 song was called "The Product Manager Song"; the save file shows that title.
+- Paper singing cards must move like a singer in a music video (head, shoulders, breathing), not a frozen body with a moving mouth. Card 03 chest dot on her left (canon).
+- Charlie's hat keeps its tan colour everywhere, including as a prop (parachute, trampoline, boomerang, thrown hats).
+- 3D hero locomotion should match the later mocap sections (turn 81.6-86.4 now mocap; a jog because of the shot's timing).
+- Outro spread reshot for sane eyes (spreadR_v14). Pending her picks on https://claude.ai/artifact/R4PUJAnnAH4Lux6DdqMnFd .

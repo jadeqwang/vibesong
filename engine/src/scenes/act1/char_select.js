@@ -2,7 +2,7 @@
 // Replaces the 4 s CHOOSE YOUR PARTY menu (v3; backup engine/out/bak_v4b/open_close/src/scenes/act1/char_select.js).
 // The critique's big move 1: the 2011 save file is the story, so the select screen becomes ONE beat at full size:
 //   6.755  (beat 4, right after the last chant stab's flash) the save screen slams in: SAVE FILE FOUND / CHARLIE / 2011 /
-//          "fixtures & functions"; CONTINUE? is selected and blinks; Jade (hair down, graphite pencil in hand) winds up
+//          "The Product Manager Song" (v4.3; was "fixtures & functions"); CONTINUE? is selected and blinks; Jade (hair down, graphite pencil in hand) winds up
 //   7.183  the 808 hit: Jade presses CONTINUE? with the pencil's pink eraser end: button down + glow + flash + shake
 //          (= the approved still, frame for frame)
 //   7.611-10.563  (whistle phrase 2) the save year rolls 2011 -> 2026, landing on the bar-7 downbeat with a punch

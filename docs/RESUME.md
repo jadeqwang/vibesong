@@ -2,7 +2,48 @@
 
 ## V4 (2026-10-18) — CURRENT. Jade approved the v3 critique; start with docs/v4_brief.md (plan + checkpoints + verification).
 
-### HANDOFF 2026-10-19 MORNING — READ THIS FIRST (written 2026-10-19 ~01:30)
+### HANDOFF 2026-10-19 v4.3 — READ THIS FIRST (written 2026-10-19 ~02:15)
+**State: idle and safe.** No agents or renders running. Nothing committed (renders are gitignored; src/asset changes are uncommitted in the working tree).
+
+**What exists.** v4.3 fixes all seven of Jade's notes on v4.2 (her words, song time):
+| note | fix | unit checkpoint (each has a "v4.3" section, file:line, backups) |
+|---|---|---|
+| 0:03 reverse the opening lines | 2011 page: "For every partial project in a drawer." on top (larger), "a song about product management (2011)" under it (layers slate01/ded01 rebuilt by assets/v4_stills/tools/passB_oc/build_pages.py) | passB_open_close.md |
+| 0:07 it was called "The Product Manager song" | save-screen title "The Product Manager Song" (build_save02.py -> save02/bg.png; cast.js SAVE_MARQUEE). Stays up after the 2011->2026 roll, like the old title | passB_open_close.md |
+| 0:22 card 03 dot wrong side + stiff body | new still 03 v3 (dot on HER LEFT), re-animated with Seedance 2.5 singer prompt; +6 frames | passB_paper.md |
+| 0:49 card 04 stiff body + lips out of sync | re-animated the same way; +6 frames (same lead she picked on card 03) | passB_paper.md |
+| 0:41/0:44 Charlie's hat turns grey | hat props (parachute/trampoline/boomerang/thrown hats/shield) were not exempt from the pre-flood graphite grade; tagged in kaizo.js, chorus.js, act3/world/props.js. 8 ranges fixed | v43_hat.md |
+| 1:22 walk unnatural | act3.turn 81.6-86.4 now mocap figures (new follow()/land() in src/core/motion/track.js); a light JOG, since the world timing needs 2-4 m/s | v43_walk.md |
+| 3:07 eyes demented, reshoot | new Veo take spreadR_v14 (eyes closed singing / looking at guitars, matched eyes); spread.js:110. Alt spreadR_v14b moves more (Charlie ghosts ~194.5) | passB_paper_spread.md |
+- 540p cut: `engine/out/review/full_v4.3.mp4` (checks `full_v4.3_check/`: same 34 luma drops and same 85 cuts as v4.2).
+- Review page SENT to Jade: https://claude.ai/artifact/R4PUJAnnAH4Lux6DdqMnFd (source docs/pages/v43_review/; republish with root = that dir; v4.2|v4.3 per note,
+  card 03/04 timing variants -2..+8, outro v14 vs alt; she pastes "v4.3 review: ..." from Copy answers).
+- Section clips per unit in `engine/out/review/v43/<unit>/`. Spend this round $15.14 (paper $7.14, spread $8.00); project ~$112 of $500.
+- 1080p master of v4.2 exists and is verified (`engine/out/master/full_v4.2_1080p.mp4`); v4.3 has no master yet.
+
+**Waiting on Jade (her picks on the page):**
+1. Card 03 and card 04 timing. To switch: `cp media/cutscenes/paper_00XX/paper_00XX_v43_shift+K.mp4 media/cutscenes/paper_00XX/paper_00XX.mp4` (XX = 20 for card 03, 48 for card 04; engine re-decodes on mtime). "Keep old" = restore from engine/out/bak_v4b/paper/v43/.
+2. Walk: jog OK, or restage as a real walk (slower camera + shorter path in act3/turn.js; the switches and causeway chunks are timed to ~100 u/s, see v43_walk.md).
+3. Outro: v14 (in show), alt = change `spreadR_v14` -> `spreadR_v14b` at spread.js:110, or reshoot again (brief from passB_paper_spread.md v4.3 section; v14 is calmer, she called v12 bodies "frozen" before).
+4. Opening + save title + hat: Good / Change.
+5. Still open from the morning handoff below: five fresh-eyes calls (#2 #4 #6 #7 #10 in engine/checkpoints/fresh_eyes_v4.md), credits read time, flood-line gloss yes/no, thumbnail pick and the 9:16 cuts.
+
+**Then:** apply her picks (small ones directly; anything bigger via a fresh agent briefed from the unit checkpoint), re-stitch v4.4 at 540p if anything changed,
+run checks, send, then the 1080p master (~20 min) and refresh the launch cuts from it (engine/checkpoints/launch.md; the cut-1 opening, the hat colours and the
+walk changed since the launch cuts were made, so all three 9:16 cuts and thumbnail A need a refresh).
+
+**Commands** (from engine/, `export TMPDIR=$PWD/out/dev/tmp`, check `nvidia-smi` first): same as the morning block below
+(540p stitch ~5.5 min with --workers 2; master adds `--res 1920x1080 --mblur 8 --shutter 0.33`). Clips for a page: cut from the full mp4s with ffmpeg crf 25 + aac
+(.venv/lib/python3.12/site-packages/imageio_ffmpeg/binaries/ffmpeg-linux-x86_64-v7.0.2); an artifact publish takes <=64 MB and <=15 MB per file.
+
+**Disk:** ~6.5 GB free (other projects fill the rest). Deleted with Jade's OK on 10-19: full_v1/v2/v3/v3.1 540p cuts and full_v3_1080p.mp4 (logs, sheets, check folders kept).
+More candidates (ask first): out/master/full_v4_1080p.mp4 (v4.1, 425 MB, superseded by the verified v4.2 master), half2_v1-v3 + act5_v1-v3 + turn_v13 review mp4s (~470 MB),
+out/cache/clips/*paper_00{20,48}* pre-v4.3 caches (~500 MB, rebuildable), engine/out/bak_v4b/paper/spreadR_v11_pre_lidfix_all (231 MB), engine/out/launch/seg/*.mp4 (166 MB, rebuildable).
+
+**Gotchas new this round:** two agents edited src/scenes/act3/world/props.js (hat materials only) and act3/turn.js + core/motion/track.js (walk); keep both.
+spread.js line numbers shifted by ~4 (pointer now :110). Posed heroes in act 1 (crate flip, parachute dangles) are now in canon colour, not graphite (intended).
+
+### HANDOFF 2026-10-19 MORNING (history; superseded by the v4.3 handoff above) (written 2026-10-19 ~01:30)
 **What exists now.** v4.2 is the current cut. It has every Jade note from the Pass B checkpoint plus the fresh-eyes fixes.
 - 540p review: `engine/out/review/full_v4.2.mp4` (checks in `engine/out/review/full_v4.2_check/`: 34 luma drops, all on cuts; 71/85 cuts on grid;
   the subtitle band differs from v4.1 only at 123.37 and 154.5-155.8, as intended).

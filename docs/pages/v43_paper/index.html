@@ -1,0 +1,176 @@
+<title>Singing Cards v4.3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one stage (stacked, preloaded variants so switching keeps the playhead), a variant strip under it, then the per-word table and the pick. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #6a6c72; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ink-bg: #e4ebfb; --ok: #2f7d4f; --ok-bg: #e3f1e8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.5vw, 38px); line-height: 1.1; }
+h1 .stroke { display: block; width: 100px; height: 5px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 21px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.stage video.on { visibility: visible; }
+.hud { position: absolute; left: 10px; top: 10px; font: 500 13px var(--mono); background: rgba(0,0,0,.65); color: #fff; padding: 3px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vbtn { font: 500 14px var(--mono); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--graphite); cursor: pointer; min-width: 64px; }
+.vbtn[aria-pressed="true"] { background: var(--ink-bg); border-color: var(--ink); color: var(--ink); }
+.vbtn.rec::after { content: " · rec"; color: var(--muted); font-size: 12px; }
+.vbtn.old { font-style: italic; }
+.card { display: grid; gap: 12px; padding-top: 8px; border-top: 1px solid var(--rule); }
+.card.active .stage { outline: 2px solid var(--ink); outline-offset: 2px; }
+ul.notes { margin: 0; padding-left: 20px; max-width: 68ch; display: grid; gap: 4px; }
+.tbtn { font: 600 14px var(--body); padding: 8px 16px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+.tbtn.ghost { background: transparent; color: var(--graphite); border: 1px solid var(--rule); }
+.tbtn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.keys { font-size: 13px; color: var(--muted); }
+kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--card); }
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-weight: 600; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+tr.cur td { color: var(--ink); font-weight: 600; }
+code { font-family: var(--mono); font-size: 13px; }
+textarea { width: 100%; box-sizing: border-box; min-height: 48px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+#out { font-family: var(--mono); font-size: 13px; min-height: 64px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>Singing cards 03 and 04, take 2<span class="stroke" aria-hidden="true"></span></h1>
+    <p>Both cards are re-animated so you move like a singer: head, shoulders and upper body, breathing, eye-line shifts and expression changes. Card 03 also has the chest dot on your left now. Each player has the old v4.2 card and six timings of the new one. A <b>+K</b> version shows your lips K frames later (one frame is 0.033 s); the cut times stay the same. Switch versions while it plays and the playhead stays put.</p>
+    <ul class="notes muted">
+      <li>On the old card 03 you picked <b>+6</b>. There your lips opened about 0.20 s after the voice. On the new cards, <b>+0</b> opens within 0.03 s of the voice and <b>+6</b> gives your 0.20 s again, so +6 is the version in the show now.</li>
+      <li>Old card 04 measured on time (+0.03 s), and you heard it as out of sync, which fits the same preference.</li>
+    </ul>
+  </header>
+  <div id="cards"></div>
+
+  <section>
+    <h2>Your picks</h2>
+    <div class="tw"><table><tbody>
+      <tr><td>Card 03</td><td><div class="row" id="pick03" role="group" aria-label="Card 03 pick"></div></td></tr>
+      <tr><td>Card 04</td><td><div class="row" id="pick04" role="group" aria-label="Card 04 pick"></div></td></tr>
+    </tbody></table></div>
+    <label for="note" class="muted">Note (optional): body language, face, anything else</label>
+    <textarea id="note" placeholder="e.g. 03 +6 good, 04 a bit much head motion"></textarea>
+    <div class="row"><button class="tbtn" id="copy" type="button">Copy answer</button></div>
+    <textarea id="out" readonly aria-label="Answer to paste into chat"></textarea>
+  </section>
+</div>
+
+<script>
+const VERS = [
+  { k: "old", lab: "old v4.2", f: "old" }, { k: -2, lab: "−2", f: "m2" }, { k: 0, lab: "+0", f: "p0" }, { k: 2, lab: "+2", f: "p2" },
+  { k: 4, lab: "+4", f: "p4" }, { k: 6, lab: "+6", f: "p6", rec: true }, { k: 8, lab: "+8", f: "p8" }
+];
+const CARDS = [
+  { id: "03", title: "Card 03 · 0:20 “because my imagination is linked”", t0: 17, loop: [19.9, 22.4], loopLab: "because my imagination",
+    blurb: "The new take is lively: you turn toward the chain, smile, close your eyes on the long note, and your shoulders sway. Stem: “my” m 21.16 (vowel 21.20), “imagination” m 21.50–21.63 (vowel 21.65).",
+    cols: ["“my” lips open", "“imagination” lips open"], base: [0.03, -0.02], old: ["+0.20", "+0.22"] },
+  { id: "04", title: "Card 04 · 0:49 “I just ask myself”", t0: 45, loop: [48.3, 50.9], loopLab: "I just ask myself",
+    blurb: "The new take is thoughtful: a small shrug, your eyes go up to the screen, then inward, and your head tilts. Stem: “ask” vowel 49.36, “myself” m 49.72–49.77 (vowel 49.80), “-elf” 50.24.",
+    cols: ["“ask” opens", "“myself” lips open", "“-elf” opens"], base: [0.04, 0.03, 0.03], old: ["−0.03", "+0.03", "+0.04"] }
+];
+const fmt = x => (x >= 0 ? "+" : "−") + Math.abs(x).toFixed(2);
+let active = null;
+const players = CARDS.map(C => {
+  const sec = document.createElement("section"); sec.className = "card";
+  sec.innerHTML = `<h2>${C.title}</h2><p class="muted">${C.blurb}</p>
+    <div class="stage"><span class="hud"></span></div>
+    <div class="row vars" role="group" aria-label="Version"></div>
+    <div class="row"><button class="tbtn play" type="button">Play</button>
+      <button class="tbtn ghost loop" type="button" aria-pressed="true">Loop “${C.loopLab}” (${C.loop[0]}–${C.loop[1]})</button>
+      <button class="tbtn ghost restart" type="button">Back to start</button></div>
+    <div class="tw"><table><thead><tr><th>Version</th>${C.cols.map(c => `<th>${c} vs voice</th>`).join("")}</tr></thead><tbody></tbody></table></div>`;
+  document.getElementById("cards").appendChild(sec);
+  const stage = sec.querySelector(".stage"), hud = sec.querySelector(".hud");
+  const vids = VERS.map(v => { const el = document.createElement("video"); el.src = `v/p${C.id}_${v.f}.mp4`; el.preload = "auto"; el.playsInline = true; el.muted = true; stage.insertBefore(el, hud); return el; });
+  const P = { C, sec, vids, cur: 5, looping: true, playing: false };
+  vids[P.cur].classList.add("on");
+  const L = [C.loop[0] - C.t0, C.loop[1] - C.t0];
+  const vbtns = VERS.map((v, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn" + (v.rec ? " rec" : "") + (v.k === "old" ? " old" : ""); b.textContent = v.lab; b.onclick = () => { activate(P); show(i); }; sec.querySelector(".vars").appendChild(b); return b; });
+  const rows = VERS.map(v => { const tr = document.createElement("tr");
+    const cells = v.k === "old" ? C.old : C.base.map(b => fmt(b + v.k / 30));
+    tr.innerHTML = `<td>${v.lab}${v.rec ? " (in the show now)" : ""}</td>` + cells.map(c => `<td>${c} s</td>`).join(""); sec.querySelector("tbody").appendChild(tr); return tr; });
+  function show(i) {
+    if (i === P.cur) return; const a = vids[P.cur], b = vids[i];
+    b.currentTime = a.currentTime; if (P.playing) { b.muted = false; b.play().catch(() => {}); a.pause(); } a.muted = true;
+    a.classList.remove("on"); b.classList.add("on"); P.cur = i; sync();
+  }
+  function sync() { vbtns.forEach((b, i) => b.setAttribute("aria-pressed", i === P.cur)); rows.forEach((r, i) => r.classList.toggle("cur", i === P.cur)); }
+  const playBtn = sec.querySelector(".play"), loopBtn = sec.querySelector(".loop");
+  function label() { playBtn.textContent = P.playing ? "Pause" : "Play"; loopBtn.setAttribute("aria-pressed", P.looping); }
+  function setPlaying(p) {
+    if (p && active && active !== P && active.playing) active.setPlaying(false);
+    P.playing = p; const v = vids[P.cur];
+    if (p) { v.muted = false; if (P.looping && (v.currentTime < L[0] || v.currentTime > L[1])) v.currentTime = L[0]; v.play().catch(() => { P.playing = false; label(); }); }
+    else v.pause();
+    label();
+  }
+  playBtn.onclick = () => { activate(P); setPlaying(!P.playing); };
+  loopBtn.onclick = () => { activate(P); P.looping = !P.looping; label(); };
+  sec.querySelector(".restart").onclick = () => { activate(P); vids[P.cur].currentTime = P.looping ? L[0] : 0; };
+  vids.forEach(v => v.addEventListener("ended", () => { if (v === vids[P.cur]) { P.playing = false; label(); } }));
+  Object.assign(P, { show, setPlaying, label, sync, L, hud }); sync(); label(); return P;
+});
+function activate(P) { active = P; players.forEach(x => x.sec.classList.toggle("active", x === P)); }
+activate(players[0]);
+(function tick() {
+  players.forEach(P => { const v = P.vids[P.cur];
+    if (P.playing && P.looping && v.currentTime >= P.L[1]) v.currentTime = P.L[0];
+    P.hud.textContent = `${VERS[P.cur].lab} · ${(P.C.t0 + v.currentTime).toFixed(2)} s`; });
+  requestAnimationFrame(tick);
+})();
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA" || !active) return;
+  const n = "1234567".indexOf(e.key);
+  if (n >= 0) { active.show(n); e.preventDefault(); }
+  else if (e.key === " ") { active.setPlaying(!active.playing); e.preventDefault(); }
+  else if (e.key === "l" || e.key === "L") { active.looping = !active.looping; active.label(); }
+});
+const keys = document.createElement("p"); keys.className = "keys";
+keys.innerHTML = "<kbd>1</kbd>–<kbd>7</kbd> switch version · <kbd>Space</kbd> play / pause · <kbd>L</kbd> loop on / off (keys act on the outlined card; click a card to select it). Sound starts after your first click.";
+document.getElementById("cards").before(keys);
+
+const KEY = "v43-paper-pick"; let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} out(); };
+["03", "04"].forEach(id => {
+  const row = document.getElementById("pick" + id);
+  const bs = [...VERS.filter(v => v.k !== "old").map(v => v.lab), "Keep old", "None fit"].map(lab => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "vbtn"; b.textContent = lab;
+    b.onclick = () => { st[id] = st[id] === lab ? "" : lab; bs.forEach(x => x.setAttribute("aria-pressed", x.textContent === st[id])); save(); };
+    b.setAttribute("aria-pressed", st[id] === lab); row.appendChild(b); return b;
+  });
+});
+const note = document.getElementById("note"), outEl = document.getElementById("out");
+note.value = st.note || ""; note.oninput = () => { st.note = note.value; save(); };
+function out() { outEl.value = `v4.3 singing cards: 03 ${st["03"] || "unmarked"}, 04 ${st["04"] || "unmarked"}${st.note && st.note.trim() ? " — " + st.note.trim() : ""}`; }
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; out();
+  try { await navigator.clipboard.writeText(outEl.value); b.textContent = "Copied"; }
+  catch (err) { outEl.focus(); outEl.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answer"; }, 1800);
+};
+out();
+</script>

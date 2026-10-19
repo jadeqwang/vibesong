@@ -29,7 +29,7 @@ port = Image.open(R + 'assets/sprites/portrait_charlie.png').convert('RGBA').cro
 g.rectangle((350, 288, 350 + 256 + 24, 288 + 256 + 24), fill=GOLD); g.rectangle((362, 300, 362 + 256, 300 + 256), fill=(40, 52, 110))
 bg.paste(port, (362, 300), port)
 ptext(bg, (362 + 128, 584), 'CHARLIE', 24, (230, 230, 240), anchor='ma', scale=4)
-ptext(bg, (708, 560), '"fixtures & functions"', 32, (110, 220, 160), scale=4)
+ptext(bg, (708, 560), '"The Product Manager Song"', 32, (110, 220, 160), scale=4)   # (v4.3, Jade 10-19) the 2011 song's real name; was "fixtures & functions"
 for x in (150, W - 150):                       # torch bracket + cup (flames are their own layers)
     p = PX; g.rectangle((x - 5 * p, 120 + 10 * p, x + 5 * p, 120 + 12 * p), fill=(120, 84, 30)); g.rectangle((x - 3 * p, 120 + 6 * p, x + 3 * p, 120 + 10 * p), fill=(200, 40, 60))
 bg.save(OUT + 'bg.png'); lay['bg'] = {'x': 0, 'y': 0, 'w': W, 'h': H}

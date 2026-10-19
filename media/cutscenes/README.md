@@ -153,3 +153,8 @@ a whole word early. Evidence + listening windows: `_work/passB/m3/words/` (spect
 `pb_slot.py` is now frame-exact (setpts + fps from 0; an input `-ss` used to snap up to one frame early).
 Stills: `tools/cutscenes/pb_liftcomp.py` (configs `_work/passB/m3/s0X/lift.json`). Previews: `tools/cutscenes/pb_preview.py`
 (`paper_0020/preview_540p_with_song_context.mp4` = the same with 1 s of song either side, picture held).
+
+## v4.3 (2026-10-19): cards 03 / 04 re-animated with singer body motion
+`paper_0020/paper_0020.mp4` and `paper_0048/paper_0048.mp4` are now the v4.3 takes (Seedance 2.5 c4 / c2, flux upscale), at the +6 timing.
+The other timings are `paper_00XX_v43_shift{-2,+0,+2,+4,+6,+8}.mp4` (same time base: frame k = card t0 + k/30). Card 03's still is v3 (chest dot on her left).
+The v4.2 files are backed up in engine/out/bak_v4b/paper/v43/. Details: engine/checkpoints/passB_paper.md "## v4.3".

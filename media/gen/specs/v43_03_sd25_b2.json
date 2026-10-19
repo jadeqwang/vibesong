@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v43_03_sd25_b2",
+ "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, '(held note) because my imagination is linked to my everyday life', lips exactly in time with the voice: after a held note, lips press together on the 'b' of 'because', opening into a long rounded 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her (mug, notebook, bicycle, laptop, ticket, plant, keys), which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+  "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+  ],
+  "duration": 5,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

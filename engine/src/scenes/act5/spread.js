@@ -107,7 +107,7 @@ export async function setup(ctx) {
       void main(){ vec3 c = texture2D(map, vUv).rgb * mix(vec3(1.0), vec3(1.03, 0.99, 0.93), uWarm);
         float a = smoothstep(0.0, uFeather.x, vUv.x) * smoothstep(0.0, uFeather.y, 1.0 - vUv.x) * smoothstep(0.0, uFeather.z, vUv.y) * smoothstep(0.0, uFeather.w, 1.0 - vUv.y);
         gl_FragColor = vec4(c, a * uOp); }`;
-    for (const [name, rect, feather, z] of [['spreadF', [21 / 5504, 0, 5461 / 5504, 1], [0.0001, 0.0001, 0.0001, 0.0001], 1], ['spreadR_v13c', [0.444, 0.235, 0.556, 0.5602], [0.04, 0.0001, 0.03, 0.04], 2]]) {
+    for (const [name, rect, feather, z] of [['spreadF', [21 / 5504, 0, 5461 / 5504, 1], [0.0001, 0.0001, 0.0001, 0.0001], 1], ['spreadR_v14', [0.444, 0.235, 0.556, 0.5602], [0.04, 0.0001, 0.03, 0.04], 2]]) {
       const seq = await FrameSeq.load(name, ctx, { prefer: name.startsWith('spreadR') || H > 540 ? 1080 : 540 }); if (!seq) continue;
       const m = new THREE.Mesh(new THREE.PlaneGeometry(rect[2] * A, rect[3]), new THREE.ShaderMaterial({ uniforms: { map: { value: null }, uFeather: { value: new THREE.Vector4(...feather) }, uWarm: { value: 1 }, uOp: { value: 1 } },
         transparent: true, depthTest: false, depthWrite: false, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }', fragmentShader: VID_FS }));

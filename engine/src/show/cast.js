@@ -9,4 +9,4 @@ export const CAST = {
 export const SELECT_ORDER = ['charlie', 'ricky', 'jade'];
 /** HUD order (left -> right), Lost Vikings style */
 export const HUD_ORDER = ['charlie', 'jade', 'ricky'];
-export const SAVE_MARQUEE = 'SAVE FILE FOUND: 2011 · "fixtures & functions" · CONTINUE?';
+export const SAVE_MARQUEE = 'SAVE FILE FOUND: 2011 · "The Product Manager Song" · CONTINUE?';

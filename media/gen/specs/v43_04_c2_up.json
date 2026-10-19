@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "v43_04_c2_up", "notes": "v4.3 card 04 take v43_04_sd25_c2: precise 2.25x of take frames 1..63 (from 0.041667 s, seg_04_v43c2.txt), covers timing variants -2..+8 frames",
+ "input": {"input_video": "file:media/cutscenes/_work/passB/upscale/seg_04_v43c2.mp4", "upscale_factor": 2.25, "creativity": 0, "safety_tolerance": 4}}

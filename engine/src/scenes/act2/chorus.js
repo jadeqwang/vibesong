@@ -100,6 +100,7 @@ export async function setup(ctx) {
   // v4 colour script (engine/COLOR_REQUESTS.md H5-H7, tags only, no timing): what Jade's rainbow pencil touches keeps its colour
   const cTiles = st.add(new Batch(atlas, 1500), Z.PLATFORM); cTiles.userData.cs = 1;   // H5: the rainbow chunk tiles
   const cFx = st.add(new Batch(atlas, 600), Z.FX); cFx.userData.cs = 1;                // H5: her paint sparks, launch trail, paint tip
+  const cHats = st.add(new Batch(atlas, 200), Z.PROP); cHats.userData.cs = 1;           // (v43 hat) Charlie's hats (in flight / seeding chunks) + the boomerang: canon tan, never graded
 
   // ---------------------------------------------------------------- the launch set (end state, shared with Team B)
   const groundChunk = (x) => P.chunks.find((c) => c.kind === 'ground' && x >= c.x && x < c.x + c.n * 16);
@@ -117,7 +118,7 @@ export async function setup(ctx) {
     const cv = readCv[h]; const q = st.add(new Quad(canvasTex(cv), cv.width, cv.height, { anchor: [Math.floor(cv.width / 2), cv.height - 1] }), Z.ACTOR_FRONT); q.setScale(0.45); return [h, q];
   }));
   const chute = lib.get('charlie_prop_parachute');
-  const canopy = st.add(new Quad(chute.tex, chute.w, chute.h, { anchor: [chute.meta.anchor[0], chute.h - 1 - chute.meta.anchor[1]] }), Z.ACTOR + 3);
+  const canopy = st.add(new Quad(chute.tex, chute.w, chute.h, { anchor: [chute.meta.anchor[0], chute.h - 1 - chute.meta.anchor[1]] }), Z.ACTOR + 3); canopy.userData.cs = 1;   // (v43 hat)
   const boomSp = lib.get('charlie_prop_boomerang');
   const lai = await Hanzi2D.create('来', { size: 96, style: 'rainbow', shadowColor: '#0a1030', bold: 2 }); lai.setAll(1); st.add(lai.group, Z.PLATFORM + 1);
   const CARRY = lib.has('charlie_parachute_carry');
@@ -418,7 +419,7 @@ export async function setup(ctx) {
       const inView = (x, y, m = 40) => x > L - m && x < Rr + m && y > Bt - m && y < Tp + m;
       const launchShot = t >= SHOUT;
 
-      clouds.begin(); back.begin(); tiles.begin(); props.begin(); fx.begin(); cTiles.begin(); cFx.begin();
+      clouds.begin(); back.begin(); tiles.begin(); props.begin(); fx.begin(); cTiles.begin(); cFx.begin(); cHats.begin();
       // the finished rainbow 来 they rode up from: under them on the cut, then it drops away out of frame (we rise)
       lai.group.visible = u < T0 + 0.35;
       if (lai.group.visible) { const k = u - T0; lai.place(CAM0[0] - 160 + LAI0[0], CAM0[1] - 90 + LAI0[1] - Math.round(150 * k + 420 * k * k)); }
@@ -475,7 +476,7 @@ export async function setup(ctx) {
         }
       }
       // boomerang hat
-      { const b = boomPath(u, H.R.x, H.R.y, H.C.x, H.C.y); if (b) fx.draw('boom' + (Math.floor(u * 16) % boomSp.n), b[0], b[1] - 10); }
+      { const b = boomPath(u, H.R.x, H.R.y, H.C.x, H.C.y); if (b) cFx.draw('boom' + (Math.floor(u * 16) % boomSp.n), b[0], b[1] - 10); }
       if (u >= GUST && u < GUST + 0.6) { fx.draw('bang', H.R.x, H.R.y + 48 + (u - GUST < 0.067 ? 3 : 0)); for (let k = 0; k < 4; k++) fx.draw('speed' + [14, 10, 6][k % 3], H.R.x - 10 + k * 9, H.R.y + 26 + k * 5); }
       if (u >= READ && u < S(STOP[1])) for (const s of [H.J, H.C, H.R]) for (let k = 0; k < 3; k++) fx.draw('px1', s.x + 8 + k * 2, s.y + 34 - k, { solid: '#ffffff' });
       STONE_DUST(fx, u);
@@ -561,7 +562,7 @@ export async function setup(ctx) {
           if (u >= c.throw && u < c.land) {
             const [hx, hy] = P.hand; const q = (u - c.throw) / (c.land - c.throw);
             const x = hx + (c.tx - hx) * q, y = hy + (c.ty - hy) * q + c.apex * 4 * q * (1 - q);
-            if (inView(x, y, 20)) props.draw('hat' + (Math.floor(u * 15 + c.i) % 3), x, y - 6);
+            if (inView(x, y, 20)) cHats.draw('hat' + (Math.floor(u * 15 + c.i) % 3), x, y - 6);
             continue;
           }
           if (u < c.land) continue;
@@ -585,9 +586,9 @@ export async function setup(ctx) {
             if (alive && !pop && c.kind === 'ground' && (x / 16) % 3 === 0 && x < 0) props.draw(`flower${((x / 16) % 7 + 7) % 7}_${dy ? 4 : Math.min(4, Math.floor((u - c.tcCol(x)) * 16))}`, x + 6, top + Math.min(dy, 2));
           }
           if (c.kind === 'spring' && !pop) { const alive = u >= c.tc; const fire = alive && execBob(u, c.tx, c.y + 16) > 1; props.draw(!alive ? 'spring0' : fire ? 'spring1a' : 'spring0a', c.x + 8, c.y + 16); }
-          if (c.kind === 'ground' && !pop && u < c.tc) props.draw('hat0', c.tx, top);
+          if (c.kind === 'ground' && !pop && u < c.tc) cHats.draw('hat0', c.tx, top);
           if (c.spring !== null && c.spring !== undefined && !pop) props.draw(u < c.tc ? 'spring0' : springFire(u) ? 'spring1a' : 'spring0a', c.spring, top);
-          if (c.kind !== 'ground' && !pop && c.kind !== 'spring') props.draw('hat0', c.tx, c.y + 16 + (u >= c.tc && t < BUILD ? execBob(u, c.tx, c.y + 8) : 0));
+          if (c.kind !== 'ground' && !pop && c.kind !== 'spring') cHats.draw('hat0', c.tx, c.y + 16 + (u >= c.tc && t < BUILD ? execBob(u, c.tx, c.y + 8) : 0));
           if (pop || u - c.land < 0.3) sparkle(fx, u, c.land, c.tx, c.ty + 2, { n: 6, r: 14, seed: c.i + 3, dur: 0.3 });
           // Jade's paint: rainbow sparks where her pencil colours a column
           if (c.kind === 'ground') for (let i = 0; i < c.n; i++) { const x = c.x + i * 16, e = c.tcCol(x); if (u >= e && u < e + 0.3 && e > c.land + 0.05) sparkle(cFx, u, e, x + 8, top + 2, { n: 5, r: 10, seed: c.i * 7 + i, dur: 0.3 }); }
@@ -619,7 +620,7 @@ export async function setup(ctx) {
       setJade(H.J);
       charlie.set({ facing: 1, ...H.C });
       ricky.set({ facing: 1, ...H.R });
-      clouds.end(); back.end(); tiles.end(); props.end(); fx.end(); cTiles.end(); cFx.end();
+      clouds.end(); back.end(); tiles.end(); props.end(); fx.end(); cTiles.end(); cFx.end(); cHats.end();
 
       // ================================================================ UI
       const singing = words.some((w) => t >= w.start && t < w.end) && Math.floor(t * 8) % 2 === 0;

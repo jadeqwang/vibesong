@@ -1,0 +1,3 @@
+v4.3 paper cards 03 / 04, timing variants of the winning takes (540p engine renders with the song; publish with root = this dir).
+videos: engine/out/review/v43/paper/var/p0X_shift+K.mp4 -> v/p0X_pK.mp4 (K = 0,2,4,6,8), p0X_shift-2.mp4 -> v/p0X_m2.mp4,
+        p0X_old.mp4 (the v4.2 card, for comparison) -> v/p0X_old.mp4.  03 = song 17-26 s, 04 = song 45-53 s.

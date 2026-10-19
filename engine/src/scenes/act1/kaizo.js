@@ -138,6 +138,7 @@ export async function setup(ctx) {
   // the hat-trampoline prop + the solo crate
   const tramp = lib.get('charlie_prop_trampoline');
   const trampQ = st.add(new Quad(tramp.tex, tramp.w, tramp.h, { anchor: [29, 0] }), Z.ACTOR + 3);
+  trampQ.userData.cs = 1;   // (v43 hat) Charlie's hat as the trampoline keeps its canon tan under the colour script (was graded to graphite)
   // the chasm: near pillar (hyperlink anchor), far column + Jade's post, the life sign + the life platform
   const pillarTop = X.ledgeY + 60;
   const post = await Hanzi2D.create('丨', { size: 70, bold: 3 }); post.place(0, 0); { const pb = post.strokeBox(0); post.place(X.post - (pb.x0 + pb.x1) / 2, X.ledgeY - pb.y0); }
@@ -473,14 +474,17 @@ export async function setup(ctx) {
   // ---------------------------------------------------------------- actors
   const actors = { jade: st.add(new Actor(lib, 'jade', { name: 'jade' }), Z.ACTOR + 2), charlie: st.add(new Actor(lib, 'charlie'), Z.ACTOR + 1), ricky: st.add(new Actor(lib, 'ricky'), Z.ACTOR) };
   const poseQ = { jade: st.add(new PoseQuad(), Z.ACTOR + 2), charlie: st.add(new PoseQuad(), Z.ACTOR + 1), ricky: st.add(new PoseQuad(), Z.ACTOR) };
+  for (const q of Object.values(poseQ)) q.userData.cs = 1;   // (v43 hat) posed heroes (hat-parachute carry, dangles, crate flip) are heroes: canon colours like the Actors
   const bang = canvasTex(bangCanvas());
   const bangs = HEROES.map(() => st.add(new Quad(bang, 9, 14, { anchor: [4, 0] }), Z.TEXT));
   const hatSp = lib.get('charlie_hat_boomerang');
   const hat = st.add(new Quad(hatSp.tex, 16, 16, { anchor: [8, 8] }), Z.ACTOR_FRONT);
   const strap = st.add(rect(1, 1, '#5a3a1a'), Z.ACTOR - 1);
+  hat.userData.cs = strap.userData.cs = 1;   // (v43 hat) the bounce-pad / boomerang hat and Ricky's strap keep canon colour
   const eraserQ = st.add(new PoseQuad(), Z.PROP + 5); eraserQ.userData.cs = 1;   // H2: the rainbow smudge she rubs onto it (the Eraser is grey anyway)
   const smearQ = st.add(new PoseQuad(), Z.PROP + 5);
   const shieldDome = (() => { const dome = A.cropX(A.frameCanvas(lib, 'charlie_prop_parachute', 0), 6, 6); const r = A.rotCanvas(dome, 12, [dome.width / 2, dome.height - 4]); return st.add(new Quad(canvasTex(r.cv), r.cv.width, r.cv.height, { anchor: [r.px, r.cv.height - 1 - r.py] }), Z.ACTOR + 4); })();
+  shieldDome.userData.cs = 1;   // (v43 hat) the hat-shield dome keeps the hat's canon colour
   const thought = st.add(new Quad(canvasTex(thoughtCanvas(false)), 30, 26, { anchor: [6, 0] }), Z.TEXT + 1);
   const thoughtTex = [canvasTex(thoughtCanvas(false)), canvasTex(thoughtCanvas(true))];
   const sqBurst = st.add(new Quad(canvasTex(A.burstCanvas(62, 26)), 62, 26, { anchor: [31, 13] }), Z.TEXT);

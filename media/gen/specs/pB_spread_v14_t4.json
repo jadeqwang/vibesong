@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "pB_spread_v14_t4",
+ "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+ "input": {
+  "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm, friendly and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide, no glints. The two young men keep a soft, warm gaze toward the young woman in the middle, now and then glancing down at their own guitars; she sings with happy, half-closed smiling eyes, now and then glancing softly toward the young man on the right. Both eyes of each person always move together and look at the same point; occasional slow, natural blinks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+  "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+  "duration": "8s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

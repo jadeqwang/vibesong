@@ -3610,8 +3610,912 @@
     }
    ],
    "collected": 1792376005.9726107
+  },
+  "vibesong/pB_spread_v14_t1-557a9df72c": {
+   "id": "557a9df72c",
+   "job": "vibesong/pB_spread_v14_t1-557a9df72c",
+   "tag": "pB_spread_v14_t1",
+   "model": "google/veo-3.1",
+   "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+   "spec_file": "media/gen/specs/pB_spread_v14_t1.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide. The young woman keeps her eyes gently closed in a contented smile while she sings, like someone lost in the music. The young man on the left looks down at his own fretboard with relaxed, lowered eyelids; the young man on the right looks down at his own strings with relaxed, lowered eyelids. Both eyes of each person always move together and look at the same point; occasional slow, natural blinks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 1.6,
+   "est_basis": "8s x 0.2 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29873113,
+   "submitted": 1792386691.3309925,
+   "bytes": 874425,
+   "started": 1792386818.35,
+   "gen_secs": 128.2,
+   "finished": 1792386946.575,
+   "latency_secs": 255.2,
+   "files": [
+    "media/gen/pB_spread_v14_t1_557a9df72c.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 12149150,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792386960.3214016
+  },
+  "vibesong/pB_spread_v14_t2-2038553587": {
+   "id": "2038553587",
+   "job": "vibesong/pB_spread_v14_t2-2038553587",
+   "tag": "pB_spread_v14_t2",
+   "model": "google/veo-3.1",
+   "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+   "spec_file": "media/gen/specs/pB_spread_v14_t2.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm, friendly and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide, no glints. The two young men keep a soft, warm gaze toward the young woman in the middle, now and then glancing down at their own guitars; she sings with happy, half-closed smiling eyes, now and then glancing softly toward the young man on the right. Both eyes of each person always move together and look at the same point; occasional slow, natural blinks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 1.6,
+   "est_basis": "8s x 0.2 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29873113,
+   "submitted": 1792386692.4242039,
+   "bytes": 874394,
+   "started": 1792386818.341,
+   "gen_secs": 141.2,
+   "finished": 1792386959.57,
+   "latency_secs": 267.1,
+   "files": [
+    "media/gen/pB_spread_v14_t2_2038553587.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 13347524,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792386961.5256386
+  },
+  "vibesong/pB_spread_v14_t3-fa949ada4d": {
+   "id": "fa949ada4d",
+   "job": "vibesong/pB_spread_v14_t3-fa949ada4d",
+   "tag": "pB_spread_v14_t3",
+   "model": "google/veo-3.1-fast",
+   "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+   "spec_file": "media/gen/specs/pB_spread_v14_t3.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide. The young woman keeps her eyes gently closed in a contented smile while she sings, like someone lost in the music. The young man on the left looks down at his own fretboard with relaxed, lowered eyelids; the young man on the right looks down at his own strings with relaxed, lowered eyelids. Both eyes of each person always move together and look at the same point; occasional slow, natural blinks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 0.8,
+   "est_basis": "8s x 0.1 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29873114,
+   "submitted": 1792386693.3440993,
+   "bytes": 874430,
+   "started": 1792386878.071,
+   "gen_secs": 140.3,
+   "finished": 1792387018.361,
+   "latency_secs": 325.0,
+   "files": [
+    "media/gen/pB_spread_v14_t3_fa949ada4d.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 12550948,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792387025.7643137
+  },
+  "vibesong/pB_spread_v14_t4-2627cf34d1": {
+   "id": "2627cf34d1",
+   "job": "vibesong/pB_spread_v14_t4-2627cf34d1",
+   "tag": "pB_spread_v14_t4",
+   "model": "google/veo-3.1-fast",
+   "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+   "spec_file": "media/gen/specs/pB_spread_v14_t4.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm, friendly and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide, no glints. The two young men keep a soft, warm gaze toward the young woman in the middle, now and then glancing down at their own guitars; she sings with happy, half-closed smiling eyes, now and then glancing softly toward the young man on the right. Both eyes of each person always move together and look at the same point; occasional slow, natural blinks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 0.8,
+   "est_basis": "8s x 0.1 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29873114,
+   "submitted": 1792386694.241753,
+   "bytes": 874399,
+   "started": 1792386878.033,
+   "gen_secs": 135.5,
+   "finished": 1792387013.497,
+   "latency_secs": 319.3,
+   "files": [
+    "media/gen/pB_spread_v14_t4_2627cf34d1.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 14869311,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792387027.0838459
+  },
+  "vibesong/v43_03_sd25_a1-506c101517": {
+   "id": "506c101517",
+   "job": "vibesong/v43_03_sd25_a1-506c101517",
+   "tag": "v43_03_sd25_a1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_03_sd25_a1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, '(held note) because my imagination is linked to my everyday life', lips exactly in time with the voice: after a held note, lips press together on the 'b' of 'because', opening into a long rounded 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video: her chest and shoulders rise and fall with her breathing; her head moves with the phrasing, small nods on the beat, a tilt to one side on the long notes, the chin lifting on the high note; her shoulders roll and her upper body sways gently side to side to the rhythm; her eyebrows lift with feeling, her eyes glance away and come back, she blinks naturally; her expression follows the words. Continuous, relaxed, natural movement, never stiff, never exaggerated; she stays in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her (mug, notebook, bicycle, laptop, ticket, plant, keys), which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873116,
+   "submitted": 1792386867.7246513,
+   "bytes": 797667,
+   "started": 1792386998.116,
+   "gen_secs": 150.7,
+   "finished": 1792387148.843,
+   "latency_secs": 281.1,
+   "files": [
+    "media/gen/v43_03_sd25_a1_506c101517.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2231442,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387202.149016
+  },
+  "vibesong/v43_03_sd25_b1-d4aec653a9": {
+   "id": "d4aec653a9",
+   "job": "vibesong/v43_03_sd25_b1-d4aec653a9",
+   "tag": "v43_03_sd25_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_03_sd25_b1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, '(held note) because my imagination is linked to my everyday life', lips exactly in time with the voice: after a held note, lips press together on the 'b' of 'because', opening into a long rounded 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her (mug, notebook, bicycle, laptop, ticket, plant, keys), which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873116,
+   "submitted": 1792386868.576691,
+   "bytes": 797644,
+   "started": 1792386998.099,
+   "gen_secs": 140.4,
+   "finished": 1792387138.45,
+   "latency_secs": 269.9,
+   "files": [
+    "media/gen/v43_03_sd25_b1_d4aec653a9.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2058243,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387202.9065316
+  },
+  "vibesong/v43_04_sd25_a1-19d9ef3296": {
+   "id": "19d9ef3296",
+   "job": "vibesong/v43_04_sd25_a1-19d9ef3296",
+   "tag": "v43_04_sd25_a1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 04 singer motion; S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_04_sd25_a1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, 'I just ask myself what it is that I need', lips exactly in time with the voice: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She performs like a real singer in a music video: her chest and shoulders rise and fall with her breathing; her head moves with the phrasing, small nods on the beat, a tilt to one side on the long notes, the chin lifting on the high note; her shoulders roll and her upper body sways gently side to side to the rhythm; her eyebrows lift with feeling, her eyes glance away and come back, she blinks naturally; her expression follows the words. Continuous, relaxed, natural movement, never stiff, never exaggerated; she stays in place. She sings it softly and thoughtfully, a small honest shrug of her shoulders on 'I just ask myself', her eyes searching up and to the side as if reading a screen, then turning inward; a cool blue screen glow lights her face. The grid and wireframe cubes behind her stay still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff04_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873117,
+   "submitted": 1792386869.4883966,
+   "bytes": 863107,
+   "started": 1792387058.009,
+   "gen_secs": 269.5,
+   "finished": 1792387327.469,
+   "latency_secs": 458.0,
+   "files": [
+    "media/gen/v43_04_sd25_a1_19d9ef3296.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 1826999,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387331.1286368
+  },
+  "vibesong/v43_04_sd25_b1-71cb9dd41e": {
+   "id": "71cb9dd41e",
+   "job": "vibesong/v43_04_sd25_b1-71cb9dd41e",
+   "tag": "v43_04_sd25_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 04 singer motion; S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_04_sd25_b1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, 'I just ask myself what it is that I need', lips exactly in time with the voice: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings it softly and thoughtfully, a small honest shrug of her shoulders on 'I just ask myself', her eyes searching up and to the side as if reading a screen, then turning inward; a cool blue screen glow lights her face. The grid and wireframe cubes behind her stay still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff04_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873117,
+   "submitted": 1792386870.652426,
+   "bytes": 863084,
+   "started": 1792387058.012,
+   "gen_secs": 149.9,
+   "finished": 1792387207.944,
+   "latency_secs": 337.3,
+   "files": [
+    "media/gen/v43_04_sd25_b1_71cb9dd41e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2359798,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 752,
+       "height": 560,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387266.9952004
+  },
+  "vibesong/v43_03_sd25_b2-df10fa2518": {
+   "id": "df10fa2518",
+   "job": "vibesong/v43_03_sd25_b2-df10fa2518",
+   "tag": "v43_03_sd25_b2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_03_sd25_b2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, '(held note) because my imagination is linked to my everyday life', lips exactly in time with the voice: after a held note, lips press together on the 'b' of 'because', opening into a long rounded 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her (mug, notebook, bicycle, laptop, ticket, plant, keys), which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873126,
+   "submitted": 1792387470.244545,
+   "bytes": 797644,
+   "started": 1792387598.175,
+   "gen_secs": 151.3,
+   "finished": 1792387749.491,
+   "latency_secs": 279.2,
+   "files": [
+    "media/gen/v43_03_sd25_b2_df10fa2518.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2452887,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387801.4207656
+  },
+  "vibesong/v43_03_sd25_c2-f5a49a5c69": {
+   "id": "f5a49a5c69",
+   "job": "vibesong/v43_03_sd25_c2-f5a49a5c69",
+   "tag": "v43_03_sd25_c2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_03_sd25_c2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday life' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', opening into a long rounded 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her (mug, notebook, bicycle, laptop, ticket, plant, keys), which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873126,
+   "submitted": 1792387484.3285277,
+   "bytes": 797664,
+   "started": 1792387598.239,
+   "gen_secs": 151.6,
+   "finished": 1792387749.811,
+   "latency_secs": 265.5,
+   "files": [
+    "media/gen/v43_03_sd25_c2_f5a49a5c69.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2691261,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387752.8106894
+  },
+  "vibesong/v43_04_sd25_b2-5597b547d8": {
+   "id": "5597b547d8",
+   "job": "vibesong/v43_04_sd25_b2-5597b547d8",
+   "tag": "v43_04_sd25_b2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 04 singer motion; S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_04_sd25_b2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. She sings the words of the reference audio, 'I just ask myself what it is that I need', lips exactly in time with the voice: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings it softly and thoughtfully, a small honest shrug of her shoulders on 'I just ask myself', her eyes searching up and to the side as if reading a screen, then turning inward; a cool blue screen glow lights her face. The grid and wireframe cubes behind her stay still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff04_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873127,
+   "submitted": 1792387485.2383127,
+   "bytes": 863084,
+   "started": 1792387657.989,
+   "gen_secs": 149.8,
+   "finished": 1792387807.8,
+   "latency_secs": 322.6,
+   "files": [
+    "media/gen/v43_04_sd25_b2_5597b547d8.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2682946,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 560,
+       "height": 752,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387817.7422733
+  },
+  "vibesong/v43_04_sd25_c2-189db1ab2f": {
+   "id": "189db1ab2f",
+   "job": "vibesong/v43_04_sd25_c2-189db1ab2f",
+   "tag": "v43_04_sd25_c2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 04 singer motion; S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_04_sd25_c2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings it softly and thoughtfully, a small honest shrug of her shoulders on 'I just ask myself', her eyes searching up and to the side as if reading a screen, then turning inward; a cool blue screen glow lights her face. The grid and wireframe cubes behind her stay still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff04_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873127,
+   "submitted": 1792387486.493193,
+   "bytes": 863104,
+   "started": 1792387658.01,
+   "gen_secs": 158.5,
+   "finished": 1792387816.558,
+   "latency_secs": 330.1,
+   "files": [
+    "media/gen/v43_04_sd25_c2_189db1ab2f.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2059920,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792387818.4629512
+  },
+  "vibesong/pB_spread_v14_t5-1b7aae2451": {
+   "id": "1b7aae2451",
+   "job": "vibesong/pB_spread_v14_t5-1b7aae2451",
+   "tag": "pB_spread_v14_t5",
+   "model": "google/veo-3.1",
+   "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+   "spec_file": "media/gen/specs/pB_spread_v14_t5.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily and clearly, his strumming arm moving up and down on every beat, while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving on every beat and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide, no glints. The young woman keeps her eyes gently closed in a contented smile while she sings, like someone lost in the music. The two young men tilt their heads slightly down and watch their own hands on their guitars, eyelids relaxed and half lowered, both eyes looking at the same spot on their guitar. Occasional slow, natural blinks; nobody winks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 1.6,
+   "est_basis": "8s x 0.2 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29873129,
+   "submitted": 1792387642.4265065,
+   "bytes": 874457,
+   "started": 1792387777.992,
+   "gen_secs": 141.9,
+   "finished": 1792387919.903,
+   "latency_secs": 277.5,
+   "files": [
+    "media/gen/pB_spread_v14_t5_1b7aae2451.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 12007869,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792387967.0065525
+  },
+  "vibesong/pB_spread_v14_t6-f273af50ae": {
+   "id": "f273af50ae",
+   "job": "vibesong/pB_spread_v14_t6-f273af50ae",
+   "tag": "pB_spread_v14_t6",
+   "model": "google/veo-3.1",
+   "notes": "v4.3 spread reshoot (Jade 10-19: demented eyes on v13c): sane eyes, natural jam; from the v11 crop",
+   "spec_file": "media/gen/specs/pB_spread_v14_t6.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nA relaxed, happy jam between three friends sitting on the rainbow bench, with continuous gentle whole-body life the whole time: all three breathe and sway softly to the same slow beat, their heads nodding gently in time. The young man in the flat cap on the left strums his acoustic guitar steadily and clearly, his strumming arm moving up and down on every beat, while the fingers of his fretting hand shift along the neck. The young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving on every beat and his fretting fingers changing. The young woman in the middle sings softly along, her lips moving gently, swaying her shoulders, her hands resting on the bench. Every movement stays small, relaxed and natural, and they stay seated in the same places.\nEyes: calm and natural the whole time, drawn in exactly the same soft illustration style as the first frame, never staring, never wide. The young woman keeps her eyes gently closed in a contented smile while she sings, like someone lost in the music. The young man on the left looks down at his own fretboard with relaxed, lowered eyelids; the young man on the right looks down at his own strings with relaxed, lowered eyelids. Both eyes of each person always move together and look at the same point; occasional slow, natural blinks.\nHer hair bun with its two pencils stays exactly as drawn and only moves together with her head: the same two yellow pencils crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up); no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 1.6,
+   "est_basis": "8s x 0.2 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29873129,
+   "submitted": 1792387643.6006687,
+   "bytes": 874504,
+   "started": 1792387777.979,
+   "gen_secs": 157.3,
+   "finished": 1792387935.257,
+   "latency_secs": 291.7,
+   "files": [
+    "media/gen/pB_spread_v14_t6_f273af50ae.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 13087647,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792387968.3028133
+  },
+  "vibesong/v43_03_sd25_c3-169ad009f4": {
+   "id": "169ad009f4",
+   "job": "vibesong/v43_03_sd25_c3-169ad009f4",
+   "tag": "v43_03_sd25_c3",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_03_sd25_c3.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday life' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', then the mouth stays open, never closing, through the long held 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her, which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873134,
+   "submitted": 1792387958.1821492,
+   "bytes": 797646,
+   "started": 1792388078.721,
+   "gen_secs": 150.3,
+   "finished": 1792388228.987,
+   "latency_secs": 270.8,
+   "files": [
+    "media/gen/v43_03_sd25_c3_169ad009f4.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2337824,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792388259.3109515
+  },
+  "vibesong/v43_03_sd25_c4-43ddce81b8": {
+   "id": "43ddce81b8",
+   "job": "vibesong/v43_03_sd25_c4-43ddce81b8",
+   "tag": "v43_03_sd25_c4",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.3 paper card 03 singer motion; S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v43_03_sd25_c4.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper texture and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday life' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', then the mouth stays open, never closing, through the long held 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life'. She performs like a real singer in a music video, feeling the song: she sings with her whole upper body, shoulders and chest moving, her body swaying side to side on the beat, her head bobbing and tilting freely, turning slightly toward the viewer and away again; her eyebrows rise and fall, her eyes look up and to the side, close briefly on a long note and open again. Lively, natural, continuous motion like live footage of a singer, never a still body with only a moving mouth; she stays roughly in place. She sings with bright wonder and delight, as if the idea just lit up in her head, a small smile between words, eyes sparkling toward the drawn chain of everyday things beside her, which sways gently. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only together with her head and never fall. Headphones stay round her neck; the white jacket keeps its orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE 1420 MHz sleeve patch. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/v43/ff03_v3.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/v43/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873134,
+   "submitted": 1792387959.1241484,
+   "bytes": 797646,
+   "started": 1792388078.087,
+   "gen_secs": 150.7,
+   "finished": 1792388228.75,
+   "latency_secs": 269.6,
+   "files": [
+    "media/gen/v43_03_sd25_c4_43ddce81b8.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2195784,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792388260.071795
+  },
+  "vibesong/v43_04_c2_up-b2dacc43e1": {
+   "id": "b2dacc43e1",
+   "job": "vibesong/v43_04_c2_up-b2dacc43e1",
+   "tag": "v43_04_c2_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.3 card 04 take v43_04_sd25_c2: precise 2.25x of take frames 1..63 (from 0.041667 s, seg_04_v43c2.txt), covers timing variants -2..+8 frames",
+   "spec_file": "media/gen/specs/v43_04_c2_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_04_v43c2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29873135,
+   "submitted": 1792387978.3169248,
+   "bytes": 1913761,
+   "started": 1792388144.67,
+   "gen_secs": 53.7,
+   "finished": 1792388198.336,
+   "latency_secs": 220.0,
+   "files": [
+    "media/gen/v43_04_c2_up_b2dacc43e1.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 2.708,
+     "bytes": 3777114,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 65
+      }
+     ]
+    }
+   ],
+   "collected": 1792388260.9524875
+  },
+  "vibesong/v43_03_c4_up-3498dcc010": {
+   "id": "3498dcc010",
+   "job": "vibesong/v43_03_c4_up-3498dcc010",
+   "tag": "v43_03_c4_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.3 card 03 take v43_03_sd25_c4: precise 2.25x of take frames 5..102 (from 0.208333 s, seg_03_v43c4.txt), covers timing variants -2..+8 frames",
+   "spec_file": "media/gen/specs/v43_03_c4_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_03_v43c4.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29873140,
+   "submitted": 1792388300.754543,
+   "bytes": 2827173,
+   "gen_secs": 76.5,
+   "started": 1792388448.336,
+   "finished": 1792388524.855,
+   "latency_secs": 224.1,
+   "files": [
+    "media/gen/v43_03_c4_up_3498dcc010.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 4.042,
+     "bytes": 6515974,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 97
+      }
+     ]
+    }
+   ],
+   "collected": 1792388544.6490278
   }
  },
- "total_est_usd": 60.5836,
- "total_est_usd_done": 44.098
+ "total_est_usd": 73.7236,
+ "total_est_usd_done": 57.238
 }

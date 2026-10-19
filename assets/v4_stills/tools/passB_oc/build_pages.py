@@ -139,8 +139,10 @@ def text_layer(name, xy, txt, size, color=(59, 58, 64), rot=-1.2, seed=3, alpha=
     a = np.asarray(cv, np.float32)[..., 0] / 255
     ys, xs = np.nonzero(a > 0.002); x0, x1, y0, y1 = xs.min() - 2, xs.max() + 3, ys.min() - 2, ys.max() + 3
     save_rgba(name, color, a[y0:y1, x0:x1], x0, y0)
-text_layer('slate01', (118, 120), '2011 · a song about product management', 56, rot=1.0, seed=11)
-text_layer('ded01', (122, 214), DED, 40, rot=0.8, seed=13)
+# (v4.3, Jade 10-19) the order is dedication first, then the subtitle (year at the end, in parentheses): dedication on top,
+# the larger line; the subtitle under it, smaller (the M1 layout had the slate on top at 56 and the dedication under it at 40)
+text_layer('ded01', (118, 120), DED, 52, rot=1.0, seed=13)
+text_layer('slate01', (122, 208), 'a song about product management (2011)', 40, rot=0.8, seed=11)
 text_layer('cap11a', (118, 104), 'Charlie wrote this about product management in 2011.', 40, rot=1.0, seed=21)
 text_layer('cap11b', (118, 166), 'We shipped The Vibe Coding Song in 2026.', 40, rot=0.6, seed=22)
 text_layer('ded11', (118, 262), DED, 50, color=(52, 70, 120), rot=0.8, seed=23)

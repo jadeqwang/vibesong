@@ -280,3 +280,44 @@ The remaining sub-0.3 frames are short dips of ≤ 7 frames (0.23 s) at strum / 
 - **Orange fleck at frame 40:** it was inside the face-oval exclusion and is left as is (about 2 px, not visible at 1:1).
 
 **Open:** a few small dark hair-edge fragments by the image-right temple, where Veo's long horizontal pencil end used to be. Visible at 2x.
+
+## v4.3 (Jade notes 10-19) — eyes reshoot DONE, switched to spreadR_v14
+**Note:** "3:07 - her eyes are really demented here, and looking closer, so are Charlie's, I think we need to reshoot this to make it sane."
+**Cause:** v12 t2 (Veo 3.1 Fast) drew all three with sclera-less dark almonds and stray white catchlights; v13's catchlight centring only moved the dots.
+**Fix:** reshoot, not repair. New prompt (`tools/cutscenes/pb_spread_v14_specs.py`): same style/static-camera/pencil clauses, a "relaxed happy jam" body
+(strum, picking, heads nodding in time, Jade singing softly) and an explicit eyes clause: Jade's eyes gently closed in a contented smile while she sings,
+the two men looking down at their own guitars with relaxed lowered lids, both eyes always together, slow natural blinks, no winks. A = that; B = soft glances.
+**Takes** ($8.00, genlog tags `pB_spread_v14_t1..t6`; review tool NEW `tools/cutscenes/pb_facesheet.py`, tracked face / eye-band sheets at 6 fps):
+
+| take | model, prompt | verdict |
+|---|---|---|
+| t1 | Veo 3.1, A | **Chosen.** Still's gaze for f0-14, a clean 3-frame blink to closed eyes, closed (singing / looking down) to the end; all pairs matched, no stray irises. Best likeness. Camera pushes 4 % (stabilized out). Calmer bodies. |
+| t2 | Veo 3.1, B | Glances = trouble: Ricky half-winks 0.3-1.3 s, Charlie 5.5-6.2 s, Jade 7.2 s; Jade's face drifts off-model late; a pencil end points down-left. Rejected. |
+| t3 | Veo 3.1 Fast, A | Closed eyes but Fast's lash style, Ricky winks 0.3-1.2 s. Rejected. |
+| t4 | Veo 3.1 Fast, B | Jade turns far with wide white eyes, cartoon mouth. Rejected. |
+| t5 | Veo 3.1, A2 (look at hands) + more strum | Most alive bodies (strum 0.72, Ricky 0.86, no camera drift), but the closing is asymmetric (f5-12 Jade/Ricky one eye open) and Jade's likeness drifts f16-48. **Alternate** (v14b). |
+| t6 | Veo 3.1, A + more strum | Like t1 but freckle-like texture on Charlie, Ricky one-eye at 0.5 s, no more motion than t5. Rejected. |
+
+**v14 assembly (t1):** `conform.py --fps30 --ss=0.5` → `pb_stabilize.py --smooth=1` (end drift 1.040 scale, -38/-22 px removed) → ping-pong 10→121→10
+(the open-eyed still-matching frames sit at both ends, so the 194.06-194.9 dissolve lands open eyes on open eyes) → `pb_spread_browtrack.py spreadR_v14
+--src=<pp> --crop=800,140,1200,540 --lidguard=14` (faces 223/223). No eye / catchlight / pencil patching: Veo 3.1 drew a clean X with both caps up
+(pink image-left, blue image-right) in every frame, so `pb_spread_eyesbun.py` is not used.
+**v14b (alternate, t5):** frame 14 held x14 (under the dive wipe) then forward 14→222, same stabilize + brows. Its end dissolves closed eyes into the
+open-eyed still, so Charlie ghosts for ~0.5 s around 194.5; that is the main reason it is not the pick.
+**Changes**
+- `engine/src/scenes/act5/spread.js:110` (the spreadR row, was :106): `'spreadR_v13c'` → `'spreadR_v14'`, the only token changed (backup `engine/out/bak_v4b/paper/spread.js.v43_pre_v14`, node --check OK). OUT timings and subIds untouched.
+- NEW `media/act5/frames/spreadR_v14/{1080,540}` (214 MB) and `spreadR_v14b/{1080,540}` (233 MB). v13c/v13b/v13/v12/v11 kept. Intermediates deleted.
+**Checks** (`engine/out/review/v43/spread/`)
+- `v14_t1_184-197.mp4` (pick) and `v14b_t5_184-197.mp4` (alternate): 540p, audio 184-197, `--workers 1`.
+- `v14_faces3x_{a,b,c}.jpg`: all three faces at 3x, every 5th frame (6 fps) of the live layer. Every sampled frame: matched pairs, either the still's gaze (ends) or closed / lowered;
+  the only asymmetric frames are the 2-3-frame blink transitions (layer f5-8 ≈ 186.82-186.93, under the dive wipe, and the mirror f214-217 ≈ 194.03-194.13, at the dissolve), which read as a blink.
+- Hand-off: 194.06 diff 0.42/0.48/0.49/1.91 then the push; 194.9 16.6→13.3 steady; ping-pong turn 190.46 3.8-4.0 (no dip); lumascan clean.
+- Motion (`pb_flow_regions.py`, median p90): v13c → v14 Jade torso 0.95 → 0.57, Charlie strum 0.87 → 0.53, Ricky 0.72 → 0.54, Jade head 2.60 → 1.12. Calmer than v12/v13
+  (a relaxed eyes-closed jam), but continuous after ~187.2; v14b keeps v12-level motion (0.84 / 0.72 / 0.86).
+- Canon: pencils X, both caps up (plus the still's own lower-right pencil end behind her ear, as in the approved still); headphones round the neck; chest dot on her left; 1420 patch;
+  Charlie's beige flat cap; Ricky's striped shirt + Strat.
+**Open**
+1. Everyone's eyes are closed for most of 187.2-193.8. Sane and jam-like, but if Jade wants eye contact, that is exactly what made t2/t4 go wrong; expect a hand-built eye pass (the v11 still's eyes pasted on near-frontal frames) rather than a prompt.
+2. v14 bodies are calmer than v13c; if Jade calls it frozen again, v14b is the livelier one (with the 194.5 Charlie ghost and a softer Jade likeness at ~187.5-188.3).
+3. Faint freckle-like paper texture on Charlie's and Jade's cheeks in the open-eyed end frames (Veo), visible at 3x only.
+**Spend:** $8.00 of $10 (4 × Veo 3.1 1080p 8 s at $1.60 + 2 × Veo 3.1 Fast at $0.80).

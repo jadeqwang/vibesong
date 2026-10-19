@@ -22,6 +22,8 @@ import { TREE_HITS } from './paintlog.js';
 import { buildTurnProps, STEP, colX, colTop, STROKE, strokeCurve, strokeTopAt, SEGS, SWITCH_X } from './turn_props.js';
 import { makeTurnUI } from './turn_ui.js';
 import { LAUNCH } from '../act2/launch_set.js';
+import { R4, ensurePB, ensureR4 } from './prebattle_props.js';
+import { MotionTrack } from '../../core/motion/index.js';
 
 const DEG = Math.PI / 180;
 const lerp = (a, b, u) => a + (b - a) * u;
@@ -68,6 +70,37 @@ const RUN_TAB = {}; { const dt = 1 / 600;
 const runX = (n, t) => { const { tab, S, dt } = RUN_TAB[n]; const f = (t - RUN_T + 0.05) / dt; const i = Math.max(0, Math.min(tab.length - 2, Math.floor(f))); const u = clamp01(f - i);
   return STAND[n] + (HANDOFF[n] - STAND[n]) * (tab[i] + (tab[i + 1] - tab[i]) * u) / S; };
 const runU = (t) => clamp01((t - RUN_T) / (RUN_END - RUN_T));
+
+// ---------------------------------------------------------------- (v43 walk) mocap heroes on the causeway (81.62-86.385)
+// The voxel heroes above (heroes(): 2-frame 'run' sprites slid along runX, speed swinging 3.0 -> 0.9 -> 2.8 m/s inside 0.3 s
+// for every action, the whole body yawed to the camera) stay as the TABLE the camera / hat / beams were keyed to. With the
+// talos_r4 figures (R4: --figres 2.5) the heroes are MotionFigures instead (core/motion, as in act3.drop): a landing out of the
+// parachute, then a mocap gait along a smooth path from the landing spot to the same hand-off (act3.drop partyAt), with
+// the table's own progress, Gaussian-smoothed in time (its 0.25 s near-stops for every action become gentle slow-downs; the
+// actions are upper-body layers), so their feet plant and nobody slides, and the party stays where the camera expects it.
+const W_LAND = { jade: LAND_J + 0.02, charlie: LAND_C, ricky: LAND_J + 0.02 };           // = when the voxel hero appeared
+const W_SIG = { jade: 0.3, charlie: 0.3, ricky: 0.36 };     // smoothing sigma (s) of the table's x(t)
+// the landing spot's offset from STAND is worked off: Jade (behind) in her first W_CATCH.jade s (a burst out of the landing,
+// past Charlie before the table starts), Ricky (ahead) over the first W_CATCH.ricky of his progress (he eases off, never backs up)
+const W_CATCH = { jade: 0.6, ricky: 0.35 };
+const W_CAD = { jade: 1.3, charlie: 1.22, ricky: 1.15 };   // cadence x the gait model: Jade light and quick, Charlie steady, Ricky heavier / longer strides
+function walkPaths(landX, tF) {
+  const P = {}; const dt = 1 / 120, A = 80.8, B = 87.8, N = Math.round((B - A) / dt);
+  for (const n of ['jade', 'charlie', 'ricky']) {
+    const vEnd = runX(n, RUN_END) - runX(n, RUN_END - 1);      // past the hand-off: carry on at the last second's mean speed
+    const rx = (t) => (t <= RUN_END ? runX(n, t) : runX(n, RUN_END) + vEnd * (t - RUN_END));
+    const raw = Array.from({ length: N + 1 }, (_, i) => rx(A + i * dt)), sg = W_SIG[n], K = Math.ceil(3 * sg / dt);
+    const w = Array.from({ length: 2 * K + 1 }, (_, k) => Math.exp(-0.5 * (((k - K) * dt) / sg) ** 2)), wS = w.reduce((a, b) => a + b, 0);
+    const sm = raw.map((_, i) => { let a = 0; for (let k = -K; k <= K; k++) a += w[k + K] * raw[Math.max(0, Math.min(N, i + k))]; return a / wS; });
+    const xs = (t) => { const f = (t - A) / dt, i = Math.max(0, Math.min(N - 1, Math.floor(f))); return sm[i] + (sm[i + 1] - sm[i]) * clamp01(f - i); };
+    const off = landX[n] - STAND[n], span = HANDOFF[n] - STAND[n];
+    const x0 = (t) => { const b = xs(t); return b + off * (n === 'jade' ? 1 - smooth(tF[n], tF[n] + W_CATCH.jade, t) : n === 'ricky' ? 1 - smooth(0, W_CATCH.ricky, (b - STAND[n]) / span) : 1); };
+    const pop = x0(tF[n]) - landX[n];   // the smoothed table has crept ahead by the time the landing ends: start exactly on the spot
+    P[n] = { x: (t) => x0(t) - pop * (1 - smooth(tF[n], tF[n] + 0.5, t)) };
+  }
+  return P;
+}
+const walkZ = (n, t) => ZOF[n] + ({ jade: -5 * Math.sin(2 * Math.PI * runU(t) * 1.5), charlie: 4 * Math.sin(2 * Math.PI * runU(t) + 1), ricky: 5 * Math.sin(2 * Math.PI * runU(t) * 1.2 + 2) }[n]) * Math.sin(Math.PI * runU(t));
 
 /** the parachute rig (Charlie's feet F) after the impact */
 function chuteAt(t) {
@@ -261,6 +294,49 @@ export async function setup(ctx) {
   const tips = W.avenue.map((m) => { const b = new THREE.Box3().setFromObject(m); return V((b.min.x + b.max.x) / 2, b.min.y + Math.min(110, (b.max.y - b.min.y) * 0.8), (b.min.z + b.max.z) / 2); });
   const treeTip = (k) => tips[k];
 
+  // (v43 walk) mocap heroes for the 3D causeway (see W_LAND above); null on the default (carve / 1.25) path = the voxel table
+  const MO = R4 ? await (async () => {
+    const PB = await ensurePB(W), R = await ensureR4(W, ctx), F = R.figs;
+    const land = { jade: chuteAt(W_LAND.jade).x + 9, charlie: STAND.charlie, ricky: chuteAt(W_LAND.ricky).x - 10 };
+    const LANDO = { jade: { v: 300, recover: 0.24, settle: false, tail: 0 }, charlie: { v: 160, recover: 0.28, settle: false, tail: 0 }, ricky: { v: 320, recover: 0.32, settle: false, tail: 0 } };
+    const mk = (n) => new MotionTrack(R.clips, { t0: W_LAND[n], pos: [land[n], ZOF[n]], heading: (n === 'charlie' ? 30 : 40) * DEG, unit: F[n].unit, ground: () => 0, timing: T, name: 'turn_' + n }).land(LANDO[n]);
+    const tF = {}; for (const n of ['jade', 'charlie', 'ricky']) tF[n] = mk(n).build().t1;   // the landing's end = the path's start
+    const paths = walkPaths(land, tF);
+    const tr = {}; for (const n of ['jade', 'charlie', 'ricky']) tr[n] = mk(n).follow((t) => [paths[n].x(t), walkZ(n, t)], { until: 86.6, cadence: W_CAD[n] }).build();
+    const M = (R.clips.meta?.designPerMetre || 48.82) * F.jade.unit; const rng = (n) => { let lo = 1e9, hi = 0; for (let t = 82.9; t < RUN_END; t += 0.01) { const v = (paths[n].x(t + 0.01) - paths[n].x(t - 0.01)) / 0.02 / M; lo = Math.min(lo, v); hi = Math.max(hi, v); } return `${lo.toFixed(2)}-${hi.toFixed(2)}`; };
+    console.log(`[engine] [v43 walk] turn heroes on mocap: unit ${F.jade.unit.toFixed(3)}, speeds after 82.9: ${['jade', 'charlie', 'ricky'].map((n) => n + ' ' + rng(n) + ' m/s (land -> path pop ' + Math.hypot(tr[n].S.find((r) => r.t >= tr[n].segs[1].t0).x - land[n], 0).toFixed(2) + ')').join(', ')}`);
+    { let g1 = 1e9, g2 = 1e9, o1 = 1e9, o2 = 1e9, dev = 0; for (let t = 82.4; t < RUN_END; t += 0.01) { const X = (n) => paths[n].x(t); g1 = Math.min(g1, X('jade') - X('charlie')); g2 = Math.min(g2, X('charlie') - X('ricky'));
+        o1 = Math.min(o1, runX('jade', t) - runX('charlie', t)); o2 = Math.min(o2, runX('charlie', t) - runX('ricky', t)); const mean = (X('jade') + X('charlie') + X('ricky')) / 3, mt = (runX('jade', t) + runX('charlie', t) + runX('ricky', t)) / 3; dev = Math.max(dev, Math.abs(mean - mt)); }
+      console.log(`[engine] [v43 walk] min x gaps J-C ${g1.toFixed(1)} C-R ${g2.toFixed(1)} (table ${o1.toFixed(1)} / ${o2.toFixed(1)}), party centre vs the camera's table <= ${dev.toFixed(1)}`); }
+    return { PB, R, F, tr, paths };
+  })() : null;
+  const hatOff = (t) => HAT.some(([a0, , c0]) => t >= a0 + 0.04 && t < c0);
+  // Charlie's hand for the boomerang (the table's, or his mocap root when the heroes are on mocap)
+  const charlieAt = (ts) => { if (!MO) return heroes(ts).charlie; const st = MO.tr.charlie.state(ts); return { x: st.x, z: st.z }; };
+  // ---- Charlie's boomerang hat: a big readable arc out to the next switch, a loop around it (the tag), back to his hand
+  const hatPos = (i, ts) => {
+    const [a, tag, c] = HAT[i]; const sw = TP.switches[i].position; const chs = charlieAt(ts);
+    const hand = V(chs.x + 11, 34, chs.z), sp = V(sw.x, sw.y + 44, sw.z);
+    if (ts < tag) { const u = (ts - a) / (tag - a); const mid = hand.clone().lerp(sp, 0.5).add(V(0, 46, 40)); return hand.clone().multiplyScalar((1 - u) * (1 - u)).addScaledVector(mid, 2 * u * (1 - u)).addScaledVector(sp, u * u); }
+    const u = (ts - tag) / (c - tag); const loop = clamp01(u / 0.3) * Math.PI * 2;
+    if (u < 0.3) return sp.clone().add(V(Math.cos(loop) * 13 - 13, 7 * Math.sin(loop), Math.sin(loop) * 13));
+    const v = clamp01((u - 0.3) / 0.7); const mid = sp.clone().lerp(hand, 0.5).add(V(0, 36, 44));
+    return sp.clone().multiplyScalar((1 - v) * (1 - v)).addScaledVector(mid, 2 * v * (1 - v)).addScaledVector(hand, v * v);
+  };
+  // (v43 walk) the actions as upper-body layers on the gait, and where each hero looks
+  const ALL_CLICKS = [...CLICKS, CUE.pairs[3]];
+  const WL = {
+    jade: WHISTLE_HITS.map(([te]) => ({ anim: 'draw_rainbow', t0: te - 0.13, t1: te + 0.27, fade: 0.1, mask: { shoulderR: 1, elbowR: 1, head: 0.4 }, p: () => 0 })),
+    charlie: HAT.flatMap(([a, , c]) => [{ anim: 'throw', t0: a - 0.3, t1: a + 0.34, fade: 0.12, mask: 'upper', p: (t) => clamp01((t - a + 0.3) / 0.62) },
+      { anim: 'throw', t0: c - 0.12, t1: c + 0.28, fade: 0.1, mask: 'arms', p: () => 0.25 }]),
+    ricky: ALL_CLICKS.map((te) => ({ anim: 'chord', t0: te - 0.2, t1: te + 0.24, fade: 0.08, mask: 'armsHead', p: (t) => 0.75 + 0.5 * smooth(te - 0.05, te + 0.01, t) })),
+  };
+  const WLOOK = {
+    jade: WHISTLE_HITS.map(([te, k]) => ({ at: treeTip(k), t0: te - 0.35, t1: te + 0.3, fade: 0.15 })),
+    charlie: HAT.map(([a, , c], i) => ({ at: (tk) => hatPos(i, Math.min(c - 1e-3, Math.max(a, tk))), t0: a, t1: c, fade: 0.12 })),
+    ricky: ALL_CLICKS.map((te, i) => ({ at: TP.switches[i].position.clone().add(V(0, 40, 0)), t0: te - 0.5, t1: te + 0.25, fade: 0.2 })),
+  };
+
   // fly-over camera keys (anchor = Jade's x); the first key is the turn's end pose
   const endPose = (() => { const r = rig(82.31, aspect, 180, pix2D); return { pos: r.camera.position.clone(), tgt: r.target.clone() }; })();
   const jx = (t) => { const h = heroes(t); return (h.jade.x + h.charlie.x + h.ricky.x) / 3 + 22; };   // camera anchor: the party (Jade-leaning), so the trailing Ricky stays in frame
@@ -341,11 +417,22 @@ export async function setup(ctx) {
         TP.heroes2D[n].visible = false;
         const hide = chuteOn && (n === 'charlie' ? t < LAND_C : t < LAND_J + 0.02);
         if (hide) continue;
+        if (MO && t >= IMP()) continue;   // (v43 walk) mocap figures below
         W.put(t < IMP() ? TP.heroes2D[n] : W.heroes[n], { ...s, rotY: t >= IMP() && !flyPos ? -45 * smooth(IMP(), 81.9, t) * DEG : 0 });
       }
-      if (flyPos) faceCam(Object.values(W.heroes), flyPos, 0.6 * smooth(82.31, 83.0, t));
+      if (flyPos && !MO) faceCam(Object.values(W.heroes), flyPos, 0.6 * smooth(82.31, 83.0, t));
       // the boomerang hat is in the air -> Charlie is hatless (density 2b figures: set({ hat: false }), per call)
-      if (t >= IMP() && W.heroes.charlie.visible && W.heroes.charlie.figure && HAT.some(([a0, , c0]) => t >= a0 + 0.04 && t < c0)) W.heroes.charlie.set({ hat: false });
+      if (!MO && t >= IMP() && W.heroes.charlie.visible && W.heroes.charlie.figure && hatOff(t)) W.heroes.charlie.set({ hat: false });
+      // (v43 walk) the mocap heroes: visible from their landing (the chute carries them until then); hatless Charlie while the hat flies
+      const HP = {};
+      if (MO && t >= IMP()) {
+        MO.PB.begin(); MO.R.begin(); const F = MO.F;
+        for (const n of ['jade', 'charlie', 'ricky']) {
+          if (t < W_LAND[n] - 1e-6) continue;
+          const fig = n === 'charlie' && hatOff(t) ? F.charlieNH : F[n]; fig.group.visible = true;
+          fig.apply(MO.tr[n], t, { layers: WL[n], look: WLOOK[n], pencil: n === 'jade' }); HP[n] = fig;
+        }
+      }
       // ---- the hat parachute: Charlie under the canopy, Jade (front boot) + Ricky (back boot) dangling
       const C = TP.chute; [C.charlie, C.jade, C.ricky, ...(C.canopy ? [C.canopy] : []), ...C.strings].forEach((o) => (o.visible = false));
       if (chuteOn) {
@@ -381,16 +468,7 @@ export async function setup(ctx) {
       });
 
       roadState(TP, t);
-      // ---- Charlie's boomerang hat: a big readable arc out to the next switch, a loop around it (the tag), back to his hand
-      const hatPos = (i, ts) => {
-        const [a, tag, c] = HAT[i]; const sw = TP.switches[i].position; const chs = heroes(ts).charlie;
-        const hand = V(chs.x + 11, 34, chs.z), sp = V(sw.x, sw.y + 44, sw.z);
-        if (ts < tag) { const u = (ts - a) / (tag - a); const mid = hand.clone().lerp(sp, 0.5).add(V(0, 46, 40)); return hand.clone().multiplyScalar((1 - u) * (1 - u)).addScaledVector(mid, 2 * u * (1 - u)).addScaledVector(sp, u * u); }
-        const u = (ts - tag) / (c - tag); const loop = clamp01(u / 0.3) * Math.PI * 2;
-        if (u < 0.3) return sp.clone().add(V(Math.cos(loop) * 13 - 13, 7 * Math.sin(loop), Math.sin(loop) * 13));
-        const v = clamp01((u - 0.3) / 0.7); const mid = sp.clone().lerp(hand, 0.5).add(V(0, 36, 44));
-        return sp.clone().multiplyScalar((1 - v) * (1 - v)).addScaledVector(mid, 2 * v * (1 - v)).addScaledVector(hand, v * v);
-      };
+      // ---- Charlie's boomerang hat (hatPos, in setup)
       const hatTrail = [];
       const hf = HAT.find(([a, , c]) => t >= a && t < c);
       if (hf && t >= IMP()) {
@@ -403,13 +481,15 @@ export async function setup(ctx) {
       const ci = CLICKS.findIndex((te) => t >= T.snap(te) - 1e-6 && t < te + 0.2);
       if (ci >= 0 && t >= IMP()) {
         const rp = W.heroes.ricky.position; const sw = TP.switches[ci].position; const te = CLICKS[ci];
-        P.beam.visible = true; P.beam.set([V(rp.x + 16, 25, rp.z), V(sw.x, sw.y + 43, sw.z)], clamp01((t - te + 0.034) / 0.08), { width: 0.8 });
+        const gtr = HP.ricky?.F.items.guitar; const from = HP.ricky ? (gtr?.userData.strum ? gtr.localToWorld(gtr.userData.strum.clone()) : HP.ricky.group.position.clone().add(V(16, 25, 0))) : V(rp.x + 16, 25, rp.z);   // (v43 walk) from his guitar
+        P.beam.visible = true; P.beam.set([from, V(sw.x, sw.y + 43, sw.z)], clamp01((t - te + 0.034) / 0.08), { width: 0.8 });
       }
       // ---- Jade's flick: a short rainbow streak from her pencil to the cypress tip (the tree colours from the tip down)
       const fl = WHISTLE_HITS.find(([te]) => t >= te - 0.02 && t < te + 0.16);
       if (fl && t >= IMP()) {
         const [te, k] = fl; const jp = W.heroes.jade.position.x;
-        const a = V(jp + 26, (H.jade.y || 0) + 36, W.heroes.jade.position.z + 2), b = treeTip(k);   // from the rainbow pencil's tip
+        const pen = HP.jade?.F.items.pencilR;   // (v43 walk) from her rainbow pencil (mocap hand)
+        const a = HP.jade ? (pen ? pen.getWorldPosition(V(0, 0, 0)) : HP.jade.hand('R')) : V(jp + 26, (H.jade.y || 0) + 36, W.heroes.jade.position.z + 2), b = treeTip(k);   // from the rainbow pencil's tip
         P.beam2.visible = true; P.beam2.set([a, b], clamp01((t - te + 0.02) / 0.1), { width: 0.9, colors: ['#ff4d6d', '#ffb02e', '#ffe14d', '#4fd06a', '#2bb4e8', '#a35cff'] });
       }
       // ---- particles: tree sparks, ping pops, road dust, landing dust, drum-block dust, hi-hat chings
@@ -430,7 +510,7 @@ export async function setup(ctx) {
       const chantOn = t >= 79.36 && t < 81.0;
       const slotFlash = act === 'jade' ? T.pulse(tt, CUE.roll, 0.08) : act === 'charlie' ? T.pulse(tt, TRIP, 0.12) : act === 'ricky' ? 0.45 : 0;
       ui.update(t, { singing: { jade: chantOn, charlie: chantOn, ricky: chantOn }, active: t < IMP() ? act : null, slot: act ? 0 : null, slotFlash });
-      return { camera, target, focus: V(H.jade.x, 20, 0), look, shadowExtent, virtFov, distOffset: 0, ui2d: { scene: ui.scene, cam: ui.cam }, noSubs: t < IMP() };
+      return { camera, target, focus: HP.jade ? V(HP.jade.group.position.x, 20, 0) : V(H.jade.x, 20, 0), look, shadowExtent, virtFov, distOffset: 0, ui2d: { scene: ui.scene, cam: ui.cam }, noSubs: t < IMP() };
     },
   });
   const r0 = sc.render;

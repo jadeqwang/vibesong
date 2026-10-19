@@ -1,0 +1,193 @@
+<title>Vibe Coding Song v4.3</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of notes in song order; each note = stage with stacked preloaded versions (switch keeps the playhead) + version strip; picks at the end. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #66686e; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ink-bg: #e4ebfb; --ok: #2f7d4f; --ok-bg: #e3f1e8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.5vw, 38px); line-height: 1.1; }
+h1 .stroke { display: block; width: 100px; height: 5px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 21px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+h2 .ts { font: 500 14px var(--mono); color: var(--ink); background: var(--ink-bg); padding: 1px 8px; border-radius: 4px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.quote { font-style: italic; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 10px; max-width: 68ch; }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.stage video.on { visibility: visible; }
+.hud { position: absolute; left: 10px; top: 10px; font: 500 13px var(--mono); background: rgba(0,0,0,.65); color: #fff; padding: 3px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vbtn { font: 500 14px var(--mono); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--graphite); cursor: pointer; min-width: 64px; }
+.vbtn[aria-pressed="true"] { background: var(--ink-bg); border-color: var(--ink); color: var(--ink); }
+.vbtn.rec::after { content: " · in show"; color: var(--muted); font-size: 12px; }
+.vbtn.old { font-style: italic; }
+.card { display: grid; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.card.active .stage { outline: 2px solid var(--ink); outline-offset: 2px; }
+ul.notes { margin: 0; padding-left: 20px; max-width: 68ch; display: grid; gap: 4px; }
+.tbtn { font: 600 14px var(--body); padding: 8px 16px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+.tbtn.ghost { background: transparent; color: var(--graphite); border: 1px solid var(--rule); }
+.tbtn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.keys { font-size: 13px; color: var(--muted); }
+kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--card); }
+.picks { display: grid; gap: 14px; }
+.pick { display: grid; gap: 6px; min-width: 0; }
+.pick .lab { font-weight: 600; }
+textarea { width: 100%; box-sizing: border-box; min-height: 48px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+#out { font-family: var(--mono); font-size: 13px; min-height: 80px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>Your v4.2 notes, fixed in v4.3<span class="stroke" aria-hidden="true"></span></h1>
+    <p>One player per note, in song order. Each player has the v4.2 clip and the v4.3 clip (two of them have more choices). Switch versions while it plays and the playhead stays put. Timestamps are song time. The full cut is <code>engine/out/review/full_v4.3.mp4</code> on your machine.</p>
+  </header>
+  <div id="cards"></div>
+
+  <section class="card" style="border-top:1px solid var(--rule)">
+    <h2>Your picks</h2>
+    <div class="picks" id="picks"></div>
+    <label for="note" class="muted">Anything else (optional)</label>
+    <textarea id="note" placeholder="e.g. walk is fine as a jog; outro v14 but more body motion"></textarea>
+    <div class="row"><button class="tbtn" id="copy" type="button">Copy answers</button></div>
+    <textarea id="out" readonly aria-label="Answers to paste into chat"></textarea>
+  </section>
+</div>
+
+<script>
+const BA = [{ lab: "v4.2", f: "a", old: true }, { lab: "v4.3", f: "b", rec: true }];
+const TIM = [{ lab: "v4.2", f: "old", old: true }, { lab: "−2", f: "m2" }, { lab: "+0", f: "p0" }, { lab: "+2", f: "p2" }, { lab: "+4", f: "p4" }, { lab: "+6", f: "p6", rec: true }, { lab: "+8", f: "p8" }];
+const CARDS = [
+  { id: "open", ts: "0:03 · 0:07", title: "Opening page and save file", t0: 0, vers: BA, src: v => `v/open_${v.f}.mp4`,
+    quote: "reverse the order of the lines … it was actually called “The Product Manager song” back then",
+    notes: ["The dedication is on top now, and larger. Under it: “a song about product management (2011)”.",
+            "The save file’s title is “The Product Manager Song”. It stays up through the roll to 2026, as “fixtures & functions” did."] },
+  { id: "03", ts: "0:22", title: "Singing card 03", t0: 17, loop: [19.9, 22.4], vers: TIM, src: v => `v/p03_${v.f}.mp4`,
+    quote: "pale blue dot is on wrong side and her body language is awkwardly stiff",
+    notes: ["The chest dot is on your left now (fixed on the still first, forehead lift kept).",
+            "Re-animated with about 2.5× the head motion and 5× the body motion: you turn toward the chain, smile, close your eyes on the long note, your shoulders sway.",
+            "<b>+K</b> = lips K frames later (1 frame = 0.033 s). +6 matches the timing you picked by ear last time and is in the show."] },
+  { id: "hat", ts: "0:41 · 0:44", title: "Charlie’s hat", t0: 34, vers: BA, src: v => `v/hat_${v.f}.mp4`,
+    quote: "why are there instances where Charlie’s hat turns grey?",
+    notes: ["The color pass turns the world to graphite until the flood and only spares the heroes. When the hat leaves Charlie’s head (parachute, trampoline, boomerang, thrown hats) it is a separate prop, and none of those were spared.",
+            "Fixed everywhere: 0:15, 0:19, 0:23–0:27, 0:35–0:37, 0:40–0:41, 0:43, 1:01–1:12, 1:18–1:21. Your and Ricky’s poses hanging from the parachute were grey too; they’re in color now.",
+            "Left as is: the colored stage spotlights at 1:47 and the bridge at 2:03, where the whole scene changes color."] },
+  { id: "04", ts: "0:49", title: "Singing card 04", t0: 45, loop: [48.3, 50.9], vers: TIM, src: v => `v/p04_${v.f}.mp4`,
+    quote: "same body language note … but lips out of sync",
+    notes: ["Re-animated the same way: a small shrug, your eyes go up to the screen and then inward, your head tilts.",
+            "The old card 04 measured on time and still sounded off to you, so the new one uses the same +6 lead as card 03. Pick by ear."] },
+  { id: "walk", ts: "1:22", title: "The walk", t0: 77.5, vers: BA, src: v => `v/walk_${v.f}.mp4`,
+    quote: "her walking looks kinda weird and unnatural compared to the other 2",
+    notes: ["The three of you were still old figures flipping between two run poses while sliding along a path. Now they use the same motion capture as later sections: planted feet, arm swing, a different cadence for each.",
+            "It’s a light jog, not a walk: the shot’s timing makes you cover 2–4 m a second. A real walk means restaging the shot (slower camera, shorter path)."] },
+  { id: "out", ts: "3:07", title: "The outro spread", t0: 184, vers: [{ lab: "v4.2", f: "a", old: true }, { lab: "v4.3", f: "b", rec: true }, { lab: "alt", f: "c" }], src: v => `v/out_${v.f}.mp4`,
+    quote: "her eyes are really demented here … so are Charlie’s … reshoot this to make it sane",
+    notes: ["Reshot (six takes). In v4.3 you sing with your eyes closed and the guys look down at their guitars, with one clean blink and matched eyes throughout. The bodies move less than in v4.2.",
+            "<b>alt</b> moves more, but Charlie ghosts for a moment near 3:14 and you look less like yourself."] }
+];
+const PICKS = [
+  { id: "open", lab: "Opening page and save file", opts: ["Good", "Change"] },
+  { id: "03", lab: "Card 03 timing", opts: ["−2", "+0", "+2", "+4", "+6", "+8", "Keep old"] },
+  { id: "hat", lab: "Charlie’s hat", opts: ["Good", "Still see grey"] },
+  { id: "04", lab: "Card 04 timing", opts: ["−2", "+0", "+2", "+4", "+6", "+8", "Keep old"] },
+  { id: "walk", lab: "The walk", opts: ["Jog is fine", "Restage as a walk"] },
+  { id: "out", lab: "Outro spread", opts: ["v4.3", "alt", "Reshoot again"] }
+];
+let active = null;
+const players = CARDS.map(C => {
+  const sec = document.createElement("section"); sec.className = "card"; sec.id = C.id;
+  sec.innerHTML = `<h2><span class="ts">${C.ts}</span>${C.title}</h2><p class="quote">“${C.quote}”</p>
+    <ul class="notes">${C.notes.map(n => `<li>${n}</li>`).join("")}</ul>
+    <div class="stage"><span class="hud"></span></div>
+    <div class="row vars" role="group" aria-label="Version"></div>
+    <div class="row"><button class="tbtn play" type="button">Play</button>
+      ${C.loop ? `<button class="tbtn ghost loop" type="button">Loop the key words (${C.loop[0]}–${C.loop[1]})</button>` : ""}
+      <button class="tbtn ghost restart" type="button">Back to start</button></div>`;
+  document.getElementById("cards").appendChild(sec);
+  const stage = sec.querySelector(".stage"), hud = sec.querySelector(".hud");
+  const vids = C.vers.map(v => { const el = document.createElement("video"); el.src = C.src(v); el.preload = "auto"; el.playsInline = true; el.muted = true; stage.insertBefore(el, hud); return el; });
+  const P = { C, sec, vids, cur: C.vers.findIndex(v => v.rec), looping: !!C.loop, playing: false };
+  vids[P.cur].classList.add("on");
+  const L = C.loop ? [C.loop[0] - C.t0, C.loop[1] - C.t0] : null;
+  const vbtns = C.vers.map((v, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn" + (v.rec ? " rec" : "") + (v.old ? " old" : ""); b.textContent = v.lab; b.onclick = () => { activate(P); show(i); }; sec.querySelector(".vars").appendChild(b); return b; });
+  function show(i) {
+    if (i === P.cur) return; const a = vids[P.cur], b = vids[i];
+    b.currentTime = a.currentTime; if (P.playing) { b.muted = false; b.play().catch(() => {}); a.pause(); } a.muted = true;
+    a.classList.remove("on"); b.classList.add("on"); P.cur = i; sync();
+  }
+  function sync() { vbtns.forEach((b, i) => b.setAttribute("aria-pressed", i === P.cur)); }
+  const playBtn = sec.querySelector(".play"), loopBtn = sec.querySelector(".loop");
+  function label() { playBtn.textContent = P.playing ? "Pause" : "Play"; if (loopBtn) loopBtn.setAttribute("aria-pressed", P.looping); }
+  function setPlaying(p) {
+    if (p && active && active !== P && active.playing) active.setPlaying(false);
+    P.playing = p; const v = vids[P.cur];
+    if (p) { v.muted = false; if (L && P.looping && (v.currentTime < L[0] || v.currentTime > L[1])) v.currentTime = L[0]; v.play().catch(() => { P.playing = false; label(); }); }
+    else v.pause();
+    label();
+  }
+  playBtn.onclick = () => { activate(P); setPlaying(!P.playing); };
+  if (loopBtn) loopBtn.onclick = () => { activate(P); P.looping = !P.looping; label(); };
+  sec.querySelector(".restart").onclick = () => { activate(P); vids[P.cur].currentTime = (L && P.looping) ? L[0] : 0; };
+  vids.forEach(v => v.addEventListener("ended", () => { if (v === vids[P.cur]) { P.playing = false; label(); } }));
+  sec.addEventListener("pointerdown", () => activate(P));
+  Object.assign(P, { show, setPlaying, label, L, hud }); sync(); label(); return P;
+});
+function activate(P) { active = P; players.forEach(x => x.sec.classList.toggle("active", x === P)); }
+activate(players[0]);
+(function tick() {
+  players.forEach(P => { const v = P.vids[P.cur];
+    if (P.playing && P.L && P.looping && v.currentTime >= P.L[1]) v.currentTime = P.L[0];
+    const t = P.C.t0 + v.currentTime, m = Math.floor(t / 60), s = (t - 60 * m).toFixed(1).padStart(4, "0");
+    P.hud.textContent = `${P.C.vers[P.cur].lab} · ${m}:${s}`; });
+  requestAnimationFrame(tick);
+})();
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA" || !active) return;
+  const n = "1234567".indexOf(e.key);
+  if (n >= 0 && n < active.vids.length) { active.show(n); e.preventDefault(); }
+  else if (e.key === " ") { active.setPlaying(!active.playing); e.preventDefault(); }
+  else if ((e.key === "l" || e.key === "L") && active.L) { active.looping = !active.looping; active.label(); }
+});
+const keys = document.createElement("p"); keys.className = "keys";
+keys.innerHTML = "<kbd>1</kbd>–<kbd>7</kbd> switch version · <kbd>Space</kbd> play / pause · <kbd>L</kbd> loop on / off. Keys act on the outlined player; click a player to select it. Sound starts after your first click.";
+document.getElementById("cards").before(keys);
+
+const KEY = "v43-review"; let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} out(); };
+const picksEl = document.getElementById("picks");
+PICKS.forEach(K => {
+  const d = document.createElement("div"); d.className = "pick";
+  d.innerHTML = `<span class="lab">${K.lab}</span><div class="row" role="group" aria-label="${K.lab}"></div>`;
+  const row = d.querySelector(".row");
+  const bs = K.opts.map(lab => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn"; b.textContent = lab;
+    b.onclick = () => { st[K.id] = st[K.id] === lab ? "" : lab; bs.forEach(x => x.setAttribute("aria-pressed", x.textContent === st[K.id])); save(); };
+    b.setAttribute("aria-pressed", st[K.id] === lab); row.appendChild(b); return b; });
+  picksEl.appendChild(d);
+});
+const note = document.getElementById("note"), outEl = document.getElementById("out");
+note.value = st.note || ""; note.oninput = () => { st.note = note.value; save(); };
+function out() { outEl.value = "v4.3 review: " + PICKS.map(K => `${K.lab}: ${st[K.id] || "unmarked"}`).join("; ") + (st.note && st.note.trim() ? ". Note: " + st.note.trim() : ""); }
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; out();
+  try { await navigator.clipboard.writeText(outEl.value); b.textContent = "Copied"; }
+  catch (err) { outEl.focus(); outEl.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answers"; }, 1800);
+};
+out();
+</script>
