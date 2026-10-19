@@ -1,0 +1,123 @@
+
+## A-1 · Team A (engine) for Team C · back-view strips for voxel heroes (R-C2) — DONE (art dept, 2026-10-14)
+Engine support is live: `Actor.voxel({ back: true })` builds the rear half of each 3D hero from a back-view strip, mirrored
+about the feet anchor. Please add to assets/sprites + sprites.json, 36x44, anchor [18, 43], same palettes, 1-2 frame idle:
+- `charlie_back`: Charlie seen from behind: flat cap, curly hair at the nape, charcoal tee, the ACOUSTIC GUITAR on his back (strap diagonal), jeans, brown boots.
+- `ricky_back`: Ricky from behind: short black hair, blue/white vertical-striped shirt (sleeves rolled), Strat body visible at one hip (strap over the shoulder), jeans, white sneakers.
+- `jade_back_hairdown`: like the existing `jade_back` (big pale-blue dot + RARE EARTH under it), but with hair LONG and DOWN over the shoulders (pencil-in-hand moments). The pencils are in her hands (maybe a yellow pencil tip visible at each side), NOT in the bun.
+The names must match exactly (engine map `BACKS` in src/core/sprites.js). No code change is needed when they land.
+**DONE:** `assets/sprites/charlie_back.png`, `ricky_back.png`, `jade_back_hairdown.png` (2-frame idle, 36x44, anchor [18,43], palettes locked to each hero's strips), plus 4-frame `*_run` back strips (`charlie_back_run`, `ricky_back_run`, `jade_back_hairdown_run`). `jade_back_down` is an alias of `jade_back_hairdown` in sprites.json. Source: `assets/sheets/raw/backs_t1.png`; build: `tools/sprites/backs_cfg.py`. Known weakness: Jade's hand-held pencils read as dark nubs at the hips, not clearly yellow.
+
+## A-2 · Game-design pass (docs/game_design_acts1-3.md), filed 2026-10-15 by the coordinator, Jade-approved direction — DONE (art dept, 2026-10-15)
+Stand-ins for all of these exist in the keyframe mocks (`engine/out/mocks/A_sheet.jpg`, `B_sheet.jpg`; code `src/scenes/mocks/a_art.js`, `b_art.js`). Engine teams build against the names below now (stand-ins until the art lands; strips are read live from sprites.json). Conventions as before: 1 texel = 1 game pixel, NEAREST, palettes locked to each hero's existing strips, anchor = feet contact (hands for hanging strips). Every Jade strip passes the canon audit (yellow pencil bodies; blue-cap = rainbow core, pink/orange-cap = graphite core; caps never match; hair DOWN whenever pencils are in hand, bun with X-crossed pencils THROUGH it otherwise; white cropped racer jacket, orange stripes; no glasses).
+
+**Priority 1 (canon bug, affects the current cut too)**
+- `portrait_jade_hairdown`: 32x32, 2 frames (0 neutral, 1 singing), like `portrait_jade` v2 but hair LONG and DOWN, no pencils in the hair. The HUD must swap to it whenever Jade holds her pencils (from 17.38 on). Today the HUD shows the bun portrait while she holds the pencils.
+
+**Priority 2 (new hero poses)**
+- `jade_twin_draw`: 44x44, 4 frames, no loop: hands at the bun → both pencils pulled out like twin swords → hair falling → stance, hair down, a pencil in each hand (blue cap and pink cap). Moment: 17.38.
+- `jade_erase`: 36x44, 3-frame loop, hair down: the graphite pencil flipped, rubbing with the PINK/ORANGE cap on a wall to her right (rubber crumbs baked in), the blue-cap pencil in her other hand.
+- `jade_dangle`, `ricky_dangle`: 36x44, 2 frames, hanging by ONE raised hand (anchor = that hand), with the other hand free to hold the next hero's hand (the human chain at 23.9, the parachute at 25.0, 35.6 and 40.9). Jade: hair down, a pencil in her free hand. Ricky: Strat on its strap.
+- `ricky_dangle_play`: 36x48, 2 frames: Ricky hanging from his guitar strap (looped over Charlie's boot), playing a sustained note with the neck pointing UP (the updraft at 40.6–41.6).
+- `charlie_parachute_carry`: 48x56, 3 frames: Charlie under a BIG hat canopy (the hat crown inverted as a dome), both boots out for others to hang from. Anchor = boots.
+- `jade_read`, `charlie_read`, `ricky_read`: 36x44, 2 frames, holding an open page at chest height and reading (page drawn as a separate prop). Freeze at 43.89.
+
+**Priority 3 (the Eraser)**
+- `eraser_blink_x2`: 132x124, 2 frames (eyes shut / annoyed half-lid), same pose as `eraser_chase_x2`. For "NOT VERY EFFECTIVE" at 17.38.
+- `eraser_skid_x2`: 132x124, 3 frames: braking, leaning back, cheeks squished, squeaking (sweat drop optional). Colored tiles stop it at 27.8–31.
+- `eraser_smear_x2`: 132x124, 4 frames = 4 levels of rainbow smudge on its face/front, transparent elsewhere, drawn as an overlay on chase/skid. It foreshadows the pink redemption.
+- `eraser_peer_x2`: 132x124, 2 frames: leaning over a ledge to its right, peering down, with a "?" read. At the edge of the world, 34.3.
+
+**Priority 4 (props)**
+- `prop_page_zitie`, `prop_page_tab`, `prop_page_spec`: 20x24 pages (a 田字格 copybook page with a character; a 6-line guitar tab; a "SPEC" doc with bullets).
+- `prop_hat_canopy`: 40x20 open hat canopy, for parachute shots where Charlie's own strip is too small.
+
+**DONE (A-2, art dept 2026-10-15):** all 18 names installed in `assets/sprites/` + sprites.json with the requested sizes/frame counts (backups in `assets/sheets/bak/`). Anchors: feet [w/2, h-1] except `jade_dangle` [27,2] / `ricky_dangle` [10,2] (the raised fist, aligned across frames), `ricky_dangle_play` [16,1] (top of the strap loop), `charlie_parachute_carry` [24,55] (bottom centre; per-frame boot grab points in its `boots` field), eraser x2 [66,123] (same as chase_x2), props bottom centre. `eraser_smear_x2` is a 4-level overlay registered to chase/blink, with `skid_offset` per skid frame. `eraser_peer_x2` has the "?" baked in. Spend $1.52 (7 calls, `art11_*`). Review: `assets/sheets/review/a2_*.png`; details + weak spots in `assets/sheets/NOTES.md` (A-2 section).
+Known weak spots: Eraser skid/peer use round cartoon eyes rather than the heavy-lidded chase eyes; the hat canopy's peak is a small plank; dangle/read show only the blue-cap pencil; read strips carry a small plain page (prop pages are larger, place them beside the hands); smear overlay on skid needs `skid_offset`.
+
+## A-3 · Density team (Reality Lv 2 / 3D world) · 2x-resolution hero strips for the voxel heroes, filed 2026-10-15 — DONE (art dept, 2026-10-15)
+Jade's note: the 3D world from 80.81 on must be at least as dense as the keyframes (k07, k08b, k08, k09, k11). The voxel
+heroes are built 1 cube per sprite texel, so a 36x44 strip = a hero that reads tiny with no readable face. Engine side is
+LIVE: `Actor.voxel()` now builds heroes at density 2 (half-size cubes, same world size, ~44 units tall). It looks for a
+`<strip>_hi` entry in sprites.json for every strip it uses and falls back to a smoothed 2x upscale (Scale2x) when absent,
+so each `_hi` strip you add upgrades the 3D heroes immediately, no code change.
+
+**Format (all strips):** name = existing strip name + `_hi` (e.g. `jade_run_hi`). Frame size EXACTLY 2x the existing strip
+(36x44 -> 72x88, 72x44 -> 144x88, 56x44 -> 112x88 ...), SAME frame count, fps, loop and pose timing as the low-res strip
+(the 3D scenes pick frames by the low-res timing). Anchor = feet contact in hi-res pixels = 2x the old anchor + [0, 1]
+(e.g. [18,43] -> [36,87]). Transparent background, alpha 0/255 only, NEAREST, no anti-aliasing, no outline halo (an
+interior 1-px dark outline is fine; the voxeliser extrudes every opaque texel). Palettes may add 2-4 in-between shades per
+material (skin / denim / jacket shading) since 3D readability needs the extra values; keep the hero's hues.
+Faces: at 2x a face is ~14x14 px: eyes (2x2 with a 1-px highlight), brows, nose shadow, mouth must read.
+Back strips (`*_back*_hi`) are used for the rear half of the 3D model, mirrored about the anchor: same silhouette as
+the front frame for idle, please.
+
+**Priority 1 (on screen most, Acts III-V):**
+- `jade_idle_hi` (72x88, 2), `jade_run_hi` (72x88, 6), `jade_back_hi` (72x88, 1)
+- `jade_run_hairdown_hi` (80x88, 2), `jade_back_hairdown_hi` (72x88, 2), `jade_back_hairdown_run_hi` (72x88, 4)
+- `jade_draw_rainbow_hi` / `jade_draw_graphite_hi` (144x88, 1), `jade_sing_hi` (112x88, 2)
+- `charlie_idle_hi`, `charlie_run_hi`, `charlie_back_hi`, `charlie_back_run_hi` (72x88; 2 / 6 / 2 / 4)
+- `ricky_idle_hi`, `ricky_run_hi`, `ricky_back_hi`, `ricky_back_run_hi` (72x88; 2 / 6 / 2 / 4)
+**Priority 2:** `jade_jump_hi`, `jade_victory_hi` (80x88), `jade_drum_hi` (88x88), `charlie_jump_hi`, `charlie_hat_throw_hi` (88x88),
+`ricky_jump_hi`, `ricky_power_chord_hi` (128x88), `ricky_sustain_hi` (88x88), `ricky_victory_hi` (72x96, anchor [36,95]).
+**Priority 3 (bugs):** `bug_<name>_idle_hi` (68x68) and `bug_<name>_dance_hi` (68x80) for ladybug, beetle, moth, caterpillar, firefly.
+
+**Jade canon (audit every frame):** yellow pencil bodies; blue cap = rainbow core, pink/orange cap = graphite core, never
+matching. Hair UP = bun with the two pencils crossed in an X THROUGH the bun (crossing hidden inside the bun, both caps out
+one side, both tips out the other); hair DOWN (long, over the shoulders) whenever a pencil is in hand; never both. White
+cropped racer jacket with orange stripes, ONE small pale-blue dot on the chest; back = big pale-blue dot + "RARE EARTH"
+lettering under it (at 2x the lettering can be real 5-px letters). No glasses. Charlie: flat cap, curly hair, charcoal tee,
+acoustic guitar on the back, jeans, brown boots. Ricky: short black hair, blue/white vertical-striped shirt sleeves rolled,
+Strat, jeans, white sneakers. Reference for the target look: keyframes/concepts/k08b_coop_crossing.png (voxel heroes there
+are ~2x our density, faces readable).
+
+**DONE (A-3, art dept 2026-10-15):** all P1, P2 and P3 names installed (36 `_hi` strips) in `assets/sprites/` + sprites.json: frame size exactly 2x, same frames/fps/loop, anchor = 2x + [0,1] (e.g. `ricky_victory_hi` 72x96 [36,95]). Silhouettes are the Scale2x of the low-res alpha, so poses/timing match the 1x strips texel for texel; interiors are a nano-banana-pro 2x redraw (faces with eye highlights, brows, mouths; hair strands; guitar strings), palette-snapped to each hero + ~10 in-between shades. Jade's pencil pixels are forced to the audited 1x pencils. Spend $1.68 (7 calls, `art11_hi_*`). Review: `assets/sheets/review/a3_*_hi_x8.png`; method + weak spots in `assets/sheets/NOTES.md` (A-3 section).
+Known weak spots: extra shades are ~10 per hero, not strictly 2-4 per material.
+**Canon fixes (coordinator review, 2026-10-15) DONE:** hair-up `_hi` strips have a drawn bun with two 2x pencils through it in an X (crossing hidden, caps one side, tips with rainbow/graphite cores the other, nothing on the hair); `jade_back_hi` has RARE / EARTH in 3x4 letters under the dot (dot slightly smaller, back panel ~3 rows longer); the grey headphones are removed from the hair-down `_hi` strips. Tool: `tools/sprites/a3_canon.py`; review `assets/sheets/review/a3_jade_hi_x8.png`.
+**A-3 review (density team, 2026-10-15, after delivery):** the 36 `_hi` strips are live in the 3D heroes; Charlie, Ricky,
+bugs and Jade's hair-up strips look great. Two canon issues:
+1. HEADPHONES: `jade_sing_hi`, `jade_draw_rainbow_hi`, `jade_draw_graphite_hi`, `jade_run_hairdown_hi` give hair-down Jade
+   grey headphones with orange cups. They're not in the low-res strips or the canon. Please redraw without them. Until then the
+   engine HOLDS these four (`HI_HOLD` in src/core/sprites.js, so the fallback upscale of the low-res strip is used). Tell the
+   engine owner to remove a name from HI_HOLD once it's fixed.
+2. RARE EARTH: canon says Jade's back = big pale-blue dot + "RARE EARTH" lettering under it. Neither `jade_back` nor
+   `jade_back_hi` has the lettering (at 72x88 there's room for 2 rows of 3-4 px letters under the dot). Please add it to `jade_back_hi`
+   (and `jade_back` if feasible).
+
+## A-4 · Hero turnarounds for sculpted 3D voxel figures (coordinator, 2026-10-15) — DONE (art dept, 2026-10-15)
+Why: Jade's target for Reality Lv 2 is the concept keyframes k07/k08b, where the heroes are volumetric voxel figures (chibi-proportioned, rounded), not extruded sprites. The density team will carve 3D voxel models from orthographic views (visual hull) and rig them in parts, so the views must line up exactly.
+- Per hero: `turn_<hero>_front`, `turn_<hero>_side` (facing screen-right), `turn_<hero>_back`, each 80 px tall at the same scale, sharing one baseline and one centre line. Neutral stance: arms held slightly away from the body (a small A-pose), legs slightly apart, no motion. Jade in two variants: `jade_up` (bun with the X pencils THROUGH it) and `jade_down` (hair long and down, no pencils in her hair, empty hands; the pencils are separate props).
+- Items as separate orthographic props (front + side) at the same scale: `item_strat` (natural-wood Strat), `item_acoustic` (Charlie's, on his back), `item_flatcap` (beige newsboy cap; also used for the parachute, trampoline and boomerang), `item_pencil_blue` (yellow body, blue cap, rainbow core), `item_pencil_pink` (yellow body, pink/orange cap, graphite core).
+- Same palettes and canon as every strip. Jade: white cropped racer jacket, band collar with a snap throat-tab, snap epaulets, orange stripes, ONE small pale-blue chest dot, 1420 MHz sleeve patch (left sleeve); back = BIG pale-blue dot + RARE EARTH; black crop top; navy cargo pants with orange straps; chunky white sneakers; no glasses; no headphones (until Jade says otherwise). Charlie: curly dark hair, beige flat cap, charcoal tee, jeans, brown boots. Ricky: short black hair, blue/white vertical-striped shirt with sleeves rolled, jeans, white sneakers.
+- Install under assets/sprites/turn/ with a turnaround.json (per view: file, size, baseline y, centre x, part boxes for head/torso/arms/legs if you can mark them). Review sheet: assets/sheets/review/a4_turnarounds_x6.png.
+**A-4 engine contract (density team, 2026-10-15):** the carver (src/core/voxfig.js) loads `/sprites/turn/turnaround.json`
+(= assets/sprites/turn/turnaround.json) and falls back to its own stand-ins (engine/assets/turn_standin/) per hero/variant.
+Please use exactly this shape (extra keys are ignored; anything optional can be omitted):
+```json
+{ "unitsPerPx": 0.5,
+  "heroes": {
+    "jade_up":   { "front": "turn_jade_up_front.png", "side": "turn_jade_up_side.png", "back": "turn_jade_up_back.png",
+                   "baseline": 79, "cx": 32,
+                   "joints": { "neck": 36, "shoulder": 39, "elbow": 49, "wrist": 58, "hip": 60, "knee": 69 },
+                   "armGap": 12 },
+    "jade_down": { ... }, "charlie": { ... }, "ricky": { ... } },
+  "items": { "item_strat": { "front": "item_strat_front.png", "side": "item_strat_side.png", "baseline": 47, "cx": 16, "grip": [16, 30] }, ... } }
+```
+- One PNG per view, all views of a hero the SAME canvas size; `baseline` = y of the bottom row of the feet, `cx` = centre column
+  (same in every view). A view may instead be an object `{ "file": ..., "baseline": ..., "cx": ... }` if they differ.
+- Side view faces screen-RIGHT. Front = hero facing the viewer (their left hand on screen right). Back = seen from behind.
+- `joints` (optional, y rows in px, front view): neck = chin/neck line, shoulder = top of the arm, elbow, wrist (bottom of the
+  forearm, hand below), hip = crotch line, knee. `armGap` (optional) = px from cx to the inner edge of each arm in the front view.
+  Without them the engine guesses from the silhouettes, so a small A-pose gap between arms and torso matters.
+- Jade `jade_up`: the X pencils may be drawn through the bun; the engine adds its own 3D pencils through the bun too, so a clean
+  bun is fine. Items: `grip` = the pixel where a hand holds it (side view).
+
+**PROGRESS (A-4, art dept):** front views landed first, then side/back/items.
+**DONE (A-4):** `assets/sprites/turn/`: `turn_{charlie,ricky,jade_up,jade_down}_{front,side,back}.png` (12 views) + items `item_{strat,acoustic,flatcap,pencil_blue,pencil_pink}_{front,side}.png`, all listed in `turn/turnaround.json`.
+- Geometry: 72x96 frames. Figure 80 px from sole to head top (jade_up's bun + pencil caps reach 86-87 px). Baseline y=95 = lowest sole row, centre x=36: hips/legs centre for front/back, hip column for side. Side views face screen-right. Back views are aligned for a mirror about x -> 72-x; front/back mirror IoU 0.93-0.96. Head tops match across a hero's three views to within 1 px. Jade up/down share one scale, so the body is identical in both.
+- `parts` boxes per view (head/torso/legs/arms) are approximate, from the silhouette (narrowest neck row, leg split).
+- Items: one scale (Charlie's acoustic in his back view is about 51 px long, his cap about 32 px wide). Pivot = bottom centre. The pencils are code-drawn, 30x5, cap up, tip down, front == side.
+- Ricky's turnaround has no guitar (`item_strat` is separate). Charlie keeps the acoustic on his back in all three views, consistent with `item_acoustic`.
+- Canon: jade_up has the bun with an X; the crossing is hidden in the bun in all views (in the back view the model's crossing over the bun was painted out and a round bun redrawn); caps on top, tips out the sides (the blue-cap tip is rainbow, the pink-cap tip graphite, with the cores fixed by hand). Both backs carry RARE / EARTH in 3x4 letters under a slightly smaller dot. No headphones, no glasses.
+- Spend $1.12 (5 calls, `art11_turn_*`). Review: `assets/sheets/review/a4_turnarounds_x6.png`.
+- Weak spots: jade_up's side view shows only the blue-cap pencil (the pink one is behind the bun). The jacket's snap epaulets barely read at this size. Ricky's side view is slim (27 px deep) next to his 42 px front.

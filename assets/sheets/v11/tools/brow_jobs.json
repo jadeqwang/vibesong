@@ -1,0 +1,383 @@
+[
+ {
+  "out": "assets/sheets/v11/paper_jade_turnaround_v11.png",
+  "base": "assets/sheets/paper/old_v3/paper_jade_turnaround.png",
+  "src": "assets/sheets/raw/v10_turn_a.png",
+  "mask_out": "assets/sheets/v11/raw/mask_turn.png",
+  "faces": [
+   {
+    "win": [
+     320,
+     170,
+     460,
+     250
+    ],
+    "brows": [
+     [
+      364,
+      205,
+      26,
+      13,
+      "ell",
+      0
+     ],
+     [
+      416,
+      205,
+      26,
+      13,
+      "ell",
+      0
+     ]
+    ]
+   },
+   {
+    "win": [
+     930,
+     170,
+     1070,
+     250
+    ],
+    "brows": [
+     [
+      955,
+      199,
+      988,
+      217
+     ],
+     [
+      993,
+      193,
+      1033,
+      215
+     ]
+    ]
+   },
+   {
+    "win": [
+     1560,
+     170,
+     1650,
+     240
+    ],
+    "brows": [
+     [
+      1588,
+      196,
+      1611,
+      211
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "out": "assets/sheets/v11/paper_expr_jade_v11.png",
+  "base": "assets/sheets/paper/old_v3/paper_expr_jade.png",
+  "src": "assets/sheets/v11/raw/v11_expr_c.jpg",
+  "mask_out": "assets/sheets/v11/raw/mask_expr.png",
+  "faces": [
+   {
+    "win": [
+     370,
+     280,
+     630,
+     380
+    ],
+    "brows": [
+     [
+      399,
+      314,
+      472,
+      342
+     ],
+     [
+      520,
+      312,
+      590,
+      340
+     ]
+    ]
+   },
+   {
+    "win": [
+     1190,
+     280,
+     1410,
+     380
+    ],
+    "brows": [
+     [
+      1213,
+      320,
+      1276,
+      343
+     ],
+     [
+      1311,
+      302,
+      1395,
+      337
+     ]
+    ]
+   },
+   {
+    "win": [
+     2080,
+     250,
+     2300,
+     340
+    ],
+    "brows": [
+     [
+      2094,
+      276,
+      2148,
+      319
+     ],
+     [
+      2177,
+      266,
+      2272,
+      303
+     ]
+    ]
+   },
+   {
+    "win": [
+     300,
+     1030,
+     530,
+     1130
+    ],
+    "brows": [
+     [
+      317,
+      1072,
+      372,
+      1103
+     ],
+     [
+      402,
+      1058,
+      504,
+      1091
+     ]
+    ]
+   },
+   {
+    "win": [
+     1180,
+     1030,
+     1390,
+     1110
+    ],
+    "brows": [
+     [
+      1196,
+      1068,
+      1253,
+      1093
+     ],
+     [
+      1292,
+      1050,
+      1374,
+      1084
+     ]
+    ]
+   },
+   {
+    "win": [
+     2050,
+     1060,
+     2280,
+     1150
+    ],
+    "brows": [
+     [
+      2069,
+      1093,
+      2142,
+      1131
+     ],
+     [
+      2148,
+      1083,
+      2254,
+      1129
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "out": "assets/sheets/v11/paper_lineup_v11.png",
+  "base": "assets/sheets/paper/old_v3/paper_lineup.png",
+  "src": "assets/sheets/v11/raw/v11_lineup_c.png",
+  "mask_out": "assets/sheets/v11/raw/mask_lineup.png",
+  "faces": [
+   {
+    "win": [
+     480,
+     200,
+     640,
+     290
+    ],
+    "brows": [
+     [
+      504,
+      236,
+      542,
+      253
+     ],
+     [
+      559,
+      235,
+      598,
+      253
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "out": "assets/sheets/v11/jade_sing_a_v11.jpg",
+  "base": "engine/src/scenes/act4/assets/jade_sing_a.jpg",
+  "src": "assets/sheets/v11/paper_expr_jade_v11.png",
+  "src_crop": [
+   1880,
+   10
+  ],
+  "mask_out": "assets/sheets/v11/raw/mask_sing_a.png",
+  "faces": [
+   {
+    "win": [
+     190,
+     240,
+     440,
+     340
+    ],
+    "brows": [
+     [
+      209,
+      264,
+      271,
+      323
+     ],
+     [
+      292,
+      254,
+      423,
+      316
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "out": "assets/sheets/v11/jade_sing_b_v11.jpg",
+  "base": "engine/src/scenes/act4/assets/jade_sing_b.jpg",
+  "src": "assets/sheets/v11/paper_expr_jade_v11.png",
+  "src_crop": [
+   180,
+   772
+  ],
+  "mask_out": "assets/sheets/v11/raw/mask_sing_b.png",
+  "faces": [
+   {
+    "win": [
+     110,
+     260,
+     360,
+     370
+    ],
+    "brows": [
+     [
+      133,
+      296,
+      195,
+      333
+     ],
+     [
+      205,
+      283,
+      327,
+      321
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "out": "assets/sheets/v11/jade_laugh_v11.jpg",
+  "base": "engine/src/scenes/act4/assets/jade_laugh.jpg",
+  "src": "assets/sheets/v11/paper_expr_jade_v11.png",
+  "src_crop": [
+   1110,
+   772
+  ],
+  "mask_out": "assets/sheets/v11/raw/mask_laugh.png",
+  "faces": [
+   {
+    "win": [
+     60,
+     250,
+     320,
+     350
+    ],
+    "brows": [
+     [
+      83,
+      292,
+      146,
+      324
+     ],
+     [
+      177,
+      275,
+      267,
+      315
+     ]
+    ]
+   }
+  ]
+ },
+ {
+  "out": "assets/sheets/v11/spread_v2_v11.png",
+  "base": "media/act5/gen/spread_v2.png",
+  "src": "assets/sheets/v11/raw/v11_spread_jade_c.png",
+  "src_place": [
+   3670,
+   1002,
+   880,
+   495
+  ],
+  "pad": 4,
+  "mask_out": "assets/sheets/v11/raw/mask_spread.png",
+  "faces": [
+   {
+    "win": [
+     3980,
+     1200,
+     4160,
+     1300
+    ],
+    "brows": [
+     [
+      4016,
+      1238,
+      4054,
+      1259
+     ],
+     [
+      4069,
+      1236,
+      4126,
+      1259
+     ]
+    ]
+   }
+  ]
+ }
+]

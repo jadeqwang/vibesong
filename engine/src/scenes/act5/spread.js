@@ -1,22 +1,38 @@
 // OUTRO (PAPER) + THE LAST SCREEN: the sketchbook spread (illustration: media/act5/gen/spread_v1.png, NBP 4K from the
 // v5 paper sheets; left page = the 2011 jam in graphite, right page = the three now in colour on the 一-bench).
 // Everything written on the page is code: captions, credits (docs/credits.md, Jade's wording), the 一笔一画 title in
-// colored pencil (true stroke order), the SHIPPED ✓ stamp, subtitles (handwritten, both directions).
-//   entry 'act5.outro' 186.70 -> 194.06 : close on the right page (the 一 as a bench at sunset), a flower grows and
+// colored pencil (true stroke order), the SAVE COMPLETE · 2026 stamp (v4; was SHIPPED ✓), the dedication (v4), subtitles (v4: SmoothSubs).
+//   entry 'act5.outro' 186.65 -> 198.035 (v4; was -> 194.31): close on the right page (the 一 as a bench at sunset), a flower grows and
 //                                         blooms on "blossoms"; 191.30 "(that's it.)": pull back to the whole spread;
 //                                         lower-third captions write themselves
-//   entry 'act5.last'  198.035 -> 207.2 : the final image (never black): stamp lands, credits ink in one per beat,
-//                                         199.25/199.55/200.15/200.45 chop: 一 笔 一 画 draw themselves across the top;
-//                                         after the song ends (201.16) a pencil rolls to a stop, a firefly blinks
+//   entry 'act5.last'  198.035 -> 203.0 (v4; was -> 207.2): the final image (never black): stamp lands, the opening's pencil
+//                                         writes the dedication, 199.25/199.55/200.15/200.45 chop: 一 笔 一 画 draw themselves;
+//                                         the credits ink in after the song ends (201.16) (v4 M3; see the page beats below)
+// (v4 Pass B, open_close) THE OUTRO PAGE (approved still #11): the spread now carries the v11 brows (media/act5/tex/
+// spread_*_v11.jpg); the end is the 2011 page from the opening (#01), now in colour with all three:
+//   191.30-194.06  pull back to the whole spread (no captions on it any more: they moved to the page)
+//   194.06-195.40  (the synth pulse) push into the LEFT page = the 2011 page (graphite, Charlie alone)
+//   195.40-196.30  a rainbow pencil edge colours it in: page #11 (same plate as #01: media/act5/tex/page11*.jpg), drawn
+//                  registered onto the spread's left page (PM), then it settles into its own full frame by 196.97
+//   196.75-197.85  the two end-card lines ink in; 198.035 SAVE COMPLETE · 2026 stamps on the final drum tag
+//   (v4 M3) one thing per beat, top to bottom: stamp -> dedication -> title -> credits
+//   198.25-199.40  the opening's own pencil (pencil01, same angle) comes back in along its axis, WRITES the dedication on
+//                  the next beat (198.471 -> 199.10, under the end-card lines), then lifts away the way it left at 0.343-0.85
+//   199.25-200.95  一 笔 一 画 draw themselves on the chops (left column), 200.60 "The Vibe Coding Song" under them
+//   201.025-202.0  the credits ink in, stacked, in the silence; the finished dedication is readable 199.10 -> 203.0
+//   (the M2 rolling pencil at 200.85 is retired: the pencil's job is now the dedication); picture ends 203.0
 import * as THREE from 'three';
 import * as T from '../../show/timing.js';
 import { loadFonts } from '../../core/text.js';
-import { SUBS } from '../../show/subtitles.js';
 import { loadHanzi } from '../../hanzi.js';
-import { InkQuad, handText, PencilHanzi, drawFlower, stampCanvas, drawPencil, INK } from './paperkit.js';
+import { InkQuad, handText, PencilHanzi, drawFlower, saveStampCanvas, drawPencil, INK } from './paperkit.js';
+import { SmoothSubs } from '../act3/common.js';
+import { subtitleFor } from '../../core/ui.js';
 import { FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
 import { FrameSeq } from './frames.js';
 import { AER, diveXform } from './aerial.js';
+import { drawDoodle, LAMP_BULB } from './doodles.js';   // v7: margin doodles (firefly lamp, pink Eraser in its cap)
+import { pageKit, FrameLayer, WipeBand, loadImg, imgTex, TEX } from './paperkit.js';
 
 // 186.65 hand-off: the photoreal dive (same pure transform as aerial.js) is drawn over by the rainbow pencil -> the page
 const WIPE_FS = /* glsl */`
@@ -43,7 +59,17 @@ const WIPE_FS = /* glsl */`
 
 const A = 5504 / 3072;                       // spread aspect (world: x 0..A, y 0..1, y up)
 const P = (u, v) => [u * A, 1 - v];          // image-normalised (u right, v down) -> world
-export const OUT = { o0: 186.65, blossoms: 189.68, thats: 191.30, pulse: 194.06, last: 198.035, chops: [199.25, 199.55, 200.15, 200.45], end: 201.16 };
+export const OUT = { o0: 186.65, blossoms: 191.22, thats: 191.95,   /* (v4 M3) word onsets per the type unit's stem audit (were 189.68 = 'just', 191.30) */ pulse: 194.06, last: 198.035, chops: [199.25, 199.55, 200.15, 200.45], end: 201.16, ded: [198.471, 199.10], fin: 203.0,   /* (v4 M3) ded was [201.4, 202.4]: readable 0.5 s */
+  pen: { in: 198.25, out: 199.40 }, sbs: [200.60, 201.00], cred: { t0: 201.025, step: 0.15, dur: 0.36 },   // (v4 M3) pencil in/out; title subline; credits after the title
+  push: [194.06, 195.40], wipe: [195.40, 196.30], settle: 0.67, capA: [196.75, 197.40], capB: [197.20, 197.85] };   // on the synth pulse (0.448 s)   // (v4 Pass B) the page beats
+// page frame px -> spread world (registered on the 2011 drawing: assets/v4_stills/tools/passB_oc/register.py, page #01 plate
+// vs the spread's left page: A = 0.88992 B + (-418.1, -243.2), then x0.64978 + (122.3, 275.2) into spread_half px)
+const PM = { ax: 5.3963e-4, bx: -0.097247, ay: 5.3542e-4, by: 0.923717 };
+// the push target: the same scale as the page, slid right just enough to stay inside the spread (its left 9 % is beyond
+// the book's edge); the page then settles into its own framing after the wipe
+const PUSH = { cx: 0.51913, cy: 0.63459, h: 0.5784 };
+// (v4, ONE ending) the sketchbook IS the end: 'act5.outro' runs 186.65 -> 198.035 (the page holds through the old pixel SAVE
+// COMPLETE slot), 'act5.last' 198.035 -> 203.0 (the stamp lands on the final drum tag, credits, title, the dedication last).
 // Credits: docs/credits.md (Jade's wording). MODELS is filled at picture lock with only models whose output is in the cut.
 export const MODELS = 'Veo 3.1, GPT Image 2.5, Nano Banana Pro, Seedance 2.0 and Seedance 2.5'; // audited: docs/credits_models.md
 // keep each model name on one line when wrapping (non-breaking spaces inside names)
@@ -65,7 +91,7 @@ export async function setup(ctx) {
   const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, -10, 10);
 
   // ---- the spread
-  const img = new Image(); img.src = `/media/act5/tex/${H <= 540 ? 'spread_half' : 'spread_full'}.jpg`; await img.decode();
+  const img = new Image(); img.src = `/media/act5/tex/${H <= 540 ? 'spread_half_v11' : 'spread_full_v11'}.jpg`; await img.decode();   // (v4 Pass B) v11 brows
   const ptex = new THREE.Texture(img); ptex.needsUpdate = true; ptex.minFilter = THREE.LinearMipmapLinearFilter; ptex.anisotropy = 8;
   const paper = new THREE.Mesh(new THREE.PlaneGeometry(A, 1), new THREE.ShaderMaterial({
     uniforms: { map: { value: ptex }, uWarm: { value: 0 } }, depthTest: false, depthWrite: false,
@@ -76,14 +102,14 @@ export async function setup(ctx) {
   // living illustration (outro only): Veo 3.1 Fast clips registered to the still (full spread + a crisp right-page crop),
   // played as textures over their rects; the crop is feathered into the full clip at its edges (blank paper there)
   const living = [];
-  if (!isLast) {
-    const VID_FS = `uniform sampler2D map; uniform vec4 uFeather; uniform float uWarm; varying vec2 vUv;
+  if (!isLast) {   // (v4) the outro now holds the page to 198.035: the living layer settles into the approved still (194.06 -> 194.9)
+    const VID_FS = `uniform sampler2D map; uniform vec4 uFeather; uniform float uWarm, uOp; varying vec2 vUv;
       void main(){ vec3 c = texture2D(map, vUv).rgb * mix(vec3(1.0), vec3(1.03, 0.99, 0.93), uWarm);
         float a = smoothstep(0.0, uFeather.x, vUv.x) * smoothstep(0.0, uFeather.y, 1.0 - vUv.x) * smoothstep(0.0, uFeather.z, vUv.y) * smoothstep(0.0, uFeather.w, 1.0 - vUv.y);
-        gl_FragColor = vec4(c, a); }`;
-    for (const [name, rect, feather, z] of [['spreadF', [21 / 5504, 0, 5461 / 5504, 1], [0.0001, 0.0001, 0.0001, 0.0001], 1], ['spreadR', [0.444, 0.235, 0.556, 0.5602], [0.04, 0.0001, 0.03, 0.04], 2]]) {
-      const seq = await FrameSeq.load(name, ctx, { prefer: name === 'spreadR' || H > 540 ? 1080 : 540 }); if (!seq) continue;
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(rect[2] * A, rect[3]), new THREE.ShaderMaterial({ uniforms: { map: { value: null }, uFeather: { value: new THREE.Vector4(...feather) }, uWarm: { value: 1 } },
+        gl_FragColor = vec4(c, a * uOp); }`;
+    for (const [name, rect, feather, z] of [['spreadF', [21 / 5504, 0, 5461 / 5504, 1], [0.0001, 0.0001, 0.0001, 0.0001], 1], ['spreadR_v13c', [0.444, 0.235, 0.556, 0.5602], [0.04, 0.0001, 0.03, 0.04], 2]]) {
+      const seq = await FrameSeq.load(name, ctx, { prefer: name.startsWith('spreadR') || H > 540 ? 1080 : 540 }); if (!seq) continue;
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(rect[2] * A, rect[3]), new THREE.ShaderMaterial({ uniforms: { map: { value: null }, uFeather: { value: new THREE.Vector4(...feather) }, uWarm: { value: 1 }, uOp: { value: 1 } },
         transparent: true, depthTest: false, depthWrite: false, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }', fragmentShader: VID_FS }));
       m.position.set((rect[0] + rect[2] / 2) * A, 1 - (rect[1] + rect[3] / 2), 0); m.renderOrder = z; scene.add(m); living.push({ seq, m });
     }
@@ -98,8 +124,8 @@ export async function setup(ctx) {
 
   // ---- captions (lower thirds, handwritten)
   const cap = (lines, u, v, size = 64) => { const t = handText(lines, { size, align: 'center' }); const h = 0.046; const q = new InkQuad(t.canvas, h * t.w / t.h, h, {}); const [x, y] = P(u, v); q.position.set(x, y, 0); return add(q, 6); };
-  const capL = cap(['Charlie wrote this in 2011.'], 0.255, 0.815);
-  const capR = cap(['We finally shipped it in 2026.'], 0.735, 0.815);
+  const capL = cap(['Charlie wrote this about product management in 2011.'], 0.255, 0.815);
+  const capR = cap(['We shipped The Vibe Coding Song in 2026.'], 0.735, 0.815);
 
   // ---- credits (last screen)
   const credits = CREDITS.map((c) => {
@@ -119,56 +145,72 @@ export async function setup(ctx) {
     const q = add(new InkQuad(ph.cv, 0.2, 0.2), 7); const [x, y] = P(0.5 + (k - 1.5) * 0.118, 0.13); q.position.set(x, y, 0);
     q.material.uniforms.uReveal.value = 1; return { ph, q, n: d.strokes.length };
   });
-  const sbs = handText(['stroke by stroke'], { size: 48, align: 'center' });
+  const sbs = handText(['The Vibe Coding Song'], { size: 48, align: 'center' });
   const sbsQ = add(new InkQuad(sbs.canvas, 0.042 * sbs.w / sbs.h, 0.042), 7); { const [x, y] = P(0.5, 0.245); sbsQ.position.set(x, y, 0); }
 
-  // ---- SHIPPED ✓ stamp (top-right corner of the right page)
-  const stamp = add(new InkQuad(stampCanvas(), 0.25, 0.25 * 260 / 760), 8); { const [x, y] = P(0.865, 0.12); stamp.position.set(x, y, 0); }
+  // ---- (v4) the SAVE COMPLETE · 2026 stamp (top-right corner of the right page, where SHIPPED ✓ was; clear of the 画)
+  const STW = 0.38; const stamp = add(new InkQuad(saveStampCanvas(), STW, STW * 240 / 1600), 8); { const [x, y] = P(0.856, 0.118); stamp.position.set(x, y, 0); }
+  // ---- (v4, Jade 2026-10-18) the dedication, in the page's own hand (handText), right-aligned under the stamp; it inks in last
+  const dedT = handText(['For every idea that waited in a drawer.'], { size: 64, align: 'center' }); const dedH = 0.036;
+  const ded = add(new InkQuad(dedT.canvas, dedH * dedT.w / dedT.h, dedH), 7); { const [x1, y] = P(0.962, 0.205); ded.position.set(x1 - dedH * dedT.w / dedT.h / 2, y, 0); }
   stamp.material.uniforms.uSoft.value = 0.0001;
 
-  // ---- living detail: pencil rolling to a stop + a firefly-lamp blinking
+  // ---- (v7) margin doodles in the outer bottom corners, inked in with the credits: the firefly LAMP (left page, by
+  //      Charlie's 2011 room) and the pink ERASER wearing Charlie's spare beige cap (right page, under the pencil)
+  const DOODLES = [{ name: 'lamp', at: P(0.062, 0.872), h: 0.118, beat: 1 }, { name: 'eraser', at: P(0.948, 0.872), h: 0.105, beat: 3 }];
+  const doodles = DOODLES.map((d) => { const cv = document.createElement('canvas'); cv.width = cv.height = H <= 540 ? 256 : 512;
+    const q = add(new InkQuad(cv, d.h, d.h), 7); q.material.uniforms.uSoft.value = 0.0001; q.position.set(d.at[0], d.at[1], 0); q.visible = false; return { ...d, cv, q, key: '' }; });
+  const bulbAt = [DOODLES[0].at[0] + (LAMP_BULB[0] - 0.5) * DOODLES[0].h, DOODLES[0].at[1] + (0.5 - LAMP_BULB[1]) * DOODLES[0].h];
+  // ---- living detail: pencil rolling to a stop + the firefly LAMP's bulb blinking (v7: it is the doodled lamp now)
   const pcv = document.createElement('canvas'); pcv.width = 1024; pcv.height = 96;
   const pencil = add(new InkQuad(pcv, 0.36, 0.36 * 96 / 1024), 9); pencil.material.uniforms.uSoft.value = 0.0001;
   const fly = add(new THREE.Mesh(new THREE.PlaneGeometry(0.075, 0.075), new THREE.ShaderMaterial({
     uniforms: { uOn: { value: 0 } }, transparent: true, depthTest: false, depthWrite: false, blending: THREE.NormalBlending,
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
     fragmentShader: `uniform float uOn; varying vec2 vUv; void main(){ vec2 d = vUv - 0.5; float r = length(d);
-      float glow = exp(-r * r * 22.0) * uOn; float body = smoothstep(0.075, 0.06, length(d * vec2(1.0, 1.6) - vec2(0.0, 0.03)));
+      float glow = exp(-r * r * 22.0) * uOn; float body = 0.0;   // v7: no bug body, the doodled lamp's bulb is under it
       vec3 c = mix(vec3(1.0, 0.92, 0.45), vec3(0.25, 0.2, 0.18), body * (1.0 - uOn * 0.6));
       gl_FragColor = vec4(c, clamp(glow * 0.9 + body * 0.85, 0.0, 1.0)); }`,
   })), 9);
-  { const [x, y] = P(0.905, 0.30); fly.position.set(x, y, 0); }
+  fly.position.set(bulbAt[0], bulbAt[1], 0); fly.scale.setScalar(0.62);
 
-  // ---- handwritten subtitle slip (screen space): sung line on top (words ink in as sung), translation below
+  // ---- (v4 Pass B) THE PAGE (#11): one plate with the opening page; everything on it in frame px (paperkit pageKit)
+  const kit = await pageKit(ctx), PL = kit.lay;
+  const pg = await kit.page('page11', 0);
+  const cap11a = await kit.layer('cap11a', { z: 4 }), cap11b = await kit.layer('cap11b', { z: 4 });
+  const ded11 = await kit.layer('ded11', { z: 4 });
+  const SL = PL.stamp11; const stamp11 = await kit.layer('stamp11', { z: 7, anchor: [SL.w / 2, SL.h / 2] }); stamp11.place(SL.x + SL.w / 2, SL.y + SL.h / 2);
+  for (const q of [cap11a, cap11b, ded11]) q.soft = 0.015;
+  const TT = { x0: 50, y0: 410, s: 112, gap: 6 };                        // 一笔一画 in the left column, clear of the string lights
+  const ptitles = titles.map(({ ph, n }, k) => { const q = new FrameLayer(new THREE.CanvasTexture(ph.cv), TT.s, TT.s, { res: kit.res, z: 5 });
+    q.place(TT.x0 + k * (TT.s + TT.gap), TT.y0); kit.scene.add(q); return { ph, q, n }; });
+  const sbsH = 40; const psbs = new FrameLayer(new THREE.CanvasTexture(sbs.canvas), sbsH * sbs.w / sbs.h, sbsH, { res: kit.res, z: 5 });
+  psbs.place(TT.x0 + (4 * TT.s + 3 * TT.gap) / 2 - (sbsH * sbs.w / sbs.h) / 2, TT.y0 + TT.s + 10); psbs.soft = 0.015; kit.scene.add(psbs);
+  // (v4 M3) the opening's pencil (pencil01: the approved still's yellow pencil, tip-anchored) writes the dedication
+  const wpen = await kit.layer('pencil01', { z: 9, anchor: PL.pencil01.tip }), wshadow = await kit.shadow('pencil01', 8);
+  wpen.visible = wshadow.visible = false;
+  const DL = PL.ded11, WP = { ang: PL.pencil01.angle_deg, y: DL.y + DL.h * 0.56, soft: 0.015 };
+  const pband = new WipeBand(kit.res, { rainbow: true, z: 10 }); kit.scene.add(pband);
+  // credits: the left column under the title, one block per beat after the stamp (same text as CREDITS)
+  const CR = { x0: 58, y0: 612, lh: 30, gap: 10, maxW: 520 };
+  let cy0 = CR.y0;
+  const crT = [CREDITS[0], CREDITS[2], CREDITS[1], CREDITS[3], CREDITS[4]].map((c) => handText(c.text, { size: 64, lineGap: 1.25 }));
+  const crK = Math.min(CR.lh / 80, ...crT.map((t) => CR.maxW / t.w));   // one size for every credit line
+  const pcredits = crT.map((t) => {
+    const size = 64, k = crK; const q = new FrameLayer(new THREE.CanvasTexture(t.canvas), t.w * k, t.h * k, { res: kit.res, z: 5 });
+    q.place(CR.x0 - size * 0.2 * k, cy0); q.soft = 0.015; kit.scene.add(q); cy0 += t.h * k - size * 0.3 * k + CR.gap; return q;
+  });
+  // the next page's paper to the right of the page's edge (it slides in from the left while it settles: no spread sliver)
+  const pedge = new FrameLayer(imgTex(await loadImg(`${TEX}page_edge${H <= 540 ? '_half' : ''}.jpg`)), 600, 1080, { res: kit.res, z: 0 }); pedge.place(1920, 0); kit.scene.add(pedge);
+  const pageLayers = [pg, pedge, cap11a, cap11b, ded11, stamp11, psbs, ...ptitles.map((x) => x.q), ...pcredits];
+  const pageCam = (cx, cy, h) => [(cx - h * asp / 2 - PM.bx) / PM.ax, (cx + h * asp / 2 - PM.bx) / PM.ax, -(PM.by - (cy + h / 2)) / PM.ay, -(PM.by - (cy - h / 2)) / PM.ay];
+  const setPageCam = (b) => { kit.cam.left = b[0]; kit.cam.right = b[1]; kit.cam.top = b[2]; kit.cam.bottom = b[3]; kit.cam.updateProjectionMatrix(); };
+  const PAGE_NATIVE = [0, 1920, 0, -1080];
+
+  // ---- (v4) subtitles: the ONE lyric style (SmoothSubs, bottom centre), not a handwritten slip
   const uiScene = new THREE.Scene(); const uiCam = new THREE.OrthographicCamera(0, W, H, 0, -1, 1);
-  const subCache = new Map();
-  function subQuad(id, t) {
-    const S = SUBS[id]; const L = T.line(id); if (!S || !L) return null;
-    const key = id; if (!subCache.has(key)) {
-      const sz = Math.round(H * 0.045);
-      const top = handText([S.top], { size: sz, color: '#2b2a30' }), bot = handText([S.bot], { size: Math.round(sz * 0.72), color: '#55525a' });
-      const cv = document.createElement('canvas'); const pad = sz * 0.6;
-      cv.width = Math.max(top.w, bot.w) + pad * 2; cv.height = top.h + bot.h + pad * 1.2;
-      const g = cv.getContext('2d'); g.fillStyle = 'rgba(250,245,232,0.94)'; g.fillRect(0, 0, cv.width, cv.height);
-      g.strokeStyle = 'rgba(120,110,95,0.35)'; g.lineWidth = 2; g.strokeRect(1, 1, cv.width - 2, cv.height - 2);
-      const topX = (cv.width - top.w) / 2; g.globalAlpha = 0.22; g.drawImage(top.canvas, topX, pad * 0.5); g.globalAlpha = 1;
-      g.drawImage(bot.canvas, (cv.width - bot.w) / 2, pad * 0.5 + top.h);
-      const cv2 = document.createElement('canvas'); cv2.width = cv.width; cv2.height = cv.height; cv2.getContext('2d').drawImage(top.canvas, topX, pad * 0.5);
-      // word boundaries along x (the sung line inks in word by word)
-      const m = document.createElement('canvas').getContext('2d'); m.font = `${sz}px "LXGWWenKai"`;
-      const words = S.top.split(' '); let acc = 0; const xs = [];
-      words.forEach((w, i) => { acc += m.measureText(w + (i < words.length - 1 ? ' ' : '')).width; xs.push((topX + sz * 0.2 + acc) / cv.width); });
-      const q = new InkQuad(cv, cv.width, cv.height); q.position.set(W / 2, H * 0.955 - cv.height / 2, 0); q.rotation.z = -0.008;
-      q.material.uniforms.uSoft.value = 0.0001; q.renderOrder = 20; uiScene.add(q);
-      const q2 = new InkQuad(cv2, cv.width, cv.height); q2.position.copy(q.position); q2.rotation.z = q.rotation.z;
-      q2.material.uniforms.uSoft.value = 0.01; q2.renderOrder = 21; uiScene.add(q2); q.ink = q2;
-      subCache.set(key, { q, xs, L, nW: words.length });
-    }
-    return subCache.get(key);
-  }
-  const subIds = [48, 49];
-  subIds.forEach((id) => subQuad(id, 0));
-
+  const smooth = new SmoothSubs(W, H); smooth.mesh.renderOrder = 20; uiScene.add(smooth.mesh);
+  const subIds = [49, 48];   // (v4 M3) later line first, so line 48's 0.5 s hold doesn't delay '(that\'s it.)' (191.95)
   function camSet(cx, cy, h) {
     cam.left = cx - h * asp / 2; cam.right = cx + h * asp / 2; cam.top = cy + h / 2; cam.bottom = cy - h / 2; cam.updateProjectionMatrix();
   }
@@ -195,70 +237,82 @@ export async function setup(ctx) {
         const push = T.span(t, OUT.o0, OUT.thats, T.ease.linear);
         const close = [cx0 + 0.008 * push, cy0, 0.56 - 0.05 * push];
         const u = T.span(t, OUT.thats, OUT.thats + 1.6, T.ease.inOut);
-        camSet(close[0] + (full[0] - close[0]) * u, close[1] + (full[1] - close[1]) * u, close[2] + (full[2] - close[2]) * u);
+        const v = T.span(t, OUT.push[0], OUT.push[1], T.ease.inOut);       // (v4 Pass B) into the 2011 page
+        const c1 = [close[0] + (full[0] - close[0]) * u, close[1] + (full[1] - close[1]) * u, close[2] + (full[2] - close[2]) * u];
+        const c2 = [c1[0] + (PUSH.cx - c1[0]) * v, c1[1] + (PUSH.cy - c1[1]) * v, c1[2] + (PUSH.h - c1[2]) * v]; camSet(...c2);
+        // the page rides on the spread's left page through the wipe, then settles into its own frame
+        const b0 = pageCam(...c2), w = T.span(t, OUT.wipe[1], OUT.wipe[1] + OUT.settle, T.ease.inOut);
+        setPageCam(b0.map((x, i) => x + (PAGE_NATIVE[i] - x) * w));
       } else {
         const u = T.span(t, OUT.last, 207, T.ease.linear);
         camSet(full[0], full[1] - 0.004 * u, 1.0 - 0.018 * u);   // a breath of a push, so it is a moment, not a frozen frame
+        const z = 1 - 0.016 * u; setPageCam([960 - 960 * z, 960 + 960 * z, -540 + 540 * z + 6 * u, -540 - 540 * z + 6 * u]);   // (v4 Pass B) the same breath on the page
       }
       paper.material.uniforms.uWarm.value = isLast ? 0 : 1 - T.span(t, OUT.thats, OUT.thats + 2);
-      for (const { seq, m } of living) m.material.uniforms.uWarm.value = paper.material.uniforms.uWarm.value, m.material.uniforms.map.value = seq.time(Math.max(0, t - OUT.o0) * seq.duration / (194.31 - OUT.o0));
+      for (const { seq, m } of living) { m.material.uniforms.uWarm.value = paper.material.uniforms.uWarm.value; m.material.uniforms.map.value = seq.time(Math.max(0, t - OUT.o0) * seq.duration / (194.31 - OUT.o0));
+        m.material.uniforms.uOp.value = 1 - T.span(t, OUT.pulse, OUT.pulse + 0.84, T.ease.inOut); m.visible = m.material.uniforms.uOp.value > 0.001; }   // (v4) settles into the still before the 198.035 cut
       // ---------------- flower: stem 187.0-188.8, bloom on "blossoms"
       const grow = isLast ? 1 : T.span(t, OUT.o0 + 0.3, OUT.blossoms - 0.3, T.ease.out);
       const bloom = isLast ? 1 : T.span(t, OUT.blossoms, OUT.blossoms + 0.9, T.ease.back);
-      const sway = Math.sin(t * 1.3) * 0.15 * (isLast ? 0.6 : 1);
+      const sway = Math.sin(t * 1.3) * 0.15 * (1 - 0.4 * T.span(t, OUT.pulse, OUT.last));   // (v4) one continuous page across the 198.035 cut
       const k = `${grow.toFixed(3)}|${bloom.toFixed(3)}|${sway.toFixed(3)}`;
       if (k !== fkey) { drawFlower(fcv, grow, bloom, sway); flower.refresh(); fkey = k; }
       // ---------------- captions
-      capL.reveal = isLast ? 1 : T.span(t, OUT.thats + 0.15, OUT.thats + 1.15);
-      capR.reveal = isLast ? 1 : T.span(t, OUT.thats + 1.0, OUT.thats + 2.1);
+      capL.visible = capR.visible = false;   // (v4 Pass B) the end-card lines live on the page (#11) now
       // ---------------- last screen elements
-      const beats = T.beatsIn(OUT.last - 0.02, 201.5, 1).slice(0, CREDITS.length);
-      credits.forEach((q, i) => { q.visible = isLast; q.reveal = T.span(t, beats[i], beats[i] + 0.36); });
-      titles.forEach(({ ph, q, n }, k) => {
+      // (v4 Pass B) the credits moved to the page (pcredits, left column, one per beat after the stamp)
+      credits.forEach((q) => { q.visible = false; });
+      { const C = OUT.cred; pcredits.forEach((q, i) => { q.visible = isLast; q.reveal = T.span(t, C.t0 + C.step * i, C.t0 + C.step * i + C.dur); }); }   // (v4 M3) after the title, not under the chops
+      titles.forEach(({ q }) => { q.visible = false; });   // (v4 Pass B) the title is drawn on the page (ptitles)
+      ptitles.forEach(({ ph, q, n }, k) => {
         q.visible = isLast;
         if (!isLast) return;
         const c0 = OUT.chops[k], dur = k === 1 ? 0.42 : k === 3 ? 0.5 : 0.18;
         const prog = []; for (let i = 0; i < n; i++) prog.push(T.span(t, c0 + dur * i / n, c0 + dur * (i + 1) / n));
-        if (ph.draw(prog)) q.refresh();
+        if (ph.draw(prog)) q.material.uniforms.map.value.needsUpdate = true;
       });
-      sbsQ.visible = isLast; sbsQ.reveal = T.span(t, 200.75, 201.35);
-      stamp.visible = isLast;
-      if (isLast) {
-        const s = T.since(t, OUT.last); const sc = s < 0 ? 0 : [1.55, 1.22, 1.06, 0.98, 1.0][Math.min(4, Math.floor(s * 30))];
-        stamp.scale.setScalar(sc); stamp.rotation.z = 0.12; stamp.material.uniforms.uOpacity.value = s < 0 ? 0 : 0.92;
-      }
-      // pencil: set down after the title (200.8), rolls toward the lower right of the right page, stops ~202.6
-      pencil.visible = isLast && t >= 200.85;
-      if (pencil.visible) {
-        const u = T.clamp01((t - 200.85) / 1.75); const e = 1 - (1 - u) * (1 - u);
-        const rock = u >= 1 ? Math.exp(-(t - 202.6) * 3) * Math.sin((t - 202.6) * 9) * 0.004 : 0;
-        const [x0, y0] = P(0.925, 0.58), [x1, y1] = P(0.957, 0.60);
-        pencil.position.set(x0 + (x1 - x0) * e + rock, y0 + (y1 - y0) * e, 0); pencil.rotation.z = Math.PI / 2 - 0.05;
-        const ph = (e * 0.057 + rock) / 0.0105; // roll angle = distance / radius
-        if (pencil._ph !== ph.toFixed(3)) { drawPencil(pcv, ph); pencil.refresh(); pencil._ph = ph.toFixed(3); }
-        pencil.opacity = T.span(t, 200.85, 200.95);
-      }
-      fly.visible = isLast && t >= 201.3;
-      if (fly.visible) { const ph = ((t - 201.3) % 1.7) / 1.7; fly.material.uniforms.uOn.value = Math.pow(Math.sin(Math.PI * Math.min(1, ph / 0.55)), 2); fly.position.y = P(0.905, 0.30)[1] + Math.sin(t * 0.9) * 0.006; }
-      // ---------------- subtitles (outro only)
-      subIds.forEach((id) => { const s = subCache.get(id); s.q.visible = false; s.q.ink.visible = false; });
-      if (!isLast) for (const id of subIds) {
-        const s = subCache.get(id); const L = s.L; if (t < L.start - 0.12 || t > L.end + 0.5) continue;
-        s.q.visible = true;
-        const ws = L.words || []; let reveal = 0;
-        ws.forEach((w, i) => { if (t >= w.start) reveal = s.xs[Math.min(i, s.xs.length - 1)]; });
-        // the translation line is fully visible; the sung line inks in word by word (left part of the slip)
-        const op = Math.min(T.span(t, L.start - 0.12, L.start + 0.05), 1 - T.span(t, L.end + 0.3, L.end + 0.5));
-        s.q.material.uniforms.uReveal.value = 1; s.q.material.uniforms.uOpacity.value = op;
-        s.q.ink.visible = true; s.q.ink.material.uniforms.uReveal.value = reveal; s.q.ink.material.uniforms.uOpacity.value = op;
-      }
+      sbsQ.visible = ded.visible = stamp.visible = false;   // (v4 Pass B) on the page now
+      psbs.visible = isLast; psbs.reveal = T.span(t, OUT.sbs[0], OUT.sbs[1]);
+      ded11.visible = isLast; ded11.reveal = T.span(t, OUT.ded[0], OUT.ded[1]);
+      cap11a.reveal = T.span(t, OUT.capA[0], OUT.capA[1]); cap11b.reveal = T.span(t, OUT.capB[0], OUT.capB[1]);
+      stamp11.visible = isLast;
+      if (isLast) { const s = T.since(t, OUT.last); const sc = s < 0 ? 0 : [1.55, 1.22, 1.06, 0.98, 1.0][Math.min(4, Math.floor(s * 30))]; stamp11.scale.setScalar(sc); }
+      // the page arrives behind the rainbow edge (outro entry), then it is the whole picture
+      const pw = isLast ? 1 : T.span(t, OUT.wipe[0], OUT.wipe[1], T.ease.inOut);
+      for (const q of pageLayers) q.wipe(pw < 1 ? pw : -1, -1);
+      pband.wipe = isLast || t < OUT.wipe[0] ? -1 : pw; pband.visible = !isLast && pw > 0 && pw < 1;
+      // (v4 M3) the pencil writes the dedication: in along its own axis (198.25 -> 198.471), the tip rides the reveal edge
+      // with a small handwriting bob (198.471 -> 199.10), then it lifts back out along its axis (the opening's exit)
+      pencil.visible = false;
+      { const D = OUT.ded, inL = 1600 * Math.pow(1 - T.span(t, OUT.pen.in, D[0], T.ease.out), 1.7), outL = 1600 * Math.pow(T.span(t, D[1] + 0.02, OUT.pen.out), 1.7);
+        const L = Math.max(inL, outL), on = isLast && t >= OUT.pen.in && L < 1500, writing = t >= D[0] && t < D[1] + 0.02;
+        wpen.visible = wshadow.visible = on;
+        if (on) {
+          const r = T.span(t, D[0], D[1]), edge = r * (1 + 2 * WP.soft) - 1.6 * WP.soft;                 // the ink's leading edge (LAYER_FS)
+          const bob = writing ? Math.sin(t * 2 * Math.PI * 7.5) * 9 + Math.sin(t * 2 * Math.PI * 3.1 + 1) * 4 : 0, wob = writing ? Math.sin(t * 50) * 0.35 : 0;
+          const a = WP.ang * Math.PI / 180, x = DL.x + DL.w * edge, y = WP.y + bob;
+          const tip = [x - Math.cos(a) * L, y - Math.sin(a) * L];
+          wpen.place(tip[0], tip[1], WP.ang + wob); wshadow.set(tip, WP.ang + wob, L); wshadow.material.uniforms.uOp.value = 0.3 * (1 - T.span(L, 0, 900));
+        } }
+      fly.visible = false;   // (v4 Pass B) the firefly lamp doodle belonged to the spread's last screen (retired)
+      if (fly.visible) { const ph = ((t - 201.3) % 1.7) / 1.7; fly.material.uniforms.uOn.value = Math.pow(Math.sin(Math.PI * Math.min(1, ph / 0.55)), 2); }
+      { const bb = T.beatsIn(OUT.last - 0.02, 203, 1);
+        for (const d of doodles) { d.q.visible = false; continue;   // (v4 Pass B) retired with the spread's last screen
+          const p = T.span(t, bb[d.beat], bb[d.beat] + 1.3); const k = p.toFixed(3);
+          if (k !== d.key) { drawDoodle(d.cv, d.name, p, d.name === 'lamp' ? 5 : 9); d.q.refresh(); d.key = k; } } }
+      // ---------------- subtitles (outro only): the one style
+      let sc = null; if (!isLast) for (const id of subIds) { const c = subtitleFor(t, id, { hold: 0.5 }); if (c) { sc = c; break; } }
+      smooth.set(sc);
     },
     render(t, target) {
       const r = ctx.renderer;
       const wiping = wipe && wipe.dive && t < AER.paper + AER.paperWipe;
+      const onPage = isLast || t >= T.snap(OUT.wipe[1] + OUT.settle);   // (v4 Pass B) from here (settled) the page is the whole picture
       r.setRenderTarget(wiping ? wipe.rt : target); r.setClearColor(0xefe6d2, 1); r.clear();
-      r.render(scene, cam);
-      r.autoClear = false; r.render(uiScene, uiCam); r.autoClear = true;
+      if (!onPage) r.render(scene, cam);
+      r.autoClear = false;
+      if (onPage || t >= OUT.wipe[0]) kit.render(r, wiping ? wipe.rt : target);
+      r.setRenderTarget(wiping ? wipe.rt : target); r.render(uiScene, uiCam); r.autoClear = true;
       if (wiping) {
         const U = wipe.m.uniforms, d = diveXform(t, wipe.dive.duration), u = T.clamp01((t - AER.paper) / AER.paperWipe);
         U.tA.value = wipe.dive.time(d.clip); U.uZoom.value = d.zoom; U.uC.value.set(d.cx, d.cy); U.uWipe.value = T.ease.inOut(u);

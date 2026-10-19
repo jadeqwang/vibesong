@@ -1,0 +1,680 @@
+{
+ "generated_by": "tools/sprites/a4_turn.py (A-4)",
+ "pixel_note": "1 texel = 1 voxel column; NEAREST",
+ "frame": [
+  72,
+  96
+ ],
+ "baseline_y": 95,
+ "centre_x": 36,
+ "figure_height_px": 80,
+ "conventions": "orthographic; side views face screen-RIGHT; all views of all heroes share scale, baseline y=95 (lowest sole row) and centre x=36 (front/back: centre of hips/legs; side: centre of the hip column). Jade jade_up: pencil caps poke above the 80 px.",
+ "views": {
+  "turn_charlie_front": {
+   "file": "turn/turn_charlie_front.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    16,
+    16,
+    57,
+    95
+   ],
+   "parts": {
+    "head": [
+     17,
+     16,
+     52,
+     41
+    ],
+    "torso": [
+     22,
+     42,
+     51,
+     70
+    ],
+    "legs": [
+     18,
+     71,
+     55,
+     95
+    ],
+    "arm_r": [
+     16,
+     42,
+     21,
+     78
+    ],
+    "arm_l": [
+     52,
+     42,
+     57,
+     78
+    ]
+   },
+   "source": "assets/sheets/raw/a4_charlie_t1.png",
+   "colors": 39
+  },
+  "turn_ricky_front": {
+   "file": "turn/turn_ricky_front.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    16,
+    15,
+    57,
+    95
+   ],
+   "parts": {
+    "head": [
+     23,
+     15,
+     49,
+     40
+    ],
+    "torso": [
+     21,
+     41,
+     51,
+     72
+    ],
+    "legs": [
+     19,
+     73,
+     53,
+     95
+    ],
+    "arm_r": [
+     16,
+     41,
+     20,
+     80
+    ],
+    "arm_l": [
+     52,
+     41,
+     57,
+     80
+    ]
+   },
+   "source": "assets/sheets/raw/a4_ricky_t2.png",
+   "colors": 21
+  },
+  "turn_jade_up_front": {
+   "file": "turn/turn_jade_up_front.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    12,
+    9,
+    60,
+    95
+   ],
+   "parts": {
+    "head": [
+     19,
+     9,
+     54,
+     40
+    ],
+    "torso": [
+     18,
+     41,
+     55,
+     76
+    ],
+    "legs": [
+     16,
+     77,
+     57,
+     95
+    ],
+    "arm_r": [
+     12,
+     41,
+     17,
+     84
+    ],
+    "arm_l": [
+     56,
+     41,
+     60,
+     84
+    ]
+   },
+   "source": "assets/sheets/raw/a4_jade_t1.png",
+   "colors": 27
+  },
+  "turn_jade_down_front": {
+   "file": "turn/turn_jade_down_front.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    12,
+    15,
+    60,
+    95
+   ],
+   "parts": {
+    "head": [
+     22,
+     15,
+     49,
+     29
+    ],
+    "torso": [
+     20,
+     30,
+     51,
+     61
+    ],
+    "legs": [
+     12,
+     62,
+     60,
+     95
+    ],
+    "arm_r": [
+     12,
+     30,
+     19,
+     69
+    ],
+    "arm_l": [
+     52,
+     30,
+     60,
+     69
+    ]
+   },
+   "source": "assets/sheets/raw/a4_jade_t1.png",
+   "colors": 19
+  },
+  "turn_charlie_side": {
+   "file": "turn/turn_charlie_side.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    20,
+    16,
+    54,
+    95
+   ],
+   "parts": {
+    "head": [
+     20,
+     16,
+     54,
+     41
+    ],
+    "torso": [
+     24,
+     42,
+     45,
+     62
+    ],
+    "legs": [
+     24,
+     63,
+     48,
+     95
+    ],
+    "arm": null
+   },
+   "source": "assets/sheets/raw/a4_charlie_t1.png",
+   "colors": 38
+  },
+  "turn_charlie_back": {
+   "file": "turn/turn_charlie_back.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    15,
+    16,
+    56,
+    95
+   ],
+   "parts": {
+    "head": [
+     21,
+     16,
+     56,
+     41
+    ],
+    "torso": [
+     20,
+     42,
+     51,
+     75
+    ],
+    "legs": [
+     18,
+     76,
+     53,
+     95
+    ],
+    "arm_r": [
+     15,
+     42,
+     19,
+     83
+    ],
+    "arm_l": [
+     52,
+     42,
+     56,
+     83
+    ]
+   },
+   "source": "assets/sheets/raw/a4_charlie_t1.png",
+   "colors": 37
+  },
+  "turn_ricky_side": {
+   "file": "turn/turn_ricky_side.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    24,
+    15,
+    50,
+    95
+   ],
+   "parts": {
+    "head": [
+     24,
+     15,
+     50,
+     41
+    ],
+    "torso": [
+     29,
+     42,
+     42,
+     61
+    ],
+    "legs": [
+     29,
+     62,
+     46,
+     95
+    ],
+    "arm": null
+   },
+   "source": "assets/sheets/raw/a4_ricky_t2.png",
+   "colors": 22
+  },
+  "turn_ricky_back": {
+   "file": "turn/turn_ricky_back.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    16,
+    15,
+    57,
+    95
+   ],
+   "parts": {
+    "head": [
+     23,
+     15,
+     49,
+     40
+    ],
+    "torso": [
+     21,
+     41,
+     51,
+     71
+    ],
+    "legs": [
+     19,
+     72,
+     53,
+     95
+    ],
+    "arm_r": [
+     16,
+     41,
+     20,
+     79
+    ],
+    "arm_l": [
+     52,
+     41,
+     57,
+     79
+    ]
+   },
+   "source": "assets/sheets/raw/a4_ricky_t2.png",
+   "colors": 21
+  },
+  "turn_jade_up_side": {
+   "file": "turn/turn_jade_up_side.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    16,
+    10,
+    49,
+    95
+   ],
+   "parts": {
+    "head": [
+     16,
+     10,
+     49,
+     41
+    ],
+    "torso": [
+     27,
+     42,
+     42,
+     59
+    ],
+    "legs": [
+     23,
+     60,
+     49,
+     95
+    ],
+    "arm": null
+   },
+   "source": "assets/sheets/raw/a4_jade_t1.png",
+   "colors": 26
+  },
+  "turn_jade_up_back": {
+   "file": "turn/turn_jade_up_back.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    13,
+    9,
+    59,
+    95
+   ],
+   "parts": {
+    "head": [
+     19,
+     9,
+     54,
+     40
+    ],
+    "torso": [
+     18,
+     41,
+     54,
+     76
+    ],
+    "legs": [
+     16,
+     77,
+     56,
+     95
+    ],
+    "arm_r": [
+     13,
+     41,
+     17,
+     84
+    ],
+    "arm_l": [
+     55,
+     41,
+     59,
+     84
+    ]
+   },
+   "source": "assets/sheets/raw/a4_jade_t1.png",
+   "colors": 25
+  },
+  "turn_jade_down_side": {
+   "file": "turn/turn_jade_down_side.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    15,
+    15,
+    49,
+    95
+   ],
+   "parts": {
+    "head": [
+     18,
+     15,
+     49,
+     41
+    ],
+    "torso": [
+     16,
+     42,
+     42,
+     61
+    ],
+    "legs": [
+     23,
+     62,
+     49,
+     95
+    ],
+    "arm": null
+   },
+   "source": "assets/sheets/raw/a4_jade_t1.png",
+   "colors": 21
+  },
+  "turn_jade_down_back": {
+   "file": "turn/turn_jade_down_back.png",
+   "size": [
+    72,
+    96
+   ],
+   "baseline_y": 95,
+   "centre_x": 36,
+   "bbox": [
+    13,
+    15,
+    59,
+    95
+   ],
+   "parts": {
+    "head": [
+     24,
+     15,
+     49,
+     29
+    ],
+    "torso": [
+     20,
+     30,
+     54,
+     76
+    ],
+    "legs": [
+     16,
+     77,
+     57,
+     95
+    ],
+    "arm_r": [
+     13,
+     30,
+     19,
+     84
+    ],
+    "arm_l": [
+     55,
+     30,
+     59,
+     84
+    ]
+   },
+   "source": "assets/sheets/raw/a4_jade_t1.png",
+   "colors": 19
+  }
+ },
+ "items": {
+  "item_strat_front": {
+   "file": "turn/item_strat_front.png",
+   "size": [
+    21,
+    48
+   ],
+   "pivot": [
+    10,
+    47
+   ],
+   "note": "orthographic, same scale as the hero turnarounds; pivot = bottom centre"
+  },
+  "item_strat_side": {
+   "file": "turn/item_strat_side.png",
+   "size": [
+    8,
+    49
+   ],
+   "pivot": [
+    4,
+    48
+   ],
+   "note": "orthographic, same scale as the hero turnarounds; pivot = bottom centre"
+  },
+  "item_acoustic_front": {
+   "file": "turn/item_acoustic_front.png",
+   "size": [
+    28,
+    50
+   ],
+   "pivot": [
+    14,
+    49
+   ],
+   "note": "orthographic, same scale as the hero turnarounds; pivot = bottom centre"
+  },
+  "item_acoustic_side": {
+   "file": "turn/item_acoustic_side.png",
+   "size": [
+    14,
+    50
+   ],
+   "pivot": [
+    7,
+    49
+   ],
+   "note": "orthographic, same scale as the hero turnarounds; pivot = bottom centre"
+  },
+  "item_flatcap_front": {
+   "file": "turn/item_flatcap_front.png",
+   "size": [
+    33,
+    21
+   ],
+   "pivot": [
+    16,
+    20
+   ],
+   "note": "orthographic, same scale as the hero turnarounds; pivot = bottom centre"
+  },
+  "item_flatcap_side": {
+   "file": "turn/item_flatcap_side.png",
+   "size": [
+    34,
+    19
+   ],
+   "pivot": [
+    17,
+    18
+   ],
+   "note": "orthographic, same scale as the hero turnarounds; pivot = bottom centre"
+  },
+  "item_pencil_blue_front": {
+   "file": "turn/item_pencil_blue_front.png",
+   "size": [
+    5,
+    30
+   ],
+   "pivot": [
+    2,
+    15
+   ],
+   "note": "blue cap, yellow body, sharpened tip with RAINBOW core; cap at the top, tip at the bottom; round body so front == side; length matches Jade's hair pencils"
+  },
+  "item_pencil_blue_side": {
+   "file": "turn/item_pencil_blue_side.png",
+   "size": [
+    5,
+    30
+   ],
+   "pivot": [
+    2,
+    15
+   ],
+   "note": "blue cap, yellow body, sharpened tip with RAINBOW core; cap at the top, tip at the bottom; round body so front == side; length matches Jade's hair pencils"
+  },
+  "item_pencil_pink_front": {
+   "file": "turn/item_pencil_pink_front.png",
+   "size": [
+    5,
+    30
+   ],
+   "pivot": [
+    2,
+    15
+   ],
+   "note": "pink/orange cap, yellow body, sharpened tip with GRAPHITE core; cap at the top, tip at the bottom; round body so front == side; length matches Jade's hair pencils"
+  },
+  "item_pencil_pink_side": {
+   "file": "turn/item_pencil_pink_side.png",
+   "size": [
+    5,
+    30
+   ],
+   "pivot": [
+    2,
+    15
+   ],
+   "note": "pink/orange cap, yellow body, sharpened tip with GRAPHITE core; cap at the top, tip at the bottom; round body so front == side; length matches Jade's hair pencils"
+  }
+ }
+}

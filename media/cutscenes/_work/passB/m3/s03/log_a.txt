@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 38.0s
+[cf] google/nano-banana-pro -> media/cutscenes/_work/passB/m3/s03/head_a.png  ($0.1344 est, 38.8s)
+['media/cutscenes/_work/passB/m3/s03/head_a.png']

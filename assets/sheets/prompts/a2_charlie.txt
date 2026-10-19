@@ -1,0 +1,7 @@
+16-bit SNES pixel art sprite sheet, The Lost Vikings (1993) style, EXACTLY the same resolution, pixel size, palette and character designs as the attached pixel sheets (each character about 40 game-pixels tall, every game pixel a big square block on one global grid, 1-px near-black outline, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no grid lines, no ground.
+
+CHARLIE: curly dark-brown hair, beige flat newsboy cap, charcoal t-shirt, blue jeans, brown boots, a honey-wood acoustic guitar on his back on a brown strap.
+
+All sprites face RIGHT. 2 rows, evenly spaced, same scale.
+Row 1, 3 frames, "HAT PARACHUTE CARRY": Charlie floats down under a BIG parachute canopy made of his beige flat cap: the cap crown turned upside-down and blown up into a wide dome (about twice as wide as Charlie), cap brim along its lower rim, with 4 thin brown strings from the canopy rim down to his raised hands. He hangs below it holding the strings with both hands, his curly hair visible (cap is the canopy), guitar on his back, and BOTH legs stuck straight out to the sides with the brown boots pointing outward (so two friends can hang from his boots). Frame 1-3: the canopy breathes (slightly wider, taller, wider) and the boots bob.
+Row 2, 2 frames, "READING": standing still, flat cap on, guitar on his back, holding a small open white page at chest height with both hands and reading it, head tilted down. Frame 2: slight nod, eyebrows raised.

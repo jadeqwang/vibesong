@@ -1,0 +1,8 @@
+Edit/recompose the FIRST attached image (a colored-pencil drawing of Jade, front view) into a 16:9 cinematic "cutscene portrait" close-up. KEEP HER FACE EXACTLY AS DRAWN in the first image: same eyes, eye shape and size, same brows, nose, face shape, hairline, bun and crossed pencils (blue eraser cap and pink eraser cap both pointing up), same headphones around her neck, same colored-pencil style on cream paper. Do not redraw her as a different person.
+Changes:
+- Widen the canvas to 16:9 and place her slightly left of center, head and shoulders, her head about 45% of the frame height.
+- She is singing the line "I just ask myself what it is that I need?": her lips are parted on an open vowel (mouth clearly visible), a thoughtful, searching look, head tilted very slightly up.
+- INSIDE the irises of BOTH eyes, as a tiny mirror-like catch-light, a small glowing dark rectangle with one bright cursor bar (a computer prompt window reflected in her eyes). Nothing is drawn on her skin. A soft cool-blue glow from in front (the off-screen prompt window toward the camera) lights her face, mixed with warm paper light.
+- Background: cream paper with a faint hand-drawn blueprint grid in blue pencil fading out toward the edges, two or three faint wireframe cubes in blue pencil.
+- Show a little more of her jacket per the second attached sheet: cropped white racer jacket, band collar with snap tab, ONE horizontal orange band across the chest, ONE horizontal orange band around each upper arm (no stripes along the shoulders or sleeves), one small pale-blue dot on the chest, a small round black-and-white "1420 MHz" patch centred on the orange band of the arm on the IMAGE-RIGHT side; black high-neck crop top.
+No text, no letters, no UI, no border.

@@ -1444,8 +1444,2174 @@
     }
    ],
    "collected": 1792069753.3592012
+  },
+  "vibesong/pB_03_avatar_t1-a1c06fb8ac": {
+   "id": "a1c06fb8ac",
+   "job": "vibesong/pB_03_avatar_t1-a1c06fb8ac",
+   "tag": "pB_03_avatar_t1",
+   "model": "pruna/p-video-avatar",
+   "notes": "passB paper card 03; S0=19.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_avatar_t1.json",
+   "input": {
+    "image": "file:media/cutscenes/_work/passB/c03/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c03/voc_19.85_6s.mp3",
+    "voice": "Kore (Female)",
+    "voice_script": "",
+    "voice_language": "English (US)",
+    "resolution": "1080p",
+    "video_prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: lips pressing together on the 'm' of 'my' and 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "voice_prompt": "Sing the following.",
+    "negative_prompt": "photo, photorealistic, 3D render, glasses, makeup, text, captions",
+    "strength_negative_prompt": 0.8,
+    "disable_safety_filter": true,
+    "disable_prompt_upsampling": true
+   },
+   "est_usd": 0.2719,
+   "est_basis": "5s x 0.045 (@1080p (per second)) [duration auto -> assumed] -> refined on actual 6.042s",
+   "state": "done",
+   "bucket": 29872658,
+   "submitted": 1792359404.77069,
+   "bytes": 1121745,
+   "gen_secs": 64.7,
+   "started": 1792359518.118,
+   "finished": 1792359582.785,
+   "latency_secs": 178.0,
+   "files": [
+    "media/gen/pB_03_avatar_t1_a1c06fb8ac.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 10009612,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359687.7926161
+  },
+  "vibesong/pB_03_pvideo_t1-c36cc6b6c0": {
+   "id": "c36cc6b6c0",
+   "job": "vibesong/pB_03_pvideo_t1-c36cc6b6c0",
+   "tag": "pB_03_pvideo_t1",
+   "model": "pruna/p-video",
+   "notes": "passB paper card 03; S0=19.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_pvideo_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: lips pressing together on the 'm' of 'my' and 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c03/voc_19.85_6s.mp3",
+    "duration": 6,
+    "resolution": "1080p",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "draft": false,
+    "save_audio": false,
+    "prompt_upsampling": false,
+    "disable_safety_filter": true
+   },
+   "est_usd": 0.24,
+   "est_basis": "6s x 0.04 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872658,
+   "submitted": 1792359405.9019902,
+   "bytes": 1121572,
+   "gen_secs": 34.1,
+   "started": 1792359518.463,
+   "finished": 1792359552.603,
+   "latency_secs": 146.7,
+   "files": [
+    "media/gen/pB_03_pvideo_t1_c36cc6b6c0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 14030180,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359689.0217934
+  },
+  "vibesong/pB_03_sd25_t1-97f2712d43": {
+   "id": "97f2712d43",
+   "job": "vibesong/pB_03_sd25_t1-97f2712d43",
+   "tag": "pB_03_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 03; S0=19.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: lips pressing together on the 'm' of 'my' and 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c03/mix_19.85_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872659,
+   "submitted": 1792359407.2538354,
+   "bytes": 1124029,
+   "started": 1792359578.079,
+   "gen_secs": 150.1,
+   "finished": 1792359728.203,
+   "latency_secs": 320.9,
+   "files": [
+    "media/gen/pB_03_sd25_t1_97f2712d43.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2709274,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792359731.4438276
+  },
+  "vibesong/pB_04_avatar_t1-a6d6c4ed3e": {
+   "id": "a6d6c4ed3e",
+   "job": "vibesong/pB_04_avatar_t1-a6d6c4ed3e",
+   "tag": "pB_04_avatar_t1",
+   "model": "pruna/p-video-avatar",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_avatar_t1.json",
+   "input": {
+    "image": "file:media/cutscenes/_work/passB/c04/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c04/voc_48.30_6s.mp3",
+    "voice": "Kore (Female)",
+    "voice_script": "",
+    "voice_language": "English (US)",
+    "resolution": "1080p",
+    "video_prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is that I need', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "voice_prompt": "Sing the following.",
+    "negative_prompt": "photo, photorealistic, 3D render, glasses, makeup, text, captions",
+    "strength_negative_prompt": 0.8,
+    "disable_safety_filter": true,
+    "disable_prompt_upsampling": true
+   },
+   "est_usd": 0.2719,
+   "est_basis": "5s x 0.045 (@1080p (per second)) [duration auto -> assumed] -> refined on actual 6.042s",
+   "state": "done",
+   "bucket": 29872659,
+   "submitted": 1792359408.1974545,
+   "bytes": 892169,
+   "gen_secs": 41.5,
+   "started": 1792359577.947,
+   "finished": 1792359619.49,
+   "latency_secs": 211.3,
+   "files": [
+    "media/gen/pB_04_avatar_t1_a6d6c4ed3e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 10392150,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359690.242951
+  },
+  "vibesong/pB_04_pvideo_t1-5485286fd7": {
+   "id": "5485286fd7",
+   "job": "vibesong/pB_04_pvideo_t1-5485286fd7",
+   "tag": "pB_04_pvideo_t1",
+   "model": "pruna/p-video",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_pvideo_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is that I need', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c04/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c04/voc_48.30_6s.mp3",
+    "duration": 6,
+    "resolution": "1080p",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "draft": false,
+    "save_audio": false,
+    "prompt_upsampling": false,
+    "disable_safety_filter": true
+   },
+   "est_usd": 0.24,
+   "est_basis": "6s x 0.04 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872660,
+   "submitted": 1792359409.3341148,
+   "bytes": 891996,
+   "started": 1792359638.123,
+   "gen_secs": 34.6,
+   "finished": 1792359672.772,
+   "latency_secs": 263.4,
+   "files": [
+    "media/gen/pB_04_pvideo_t1_5485286fd7.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 14027820,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359732.7804508
+  },
+  "vibesong/pB_04_sd25_t1-49e1b14730": {
+   "id": "49e1b14730",
+   "job": "vibesong/pB_04_sd25_t1-49e1b14730",
+   "tag": "pB_04_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is that I need', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c04/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c04/mix_48.30_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872660,
+   "submitted": 1792359410.305588,
+   "bytes": 894453,
+   "started": 1792359638.093,
+   "gen_secs": 151.0,
+   "finished": 1792359789.127,
+   "latency_secs": 378.8,
+   "files": [
+    "media/gen/pB_04_sd25_t1_49e1b14730.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 1611020,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792359833.843768
+  },
+  "vibesong/pB_04_veofast_t1-384050b687": {
+   "id": "384050b687",
+   "job": "vibesong/pB_04_veofast_t1-384050b687",
+   "tag": "pB_04_veofast_t1",
+   "model": "google/veo-3.1-fast",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_veofast_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. After a short breath she sings, in English, clearly and in a steady pop rhythm at about 140 beats per minute: \"I just ask myself what it is that I need\", her lips shaping each syllable: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects. Audio: only her singing voice over a soft beat.",
+    "image_input": "file:media/cutscenes/_work/passB/c04/ff.jpg",
+    "duration": "6s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": true
+   },
+   "est_usd": 0.72,
+   "est_basis": "6s x 0.12 (@1080p w/ audio (per second))",
+   "state": "done",
+   "bucket": 29872661,
+   "submitted": 1792359411.2344153,
+   "bytes": 698099,
+   "started": 1792359698.066,
+   "gen_secs": 113.4,
+   "finished": 1792359811.508,
+   "latency_secs": 400.3,
+   "files": [
+    "media/gen/pB_04_veofast_t1_384050b687.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.016,
+     "bytes": 7700485,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 144
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 48000,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359835.105006
+  },
+  "vibesong/pB_05_avatar_t1-2d2f7715c0": {
+   "id": "2d2f7715c0",
+   "job": "vibesong/pB_05_avatar_t1-2d2f7715c0",
+   "tag": "pB_05_avatar_t1",
+   "model": "pruna/p-video-avatar",
+   "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_05_avatar_t1.json",
+   "input": {
+    "image": "file:media/cutscenes/_work/passB/c05/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c05/voc_106.85_6s.mp3",
+    "voice": "Kore (Female)",
+    "voice_script": "",
+    "voice_language": "English (US)",
+    "resolution": "1080p",
+    "video_prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "voice_prompt": "Sing the following.",
+    "negative_prompt": "photo, photorealistic, 3D render, glasses, makeup, text, captions",
+    "strength_negative_prompt": 0.8,
+    "disable_safety_filter": true,
+    "disable_prompt_upsampling": true
+   },
+   "est_usd": 0.2719,
+   "est_basis": "5s x 0.045 (@1080p (per second)) [duration auto -> assumed] -> refined on actual 6.042s",
+   "state": "done",
+   "bucket": 29872661,
+   "submitted": 1792359412.575333,
+   "bytes": 1652609,
+   "started": 1792359698.114,
+   "gen_secs": 45.5,
+   "finished": 1792359743.614,
+   "latency_secs": 331.0,
+   "files": [
+    "media/gen/pB_05_avatar_t1_2d2f7715c0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 15496353,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359836.8165677
+  },
+  "vibesong/pB_05_pvideo_t1-6cfb79420a": {
+   "id": "6cfb79420a",
+   "job": "vibesong/pB_05_pvideo_t1-6cfb79420a",
+   "tag": "pB_05_pvideo_t1",
+   "model": "pruna/p-video",
+   "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_05_pvideo_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c05/voc_106.85_6s.mp3",
+    "duration": 6,
+    "resolution": "1080p",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "draft": false,
+    "save_audio": false,
+    "prompt_upsampling": false,
+    "disable_safety_filter": true
+   },
+   "est_usd": 0.24,
+   "est_basis": "6s x 0.04 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872662,
+   "submitted": 1792359415.0241897,
+   "bytes": 1652436,
+   "gen_secs": 37.8,
+   "started": 1792359758.442,
+   "finished": 1792359796.244,
+   "latency_secs": 381.2,
+   "files": [
+    "media/gen/pB_05_pvideo_t1_6cfb79420a.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 16977335,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359838.212024
+  },
+  "vibesong/pB_05_sd25_t1-f9b399b487": {
+   "id": "f9b399b487",
+   "job": "vibesong/pB_05_sd25_t1-f9b399b487",
+   "tag": "pB_05_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_05_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c05/mix_106.85_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872662,
+   "submitted": 1792359416.3906255,
+   "bytes": 1654893,
+   "started": 1792359758.376,
+   "gen_secs": 150.0,
+   "finished": 1792359908.364,
+   "latency_secs": 492.0,
+   "files": [
+    "media/gen/pB_05_sd25_t1_f9b399b487.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2424192,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792359944.5549858
+  },
+  "vibesong/pB_06_avatar_t1-544f712e97": {
+   "id": "544f712e97",
+   "job": "vibesong/pB_06_avatar_t1-544f712e97",
+   "tag": "pB_06_avatar_t1",
+   "model": "pruna/p-video-avatar",
+   "notes": "passB paper card 06; S0=143.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_avatar_t1.json",
+   "input": {
+    "image": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c06/voc_143.10_6s.mp3",
+    "voice": "Kore (Female)",
+    "voice_script": "",
+    "voice_language": "English (US)",
+    "resolution": "1080p",
+    "video_prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "voice_prompt": "Sing the following.",
+    "negative_prompt": "photo, photorealistic, 3D render, glasses, makeup, text, captions",
+    "strength_negative_prompt": 0.8,
+    "disable_safety_filter": true,
+    "disable_prompt_upsampling": true
+   },
+   "est_usd": 0.2719,
+   "est_basis": "5s x 0.045 (@1080p (per second)) [duration auto -> assumed] -> refined on actual 6.042s",
+   "state": "done",
+   "bucket": 29872663,
+   "submitted": 1792359417.6684327,
+   "bytes": 1203644,
+   "started": 1792359818.102,
+   "gen_secs": 44.3,
+   "finished": 1792359862.414,
+   "latency_secs": 444.7,
+   "files": [
+    "media/gen/pB_06_avatar_t1_544f712e97.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 12723796,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359946.3174303
+  },
+  "vibesong/pB_06_pvideo_t1-cbd22d8549": {
+   "id": "cbd22d8549",
+   "job": "vibesong/pB_06_pvideo_t1-cbd22d8549",
+   "tag": "pB_06_pvideo_t1",
+   "model": "pruna/p-video",
+   "notes": "passB paper card 06; S0=143.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_pvideo_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "audio": "file:media/cutscenes/_work/passB/c06/voc_143.10_6s.mp3",
+    "duration": 6,
+    "resolution": "1080p",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "draft": false,
+    "save_audio": false,
+    "prompt_upsampling": false,
+    "disable_safety_filter": true
+   },
+   "est_usd": 0.24,
+   "est_basis": "6s x 0.04 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872663,
+   "submitted": 1792359418.8823452,
+   "bytes": 1203471,
+   "started": 1792359818.09,
+   "gen_secs": 32.4,
+   "finished": 1792359850.531,
+   "latency_secs": 431.6,
+   "files": [
+    "media/gen/pB_06_pvideo_t1_cbd22d8549.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 14125651,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1088,
+       "fps": 24.0,
+       "frames": 145
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 44100,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792359947.654677
+  },
+  "vibesong/pB_06_sd25_t1-45e25f033e": {
+   "id": "45e25f033e",
+   "job": "vibesong/pB_06_sd25_t1-45e25f033e",
+   "tag": "pB_06_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 06; S0=143.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c06/mix_143.10_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872664,
+   "submitted": 1792359420.012792,
+   "bytes": 1205928,
+   "started": 1792359878.911,
+   "gen_secs": 279.3,
+   "finished": 1792360158.26,
+   "latency_secs": 738.2,
+   "files": [
+    "media/gen/pB_06_sd25_t1_45e25f033e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 1715212,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360200.9637406
+  },
+  "vibesong/pB_06_veofast_t1-25df98236e": {
+   "id": "25df98236e",
+   "job": "vibesong/pB_06_veofast_t1-25df98236e",
+   "tag": "pB_06_veofast_t1",
+   "model": "google/veo-3.1-fast",
+   "notes": "passB paper card 06; S0=143.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_veofast_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. After a short breath she sings, in English, clearly and in a steady pop rhythm at about 140 beats per minute: \"I just ask myself what it is\", her lips shaping each syllable: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects. Audio: only her singing voice over a soft beat.",
+    "image_input": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "duration": "6s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": true
+   },
+   "est_usd": 0.72,
+   "est_basis": "6s x 0.12 (@1080p w/ audio (per second))",
+   "state": "done",
+   "bucket": 29872664,
+   "submitted": 1792359421.0510464,
+   "bytes": 1009574,
+   "started": 1792359878.011,
+   "gen_secs": 124.0,
+   "finished": 1792360001.997,
+   "latency_secs": 580.9,
+   "files": [
+    "media/gen/pB_06_veofast_t1_25df98236e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.016,
+     "bytes": 11157532,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 144
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 48000,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792360023.0075688
+  },
+  "vibesong/pB_06_veo_t1-ef0c8626fe": {
+   "id": "ef0c8626fe",
+   "job": "vibesong/pB_06_veo_t1-ef0c8626fe",
+   "tag": "pB_06_veo_t1",
+   "model": "google/veo-3.1",
+   "notes": "passB paper card 06; S0=143.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_veo_t1.json",
+   "input": {
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. After a short breath she sings, in English, clearly and in a steady pop rhythm at about 140 beats per minute: \"I just ask myself what it is\", her lips shaping each syllable: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects. Audio: only her singing voice over a soft beat.",
+    "image_input": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "duration": "6s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": true
+   },
+   "est_usd": 2.4,
+   "est_basis": "6s x 0.4 (@1080p w/ audio (per second))",
+   "state": "done",
+   "bucket": 29872665,
+   "submitted": 1792359422.664108,
+   "bytes": 1009569,
+   "started": 1792359938.057,
+   "gen_secs": 135.4,
+   "finished": 1792360073.47,
+   "latency_secs": 650.8,
+   "files": [
+    "media/gen/pB_06_veo_t1_ef0c8626fe.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.016,
+     "bytes": 10264051,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 144
+      },
+      {
+       "codec_type": "audio",
+       "codec_name": "aac",
+       "sample_rate": 48000,
+       "channels": 2
+      }
+     ]
+    }
+   ],
+   "collected": 1792360519.438603
+  },
+  "vibesong/pB_03_sd25_t2-0b0fb05ce2": {
+   "id": "0b0fb05ce2",
+   "job": "vibesong/pB_03_sd25_t2-0b0fb05ce2",
+   "tag": "pB_03_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 03; S0=19.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: lips pressing together on the 'm' of 'my' and 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c03/voc_19.85_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872667,
+   "submitted": 1792359905.884594,
+   "bytes": 1121773,
+   "started": 1792360058.129,
+   "gen_secs": 272.6,
+   "finished": 1792360330.743,
+   "latency_secs": 424.9,
+   "files": [
+    "media/gen/pB_03_sd25_t2_0b0fb05ce2.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2727848,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360387.4083273
+  },
+  "vibesong/pB_04_sd25_t2-856fd120c0": {
+   "id": "856fd120c0",
+   "job": "vibesong/pB_04_sd25_t2-856fd120c0",
+   "tag": "pB_04_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is that I need', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c04/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c04/voc_48.30_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872667,
+   "submitted": 1792359906.8936021,
+   "bytes": 892197,
+   "started": 1792360057.946,
+   "gen_secs": 139.7,
+   "finished": 1792360197.692,
+   "latency_secs": 290.8,
+   "files": [
+    "media/gen/pB_04_sd25_t2_856fd120c0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 1761089,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360202.3896158
+  },
+  "vibesong/pB_05_sd25_t2-235ebf2645": {
+   "id": "235ebf2645",
+   "job": "vibesong/pB_05_sd25_t2-235ebf2645",
+   "tag": "pB_05_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_05_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c05/voc_106.85_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872668,
+   "submitted": 1792359908.1391807,
+   "bytes": 1652637,
+   "gen_secs": 150.3,
+   "started": 1792360118.324,
+   "finished": 1792360268.621,
+   "latency_secs": 360.5,
+   "files": [
+    "media/gen/pB_05_sd25_t2_235ebf2645.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 1994223,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360517.2490623
+  },
+  "vibesong/pB_06_sd25_t2-a144bcf024": {
+   "id": "a144bcf024",
+   "job": "vibesong/pB_06_sd25_t2-a144bcf024",
+   "tag": "pB_06_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 06; S0=143.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c06/voc_143.10_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872668,
+   "submitted": 1792359909.249697,
+   "bytes": 1203672,
+   "gen_secs": 279.4,
+   "started": 1792360118.181,
+   "finished": 1792360397.607,
+   "latency_secs": 488.4,
+   "files": [
+    "media/gen/pB_06_sd25_t2_a144bcf024.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2587821,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360518.1041083
+  },
+  "vibesong/pB_03_sd25_t3-aca3e5da67": {
+   "id": "aca3e5da67",
+   "job": "vibesong/pB_03_sd25_t3-aca3e5da67",
+   "tag": "pB_03_sd25_t3",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 03; S0=20.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_sd25_t3.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: lips pressing together on the 'm' of 'my' and 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c03/voc_20.00_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872676,
+   "submitted": 1792360495.1179438,
+   "bytes": 1121773,
+   "started": 1792360598.141,
+   "gen_secs": 232.6,
+   "finished": 1792360830.743,
+   "latency_secs": 335.6,
+   "files": [
+    "media/gen/pB_03_sd25_t3_aca3e5da67.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 3098892,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360842.167766
+  },
+  "vibesong/pB_03_sd25_t4-e221f483d2": {
+   "id": "e221f483d2",
+   "job": "vibesong/pB_03_sd25_t4-e221f483d2",
+   "tag": "pB_03_sd25_t4",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 03; S0=20.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_sd25_t4.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: lips pressing together on the 'm' of 'my' and 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c03/voc_20.00_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872676,
+   "submitted": 1792360496.2283185,
+   "bytes": 1121773,
+   "started": 1792360598.13,
+   "gen_secs": 150.4,
+   "finished": 1792360748.567,
+   "latency_secs": 252.3,
+   "files": [
+    "media/gen/pB_03_sd25_t4_e221f483d2.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2979946,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360777.3170521
+  },
+  "vibesong/pB_06_sd25_t3-34190fcc37": {
+   "id": "34190fcc37",
+   "job": "vibesong/pB_06_sd25_t3-34190fcc37",
+   "tag": "pB_06_sd25_t3",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 06; S0=143.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_sd25_t3.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c06/voc_143.30_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872677,
+   "submitted": 1792360497.3708444,
+   "bytes": 1203672,
+   "started": 1792360658.342,
+   "gen_secs": 148.9,
+   "finished": 1792360807.236,
+   "latency_secs": 309.9,
+   "files": [
+    "media/gen/pB_06_sd25_t3_34190fcc37.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2123613,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360842.9794269
+  },
+  "vibesong/pB_06_sd25_t4-3f8d4c10fe": {
+   "id": "3f8d4c10fe",
+   "job": "vibesong/pB_06_sd25_t4-3f8d4c10fe",
+   "tag": "pB_06_sd25_t4",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 06; S0=143.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_06_sd25_t4.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She sings it to the giant gray rubber-eraser creature on the right, gently, holding the yellow pencil with the blue cap and rainbow tip up in her raised hand; the pencil stays the same. The Eraser listens: a slow blink, its mouth stays still and slightly open. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her long black hair stays loose and down. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c06/ff.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c06/voc_143.30_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872677,
+   "submitted": 1792360498.5306768,
+   "bytes": 1203672,
+   "started": 1792360658.126,
+   "gen_secs": 149.6,
+   "finished": 1792360807.705,
+   "latency_secs": 309.2,
+   "files": [
+    "media/gen/pB_06_sd25_t4_3f8d4c10fe.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2192513,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792360843.9168296
+  },
+  "vibesong/pB_03_upscale_t1-5bf0c15b2b": {
+   "id": "5bf0c15b2b",
+   "job": "vibesong/pB_03_upscale_t1-5bf0c15b2b",
+   "tag": "pB_03_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper card 03: precise 2.25x of the chosen 480p take segment (media/cutscenes/_work/passB/upscale/seg_03.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_03_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_03.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872694,
+   "submitted": 1792361544.691956,
+   "bytes": 4264797,
+   "gen_secs": 45.6,
+   "started": 1792361678.466,
+   "finished": 1792361724.031,
+   "latency_secs": 179.3,
+   "files": [
+    "media/gen/pB_03_upscale_t1_5bf0c15b2b.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 4.042,
+     "bytes": 7220739,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 97
+      }
+     ]
+    }
+   ],
+   "collected": 1792361737.9685016
+  },
+  "vibesong/pB_04_upscale_t1-d7f88295af": {
+   "id": "d7f88295af",
+   "job": "vibesong/pB_04_upscale_t1-d7f88295af",
+   "tag": "pB_04_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper card 04: precise 2.25x of the chosen 480p take segment (media/cutscenes/_work/passB/upscale/seg_04.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_04_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_04.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872694,
+   "submitted": 1792361545.9772544,
+   "bytes": 1520509,
+   "gen_secs": 41.5,
+   "started": 1792361678.147,
+   "finished": 1792361719.664,
+   "latency_secs": 173.7,
+   "files": [
+    "media/gen/pB_04_upscale_t1_d7f88295af.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 2.542,
+     "bytes": 2373590,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 61
+      }
+     ]
+    }
+   ],
+   "collected": 1792361738.8662934
+  },
+  "vibesong/pB_05_upscale_t1-80dccda3c0": {
+   "id": "80dccda3c0",
+   "job": "vibesong/pB_05_upscale_t1-80dccda3c0",
+   "tag": "pB_05_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper card 05: precise 2.25x of the chosen 480p take segment (media/cutscenes/_work/passB/upscale/seg_05.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_05_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_05.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872695,
+   "submitted": 1792361547.9917974,
+   "bytes": 3393649,
+   "started": 1792361738.71,
+   "gen_secs": 75.3,
+   "finished": 1792361813.98,
+   "latency_secs": 266.0,
+   "files": [
+    "media/gen/pB_05_upscale_t1_80dccda3c0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.708,
+     "bytes": 7711852,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 89
+      }
+     ]
+    }
+   ],
+   "collected": 1792361866.0540073
+  },
+  "vibesong/pB_06_upscale_t1-864e92c385": {
+   "id": "864e92c385",
+   "job": "vibesong/pB_06_upscale_t1-864e92c385",
+   "tag": "pB_06_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper card 06: precise 2.25x of the chosen 480p take segment (media/cutscenes/_work/passB/upscale/seg_06.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_06_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_06.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872695,
+   "submitted": 1792361549.4609518,
+   "bytes": 2183129,
+   "started": 1792361738.874,
+   "gen_secs": 93.6,
+   "finished": 1792361832.433,
+   "latency_secs": 283.0,
+   "files": [
+    "media/gen/pB_06_upscale_t1_864e92c385.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.208,
+     "bytes": 4599693,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 77
+      }
+     ]
+    }
+   ],
+   "collected": 1792361866.9182272
+  },
+  "vibesong/pB_bridge_upscale_t1-7d8eb60840": {
+   "id": "7d8eb60840",
+   "job": "vibesong/pB_bridge_upscale_t1-7d8eb60840",
+   "tag": "pB_bridge_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB bridge v11 take segment from 0.125 s (2.8 s), precise 1.5x",
+   "spec_file": "media/gen/specs/pB_bridge_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_bridge.mp4",
+    "upscale_factor": 1.5,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872701,
+   "submitted": 1792361961.5561438,
+   "bytes": 2583468,
+   "started": 1792362098.242,
+   "gen_secs": 53.0,
+   "finished": 1792362151.23,
+   "latency_secs": 189.7,
+   "files": [
+    "media/gen/pB_bridge_upscale_t1_7d8eb60840.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 2.875,
+     "bytes": 2984742,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 720,
+       "height": 1280,
+       "fps": 24.0,
+       "frames": 69
+      }
+     ]
+    }
+   ],
+   "collected": 1792362181.9935288
+  },
+  "vibesong/pB_03_v2_sd25_t1-3a8be12400": {
+   "id": "3a8be12400",
+   "job": "vibesong/pB_03_v2_sd25_t1-3a8be12400",
+   "tag": "pB_03_v2_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 03; S0=20.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_v2_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'because my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: she starts singing at once with 'because': lips pressing together on the 'b' of 'be-', opening into a long rounded 'cause'; then pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c03/voc_20.10_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872795,
+   "submitted": 1792367614.8403914,
+   "bytes": 1124152,
+   "started": 1792367738.346,
+   "gen_secs": 281.8,
+   "finished": 1792368020.135,
+   "latency_secs": 405.3,
+   "files": [
+    "media/gen/pB_03_v2_sd25_t1_3a8be12400.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 3109299,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792368050.1600716
+  },
+  "vibesong/pB_03_v2_sd25_t2-fe81629249": {
+   "id": "fe81629249",
+   "job": "vibesong/pB_03_v2_sd25_t2-fe81629249",
+   "tag": "pB_03_v2_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 03; S0=20.1 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_03_v2_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'because my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: she starts singing at once with 'because': lips pressing together on the 'b' of 'be-', opening into a long rounded 'cause'; then pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c03/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c03/voc_20.10_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872795,
+   "submitted": 1792367616.0059545,
+   "bytes": 1124152,
+   "started": 1792367738.138,
+   "gen_secs": 151.9,
+   "finished": 1792367889.992,
+   "latency_secs": 274.0,
+   "files": [
+    "media/gen/pB_03_v2_sd25_t2_fe81629249.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2633494,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792367917.2677
+  },
+  "vibesong/pB_04_v2_sd25_t1-350009e46c": {
+   "id": "350009e46c",
+   "job": "vibesong/pB_04_v2_sd25_t1-350009e46c",
+   "tag": "pB_04_v2_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_v2_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is that I need', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c04/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c04/voc_48.30_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872796,
+   "submitted": 1792367617.1016142,
+   "bytes": 894537,
+   "started": 1792367798.297,
+   "gen_secs": 138.9,
+   "finished": 1792367937.192,
+   "latency_secs": 320.1,
+   "files": [
+    "media/gen/pB_04_v2_sd25_t1_350009e46c.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 1809635,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792367984.4048965
+  },
+  "vibesong/pB_04_v2_sd25_t2-913c8792a9": {
+   "id": "913c8792a9",
+   "job": "vibesong/pB_04_v2_sd25_t2-913c8792a9",
+   "tag": "pB_04_v2_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_04_v2_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'I just ask myself what it is that I need', her lips shaping each syllable in time with the voice: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c04/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c04/voc_48.30_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872796,
+   "submitted": 1792367618.1548064,
+   "bytes": 894537,
+   "started": 1792367798.051,
+   "gen_secs": 149.1,
+   "finished": 1792367947.172,
+   "latency_secs": 329.0,
+   "files": [
+    "media/gen/pB_04_v2_sd25_t2_913c8792a9.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 1875856,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792368001.4432678
+  },
+  "vibesong/pB_05_v2_sd25_t1-ac91b0508e": {
+   "id": "ac91b0508e",
+   "job": "vibesong/pB_05_v2_sd25_t1-ac91b0508e",
+   "tag": "pB_05_v2_sd25_t1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_05_v2_sd25_t1.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c05/voc_106.85_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872797,
+   "submitted": 1792367619.3750226,
+   "bytes": 1654089,
+   "started": 1792367858.16,
+   "gen_secs": 150.4,
+   "finished": 1792368008.517,
+   "latency_secs": 389.1,
+   "files": [
+    "media/gen/pB_05_v2_sd25_t1_ac91b0508e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2063573,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792368066.595849
+  },
+  "vibesong/pB_05_v2_sd25_t2-6e16402853": {
+   "id": "6e16402853",
+   "job": "vibesong/pB_05_v2_sd25_t2-6e16402853",
+   "tag": "pB_05_v2_sd25_t2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/pB_05_v2_sd25_t2.json",
+   "input": {
+    "duration": 6,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/passB/c05/voc_106.85_6s.mp3"
+    ]
+   },
+   "est_usd": 0.6168,
+   "est_basis": "6s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29872797,
+   "submitted": 1792367620.6545553,
+   "bytes": 1654089,
+   "started": 1792367858.132,
+   "gen_secs": 139.7,
+   "finished": 1792367997.875,
+   "latency_secs": 377.2,
+   "files": [
+    "media/gen/pB_05_v2_sd25_t2_6e16402853.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 6.042,
+     "bytes": 2134607,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 145
+      }
+     ]
+    }
+   ],
+   "collected": 1792368003.0605423
+  },
+  "vibesong/pB_03_v2_upscale_t1-ace7e17f23": {
+   "id": "ace7e17f23",
+   "job": "vibesong/pB_03_v2_upscale_t1-ace7e17f23",
+   "tag": "pB_03_v2_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper M3 card 03: precise 2.25x of the chosen 480p v2 take segment (media/cutscenes/_work/passB/upscale/seg_03_v2.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_03_v2_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_03_v2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872806,
+   "submitted": 1792368242.2825065,
+   "bytes": 2570465,
+   "started": 1792368398.536,
+   "gen_secs": 43.8,
+   "finished": 1792368442.332,
+   "latency_secs": 200.0,
+   "files": [
+    "media/gen/pB_03_v2_upscale_t1_ace7e17f23.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.708,
+     "bytes": 6075366,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 89
+      }
+     ]
+    }
+   ],
+   "collected": 1792368465.6702366
+  },
+  "vibesong/pB_04_v2_upscale_t1-3be006494f": {
+   "id": "3be006494f",
+   "job": "vibesong/pB_04_v2_upscale_t1-3be006494f",
+   "tag": "pB_04_v2_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper M3 card 04: precise 2.25x of the chosen 480p v2 take segment (media/cutscenes/_work/passB/upscale/seg_04_v2.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_04_v2_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_04_v2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872806,
+   "submitted": 1792368243.5155318,
+   "bytes": 1127813,
+   "started": 1792368398.13,
+   "gen_secs": 61.9,
+   "finished": 1792368460.072,
+   "latency_secs": 216.6,
+   "files": [
+    "media/gen/pB_04_v2_upscale_t1_3be006494f.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 2.208,
+     "bytes": 2413484,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 53
+      }
+     ]
+    }
+   ],
+   "collected": 1792368466.4908552
+  },
+  "vibesong/pB_05_v2_upscale_t1-3fc8948001": {
+   "id": "3fc8948001",
+   "job": "vibesong/pB_05_v2_upscale_t1-3fc8948001",
+   "tag": "pB_05_v2_upscale_t1",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper M3 card 05: precise 2.25x of the chosen 480p v2 take segment (media/cutscenes/_work/passB/upscale/seg_05_v2.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_05_v2_upscale_t1.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_05_v2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872807,
+   "submitted": 1792368245.026091,
+   "bytes": 2062141,
+   "started": 1792368458.196,
+   "gen_secs": 31.3,
+   "finished": 1792368489.509,
+   "latency_secs": 244.5,
+   "files": [
+    "media/gen/pB_05_v2_upscale_t1_3fc8948001.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.375,
+     "bytes": 6351307,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 81
+      }
+     ]
+    }
+   ],
+   "collected": 1792368529.37235
+  },
+  "vibesong/pB_05_v2_upscale_t2-f2bdf14707": {
+   "id": "f2bdf14707",
+   "job": "vibesong/pB_05_v2_upscale_t2-f2bdf14707",
+   "tag": "pB_05_v2_upscale_t2",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper M3 card 05: precise 2.25x of take pB_05_v2_sd25_t2 segment (no blink in stage_3d's 107.233-107.600 slice; seg_05_v2t2.txt = start/dur in the take)",
+   "spec_file": "media/gen/specs/pB_05_v2_upscale_t2.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_05_v2t2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872816,
+   "submitted": 1792368901.306437,
+   "bytes": 1946021,
+   "started": 1792368998.255,
+   "gen_secs": 54.7,
+   "finished": 1792369052.995,
+   "latency_secs": 151.7,
+   "files": [
+    "media/gen/pB_05_v2_upscale_t2_f2bdf14707.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.375,
+     "bytes": 6210954,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 81
+      }
+     ]
+    }
+   ],
+   "collected": 1792369072.871816
+  },
+  "vibesong/pB_spread_v12_t1-69ee06dbb7": {
+   "id": "69ee06dbb7",
+   "job": "vibesong/pB_spread_v12_t1-69ee06dbb7",
+   "tag": "pB_spread_v12_t1",
+   "model": "google/veo-3.1-fast",
+   "notes": "v4 Pass B paper Task C2: living right-page layer with whole-body life, from the v11 crop (rect media/act5/stills/spread_right_crop.txt = spread.js:106)",
+   "spec_file": "media/gen/specs/pB_spread_v12_t1.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static, no zoom, no pan; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nContinuous, gentle, whole-body life the whole time, like three friends really playing music together: all three breathe visibly, their shoulders and chests rising and falling softly; the young man in the flat cap on the left strums his acoustic guitar steadily with his strumming hand while the fingers of his fretting hand shift along the neck; the young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing; the young woman in the middle sways to the music, tilts her head and smiles, her hands resting on the bench; all three sway slightly to the rhythm. No pose is ever fully frozen, but every movement stays small, relaxed and natural, and they stay seated in the same places on the rainbow bench. The young woman's two pencils stay fixed in her hair bun, crossed in an X, with both eraser caps pointing up (one pink, one blue); her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 0.8,
+   "est_basis": "8s x 0.1 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872822,
+   "submitted": 1792369243.4692292,
+   "bytes": 873712,
+   "started": 1792369357.939,
+   "gen_secs": 137.4,
+   "finished": 1792369495.294,
+   "latency_secs": 251.8,
+   "files": [
+    "media/gen/pB_spread_v12_t1_69ee06dbb7.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 15085898,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792369504.0015275
+  },
+  "vibesong/pB_spread_v12_t2-a09f7ed527": {
+   "id": "a09f7ed527",
+   "job": "vibesong/pB_spread_v12_t2-a09f7ed527",
+   "tag": "pB_spread_v12_t2",
+   "model": "google/veo-3.1-fast",
+   "notes": "v4 Pass B paper Task C2: living right-page layer with whole-body life, from the v11 crop (rect media/act5/stills/spread_right_crop.txt = spread.js:106)",
+   "spec_file": "media/gen/specs/pB_spread_v12_t2.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static, no zoom, no pan; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nContinuous, gentle, whole-body life the whole time, like three friends really playing music together: all three breathe visibly, their shoulders and chests rising and falling softly; the young man in the flat cap on the left strums his acoustic guitar steadily with his strumming hand while the fingers of his fretting hand shift along the neck; the young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing; the young woman in the middle sways to the music, tilts her head and smiles, her hands resting on the bench; all three sway slightly to the rhythm. No pose is ever fully frozen, but every movement stays small, relaxed and natural, and they stay seated in the same places on the rainbow bench. The young woman's two pencils stay fixed in her hair bun, crossed in an X, with both eraser caps pointing up (one pink, one blue); her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 0.8,
+   "est_basis": "8s x 0.1 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872822,
+   "submitted": 1792369244.4998403,
+   "bytes": 873712,
+   "started": 1792369358.088,
+   "gen_secs": 126.9,
+   "finished": 1792369484.959,
+   "latency_secs": 240.5,
+   "files": [
+    "media/gen/pB_spread_v12_t2_a09f7ed527.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 12012509,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792369505.3100567
+  },
+  "vibesong/pB_spread_v12_t3-34b61a6e4e": {
+   "id": "34b61a6e4e",
+   "job": "vibesong/pB_spread_v12_t3-34b61a6e4e",
+   "tag": "pB_spread_v12_t3",
+   "model": "google/veo-3.1-fast",
+   "notes": "v4 Pass B paper Task C2: living right-page layer with whole-body life, from the v11 crop (rect media/act5/stills/spread_right_crop.txt = spread.js:106) | t3: pencil clause tightened (t1/t2 grew a downward pink tip), camera lock tightened (t1 pushed in 6%)",
+   "spec_file": "media/gen/specs/pB_spread_v12_t3.json",
+   "input": {
+    "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static and locked off for the whole shot: no zoom, no push-in, no pan, no drift; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nContinuous, gentle, whole-body life the whole time, like three friends really playing music together: all three breathe visibly, their shoulders and chests rising and falling softly; the young man in the flat cap on the left strums his acoustic guitar steadily with his strumming hand while the fingers of his fretting hand shift along the neck; the young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing; the young woman in the middle sways to the music, tilts her head and smiles, her hands resting on the bench; all three sway slightly to the rhythm. No pose is ever fully frozen, but every movement stays small, relaxed and natural, and they stay seated in the same places on the rainbow bench. Her hair bun with its two pencils stays exactly as drawn in the first frame and only moves together with her head: the same two yellow pencils at the same angles, crossed through the bun, with only their two eraser caps showing above the bun (pink on one side, blue on the other, both pointing up) and their pointed ends hidden in her hair; no pencil ever points down and no extra pencil appears. Her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+    "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+    "duration": "8s",
+    "aspect_ratio": "16:9",
+    "resolution": "1080p",
+    "generate_audio": false
+   },
+   "est_usd": 0.8,
+   "est_basis": "8s x 0.1 (@1080p (per second))",
+   "state": "done",
+   "bucket": 29872840,
+   "submitted": 1792370324.0332296,
+   "bytes": 874034,
+   "started": 1792370440.951,
+   "gen_secs": 137.8,
+   "finished": 1792370578.764,
+   "latency_secs": 254.7,
+   "files": [
+    "media/gen/pB_spread_v12_t3_34b61a6e4e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 8.0,
+     "bytes": 13642994,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 192
+      }
+     ]
+    }
+   ],
+   "collected": 1792371135.133687
+  },
+  "vibesong/pB_03_v2_up6-9023dc7892": {
+   "id": "9023dc7892",
+   "job": "vibesong/pB_03_v2_up6-9023dc7892",
+   "tag": "pB_03_v2_up6",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "passB paper M3c card 03 (+6 frames, lag 0.12): precise 2.25x of take pB_03_v2_sd25_t2 from 0.1667 s (seg_03_v2_up6.txt) so all 108 slot frames come from the upscale",
+   "spec_file": "media/gen/specs/pB_03_v2_up6.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/passB/upscale/seg_03_v2_up6.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29872931,
+   "submitted": 1792375748.5712733,
+   "bytes": 2462917,
+   "started": 1792375898.096,
+   "gen_secs": 46.2,
+   "finished": 1792375944.272,
+   "latency_secs": 195.7,
+   "files": [
+    "media/gen/pB_03_v2_up6_9023dc7892.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.708,
+     "bytes": 6272869,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 89
+      }
+     ]
+    }
+   ],
+   "collected": 1792376005.9726107
   }
  },
- "total_est_usd": 41.1936,
- "total_est_usd_done": 24.708
+ "total_est_usd": 60.5836,
+ "total_est_usd_done": 44.098
 }

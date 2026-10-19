@@ -35,7 +35,10 @@ export class Track {
   /** teleport/set state at t0 (e.g. off-screen re-entry) */
   set(t0, s) { return this._push({ type: 'set', t0, t1: t0, o: {}, to: s }); }
 
-  at(t) {
+  /** state at t. opts.apexScale (opt-in, default 1) scales every jump's arc height: one shared course, per-hero
+   *  jump heights (HERO_JUMP: Jade highest, Ricky lowest). */
+  at(t, opts = {}) {
+    const AK = opts.apexScale ?? 1;
     let st = { ...this.start, t: t, frame: undefined, air: false, vy: 0 };
     let landed = 1e9, lastEnd = this.segs.length ? -1e9 : 0;
     for (const L of this.landings) if (t >= L) landed = Math.min(landed, t - L);
@@ -60,7 +63,7 @@ export class Track {
         const x = f.x + (s.to.x - f.x) * e;
         const top = Math.max(f.y, s.to.y) + (o.apex ?? 24);
         // parabola through (0,y0), (1,y1) with peak ~ top
-        const c = 4 * (top - (f.y + s.to.y) / 2);
+        const c = 4 * (top - (f.y + s.to.y) / 2) * (o.apexFixed ? 1 : AK);
         const y = f.y + (s.to.y - f.y) * u + c * u * (1 - u) * (o.flat ? 0 : 1);
         const vy = (s.to.y - f.y) + c * (1 - 2 * u);
         st = { ...st, x, y, anim: o.anim ?? 'jump', facing: s.to.facing, air: true, vy, frame: o.frame ?? (vy > 0 ? 0 : 1) };
@@ -89,4 +92,58 @@ export function smoothFollow(fn, t, win = 0.3, n = 9) {
   let sx = 0, sy = 0;
   for (let k = 0; k < n; k++) { const tt = t - win / 2 + (win * k) / (n - 1); const [x, y] = fn(tt); sx += x; sy += y; }
   return [sx / n, sy / n];
+}
+
+// ------------------------------------------------------------------ formation (game-design pass 2026-10-15, opt-in)
+// "Break the blob": Jade leads, Charlie mid, Ricky trails (heaviest, nearest the Eraser). Spacing breathes 12-40 px.
+// Each hero has a fixed jump character so a viewer can tell which gaps are scary: Jade highest, Ricky lowest.
+export const HERO_ORDER = ['jade', 'charlie', 'ricky'];
+/** per-hero jump constants. apex: arc-height multiplier on a shared course; hop: a standard hop height (px);
+ *  reach: the widest gap (px) the hero clears at run speed (Ricky can't make what Jade can). */
+export const HERO_JUMP = {
+  jade: { apex: 1.0, hop: 30, reach: 72 },
+  charlie: { apex: 0.8, hop: 24, reach: 60 },
+  ricky: { apex: 0.58, hop: 17, reach: 44 },
+};
+export const heroApex = (hero, base) => Math.round(base * (HERO_JUMP[hero]?.apex ?? 1));
+/** smooth deterministic noise in [0,1] (sum of sines, seeded) */
+export function wobble(t, seed = 1, rate = 1) {
+  const a = Math.sin(t * 1.7 * rate + seed * 12.9898), b = Math.sin(t * 0.63 * rate + seed * 78.233), c = Math.sin(t * 2.9 * rate + seed * 3.7);
+  return 0.5 + 0.5 * (0.5 * a + 0.3 * b + 0.2 * c);
+}
+/** breathing gap (px) behind the hero ahead: min..max, slow wobble + optional shaping fn(t) -> 0..1 override */
+export function breathe(t, i, { min = 12, max = 40, seed = 7, rate = 1, bias = 0.5 } = {}) {
+  const w = wobble(t, seed + i * 5.3, rate);
+  const k = Math.max(0, Math.min(1, 0.6 * w + 0.4 * bias + (i === 2 ? 0.08 : 0)));
+  return min + (max - min) * k;
+}
+/**
+ * Party: three heroes on one lead course (a Track), staggered in time so followers take the same jumps at the same
+ * places, with breathing spacing and per-hero arc heights. Overrides replace a hero's state in a window (set pieces).
+ *   const party = new Party(jadeTrack, { speed: 140 });
+ *   party.override('ricky', 19.3, 19.95, rickyTrack);         // or (t) => state
+ *   const [J, C, R] = party.at(t);                             // states in HERO_ORDER, each with .hero
+ * opts: speed (px/s, converts spacing to delay), min/max spacing px, seed, rate, gapFn(t, i) -> px (custom spacing),
+ *       minGap (hard floor between neighbours when following).
+ */
+export class Party {
+  constructor(lead, { speed = 140, min = 12, max = 40, seed = 7, rate = 1, gapFn = null, minGap = 10, heroes = HERO_ORDER } = {}) {
+    this.lead = lead; this.o = { speed, min, max, seed, rate, gapFn, minGap }; this.heroes = heroes; this.ov = [];
+  }
+  override(hero, t0, t1, src) { this.ov.push({ hero, t0, t1, src }); return this; }
+  gap(t, i) { const o = this.o; return o.gapFn ? o.gapFn(t, i) : breathe(t, i, o); }
+  delay(t, i) { let d = 0; for (let k = 1; k <= i; k++) d += this.gap(t, k) / this.o.speed; return d; }
+  at(t) {
+    const out = []; let ahead = null;
+    this.heroes.forEach((h, i) => {
+      let s = null;
+      for (const v of this.ov) if (v.hero === h && t >= v.t0 && t < v.t1) { s = typeof v.src === 'function' ? v.src(t) : v.src.at(t, { apexScale: HERO_JUMP[h]?.apex }); break; }
+      if (!s) {
+        s = this.lead.at(t - this.delay(t, i), { apexScale: HERO_JUMP[h]?.apex ?? 1 });
+        if (ahead && !ahead.air && !s.air && s.x > ahead.x - this.o.minGap) s.x = ahead.x - this.o.minGap;
+      }
+      s = { ...s, hero: h }; out.push(s); ahead = s;
+    });
+    return out;
+  }
 }

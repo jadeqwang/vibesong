@@ -1,0 +1,53 @@
+{
+"Z": 16,
+"frames": [
+{
+"name": "jade_run_hairdown",
+"k": 0,
+"x": 24,
+"y": 24,
+"w": 40,
+"h": 44
+},
+{
+"name": "jade_run_hairdown",
+"k": 1,
+"x": 688,
+"y": 24,
+"w": 40,
+"h": 44
+},
+{
+"name": "jade_draw_rainbow",
+"k": 0,
+"x": 1352,
+"y": 24,
+"w": 72,
+"h": 44
+},
+{
+"name": "jade_draw_graphite",
+"k": 0,
+"x": 2528,
+"y": 24,
+"w": 72,
+"h": 44
+},
+{
+"name": "jade_sing",
+"k": 0,
+"x": 3704,
+"y": 24,
+"w": 56,
+"h": 44
+},
+{
+"name": "jade_sing",
+"k": 1,
+"x": 24,
+"y": 752,
+"w": 56,
+"h": 44
+}
+]
+}

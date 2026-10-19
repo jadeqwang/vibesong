@@ -1,0 +1,19 @@
+{
+ "model": "pruna/p-video-avatar",
+ "tag": "pB_05_avatar_t1",
+ "notes": "passB paper card 05; S0=106.85 (clip t = song t - S0 + lag)",
+ "input": {
+  "image": "file:media/cutscenes/_work/passB/c05/ff.jpg",
+  "audio": "file:media/cutscenes/_work/passB/c05/voc_106.85_6s.mp3",
+  "voice": "Kore (Female)",
+  "voice_script": "",
+  "voice_language": "English (US)",
+  "resolution": "1080p",
+  "video_prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in Mandarin, the words from the reference audio, 'shi jie, shi wo de wu tai', her lips shaping each syllable in time with the voice: lips rounding on 'wu', opening wide on 'jie' and 'tai'. The young woman in the centre sings it into the microphone below her chin, bright and proud, a small nod on the beat. The young man in the flat cap on the left strums his acoustic guitar, the young man in the striped shirt on the right plays his electric guitar; both keep their mouths closed. The three warm spotlight cones shimmer softly. Through all of it the young woman stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+  "voice_prompt": "Sing the following.",
+  "negative_prompt": "photo, photorealistic, 3D render, glasses, makeup, text, captions",
+  "strength_negative_prompt": 0.8,
+  "disable_safety_filter": true,
+  "disable_prompt_upsampling": true
+ }
+}

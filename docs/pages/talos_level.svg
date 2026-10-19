@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 980" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d6338a"/></marker>
+    <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>
+    <pattern id="sea" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#c9dcef"/><path d="M0,8 q3,-3 6,0 t6,0" stroke="#9cbbd9" fill="none"/></pattern>
+  </defs>
+  <rect width="1200" height="980" fill="#fbf7ef"/>
+
+  <!-- ROOM A -->
+  <text x="30" y="42" font-size="24" font-weight="700" fill="#222">Room A · 1:26.4–1:34.2 · "FIXTURES &amp; FUNCTIONS"  (top-down)</text>
+  <text x="30" y="68" font-size="15" fill="#555">Goal: power the receiver so the gate's force field drops. A tall wall blocks the straight shot, so the beam must zig-zag over the gap.</text>
+  <rect x="30" y="90" width="1140" height="380" fill="url(#sea)" stroke="#999"/>
+  <!-- near ledge -->
+  <rect x="30" y="90" width="230" height="380" fill="#e8d3ad" stroke="#a88"/>
+  <text x="45" y="115" font-size="14" fill="#6b5333">near ledge (start)</text>
+  <!-- far mesa -->
+  <rect x="900" y="90" width="270" height="380" fill="#e8d3ad" stroke="#a88"/>
+  <text x="915" y="115" font-size="14" fill="#6b5333">far mesa</text>
+  <!-- blocking wall -->
+  <rect x="560" y="210" width="34" height="150" fill="#8a7a66"/>
+  <text x="520" y="385" font-size="14" fill="#555">wall blocks the</text>
+  <text x="520" y="402" font-size="14" fill="#555">direct line</text>
+  <line x1="190" y1="285" x2="560" y2="285" stroke="#999" stroke-dasharray="6 6"/>
+  <text x="300" y="275" font-size="13" fill="#999">✕ direct shot is blocked</text>
+  <!-- gate + receiver -->
+  <rect x="1080" y="200" width="16" height="170" fill="#7fb7ff" opacity=".6"/>
+  <text x="1020" y="195" font-size="14" fill="#245">force-field gate</text>
+  <circle cx="1040" cy="395" r="15" fill="#333" stroke="#d6338a" stroke-width="3"/>
+  <text x="975" y="430" font-size="14" fill="#222">receiver (dark → lit)</text>
+  <!-- heroes -->
+  <circle cx="190" cy="285" r="13" fill="#c78a3d"/><text x="95" y="260" font-size="14" fill="#222">Ricky's amp (emitter)</text>
+  <circle cx="150" cy="340" r="13" fill="#f3f3f3" stroke="#222"/><text x="70" y="372" font-size="14" fill="#222">Jade</text>
+  <circle cx="140" cy="210" r="13" fill="#6b8f3a"/><text x="70" y="190" font-size="14" fill="#222">Charlie</text>
+  <!-- slabs -->
+  <rect x="330" y="140" width="70" height="40" fill="#555" rx="4"/><text x="340" y="132" font-size="14" fill="#222">slab 1</text>
+  <rect x="700" y="130" width="70" height="40" fill="#555" rx="4"/><text x="710" y="122" font-size="14" fill="#222">slab 2</text>
+  <rect x="760" y="380" width="70" height="40" fill="#555" rx="4"/><text x="770" y="445" font-size="14" fill="#222">slab 3</text>
+  <polygon points="365,152 373,160 365,168 357,160" fill="#9ff"/>
+  <polygon points="735,142 743,150 735,158 727,150" fill="#9ff"/>
+  <polygon points="795,392 803,400 795,408 787,400" fill="#9ff"/>
+  <!-- beam path -->
+  <polyline points="190,285 365,160 735,150 795,400 1040,395" fill="none" stroke="#d6338a" stroke-width="4" marker-end="url(#ar)"/>
+  <text x="250" y="200" font-size="14" fill="#d6338a">beam</text>
+  <!-- hat path -->
+  <path d="M140,210 Q250,120 365,165 Q560,60 735,155 Q880,260 795,395" fill="none" stroke="#6b8f3a" stroke-width="2.5" stroke-dasharray="3 7"/>
+  <text x="395" y="222" font-size="14" fill="#4d6b28">Charlie's hat flies the order</text><text x="395" y="240" font-size="14" fill="#4d6b28">1→2→3 (dotted trail)</text>
+  <!-- steps -->
+  <g font-size="14" fill="#222">
+    <text x="30" y="500" font-weight="700">What happens, in order</text>
+    <text x="30" y="524">1. Reveal (crane up): the gap, the wall in the way, the dark receiver and the blue force field on the far mesa. Nothing else yet.</text>
+    <text x="30" y="546">2. FIXTURES! Jade's three slashes raise three graphite slabs out of the sea, each with a crystal connector on top (aimed wrong).</text>
+    <text x="30" y="568">3. Charlie throws the hat; it taps each crystal in order and turns it to face the next one (SHIP = the plan, and the aiming).</text>
+    <text x="30" y="590">4. FUNCTIONS! Ricky's chord fires the beam: slab 1 → 2 → 3 → around the wall → receiver. Receiver lights, gate lamps light one by one.</text>
+    <text x="30" y="612">5. The powered slabs swing down into a bridge along the dotted trail; Jade colors each as she crosses; the force field drops as they arrive.</text>
+  </g>
+
+  <!-- ROOM B -->
+  <text x="30" y="668" font-size="24" font-weight="700" fill="#222">Room B · 1:41.0–1:47.1 · the co-op crossing (k08b)  (top-down)</text>
+  <rect x="30" y="685" width="1140" height="200" fill="url(#sea)" stroke="#999"/>
+  <rect x="30" y="685" width="560" height="200" fill="#e8d3ad" stroke="#a88"/>
+  <rect x="930" y="685" width="240" height="200" fill="#e8d3ad" stroke="#a88"/>
+  <!-- sea-stack ruin blocking the direct shot -->
+  <rect x="680" y="790" width="44" height="44" fill="#8a7a66"/>
+  <text x="640" y="782" font-size="13" fill="#555">ruined sea stack</text>
+  <line x1="80" y1="735" x2="680" y2="820" stroke="#999" stroke-dasharray="6 6"/>
+  <text x="300" y="790" font-size="13" fill="#999">✕ amp can't see receiver 2</text>
+  <!-- ricky + amp -->
+  <circle cx="80" cy="735" r="13" fill="#c78a3d"/><text x="45" y="712" font-size="13" fill="#222">Ricky + amp (emitter)</text>
+  <!-- plate -->
+  <rect x="150" y="815" width="60" height="40" fill="#fff" stroke="#e0b000" stroke-width="3"/>
+  <circle cx="180" cy="835" r="11" fill="#6b8f3a"/>
+  <text x="120" y="875" font-size="13" fill="#222">pressure plate (Charlie)</text>
+  <path d="M210,835 Q600,900 912,860" fill="none" stroke="#555" stroke-dasharray="3 4" marker-end="url(#ag)"/>
+  <!-- tripod socket at cliff edge -->
+  <circle cx="560" cy="860" r="16" fill="none" stroke="#222" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="560,850 569,860 560,870 551,860" fill="#9ff"/>
+  <text x="470" y="840" font-size="13" fill="#222">tripod socket (Jade)</text>
+  <!-- field curtain + receiver -->
+  <rect x="912" y="835" width="10" height="50" fill="#7fb7ff" opacity=".8"/>
+  <text x="850" y="828" font-size="13" fill="#245">field curtain</text>
+  <circle cx="985" cy="860" r="14" fill="#333" stroke="#d6338a" stroke-width="3"/>
+  <text x="1005" y="865" font-size="13" fill="#222">receiver 2</text>
+  <polyline points="80,735 560,860 985,860" fill="none" stroke="#d6338a" stroke-width="4" marker-end="url(#ar)"/>
+  <path d="M590,730 Q760,705 930,730" fill="none" stroke="#333" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+  <text x="660" y="720" font-size="13" fill="#333">pencil-stroke bridge draws itself</text>
+  <text x="760" y="752" font-size="13" fill="#d6338a">moth bonks the beam ×2</text>
+  <g font-size="14" fill="#222">
+    <text x="30" y="912">Rule: a ruined sea stack blocks the amp's straight shot at receiver 2; the tripod socket on the cliff edge is the one spot that sees both. Receiver 2 sits behind a field</text>
+    <text x="30" y="932">curtain that is open only while the plate is held. Charlie on the plate → curtain opens → Jade plants the tripod (first-person) → beam relays → receiver 2 → bridge draws.</text>
+    <text x="30" y="952">If Charlie steps off, the curtain closes and the bridge fades. Classic Talos fix: he pulls a spare hat out of his hat and leaves it on the plate. All three cross. (Laid out like k08b.)</text>
+  </g>
+</svg>

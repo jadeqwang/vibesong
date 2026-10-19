@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "pB_05_v2_upscale_t2", "notes": "passB paper M3 card 05: precise 2.25x of take pB_05_v2_sd25_t2 segment (no blink in stage_3d's 107.233-107.600 slice; seg_05_v2t2.txt = start/dur in the take)",
+ "input": {"input_video": "file:media/cutscenes/_work/passB/upscale/seg_05_v2t2.mp4", "upscale_factor": 2.25, "creativity": 0, "safety_tolerance": 4}}

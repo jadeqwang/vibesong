@@ -1,0 +1,177 @@
+<title>Card 03 Timing</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one stage (stacked, preloaded variants so switching keeps the playhead), a variant strip under it, then the per-word table and the pick. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #6a6c72; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ink-bg: #e4ebfb; --ok: #2f7d4f; --ok-bg: #e3f1e8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.5vw, 38px); line-height: 1.1; }
+h1 .stroke { display: block; width: 100px; height: 5px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 21px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.stage video.on { visibility: visible; }
+.hud { position: absolute; left: 10px; top: 10px; font: 500 13px var(--mono); background: rgba(0,0,0,.65); color: #fff; padding: 3px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vbtn { font: 500 14px var(--mono); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--graphite); cursor: pointer; min-width: 64px; }
+.vbtn[aria-pressed="true"] { background: var(--ink-bg); border-color: var(--ink); color: var(--ink); }
+.vbtn.rec::after { content: " · rec"; color: var(--muted); font-size: 12px; }
+.tbtn { font: 600 14px var(--body); padding: 8px 16px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+.tbtn.ghost { background: transparent; color: var(--graphite); border: 1px solid var(--rule); }
+.tbtn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.keys { font-size: 13px; color: var(--muted); }
+kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--card); }
+.tw { overflow-x: auto; }
+table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+th { font-weight: 600; font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+tr.cur td { color: var(--ink); font-weight: 600; }
+code { font-family: var(--mono); font-size: 13px; }
+textarea { width: 100%; box-sizing: border-box; min-height: 48px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+#out { font-family: var(--mono); font-size: 13px; min-height: 64px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>Card 03 timing<span class="stroke" aria-hidden="true"></span></h1>
+    <p>Six versions of 0:19.0–0:24.5 with the song. Each one moves your lips later by a number of frames (one frame is 0.033 s); the cut times don't change. Switch versions while it plays: the playhead stays where it is, so you hear the same word against each.</p>
+  </header>
+
+  <section>
+    <div class="stage" id="stage"><span class="hud" id="hud">+0 · 19.00 s</span></div>
+    <div class="row" id="vars" role="group" aria-label="Version"></div>
+    <div class="row">
+      <button class="tbtn" id="play" type="button">Play</button>
+      <button class="tbtn ghost" id="loop" type="button" aria-pressed="true">Loop "because my imagination" (19.9–22.3)</button>
+      <button class="tbtn ghost" id="restart" type="button">Back to start</button>
+    </div>
+    <p class="keys"><kbd>1</kbd>–<kbd>6</kbd> switch version · <kbd>Space</kbd> play / pause · <kbd>L</kbd> loop on / off. Sound starts after your first click.</p>
+  </section>
+
+  <section>
+    <h2>Where the lips close, per version</h2>
+    <p class="muted">Measured against the vocal stem: "my" has its m at 21.16 (vowel 21.20); "imagination" has its m at 21.50–21.63 (vowel 21.65). Negative means early.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Version</th><th>"my" closure</th><th>vs stem (close / open)</th><th>"imagination"</th></tr></thead>
+      <tbody id="tbl"></tbody>
+    </table></div>
+    <p>My read: in the current version (+0) the mouth opens on time, but the closure for "my" starts 0.13 s early, over the "z" of "because". Your eye takes that closure as the "m", which is likely why it feels early. <b>+2</b> centres the closure on the m; <b>+3</b> is next if +2 still feels early.</p>
+  </section>
+
+  <section>
+    <h2>Your pick</h2>
+    <div class="row" id="pick" role="group" aria-label="Your pick"></div>
+    <label for="note" class="muted">Note (optional)</label>
+    <textarea id="note" placeholder="Anything else about card 03"></textarea>
+    <div class="row"><button class="tbtn" id="copy" type="button">Copy answer</button></div>
+    <textarea id="out" readonly aria-label="Answer to paste into chat"></textarea>
+  </section>
+</div>
+
+<script>
+const T0 = 19.0, LOOP = [0.9, 3.3];
+const V = [
+  { k: 0, my: "21.033–21.167 → 21.200", d: "−0.13 / 0.00", im: "21.500–21.633 → 21.667" },
+  { k: 1, my: "21.067–21.200 → 21.233", d: "−0.09 / +0.03", im: "→ 21.700" },
+  { k: 2, my: "21.100–21.233 → 21.267", d: "−0.06 / +0.07", im: "→ 21.733" },
+  { k: 3, my: "21.133–21.267 → 21.300", d: "−0.03 / +0.10", im: "→ 21.767" },
+  { k: 4, my: "21.167–21.300 → 21.333", d: "+0.01 / +0.13", im: "→ 21.800" },
+  { k: 6, my: "21.233–21.367 → 21.400", d: "+0.07 / +0.20", im: "→ 21.867" }
+];
+const stage = document.getElementById("stage"), hud = document.getElementById("hud");
+const vids = V.map(v => {
+  const el = document.createElement("video");
+  el.src = `v/shift${v.k}.mp4`; el.preload = "auto"; el.playsInline = true; el.muted = true;
+  stage.insertBefore(el, hud); return el;
+});
+let cur = 0, looping = true, playing = false;
+vids[0].classList.add("on"); vids[0].muted = false;
+
+const varRow = document.getElementById("vars"), tbl = document.getElementById("tbl");
+const vbtns = V.map((v, i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "vbtn" + (v.k === 2 ? " rec" : ""); b.textContent = (v.k ? "+" : "+") + v.k;
+  b.onclick = () => show(i); varRow.appendChild(b); return b;
+});
+const rows = V.map(v => { const tr = document.createElement("tr"); tr.innerHTML = `<td>+${v.k}${v.k === 0 ? " (now)" : ""}</td><td>${v.my}</td><td>${v.d}</td><td>${v.im}</td>`; tbl.appendChild(tr); return tr; });
+
+function show(i) {
+  if (i === cur) return;
+  const a = vids[cur], b = vids[i];
+  b.currentTime = a.currentTime;
+  b.muted = false; a.muted = true;
+  if (playing) { b.play().catch(() => {}); a.pause(); }
+  a.classList.remove("on"); b.classList.add("on");
+  cur = i; sync();
+}
+function sync() {
+  vbtns.forEach((b, i) => b.setAttribute("aria-pressed", i === cur));
+  rows.forEach((r, i) => r.classList.toggle("cur", i === cur));
+}
+function setPlaying(p) {
+  playing = p; const v = vids[cur];
+  if (p) { if (looping && (v.currentTime < LOOP[0] || v.currentTime > LOOP[1])) v.currentTime = LOOP[0]; v.play().catch(() => { playing = false; label(); }); }
+  else v.pause();
+  label();
+}
+const playBtn = document.getElementById("play"), loopBtn = document.getElementById("loop");
+function label() { playBtn.textContent = playing ? "Pause" : "Play"; loopBtn.setAttribute("aria-pressed", looping); }
+playBtn.onclick = () => setPlaying(!playing);
+loopBtn.onclick = () => { looping = !looping; label(); };
+document.getElementById("restart").onclick = () => { vids[cur].currentTime = looping ? LOOP[0] : 0; };
+vids.forEach(v => v.addEventListener("ended", () => { if (v === vids[cur]) { playing = false; label(); } }));
+
+(function tick() {
+  const v = vids[cur];
+  if (playing && looping && v.currentTime >= LOOP[1]) v.currentTime = LOOP[0];
+  hud.textContent = `+${V[cur].k} · ${(T0 + v.currentTime).toFixed(2)} s`;
+  requestAnimationFrame(tick);
+})();
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA") return;
+  const n = "123456".indexOf(e.key);
+  if (n >= 0) { show(n); e.preventDefault(); }
+  else if (e.key === " ") { setPlaying(!playing); e.preventDefault(); }
+  else if (e.key === "l" || e.key === "L") { looping = !looping; label(); }
+});
+
+const KEY = "p03-pick"; let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} out(); };
+const pickRow = document.getElementById("pick");
+const pbtns = [...V.map(v => "+" + v.k), "None fit"].map(lab => {
+  const b = document.createElement("button"); b.type = "button"; b.className = "vbtn"; b.textContent = lab;
+  b.onclick = () => { st.pick = st.pick === lab ? "" : lab; pbtns.forEach(x => x.setAttribute("aria-pressed", x.textContent === st.pick)); save(); };
+  b.setAttribute("aria-pressed", st.pick === lab); pickRow.appendChild(b); return b;
+});
+const note = document.getElementById("note"), outEl = document.getElementById("out");
+note.value = st.note || ""; note.oninput = () => { st.note = note.value; save(); };
+function out() { outEl.value = `Card 03 timing pick: ${st.pick || "unmarked"}${st.note && st.note.trim() ? " — " + st.note.trim() : ""}`; }
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; out();
+  try { await navigator.clipboard.writeText(outEl.value); b.textContent = "Copied"; }
+  catch (err) { outEl.focus(); outEl.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answer"; }, 1800);
+};
+sync(); label(); out();
+</script>

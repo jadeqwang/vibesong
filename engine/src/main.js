@@ -28,6 +28,11 @@ const ENGINE = {
     document.body.appendChild(renderer.domElement);
     this.renderer = renderer;
     this.post = new Post(renderer, width, height);
+    this.fps = fps;
+    // --mblur N: N jittered sub-frames per frame across the shutter, averaged in linear HDR before the final pass (off = unchanged)
+    if (+o.mblur > 1) this.mb = { n: Math.round(+o.mblur), shutter: o.shutter != null ? +o.shutter : 0.5, phase: o.shutterPhase || 'open',
+      jitter: o.jitter != null ? +o.jitter : 1, cutDist: o.cutDist != null ? +o.cutDist : 10, cutAngle: o.cutAngle != null ? +o.cutAngle : 5, cutK: 4, frame: 0 };
+    if (o.look) { const { LookPass } = await import('./look.js'); this.post.look = new LookPass(this.post, o.look); }
     await T.load(); T.setFps(fps);
     if (o.show) {
       this.runner = new ShowRunner({ renderer, post: this.post, width, height, fps });
@@ -40,10 +45,46 @@ const ENGINE = {
     return { duration: this.sc.duration };
   },
   async render(t) {
+    if (this.mb) return this._renderMB(t);
     if (this.runner) { await this.runner.prepare(t); this.runner.render(t); }
     else { this.sc.update(t); this.post.render(this.sc.scene, this.sc.camera); }
     this.renderer.getContext().finish();
   },
+  async _pass(t) {
+    if (this.runner) { await this.runner.prepare(t); this.runner.render(t); }
+    else { this.sc.update(t); this.post.render(this.sc.scene, this.sc.camera); }
+  },
+  /** Sub-frame accumulation. Shutter phase 'open' (default): sub-frames at t + (i/N)*shutter/fps, i = 0..N-1, so the
+   *  shutter opens AT t: on()/since()/pulse() switches and exactFrame flashes (all on the frame grid) land on the same frame
+   *  at full strength, and nothing from the previous frame leaks in. 'center': t + ((i+0.5)/N - 0.5)*shutter/fps.
+   *  Sub-frames whose active show entries differ from t's (a cut between entries) or whose camera jumps (a cut inside a
+   *  scene) are dropped. 2D/ortho post calls are never accumulated; the UI, flash and fade overlays are drawn once, at t. */
+  async _renderMB(t) {
+    const mb = this.mb, P = this.post, N = mb.n, dt = mb.shutter / this.fps, step = dt / N;
+    const key = (tt) => this.runner ? this.runner.entries.map((e, i) => (e.inst && tt >= e.t0 - 1e-9 && tt < e.t1) ? i : '').join(',') : '';
+    const k0 = key(t); const frame = ++mb.frame;
+    const M = { frame, jitter: [0, 0], cutDist: mb.cutDist, cutAngle: mb.cutAngle, cutK: mb.cutK, stats: {} };
+    const st = { used: 0, cuts: 0, skipped: 0, why: '' };
+    // probes (no rendering): the camera at t is the reference, t +- one sub-step gives its speed for the cut test
+    const pr = { ...M, mode: 'probe' }; P.setAccum(pr); await this._pass(t);
+    if (!P._slots || !P._slots.some((s) => s && s.frame === frame)) {   // nothing accumulable at t (2D / ortho only): plain frame
+      P.setAccum(null); await this._pass(t); this._mbStats = st; this.renderer.getContext().finish(); return;
+    }
+    for (const tp of [t - step, t + step]) if (key(tp) === k0) { P.setAccum({ ...M, mode: 'probe' }); await this._pass(tp); }
+    for (let i = 0; i < N; i++) {
+      const off = mb.phase === 'center' ? ((i + 0.5) / N - 0.5) : i / N;
+      const ti = t + off * dt;
+      if (key(ti) !== k0) { st.skipped++; continue; }
+      const m = { ...M, mode: 'sub', o: off * N, jitter: [(halton(i + 1, 2) - 0.5) * mb.jitter, (halton(i + 1, 3) - 0.5) * mb.jitter] };
+      P.setAccum(m); await this._pass(ti);
+      st.used += m.used || 0; st.cuts += m.cuts || 0; if (m.why) st.why = m.why;
+    }
+    Object.assign(st, M.stats);
+    P.setAccum({ ...M, mode: 'final' }); await this._pass(t); P.setAccum(null);
+    this._mbStats = st;
+    this.renderer.getContext().finish();
+  },
+  mbStats() { return this._mbStats || null; },
   async readPixels() {
     const gl = this.renderer.getContext();
     if (!this._px) this._px = new Uint8Array(this.W * this.H * 4);
@@ -83,6 +124,7 @@ const ENGINE = {
     return e ? gl.getParameter(e.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
   },
 };
+function halton(i, b) { let f = 1, r = 0; while (i > 0) { f /= b; r += f * (i % b); i = Math.floor(i / b); } return r; }
 window.ENGINE = ENGINE;
 
 if (qs.get('show') || qs.get('scene')) {

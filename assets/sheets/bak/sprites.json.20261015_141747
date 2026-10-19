@@ -1,0 +1,1688 @@
+{
+ "generated_by": "tools/sprites/build.py",
+ "pixel_scale_note": "1 texel = 1 game pixel; render with NEAREST filtering",
+ "anchor_note": "anchor = feet contact point (x, y) in frame px, origin top-left",
+ "sprites": {
+  "jade_idle": {
+   "file": "jade_idle.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/jade2_pix_updo_a.png",
+   "note": "updo + X pencils (blue cap / pink cap)"
+  },
+  "jade_jump": {
+   "file": "jade_jump.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 13,
+   "source": "assets/sheets/raw/jade2_pix_updo_a.png",
+   "note": "0 = rising, 1 = falling"
+  },
+  "jade_run": {
+   "file": "jade_run.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 6,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 14,
+   "source": "assets/sheets/raw/jade2_pix_updo_b.png",
+   "note": "updo; contact, down, passing x2; sleeve patch visible"
+  },
+  "jade_draw_rainbow": {
+   "file": "jade_draw_rainbow.png",
+   "frame_w": 72,
+   "frame_h": 44,
+   "frames": 1,
+   "anchor": [
+    36,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 14,
+   "source": "assets/sheets/raw/jade2_pix_down_b.png",
+   "note": "HAIR DOWN; blue-cap pencil = FUNCTIONS, rainbow stroke baked in"
+  },
+  "jade_draw_graphite": {
+   "file": "jade_draw_graphite.png",
+   "frame_w": 72,
+   "frame_h": 44,
+   "frames": 1,
+   "anchor": [
+    36,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 11,
+   "source": "assets/sheets/raw/jade2_pix_down_b.png",
+   "note": "HAIR DOWN; pink-cap pencil = FIXTURES, graphite line baked in"
+  },
+  "jade_sing": {
+   "file": "jade_sing.png",
+   "frame_w": 56,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    28,
+    43
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/jade2_pix_down_b.png",
+   "note": "HAIR DOWN; pencil as mic"
+  },
+  "jade_drum": {
+   "file": "jade_drum.png",
+   "frame_w": 44,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    22,
+    43
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/jade2_pix_down_b.png",
+   "note": "HAIR DOWN; pencils as drumsticks"
+  },
+  "jade_victory": {
+   "file": "jade_victory.png",
+   "frame_w": 40,
+   "frame_h": 44,
+   "frames": 1,
+   "anchor": [
+    20,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 12,
+   "source": "assets/sheets/raw/jade2_pix_updo_a.png"
+  },
+  "charlie_idle": {
+   "file": "charlie_idle.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png"
+  },
+  "charlie_jump": {
+   "file": "charlie_jump.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png",
+   "note": "0 = rising, 1 = falling"
+  },
+  "charlie_run": {
+   "file": "charlie_run.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 6,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_run_t1.png",
+   "note": "contact, down, passing x2 (dedicated run sheet)"
+  },
+  "charlie_hat_shield": {
+   "file": "charlie_hat_shield.png",
+   "frame_w": 36,
+   "frame_h": 52,
+   "frames": 3,
+   "anchor": [
+    18,
+    51
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png",
+   "note": "ink drop bouncing off the cap"
+  },
+  "charlie_hat_parachute": {
+   "file": "charlie_hat_parachute.png",
+   "frame_w": 36,
+   "frame_h": 48,
+   "frames": 3,
+   "anchor": [
+    18,
+    47
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png"
+  },
+  "charlie_hat_trampoline": {
+   "file": "charlie_hat_trampoline.png",
+   "frame_w": 44,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    22,
+    43
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png",
+   "note": "cap flipped on the ground; spawn as a separate bounce prop if needed"
+  },
+  "charlie_hat_throw": {
+   "file": "charlie_hat_throw.png",
+   "frame_w": 44,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    22,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png"
+  },
+  "charlie_hat_boomerang": {
+   "file": "charlie_hat_boomerang.png",
+   "frame_w": 16,
+   "frame_h": 16,
+   "frames": 3,
+   "anchor": [
+    8,
+    15
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 5,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png",
+   "note": "projectile only"
+  },
+  "charlie_hat_pull": {
+   "file": "charlie_hat_pull.png",
+   "frame_w": 40,
+   "frame_h": 44,
+   "frames": 3,
+   "anchor": [
+    20,
+    43
+   ],
+   "fps": 4,
+   "loop": false,
+   "colors": 19,
+   "source": "assets/sheets/raw/charlie_pixel_t2.png",
+   "note": "pulls another cap out of the cap"
+  },
+  "ricky_idle": {
+   "file": "ricky_idle.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 16,
+   "source": "assets/sheets/raw/ricky_pixel_t2.png"
+  },
+  "ricky_jump": {
+   "file": "ricky_jump.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 18,
+   "source": "assets/sheets/raw/ricky_pixel_t2.png",
+   "note": "0 = rising, 1 = falling"
+  },
+  "ricky_run": {
+   "file": "ricky_run.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 6,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 18,
+   "source": "assets/sheets/raw/ricky_run_t1.png",
+   "note": "contact, down, passing x2 (dedicated run sheet)"
+  },
+  "ricky_power_chord": {
+   "file": "ricky_power_chord.png",
+   "frame_w": 64,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    32,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 19,
+   "source": "assets/sheets/raw/ricky_pixel_t2.png",
+   "note": "1 = blast with muzzle flash baked in"
+  },
+  "ricky_sustain": {
+   "file": "ricky_sustain.png",
+   "frame_w": 44,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    22,
+    43
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/ricky_pixel_t2.png",
+   "note": "sound-wave arcs baked in"
+  },
+  "ricky_victory": {
+   "file": "ricky_victory.png",
+   "frame_w": 36,
+   "frame_h": 48,
+   "frames": 1,
+   "anchor": [
+    18,
+    47
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 16,
+   "source": "assets/sheets/raw/ricky_pixel_t2.png"
+  },
+  "eraser_chase": {
+   "file": "eraser_chase.png",
+   "frame_w": 66,
+   "frame_h": 62,
+   "frames": 3,
+   "anchor": [
+    33,
+    61
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png",
+   "note": "scrubbing right; erased white smear + crumbs baked in on the left"
+  },
+  "eraser_loom": {
+   "file": "eraser_loom.png",
+   "frame_w": 62,
+   "frame_h": 88,
+   "frames": 1,
+   "anchor": [
+    31,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 13,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png"
+  },
+  "eraser_redeemed": {
+   "file": "eraser_redeemed.png",
+   "frame_w": 62,
+   "frame_h": 62,
+   "frames": 3,
+   "anchor": [
+    31,
+    61
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png",
+   "note": "pink, frame 2 = singing"
+  },
+  "eraser_crumbs": {
+   "file": "eraser_crumbs.png",
+   "frame_w": 14,
+   "frame_h": 14,
+   "frames": 4,
+   "anchor": [
+    7,
+    13
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 7,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png",
+   "note": "particle variants, not an animation"
+  },
+  "eraser_sparkle": {
+   "file": "eraser_sparkle.png",
+   "frame_w": 14,
+   "frame_h": 16,
+   "frames": 2,
+   "anchor": [
+    7,
+    15
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 6,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png"
+  },
+  "bug_ladybug_idle": {
+   "file": "bug_ladybug_idle.png",
+   "frame_w": 34,
+   "frame_h": 34,
+   "frames": 2,
+   "anchor": [
+    17,
+    33
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png"
+  },
+  "bug_ladybug_dance": {
+   "file": "bug_ladybug_dance.png",
+   "frame_w": 34,
+   "frame_h": 40,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 10,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "pose + pixel music note"
+  },
+  "bug_ladybug_button": {
+   "file": "bug_ladybug_button.png",
+   "frame_w": 30,
+   "frame_h": 22,
+   "frames": 1,
+   "anchor": [
+    15,
+    21
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 10,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "ladybug after the dance battle -> button"
+  },
+  "bug_beetle_idle": {
+   "file": "bug_beetle_idle.png",
+   "frame_w": 34,
+   "frame_h": 34,
+   "frames": 2,
+   "anchor": [
+    17,
+    33
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 10,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png"
+  },
+  "bug_beetle_dance": {
+   "file": "bug_beetle_dance.png",
+   "frame_w": 34,
+   "frame_h": 40,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 9,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "pose + pixel music note"
+  },
+  "bug_beetle_wheel": {
+   "file": "bug_beetle_wheel.png",
+   "frame_w": 26,
+   "frame_h": 24,
+   "frames": 1,
+   "anchor": [
+    13,
+    23
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 7,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "beetle after the dance battle -> wheel"
+  },
+  "bug_moth_idle": {
+   "file": "bug_moth_idle.png",
+   "frame_w": 34,
+   "frame_h": 34,
+   "frames": 2,
+   "anchor": [
+    17,
+    33
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 9,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png"
+  },
+  "bug_moth_dance": {
+   "file": "bug_moth_dance.png",
+   "frame_w": 34,
+   "frame_h": 40,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "pose + pixel music note"
+  },
+  "bug_moth_glider": {
+   "file": "bug_moth_glider.png",
+   "frame_w": 44,
+   "frame_h": 28,
+   "frames": 1,
+   "anchor": [
+    22,
+    27
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 9,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "moth after the dance battle -> glider"
+  },
+  "bug_caterpillar_idle": {
+   "file": "bug_caterpillar_idle.png",
+   "frame_w": 34,
+   "frame_h": 34,
+   "frames": 2,
+   "anchor": [
+    17,
+    33
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png"
+  },
+  "bug_caterpillar_dance": {
+   "file": "bug_caterpillar_dance.png",
+   "frame_w": 34,
+   "frame_h": 40,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "pose + pixel music note"
+  },
+  "bug_caterpillar_bridge": {
+   "file": "bug_caterpillar_bridge.png",
+   "frame_w": 48,
+   "frame_h": 22,
+   "frames": 1,
+   "anchor": [
+    24,
+    21
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 11,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "caterpillar after the dance battle -> bridge"
+  },
+  "bug_firefly_idle": {
+   "file": "bug_firefly_idle.png",
+   "frame_w": 34,
+   "frame_h": 34,
+   "frames": 2,
+   "anchor": [
+    17,
+    33
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 15,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png"
+  },
+  "bug_firefly_dance": {
+   "file": "bug_firefly_dance.png",
+   "frame_w": 34,
+   "frame_h": 40,
+   "frames": 1,
+   "anchor": [
+    17,
+    39
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "pose + pixel music note"
+  },
+  "bug_firefly_lamp": {
+   "file": "bug_firefly_lamp.png",
+   "frame_w": 26,
+   "frame_h": 44,
+   "frames": 1,
+   "anchor": [
+    13,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 18,
+   "source": "assets/sheets/raw/bugs_pixel_t1.png",
+   "note": "firefly after the dance battle -> lamp"
+  },
+  "portrait_jade": {
+   "file": "portrait_jade.png",
+   "frame_w": 32,
+   "frame_h": 32,
+   "frames": 2,
+   "anchor": [
+    16,
+    31
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 15,
+   "source": "assets/sheets/raw/jade2_portraits_b.png",
+   "note": "0 = neutral, 1 = singing; v2: racer collar + snap tab, chest dot, X pencils (blue / pink caps)"
+  },
+  "portrait_charlie": {
+   "file": "portrait_charlie.png",
+   "frame_w": 32,
+   "frame_h": 32,
+   "frames": 2,
+   "anchor": [
+    16,
+    31
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/portraits_t1.png",
+   "note": "0 = neutral, 1 = singing/excited"
+  },
+  "portrait_ricky": {
+   "file": "portrait_ricky.png",
+   "frame_w": 32,
+   "frame_h": 32,
+   "frames": 2,
+   "anchor": [
+    16,
+    31
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 15,
+   "source": "assets/sheets/raw/portraits_t1.png",
+   "note": "0 = neutral, 1 = singing/excited"
+  },
+  "eraser_chase_x2": {
+   "file": "eraser_chase_x2.png",
+   "frame_w": 132,
+   "frame_h": 124,
+   "frames": 3,
+   "anchor": [
+    66,
+    123
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png",
+   "note": "scrubbing right; erased white smear + crumbs baked in on the left | Scale2x of eraser_chase.png: same palette, 2x game-pixel density for a screen-filling boss"
+  },
+  "eraser_loom_x2": {
+   "file": "eraser_loom_x2.png",
+   "frame_w": 124,
+   "frame_h": 176,
+   "frames": 1,
+   "anchor": [
+    62,
+    175
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 13,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png",
+   "note": "Scale2x of eraser_loom.png: same palette, 2x game-pixel density for a screen-filling boss"
+  },
+  "eraser_redeemed_x2": {
+   "file": "eraser_redeemed_x2.png",
+   "frame_w": 124,
+   "frame_h": 124,
+   "frames": 3,
+   "anchor": [
+    62,
+    123
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/eraser_pixel_t1.png",
+   "note": "pink, frame 2 = singing | Scale2x of eraser_redeemed.png: same palette, 2x game-pixel density for a screen-filling boss"
+  },
+  "charlie_prop_trampoline": {
+   "file": "charlie_prop_trampoline.png",
+   "frame_w": 58,
+   "frame_h": 30,
+   "frames": 3,
+   "anchor": [
+    29,
+    29
+   ],
+   "fps": 12,
+   "loop": false,
+   "colors": 9,
+   "source": "assets/sheets/raw/charlie_hat_props_t1.png",
+   "note": "0 rest, 1 squash (landing), 2 spring back"
+  },
+  "charlie_prop_boomerang": {
+   "file": "charlie_prop_boomerang.png",
+   "frame_w": 46,
+   "frame_h": 28,
+   "frames": 4,
+   "anchor": [
+    23,
+    27
+   ],
+   "fps": 16,
+   "loop": true,
+   "colors": 9,
+   "source": "assets/sheets/raw/charlie_hat_props_t1.png"
+  },
+  "charlie_prop_parachute": {
+   "file": "charlie_prop_parachute.png",
+   "frame_w": 62,
+   "frame_h": 32,
+   "frames": 2,
+   "anchor": [
+    31,
+    31
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 9,
+   "source": "assets/sheets/raw/charlie_hat_props_t1.png"
+  },
+  "charlie_prop_hat_stack": {
+   "file": "charlie_prop_hat_stack.png",
+   "frame_w": 48,
+   "frame_h": 44,
+   "frames": 1,
+   "anchor": [
+    24,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 8,
+   "source": "assets/sheets/raw/charlie_hat_props_t1.png",
+   "note": "more hats pulled from the hat"
+  },
+  "jade_back": {
+   "file": "jade_back.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 1,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 12,
+   "source": "assets/sheets/raw/jade2_pix_updo_b.png",
+   "note": "seen from behind: big pale-blue dot on the jacket back"
+  },
+  "jade_run_hairdown": {
+   "file": "jade_run_hairdown.png",
+   "frame_w": 40,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    20,
+    43
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/jade2_pix_down_b.png",
+   "note": "HAIR DOWN, a pencil in each hand; 2-frame run for ability moments"
+  },
+  "jade_hang": {
+   "file": "jade_hang.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 15,
+   "source": "assets/sheets/raw/hang_t1.png",
+   "note": "hanging from a bar/ledge (bar baked in at the top, hands at y~2): 0 legs forward, 1 legs back; anchor = hands"
+  },
+  "charlie_hang": {
+   "file": "charlie_hang.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/hang_t1.png",
+   "note": "hanging from a bar/ledge (bar baked in at the top, hands at y~2): 0 legs forward, 1 legs back; anchor = hands"
+  },
+  "ricky_hang": {
+   "file": "ricky_hang.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 15,
+   "source": "assets/sheets/raw/hang_t1.png",
+   "note": "hanging from a bar/ledge (bar baked in at the top, hands at y~2): 0 legs forward, 1 legs back; anchor = hands"
+  },
+  "jade_bun_pull": {
+   "file": "jade_bun_pull.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 3,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 6,
+   "loop": false,
+   "colors": 13,
+   "source": "assets/sheets/raw/bunpull_t1.png",
+   "note": "hair-up -> hair-down transition: 0 reach to bun, 1 blue pencil out + hair half down, 2 hair down, both pencils in hand"
+  },
+  "charlie_back": {
+   "file": "charlie_back.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 17,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "back view (A-1), idle; voxel rear half"
+  },
+  "charlie_back_run": {
+   "file": "charlie_back_run.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 4,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 17,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "back view, running away"
+  },
+  "ricky_back": {
+   "file": "ricky_back.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 15,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "back view (A-1), idle; voxel rear half"
+  },
+  "ricky_back_run": {
+   "file": "ricky_back_run.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 4,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 17,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "back view, running away"
+  },
+  "jade_back_hairdown": {
+   "file": "jade_back_hairdown.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "back view (A-1), idle; voxel rear half"
+  },
+  "jade_back_hairdown_run": {
+   "file": "jade_back_hairdown_run.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 4,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "back view, running away"
+  },
+  "jade_back_down": {
+   "file": "jade_back_hairdown.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/backs_t1.png",
+   "note": "alias of jade_back_hairdown"
+  },
+  "portrait_jade_hairdown": {
+   "file": "portrait_jade_hairdown.png",
+   "frame_w": 32,
+   "frame_h": 32,
+   "frames": 2,
+   "anchor": [
+    16,
+    31
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sprites/portrait_jade.png (code edit: tools/sprites/a2_portrait.py)",
+   "note": "A-2 P1: HAIR DOWN, no pencils in the hair; 0 = neutral, 1 = singing. HUD uses it whenever Jade holds her pencils (17.38 on)"
+  },
+  "jade_twin_draw": {
+   "file": "jade_twin_draw.png",
+   "frame_w": 44,
+   "frame_h": 44,
+   "frames": 4,
+   "anchor": [
+    22,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 15,
+   "source": "assets/sheets/raw/a2_jade_a_t1.png",
+   "note": "A-2 17.38: 0 hands at the bun (pencils X'd through it) -> 1 both pencils out like twin swords, bun undone -> 2 hair falling, arms crossed -> 3 stance, hair DOWN, blue-cap pencil forward (rainbow tip), pink-cap pencil back. Hold frame 3."
+  },
+  "jade_erase": {
+   "file": "jade_erase.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 3,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 12,
+   "source": "assets/sheets/raw/a2_jade_a_t1.png",
+   "note": "A-2: HAIR DOWN; graphite pencil flipped, rubbing with its PINK/ORANGE cap on a wall to her RIGHT (cap reaches x~33-35); pink rubber crumbs baked in; blue-cap pencil in the other hand. Frames = top / middle / bottom of the stroke."
+  },
+  "jade_dangle": {
+   "file": "jade_dangle.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    27,
+    2
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/a2_jade_b_t1.png",
+   "note": "A-2 chain/parachute: HAIR DOWN, hanging by her raised hand (anchor = that fist), free hand down-left holding the blue-cap pencil (rainbow tip) and free to take the next hero's hand. 0 legs forward, 1 legs back. No bar baked in."
+  },
+  "ricky_dangle": {
+   "file": "ricky_dangle.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    10,
+    2
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/a2_ricky_dangle_t2.png",
+   "note": "A-2 chain/parachute: hanging by his raised hand (anchor = that fist), free hand reaching down-right, Strat on its strap at the hip. 0 legs forward, 1 legs back. No bar baked in."
+  },
+  "ricky_dangle_play": {
+   "file": "ricky_dangle_play.png",
+   "frame_w": 36,
+   "frame_h": 48,
+   "frames": 2,
+   "anchor": [
+    16,
+    1
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 17,
+   "source": "assets/sheets/raw/a2_ricky_t1.png",
+   "note": "A-2 updraft 40.6-41.6: Ricky hangs from his guitar STRAP (anchor = top of the strap loop, hook it on Charlie's boot), Strat neck pointing UP, sustained note; 1 = sway + mouth open."
+  },
+  "charlie_parachute_carry": {
+   "file": "charlie_parachute_carry.png",
+   "frame_w": 48,
+   "frame_h": 56,
+   "frames": 3,
+   "anchor": [
+    24,
+    55
+   ],
+   "fps": 6,
+   "loop": true,
+   "colors": 17,
+   "source": "assets/sheets/raw/a2_charlie_t2.png",
+   "note": "A-2 parachute 25.0/35.6/40.9: Charlie (no cap: the cap IS the canopy, inverted crown dome + peak on the left rim) holding the strings, both boots out sideways for Jade/Ricky to hang from. anchor = bottom centre between the boots; per-frame boot grab points in 'boots' [[lx,ly],[rx,ry]].",
+   "boots": [
+    [
+     [
+      7,
+      52
+     ],
+     [
+      38,
+      52
+     ]
+    ],
+    [
+     [
+      7,
+      52
+     ],
+     [
+      38,
+      52
+     ]
+    ],
+    [
+     [
+      7,
+      52
+     ],
+     [
+      38,
+      52
+     ]
+    ]
+   ]
+  },
+  "jade_read": {
+   "file": "jade_read.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 2,
+   "loop": true,
+   "colors": 13,
+   "source": "assets/sheets/raw/a2_jade_b_t1.png",
+   "note": "A-2 reading freeze 43.89: holding a small open page at chest height (a plain sheet is drawn in the hands; overlay prop_page_* beside/over it), head down reading; 1 = slight nod. HAIR DOWN; blue-cap pencil (rainbow tip) follows the lines. "
+  },
+  "ricky_read": {
+   "file": "ricky_read.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 2,
+   "loop": true,
+   "colors": 17,
+   "source": "assets/sheets/raw/a2_ricky_t1.png",
+   "note": "A-2 reading freeze 43.89: holding a small open page at chest height (a plain sheet is drawn in the hands; overlay prop_page_* beside/over it), head down reading; 1 = slight nod. Strat on its strap. "
+  },
+  "charlie_read": {
+   "file": "charlie_read.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 2,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 2,
+   "loop": true,
+   "colors": 19,
+   "source": "assets/sheets/raw/a2_charlie_t1.png",
+   "note": "A-2 reading freeze 43.89: holding a small open page at chest height (a plain sheet is drawn in the hands; overlay prop_page_* beside/over it), head down reading; 1 = slight nod. "
+  },
+  "eraser_skid_x2": {
+   "file": "eraser_skid_x2.png",
+   "frame_w": 132,
+   "frame_h": 124,
+   "frames": 3,
+   "anchor": [
+    66,
+    123
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 13,
+   "source": "assets/sheets/raw/a2_eraser_t1.png",
+   "note": "A-2 27.8-31 colored tiles stop it: braking, leaning back, cheeks squished, squeak 'o' mouth, sweat drop + skid streak/crumbs baked in; 0 brake, 1 hardest lean, 2 nearly stopped (wobble). Scale2x of a 66x62 base, eraser palette."
+  },
+  "eraser_peer_x2": {
+   "file": "eraser_peer_x2.png",
+   "frame_w": 132,
+   "frame_h": 124,
+   "frames": 2,
+   "anchor": [
+    66,
+    123
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 11,
+   "source": "assets/sheets/raw/a2_eraser_t1.png",
+   "note": "A-2 34.3 edge of the world: leaning over a ledge to its RIGHT, peering down, puzzled; a small '?' is baked in above its head. Scale2x of a 66x62 base."
+  },
+  "eraser_blink_x2": {
+   "file": "eraser_blink_x2.png",
+   "frame_w": 132,
+   "frame_h": 124,
+   "frames": 2,
+   "anchor": [
+    66,
+    123
+   ],
+   "fps": 4,
+   "loop": false,
+   "colors": 13,
+   "source": "assets/sprites/eraser_chase.png (code edit: tools/sprites/a2_post.py)",
+   "note": "A-2 17.38 'NOT VERY EFFECTIVE': eraser_chase_x2 frame 0 pose; 0 eyes shut (blink), 1 annoyed half-lid + flat brow."
+  },
+  "eraser_smear_x2": {
+   "file": "eraser_smear_x2.png",
+   "frame_w": 132,
+   "frame_h": 124,
+   "frames": 4,
+   "anchor": [
+    66,
+    123
+   ],
+   "fps": 1,
+   "loop": false,
+   "colors": 12,
+   "source": "code: tools/sprites/a2_post.py",
+   "note": "A-2 OVERLAY (transparent elsewhere): rainbow smudge on the Eraser's front/cheek, levels 0-3 (pick a frame, don't animate). Registered to eraser_chase_x2 / eraser_blink_x2 (same anchor). On eraser_skid_x2 offset it per frame by 'skid_offset'.",
+   "skid_offset": [
+    [
+     -20,
+     -14
+    ],
+    [
+     -13,
+     -9
+    ],
+    [
+     -20,
+     -5
+    ]
+   ]
+  },
+  "prop_page_zitie": {
+   "file": "prop_page_zitie.png",
+   "frame_w": 20,
+   "frame_h": 24,
+   "frames": 1,
+   "anchor": [
+    10,
+    23
+   ],
+   "fps": 1,
+   "loop": false,
+   "colors": 5,
+   "source": "code: tools/sprites/a2_post.py",
+   "note": "A-2 prop (reading freeze 43.89): 字帖 copybook page: red 田字格 cell with 画."
+  },
+  "prop_page_tab": {
+   "file": "prop_page_tab.png",
+   "frame_w": 20,
+   "frame_h": 24,
+   "frames": 1,
+   "anchor": [
+    10,
+    23
+   ],
+   "fps": 1,
+   "loop": false,
+   "colors": 6,
+   "source": "code: tools/sprites/a2_post.py",
+   "note": "A-2 prop (reading freeze 43.89): guitar TAB: 6 strings, fret marks."
+  },
+  "prop_page_spec": {
+   "file": "prop_page_spec.png",
+   "frame_w": 20,
+   "frame_h": 24,
+   "frames": 1,
+   "anchor": [
+    10,
+    23
+   ],
+   "fps": 1,
+   "loop": false,
+   "colors": 6,
+   "source": "code: tools/sprites/a2_post.py",
+   "note": "A-2 prop (reading freeze 43.89): SPEC doc: blue header bar, checkbox bullets."
+  },
+  "prop_hat_canopy": {
+   "file": "prop_hat_canopy.png",
+   "frame_w": 40,
+   "frame_h": 20,
+   "frames": 1,
+   "anchor": [
+    20,
+    19
+   ],
+   "fps": 1,
+   "loop": false,
+   "colors": 7,
+   "source": "assets/sprites/charlie_parachute_carry.png",
+   "note": "A-2 prop: open hat canopy (inverted beige flat-cap crown, peak on the left), cut from charlie_parachute_carry frame 0; anchor = rim centre (hang strings from it)."
+  },
+  "jade_idle_hi": {
+   "file": "jade_idle_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 27,
+   "source": "assets/sprites/jade_idle.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_idle (same poses/timing); hero palette + in-between shades. updo + X pencils (blue cap / pink cap)"
+  },
+  "jade_run_hi": {
+   "file": "jade_run_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 6,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 29,
+   "source": "assets/sprites/jade_run.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_run (same poses/timing); hero palette + in-between shades. updo; contact, down, passing x2; sleeve patch visible"
+  },
+  "jade_back_hi": {
+   "file": "jade_back_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 1,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 25,
+   "source": "assets/sprites/jade_back.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_back (same poses/timing); hero palette + in-between shades. seen from behind: big pale-blue dot on the jacket back"
+  },
+  "jade_run_hairdown_hi": {
+   "file": "jade_run_hairdown_hi.png",
+   "frame_w": 80,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    40,
+    87
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 32,
+   "source": "assets/sprites/jade_run_hairdown.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_run_hairdown (same poses/timing); hero palette + in-between shades. HAIR DOWN, a pencil in each hand; 2-frame run for ability moments"
+  },
+  "jade_back_hairdown_hi": {
+   "file": "jade_back_hairdown_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 27,
+   "source": "assets/sprites/jade_back_hairdown.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_back_hairdown (same poses/timing); hero palette + in-between shades. back view (A-1), idle; voxel rear half"
+  },
+  "jade_back_hairdown_run_hi": {
+   "file": "jade_back_hairdown_run_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 4,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 27,
+   "source": "assets/sprites/jade_back_hairdown_run.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_back_hairdown_run (same poses/timing); hero palette + in-between shades. back view, running away"
+  },
+  "jade_draw_rainbow_hi": {
+   "file": "jade_draw_rainbow_hi.png",
+   "frame_w": 144,
+   "frame_h": 88,
+   "frames": 1,
+   "anchor": [
+    72,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 28,
+   "source": "assets/sprites/jade_draw_rainbow.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_draw_rainbow (same poses/timing); hero palette + in-between shades. HAIR DOWN; blue-cap pencil = FUNCTIONS, rainbow stroke baked in"
+  },
+  "jade_draw_graphite_hi": {
+   "file": "jade_draw_graphite_hi.png",
+   "frame_w": 144,
+   "frame_h": 88,
+   "frames": 1,
+   "anchor": [
+    72,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 27,
+   "source": "assets/sprites/jade_draw_graphite.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_draw_graphite (same poses/timing); hero palette + in-between shades. HAIR DOWN; pink-cap pencil = FIXTURES, graphite line baked in"
+  },
+  "jade_sing_hi": {
+   "file": "jade_sing_hi.png",
+   "frame_w": 112,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    56,
+    87
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 33,
+   "source": "assets/sprites/jade_sing.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_sing (same poses/timing); hero palette + in-between shades. HAIR DOWN; pencil as mic"
+  },
+  "jade_jump_hi": {
+   "file": "jade_jump_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 26,
+   "source": "assets/sprites/jade_jump.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_jump (same poses/timing); hero palette + in-between shades. 0 = rising, 1 = falling"
+  },
+  "jade_victory_hi": {
+   "file": "jade_victory_hi.png",
+   "frame_w": 80,
+   "frame_h": 88,
+   "frames": 1,
+   "anchor": [
+    40,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 24,
+   "source": "assets/sprites/jade_victory.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_victory (same poses/timing); hero palette + in-between shades."
+  },
+  "jade_drum_hi": {
+   "file": "jade_drum_hi.png",
+   "frame_w": 88,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    44,
+    87
+   ],
+   "fps": 8,
+   "loop": true,
+   "colors": 32,
+   "source": "assets/sprites/jade_drum.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of jade_drum (same poses/timing); hero palette + in-between shades. HAIR DOWN; pencils as drumsticks"
+  },
+  "charlie_idle_hi": {
+   "file": "charlie_idle_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 36,
+   "source": "assets/sprites/charlie_idle.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of charlie_idle (same poses/timing); hero palette + in-between shades."
+  },
+  "charlie_run_hi": {
+   "file": "charlie_run_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 6,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 36,
+   "source": "assets/sprites/charlie_run.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of charlie_run (same poses/timing); hero palette + in-between shades. contact, down, passing x2 (dedicated run sheet)"
+  },
+  "charlie_back_hi": {
+   "file": "charlie_back_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 37,
+   "source": "assets/sprites/charlie_back.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of charlie_back (same poses/timing); hero palette + in-between shades. back view (A-1), idle; voxel rear half"
+  },
+  "charlie_back_run_hi": {
+   "file": "charlie_back_run_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 4,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 37,
+   "source": "assets/sprites/charlie_back_run.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of charlie_back_run (same poses/timing); hero palette + in-between shades. back view, running away"
+  },
+  "charlie_jump_hi": {
+   "file": "charlie_jump_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 37,
+   "source": "assets/sprites/charlie_jump.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of charlie_jump (same poses/timing); hero palette + in-between shades. 0 = rising, 1 = falling"
+  },
+  "charlie_hat_throw_hi": {
+   "file": "charlie_hat_throw_hi.png",
+   "frame_w": 88,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    44,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 36,
+   "source": "assets/sprites/charlie_hat_throw.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of charlie_hat_throw (same poses/timing); hero palette + in-between shades."
+  },
+  "ricky_idle_hi": {
+   "file": "ricky_idle_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 27,
+   "source": "assets/sprites/ricky_idle.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_idle (same poses/timing); hero palette + in-between shades."
+  },
+  "ricky_run_hi": {
+   "file": "ricky_run_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 6,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 12,
+   "loop": true,
+   "colors": 28,
+   "source": "assets/sprites/ricky_run.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_run (same poses/timing); hero palette + in-between shades. contact, down, passing x2 (dedicated run sheet)"
+  },
+  "ricky_back_hi": {
+   "file": "ricky_back_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 3,
+   "loop": true,
+   "colors": 27,
+   "source": "assets/sprites/ricky_back.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_back (same poses/timing); hero palette + in-between shades. back view (A-1), idle; voxel rear half"
+  },
+  "ricky_back_run_hi": {
+   "file": "ricky_back_run_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 4,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 10,
+   "loop": true,
+   "colors": 28,
+   "source": "assets/sprites/ricky_back_run.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_back_run (same poses/timing); hero palette + in-between shades. back view, running away"
+  },
+  "ricky_jump_hi": {
+   "file": "ricky_jump_hi.png",
+   "frame_w": 72,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    36,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 28,
+   "source": "assets/sprites/ricky_jump.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_jump (same poses/timing); hero palette + in-between shades. 0 = rising, 1 = falling"
+  },
+  "ricky_power_chord_hi": {
+   "file": "ricky_power_chord_hi.png",
+   "frame_w": 128,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    64,
+    87
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 30,
+   "source": "assets/sprites/ricky_power_chord.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_power_chord (same poses/timing); hero palette + in-between shades. 1 = blast with muzzle flash baked in"
+  },
+  "ricky_sustain_hi": {
+   "file": "ricky_sustain_hi.png",
+   "frame_w": 88,
+   "frame_h": 88,
+   "frames": 2,
+   "anchor": [
+    44,
+    87
+   ],
+   "fps": 4,
+   "loop": true,
+   "colors": 30,
+   "source": "assets/sprites/ricky_sustain.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_sustain (same poses/timing); hero palette + in-between shades. sound-wave arcs baked in"
+  },
+  "ricky_victory_hi": {
+   "file": "ricky_victory_hi.png",
+   "frame_w": 72,
+   "frame_h": 96,
+   "frames": 1,
+   "anchor": [
+    36,
+    95
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 26,
+   "source": "assets/sprites/ricky_victory.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
+   "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of ricky_victory (same poses/timing); hero palette + in-between shades."
+  }
+ }
+}

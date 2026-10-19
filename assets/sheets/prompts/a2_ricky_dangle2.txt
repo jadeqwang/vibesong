@@ -1,0 +1,6 @@
+16-bit SNES pixel art sprite sheet, The Lost Vikings (1993) style, EXACTLY the same resolution, pixel size, palette and character designs as the attached pixel sheets (each character about 40 game-pixels tall, every game pixel a big square block on one global grid, 1-px near-black outline, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no grid lines, no ground.
+
+RICKY exactly as in the attached sheets: short spiky black hair, blue-and-white VERTICAL-striped shirt with sleeves rolled, blue jeans, white sneakers, a natural-wood Stratocaster on a dark navy strap.
+
+One row of 2 sprites, BOTH FACING RIGHT, same pose family as the top-left sprite of the first attached sheet ("dangle"): he hangs in the air from ONE raised hand: his LEFT arm (the arm on the far side, behind his head) stretched straight up, the closed fist at the very top of the sprite (nothing drawn above the hand, no bar), his other arm reaching down-forward to the RIGHT with an open hand ready to catch the next person's hand, the Strat hanging on its strap at his hip, legs dangling.
+Frame 1: legs swung forward (to the right), knees bent. Frame 2: SAME facing direction, same raised fist position, legs swung back (to the left), body slightly tilted. Do NOT mirror the second frame.

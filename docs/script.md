@@ -211,3 +211,9 @@ The resolution ladder: **pixel (2D) → voxel/plaster (3D) at drop 1 → the rea
 - A soft cartridge clack at 198.035.
 - A whoosh/sub-drop layered into the turn at 80.81 (optional; test both).
 - Rule: never cover the vocal, never normalize the song. Exported as a new mp3 only if used.
+
+## Note 2026-10-18 (v4 Pass B type M3, word-timing audit on the vocal stem; the beats above are unchanged)
+Where this script's word reading or word time is wrong (measured; analysis/lyrics_timed.json is corrected, details in engine/checkpoints/passB_type.md "M3"):
+- **:57 "18.10 'because' (held to 19.99)"**: the held note 18.10-20.11 is **"blossoms"**. "because" is sung 20.13-21.14, "my" 21.16, "imagination" 21.42 (the paper card p03 covers 20.167-23.767, so the real "because" is on the card). Act 1's because-bridge (kaizo/level.js, hard-coded 18.10-20.1) sits under the held "blossoms".
+- **:86 and :173 "And everything goes from there"**: the words run a word later than the old times. Chorus 1: goes 63.33, from 64.97, there 65.68. Chorus 2: 153.0-155.45 is a wordless "oh" ad-lib; "And" is at **155.90**, everything 156.15, goes 157.50, from 159.12, there 159.72 (the 154.26 cue stays as the gang-vocal start).
+- **:201-202 outro**: "just" is at 189.43 and **"blossoms" is re-sung 191.22-191.93** after a 0.8 s gap. "(that's it.)" starts 191.95, not 191.30, and "it." is around 193.42 (low confidence). The outro's 189.68 bloom therefore lands on "just", not on "blossoms".

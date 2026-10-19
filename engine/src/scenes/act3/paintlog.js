@@ -3,7 +3,7 @@
 // accumulates across scenes as a pure function of song time. Each colouring grows with the colored-pencil hatching
 // edge (the flood's shader, scoped to one object) from its beat / interaction hit.
 //   Jade      pencil flicks colour the cypress avenue (from the tip down) + her footsteps colour the flowers
-//   Charlie   whatever his hat touches (the temple column the boomerang hits, the pressure plate)
+//   Charlie   whatever his hat touches (the pressure plate; in act3.turn his hat tags the far switches)
 //   Ricky     whatever his beam / chord hits (the two far switches, the tripod, the receiver, the stage arch)
 //   stage     the coloured spotlights colour the steps under each band member
 // Large areas (hills, far ruins, the meadow, the cliffs) stay plaster until 119.02.
@@ -12,11 +12,23 @@ import * as T from '../../show/timing.js';
 import { CUE, V, clamp01 } from './common.js';
 import { MESA_A, MESA_B, CHASM } from './world/build.js';
 
-export const TREE_HITS = [[81.87, 0], [82.265, 1], [83.09, 2], [84.15, 3], [85.19, 4], [85.56, 5], [86.385, 6]];
-export const BOOMERANG = { throw: 84.55, hit: 84.95, back: 85.4, col: new THREE.Vector3(522, 0, -78) };   // Charlie's hat hits a temple column
+// Jade's cypress flicks land on the five whistle-hook notes (CUE.whistle); the accent pairs belong to Ricky's chords (act3.turn)
+export const TREE_HITS = [[81.87, 0], [82.93, 1], [84.15, 2], [85.19, 3], [85.63, 4]];
+// (game-design pass) Charlie's boomerang now tags act3.turn's far switches as waypoints; it no longer colours a temple column
+export const BOOMERANG = { throw: 84.55, hit: 1e9, back: 85.4, col: new THREE.Vector3(522, 0, -78) };
 export const COOP = { plate: 101.15, tripod: 103.88, receiver: 104.3 };
 export const STAGE_HITS = [108.08, 108.68, 109.28];
-export const PATH_V2 = { x0: 600, x1: 784, z: 348, t0: 94.204, t1: 100.55 };
+export const PATH_V2 = { x0: 588, x1: 890, z: 348, t0: 94.204, t1: 99.2 };
+/** (pre-battle pass) Jade's x on mesa A in verse 2: run-in, the martial-arts flip vault (94.42 -> 94.889), then on to the gate.
+ *  Shared by act3.verse2 (her feet) and the colour path below (the meadow takes colour in her wake). */
+export const V2_VAULT = { t0: 94.42, t1: 94.889, x0: 600, x1: 662 };
+export function jadeV2X(t) {
+  const V = V2_VAULT;
+  if (t < V.t0) return PATH_V2.x0 + (V.x0 - PATH_V2.x0) * clamp01((t - PATH_V2.t0) / (V.t0 - PATH_V2.t0));
+  if (t < V.t1) return V.x0 + (V.x1 - V.x0) * ((t - V.t0) / (V.t1 - V.t0));
+  if (t < PATH_V2.t1) return V.x1 + (PATH_V2.x1 - V.x1) * ((t - V.t1) / (PATH_V2.t1 - V.t1));
+  return PATH_V2.x1 + 40 * Math.min(1, (t - PATH_V2.t1) / 0.7);
+}
 
 const ease = (u) => 1 - Math.pow(1 - clamp01(u), 2);
 const mats = (obj) => { const out = new Set(); obj.traverse((o) => { const m = o.material; if (m?.userData?.lp) out.add(m); }); return [...out]; };
@@ -49,7 +61,7 @@ export function makeLedger(W) {
     [CUE.pairs[4], CUE.pairs[5]].forEach((te, k) => { const s = t - te - 0.08; if (s >= 0) for (const m of switchMats[k]) lpOf(m).all(ease(s / 0.4)); });
     // Jade's path of colour through the flowers (and footstep trail on mesa A)
     if (t >= PATH_V2.t0) {
-      const x = PATH_V2.x0 + (PATH_V2.x1 - PATH_V2.x0) * clamp01((t - PATH_V2.t0) / (PATH_V2.t1 - PATH_V2.t0));
+      const x = Math.min(PATH_V2.x1, jadeV2X(t));
       for (const lp of flowerLP) lp.capsule(V(PATH_V2.x0 - 10, MESA_A.top, PATH_V2.z), V(x + 10, MESA_A.top, PATH_V2.z), 24).edge(18);
     }
     // co-op: plate (Charlie), tripod + receiver (Ricky's beam), the beam's pools on the mesa tops

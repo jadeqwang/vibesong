@@ -1,0 +1,572 @@
+{
+ "root": "/home/jade/Documents/vibesong",
+ "out_dir": "/tmp/claude-1000/-home-jade-Documents-vibesong/76555f03-a4c7-4120-a7f3-503912b5cb7c/scratchpad/stage",
+ "review_dir": "/tmp/claude-1000/-home-jade-Documents-vibesong/76555f03-a4c7-4120-a7f3-503912b5cb7c/scratchpad/stage/review",
+ "meta": "/tmp/claude-1000/-home-jade-Documents-vibesong/76555f03-a4c7-4120-a7f3-503912b5cb7c/scratchpad/stage/meta.json",
+ "sheets": [
+  {
+   "name": "a2_jade_a",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_jade_a_t1.png",
+   "target_h": 37,
+   "ref_box": [
+    144,
+    563,
+    461,
+    911
+   ],
+   "frame": [
+    44,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/jade_bun_pull.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_graphite.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_drum.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run_hairdown.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_sing.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_rainbow.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_hang.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "twin": {
+     "name": "jade_twin_draw",
+     "frames": [
+      [
+       [
+        84,
+        129,
+        301,
+        493
+       ]
+      ],
+      [
+       [
+        423,
+        152,
+        751,
+        491
+       ]
+      ],
+      [
+       [
+        788,
+        174,
+        1059,
+        493
+       ]
+      ],
+      [
+       [
+        1137,
+        181,
+        1476,
+        492
+       ]
+      ]
+     ],
+     "fps": 8,
+     "loop": false
+    },
+    "erase": {
+     "name": "jade_erase",
+     "frames": [
+      [
+       [
+        144,
+        563,
+        461,
+        911
+       ]
+      ],
+      [
+       [
+        603,
+        594,
+        914,
+        911
+       ]
+      ],
+      [
+       [
+        1066,
+        620,
+        1369,
+        911
+       ]
+      ]
+     ],
+     "frame": [
+      36,
+      44
+     ],
+     "fps": 8
+    }
+   }
+  },
+  {
+   "name": "a2_jade_b",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_jade_b_t1.png",
+   "target_h": 38,
+   "ref_box": [
+    386,
+    560,
+    687,
+    946
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/jade_bun_pull.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_graphite.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_drum.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run_hairdown.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_sing.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_draw_rainbow.png",
+    "/home/jade/Documents/vibesong/assets/sprites/jade_hang.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "dangle": {
+     "name": "jade_dangle",
+     "frames": [
+      [
+       [
+        383,
+        65,
+        741,
+        485
+       ]
+      ],
+      [
+       [
+        815,
+        65,
+        1105,
+        501
+       ]
+      ]
+     ],
+     "fps": 4,
+     "align": "center"
+    },
+    "read": {
+     "name": "jade_read",
+     "frames": [
+      [
+       [
+        386,
+        560,
+        687,
+        946
+       ]
+      ],
+      [
+       [
+        829,
+        569,
+        1127,
+        946
+       ]
+      ]
+     ],
+     "fps": 2
+    }
+   }
+  },
+  {
+   "name": "a2_ricky",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_ricky_t1.png",
+   "target_h": 40,
+   "ref_box": [
+    559,
+    713,
+    709,
+    985
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_hang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_sustain.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_power_chord.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "dangle_play": {
+     "name": "ricky_dangle_play",
+     "frames": [
+      [
+       [
+        538,
+        369,
+        694,
+        689
+       ]
+      ],
+      [
+       [
+        827,
+        369,
+        983,
+        693
+       ]
+      ]
+     ],
+     "frame": [
+      36,
+      48
+     ],
+     "fps": 4,
+     "align": "center"
+    },
+    "read": {
+     "name": "ricky_read",
+     "frames": [
+      [
+       [
+        559,
+        713,
+        709,
+        985
+       ]
+      ],
+      [
+       [
+        848,
+        712,
+        999,
+        985
+       ]
+      ]
+     ],
+     "fps": 2
+    }
+   }
+  },
+  {
+   "name": "a2_ricky_dangle",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_ricky_dangle_t2.png",
+   "target_h": 42,
+   "ref_box": [
+    301,
+    180,
+    718,
+    824
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_hang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_sustain.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_victory.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/ricky_power_chord.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "dangle": {
+     "name": "ricky_dangle",
+     "frames": [
+      [
+       [
+        301,
+        180,
+        718,
+        824
+       ]
+      ],
+      [
+       [
+        891,
+        180,
+        1319,
+        837
+       ]
+      ]
+     ],
+     "fps": 4,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "a2_charlie_carry",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_charlie_t2.png",
+   "target_h": 55,
+   "ref_box": [
+    42,
+    215,
+    497,
+    808
+   ],
+   "frame": [
+    48,
+    56
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_throw.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_parachute.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_boomerang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_shield.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_trampoline.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_pull.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "carry": {
+     "name": "charlie_parachute_carry",
+     "frames": [
+      [
+       [
+        42,
+        215,
+        497,
+        808
+       ]
+      ],
+      [
+       [
+        543,
+        182,
+        996,
+        784
+       ]
+      ],
+      [
+       [
+        1054,
+        216,
+        1505,
+        809
+       ]
+      ]
+     ],
+     "fps": 6,
+     "align": "center"
+    }
+   }
+  },
+  {
+   "name": "a2_charlie_read",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_charlie_t1.png",
+   "target_h": 40,
+   "ref_box": [
+    507,
+    667,
+    711,
+    976
+   ],
+   "frame": [
+    36,
+    44
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_throw.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_parachute.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_jump.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_boomerang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_run.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_idle.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_shield.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hang.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_trampoline.png",
+    "/home/jade/Documents/vibesong/assets/sprites/charlie_hat_pull.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "anims": {
+    "read": {
+     "name": "charlie_read",
+     "frames": [
+      [
+       [
+        507,
+        667,
+        711,
+        976
+       ]
+      ],
+      [
+       [
+        812,
+        655,
+        1016,
+        976
+       ]
+      ]
+     ],
+     "fps": 2
+    }
+   }
+  },
+  {
+   "name": "a2_eraser",
+   "src": "/home/jade/Documents/vibesong/assets/sheets/raw/a2_eraser_t1.png",
+   "target_h": 50,
+   "ref_box": [
+    0,
+    120,
+    1,
+    510
+   ],
+   "frame": [
+    66,
+    62
+   ],
+   "palette_from": [
+    "/home/jade/Documents/vibesong/assets/sprites/eraser_chase.png",
+    "/home/jade/Documents/vibesong/assets/sprites/eraser_loom.png",
+    "/home/jade/Documents/vibesong/assets/sprites/eraser_sparkle.png"
+   ],
+   "fit_phase": true,
+   "inner": 0.6,
+   "dark_boost": 1.3,
+   "min_blob": 2,
+   "align": "center",
+   "anims": {
+    "skid": {
+     "name": "eraser_skid",
+     "frames": [
+      [
+       [
+        75,
+        106,
+        462,
+        511
+       ],
+       [
+        384,
+        170,
+        431,
+        209
+       ],
+       [
+        80,
+        394,
+        107,
+        417
+       ],
+       [
+        126,
+        418,
+        149,
+        440
+       ]
+      ],
+      [
+       [
+        537,
+        127,
+        982,
+        510
+       ],
+       [
+        898,
+        187,
+        944,
+        229
+       ],
+       [
+        606,
+        400,
+        631,
+        424
+       ]
+      ],
+      [
+       [
+        1125,
+        124,
+        1421,
+        511
+       ],
+       [
+        1415,
+        228,
+        1461,
+        268
+       ],
+       [
+        1104,
+        451,
+        1128,
+        475
+       ],
+       [
+        1377,
+        482,
+        1403,
+        504
+       ]
+      ]
+     ],
+     "fps": 8
+    },
+    "peer": {
+     "name": "eraser_peer",
+     "frames": [
+      [
+       [
+        340,
+        587,
+        716,
+        962
+       ]
+      ],
+      [
+       [
+        821,
+        621,
+        1200,
+        965
+       ]
+      ]
+     ],
+     "fps": 3
+    }
+   }
+  }
+ ]
+}

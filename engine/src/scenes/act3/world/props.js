@@ -298,8 +298,10 @@ export class FlowerField extends THREE.Group {
     this.stemMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9 }); this.stemMat.userData.plaster = PLASTER.meadow;
     this.headMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.7 }); this.headMat.userData.plaster = 0xf6f0e4;
     patchPaint(this.stemMat); patchPaint(this.headMat);
-    this.stems = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1).translate(0, 0.5, 0), this.stemMat, m);
-    const hg = mergeGeometries([new THREE.BoxGeometry(3, 1.4, 1).translate(0, 0, 0), new THREE.BoxGeometry(1, 1.4, 3), new THREE.BoxGeometry(1.2, 2, 1.2).translate(0, 0.4, 0)]);
+    this.stems = new THREE.InstancedMesh(new THREE.BoxGeometry(0.45, 1, 0.45).translate(0, 0.5, 0), this.stemMat, m);
+    // blossom head (density pass): five thin petals around a raised centre, tilted open, instead of a box cross (read as gravel in plaster)
+    const petals = [0, 1, 2, 3, 4].map((k) => { const a = k / 5 * Math.PI * 2; const b = new THREE.BoxGeometry(1.1, 0.35, 0.8); b.translate(0.75, 0, 0); b.rotateZ(0.35); b.rotateY(a); return b; });
+    const hg = mergeGeometries([...petals, new THREE.BoxGeometry(0.7, 0.7, 0.7).translate(0, 0.25, 0)].map((g) => { g.deleteAttribute('uv'); return g; }));
     this.heads = new THREE.InstancedMesh(hg, this.headMat, m);
     this.items.forEach((it, i) => { this.stems.setColorAt(i, C('#5c8e33')); this.heads.setColorAt(i, C(it.col)); });
     for (const o of [this.stems, this.heads]) { o.castShadow = true; o.receiveShadow = true; o.frustumCulled = false; this.add(o); }

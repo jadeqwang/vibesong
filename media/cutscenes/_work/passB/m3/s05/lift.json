@@ -1,0 +1,67 @@
+{
+ "still": "assets/v4_stills/05_paper_0147.png",
+ "box": [
+  762,
+  100,
+  1178,
+  620
+ ],
+ "brow_y": 248,
+ "hair_y": 197,
+ "crown_y": 83,
+ "dh": 13,
+ "dc": 21,
+ "wx": [
+  20,
+  396
+ ],
+ "pencils": [
+  {
+   "kind": "slide",
+   "line": [
+    [
+     74,
+     81
+    ],
+    [
+     134,
+     140
+    ]
+   ],
+   "w": 22,
+   "max_up": 10
+  },
+  {
+   "kind": "fixed",
+   "line": [
+    [
+     326,
+     280
+    ],
+    [
+     368,
+     322
+    ]
+   ],
+   "w": 22
+  },
+  {
+   "kind": "translate",
+   "line": [
+    [
+     332,
+     84
+    ],
+    [
+     271,
+     140
+    ]
+   ],
+   "w": 22,
+   "max_up": 10
+  }
+ ],
+ "nbp": "media/cutscenes/_work/passB/m3/s05/head_np.png",
+ "out": "media/cutscenes/_work/passB/m3/s05/05_paper_0147_v2_work.png",
+ "extend_steps": 6
+}

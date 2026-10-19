@@ -52,6 +52,63 @@ vec3 skyColor(vec3 dir, bool withSun){
   return c;
 }`;
 
+// ---------------------------------------------------------------- k08b world look (opt-in: render.js --look k08b)
+// LOOKCFG is set by LookPass (src/look.js) in ENGINE.init, before any scene builds, so world builders can branch at build
+// time. Without the flag nothing below is used and every shader string is the original one (default renders unchanged).
+export const LOOKCFG = { name: null, k08b: false,
+  /** round 5 flag (default ON since v4; render.js --r5 0 -> ?r5=0 opts out; same test as act3/common.js R5()): the LOOK_R5 preset (src/look.js) is a layer on k08b */
+  r5: (() => { try { if (new URLSearchParams(globalThis.location?.search || '').get('r5') === '0') return false; } catch (e) { /* no location */ } return globalThis.R5 !== false; })() };
+/** the second half starts here; the k08b world look is only ever switched on for t >= H2_T0 (half 1 stays as approved) */
+export const H2_T0 = 86.385;
+const c3 = (r, g, b) => ({ value: new THREE.Vector3(r, g, b) });
+/** k08b sky / light uniforms, driven per frame from the time-of-day table (src/scenes/act3/world/k08b.js todAt) */
+export const K8U = {
+  uK8: { value: 0 },                       // 1 = k08b sky on (t >= H2_T0 and --look k08b)
+  uK8Zen: c3(0.10, 0.06, 0.30), uK8Hi: c3(0.30, 0.15, 0.50), uK8MidSun: c3(1.05, 0.50, 0.42), uK8MidAway: c3(0.52, 0.30, 0.62),
+  uK8HzSun: c3(1.60, 0.78, 0.34), uK8HzAway: c3(0.95, 0.55, 0.62),
+  uK8CloudLit: c3(1.45, 0.86, 0.62), uK8CloudShade: c3(0.42, 0.28, 0.52), uK8CloudCov: { value: 0.5 },
+  uK8SunCol: c3(1.0, 0.62, 0.30), uK8Halo: { value: 1 },
+};
+const K8_GLSL = /* glsl */`
+uniform float uK8, uK8CloudCov, uK8Halo; uniform vec3 uK8Zen, uK8Hi, uK8MidSun, uK8MidAway, uK8HzSun, uK8HzAway, uK8CloudLit, uK8CloudShade, uK8SunCol;
+vec3 sunColor(){ return uK8 > 0.5 ? uK8SunCol : sunColor0(); }
+vec3 skyBase(vec3 dir){
+  if (uK8 < 0.5) return skyBase0(dir);
+  // k08b: deep purple zenith -> magenta -> pink/orange band at the horizon, hottest under the sun's azimuth
+  float h = dir.y; float mu = max(dot(dir, uSunDir), 0.0);
+  vec2 dh = normalize(dir.xz + 1e-5), sh = normalize(uSunDir.xz + 1e-5);
+  float side = pow(dot(dh, sh) * 0.5 + 0.5, 1.6);
+  float hh = max(h, 0.0);
+  vec3 hz = mix(uK8HzAway, uK8HzSun, side), md = mix(uK8MidAway, uK8MidSun, side * side);
+  vec3 c = mix(hz, md, smoothstep(0.0, 0.10, hh));
+  c = mix(c, uK8Hi, smoothstep(0.06, 0.30, hh));
+  c = mix(c, uK8Zen, smoothstep(0.25, 0.85, hh));
+  c += uK8SunCol * vec3(1.25, 0.95, 0.75) * (pow(mu, 8.0) * 0.30 + pow(mu, 90.0) * 1.2) * uK8Halo;
+  if (h < 0.0) c = mix(hz * 0.9, hz * vec3(0.36, 0.30, 0.40), smoothstep(0.0, -0.25, h));
+  return c;
+}
+vec4 clouds(vec3 dir){
+  if (uK8 < 0.5) return clouds0(dir);
+  // soft stretched evening clouds: low contrast, lit peach from below toward the sun, lavender in shade
+  if (dir.y <= 0.0) return vec4(0.0);
+  vec2 uv = dir.xz / (dir.y + 0.10) * vec2(0.55, 1.1) + vec2(uTime * 0.006, uTime * 0.002);
+  float n = fbm(uv * 0.9) * 0.7 + fbm(uv * 2.6 + 4.0) * 0.3;
+  float cov = smoothstep(1.0 - uK8CloudCov, 1.0 - uK8CloudCov + 0.32, n);
+  cov *= smoothstep(0.02, 0.12, dir.y) * (1.0 - smoothstep(0.30, 0.70, dir.y));
+  float mu = max(dot(dir, uSunDir), 0.0);
+  float thick = smoothstep(0.55, 1.0, n);
+  vec3 col = mix(uK8CloudLit * (0.55 + 1.3 * pow(mu, 5.0)), uK8CloudShade, thick * 0.6);
+  col += uK8SunCol * 1.6 * pow(mu, 24.0) * (1.0 - thick);
+  return vec4(col, cov * 0.62);
+}`;
+/** the sky GLSL for the current look (the original string unless --look k08b) */
+export function skyGLSL() {
+  if (!LOOKCFG.k08b) return SKY_GLSL;
+  return SKY_GLSL.replace('vec3 sunColor(){', 'vec3 sunColor0(){').replace('vec3 skyBase(vec3 dir){', 'vec3 skyBase0(vec3 dir){')
+    .replace('vec4 clouds(vec3 dir){', 'vec4 clouds0(vec3 dir){').replace('vec3 skyColor(vec3 dir, bool withSun){', K8_GLSL + '\nvec3 skyColor(vec3 dir, bool withSun){');
+}
+const skyU = () => (LOOKCFG.k08b ? { ...envUniforms, ...K8U } : { ...envUniforms });
+
 export const envUniforms = {
   uSunDir: { value: new THREE.Vector3(-0.99, 0.105, -0.087).normalize() },
   uTime: { value: 0 },
@@ -63,13 +120,13 @@ export const envUniforms = {
  *  2D view still gets a proper (banded) gradient instead of a flat colour. */
 export function makeSky() {
   const mat = new THREE.ShaderMaterial({
-    uniforms: { ...envUniforms, uVirtFov: { value: 0.6 }, uVirtMix: { value: 0 }, uAspect: { value: 16 / 9 },
+    uniforms: { ...skyU(), uVirtFov: { value: 0.6 }, uVirtMix: { value: 0 }, uAspect: { value: 16 / 9 },
       uCamFwd: { value: new THREE.Vector3(0, 0, -1) }, uCamRight: { value: new THREE.Vector3(1, 0, 0) }, uCamUp: { value: new THREE.Vector3(0, 1, 0) }, uSkyLift: { value: 0 } },
     vertexShader: /* glsl */`
       varying vec3 vDir; varying vec4 vClip;
       void main(){ vec4 wp = modelMatrix * vec4(position,1.0); vDir = wp.xyz - cameraPosition;
         vec4 p = projectionMatrix * viewMatrix * wp; vClip = p; gl_Position = vec4(p.xy, p.w * 0.99999, p.w); }`,
-    fragmentShader: SKY_GLSL + /* glsl */`
+    fragmentShader: skyGLSL() + /* glsl */`
       varying vec3 vDir; varying vec4 vClip;
       uniform float uVirtFov, uVirtMix, uAspect, uSkyLift; uniform vec3 uCamFwd, uCamRight, uCamUp;
       void main(){
@@ -93,11 +150,13 @@ export function makeSky() {
 export function makeEnvironment(renderer) {
   const s = new THREE.Scene();
   const mat = new THREE.ShaderMaterial({
-    uniforms: { ...envUniforms },
+    uniforms: skyU(),
     vertexShader: 'varying vec3 vDir; void main(){ vDir = position; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }',
-    fragmentShader: SKY_GLSL + `varying vec3 vDir; void main(){ vec3 d = normalize(vDir);
+    fragmentShader: skyGLSL() + `varying vec3 vDir; void main(){ vec3 d = normalize(vDir);
       vec3 c = skyColor(d, false); if (d.y < 0.0) c = mix(vec3(0.20,0.19,0.14), c, exp(d.y*30.0));
       c += vec3(12.0,7.0,3.0) * pow(max(dot(d, uSunDir),0.0), 400.0);
+      // (v4) one non-finite sky texel poisons the whole PMREM (every IBL-lit surface goes NaN -> black for that frame)
+      if (any(isnan(c)) || any(isinf(c))) c = vec3(0.0);
       gl_FragColor = vec4(c, 1.0); }`,
     side: THREE.BackSide, depthWrite: false,
   });
@@ -112,9 +171,9 @@ export function makeEnvironment(renderer) {
  *  distance-widened sun glitter path. Aerial perspective is applied in post. */
 export function makeSea(y = -200, size = 400000) {
   const mat = new THREE.ShaderMaterial({
-    uniforms: { ...envUniforms },
+    uniforms: skyU(),
     vertexShader: /* glsl */`varying vec3 vW; void main(){ vec4 w = modelMatrix*vec4(position,1.0); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }`,
-    fragmentShader: SKY_GLSL + /* glsl */`
+    fragmentShader: (LOOKCFG.k08b ? '#define K8SEA\n' : '') + skyGLSL() + /* glsl */`
       varying vec3 vW;
       vec2 wave(vec2 p, vec2 d, float f, float a, float s){ float ph = dot(p,d)*f + uTime*s; return d * (a*f*cos(ph)); }
       void main(){
@@ -136,12 +195,20 @@ export function makeSea(y = -200, size = 400000) {
         float fr = 0.02 + 0.98 * pow(1.0 - cosT, 5.0);
         vec3 deep = vec3(0.004, 0.026, 0.075), shallow = vec3(0.008, 0.070, 0.095);
         vec3 body = mix(deep, shallow, pow(max(dot(N, uSunDir),0.0), 2.0) * 0.6) * (0.6 + 0.6*max(uSunDir.y,0.0)*4.0);
+        #ifdef K8SEA
+        float k8near = 1.0 - smoothstep(500.0, 3500.0, dist);
+        if (uK8 > 0.5) body = mix(body * 2.6 + vec3(0.030, 0.035, 0.060),                       // far: pale lavender haze
+          vec3(0.011, 0.056, 0.078) + vec3(0.02, 0.08, 0.07) * pow(max(dot(N, uSunDir), 0.0), 2.0), k8near);   // near: clear blue-teal
+        #endif
         vec3 col = mix(body, skyColor(R, false), fr);
         // glitter path: specular lobe widens with distance (sub-pixel wave facets)
         float far = clamp(dist / 6000.0, 0.0, 1.0);
         float spec = max(dot(R, uSunDir), 0.0);
         float lobe = pow(spec, mix(3000.0, 700.0, far)) * mix(90.0, 12.0, far);
         float sparkle = step(0.86, vnoise(p * 0.9 + uTime * 3.0)) * pow(spec, 500.0) * 40.0 * near;
+        #ifdef K8SEA
+        if (uK8 > 0.5) { lobe = mix(min(lobe * 0.05, 1.5), min(lobe * 0.5, 9.0), k8near); sparkle *= mix(0.08, 0.6, k8near); }   // k08b: glitter near, haze far
+        #endif
         col += vec3(1.7, 1.05, 0.55) * (lobe + sparkle);
         gl_FragColor = vec4(col, 1.0);
       }`,

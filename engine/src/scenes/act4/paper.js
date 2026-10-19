@@ -15,7 +15,12 @@ import { VideoClip } from '../../core/video.js';
 const A = '/src/scenes/act4/assets/';
 const CUT = '/media/cutscenes/';
 export const CLIPS = {
-  jade_sing: CUT + 'jade_sing_bridge_1/fallback_card_480p_portrait_lag0.00.mp4',     // Jade's pick: lip-sync B, lag 0.00
+  // (v4, Jade's pick 2026-10-18: +0.10 s) the picture runs 0.1 s ahead of the v3 card: source take from 0.309 s (was 0.209 s);
+  // built with tools/cutscenes/card.py from jade_sing_bridge_1/jade_sing_bridge_1_adv0.10.mp4. v3 card: fallback_card_480p_portrait_lag0.00.mp4
+  // (v4 Pass B) the v11 brows tracked onto every frame of the source take (tools/cutscenes/pb_browtrack.py), same 0.309 s start;
+  // the pre-brow card is fallback_card_480p_portrait_adv0.10.mp4
+  // + flux-video-upscale precise 1.5x of the v11 take (lines crisper; frame-aligned, mouth curve corr 0.965 at shift 0): *_v11_up.mp4
+  jade_sing: CUT + 'jade_sing_bridge_1/fallback_card_480p_portrait_adv0.10_v11_up.mp4',
   charlie: [CUT + 'charlie_play_bridge_1/charlie_play_bridge_1.mp4', CUT + 'charlie_listen_bridge_1/charlie_listen_bridge_1.mp4'],
   ricky: [CUT + 'ricky_play_bridge_1/ricky_play_bridge_1.mp4', CUT + 'ricky_listen_bridge_1/ricky_listen_bridge_1.mp4'],
 };
@@ -118,7 +123,7 @@ export async function buildPaper(ctx, cfg) {
       }
       ov.hideAll();
       if (labels) for (const { f } of frames) ov.placeholder(f.id, t0, t1, f.note, { right: !!f.right });
-      if (subs && cfg.subs) ov.subtitle(t, cfg.subs, 'hand');
+      if (subs && cfg.subs) ov.subtitle(t, cfg.subs, 'sans');   // (v4) the one lyric style (no handwritten paper strip)
     },
     render(target) {
       const r = ctx.renderer; r.setRenderTarget(target); r.setClearColor(0x000000, 1); r.clear();
@@ -170,7 +175,7 @@ export async function setup(ctx) {
     console.log(`[act4] ${ctx.entry.id} clips: ${C.srcs.join(', ')}`);
     return {
       stage: { kind: '3d', fx },
-      update(t) { for (const o of C.out) o.m.material.uniforms.map.value = o.v.textureAt(t - t0); C.ov.hideAll(); C.ov.subtitle(t, sc.subs, 'hand', sc.subPos || {}); },
+      update(t) { for (const o of C.out) o.m.material.uniforms.map.value = o.v.textureAt(t - t0); C.ov.hideAll(); C.ov.subtitle(t, sc.subs, 'sans'); },   // (v4) one style, one slot
       render(t, target) { const r = ctx.renderer; r.setRenderTarget(target); r.setClearColor(0x000000, 1); r.clear(); r.render(C.scene, C.cam); C.ov.render(target); },
     };
   }

@@ -1,0 +1,3 @@
+[cf] google/nano-banana-pro 35.3s
+[cf] google/nano-banana-pro -> media/cutscenes/_work/passB/brows/brow_b.png  ($0.1344 est, 35.9s)
+['media/cutscenes/_work/passB/brows/brow_b.png']

@@ -5,6 +5,8 @@
 //          frozen; whistle answer 180.70-183.30: a slow drift over the drawing
 //   183.30 "FUNCTIONS!": the rainbow pencil (BLUE cap = FUNCTIONS) streaks back: living colour, the clip resumes from
 //          the same frame; stop 183.30-183.86 slow-motion
+//   (v4b stage_3d) on both accents the plates cut to a 3D insert (act3/slab_insert.js): the trio front-on, the carved slab slamming
+//          up behind them: FIXTURES 180.21-181.125, FUNCTIONS 183.30-183.87 (the graphite drift / slow-motion stop play around them)
 //   183.87-186.65 riser: the camera dives straight down into the first 一 (Veo take from the clip frame at 184.3 + an
 //          accelerating engine zoom onto the stroke), handing off to the PAPER outro (stroke wipe at 186.70)
 import * as THREE from 'three';
@@ -12,6 +14,8 @@ import { FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
 import * as T from '../../show/timing.js';
 import { FrameSeq } from './frames.js';
 import { drawPencil } from './paperkit.js';
+import { makeRoute, ROUTE_T } from './route5.js';
+import { makeSlabInsert } from '../act3/slab_insert.js';   // (v4b stage_3d) FIXTURES! / FUNCTIONS! carved slabs, front-on (stills 09 / 10)   // v7: the nine party dots keep marching on the first 一 (tracked into the sweep)
 
 // measured (data/cues.json act5): the stops are ~0.4 s earlier than timing.json says
 export const AER = { t0: 176.6, fix: 180.21, stop1: [180.21, 180.70], fun: 183.30, stop2: [183.30, 183.86], dive: 183.87, end: 187.0, paper: 186.65, paperWipe: 0.4 };
@@ -102,8 +106,23 @@ export async function setup(ctx) {
   const quad = new FullScreenQuad(mat);
   const fx = { flash: 0, fade: 0, flashColor: '#ffffff', fadeColor: '#000000' };
   const U = mat.uniforms;
+  // (v7) party dots: ref uv (the engine-registered aerial = resolve2's last frame) -> sweep frame uv via per-frame homographies
+  const route = await makeRoute(ctx);
+  const track = await fetch('/media/act5/frames/sweep/track.json').then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  function partyScreen(t) {
+    const X = viewXform(t); const fps = sweep ? sweep.fps : 30;
+    const idx = Math.max(0, Math.min((track ? track.H.length : 1) - 1, Math.round(sweepTime(Math.min(t, AER.fix)) * fps)));
+    const M = track ? track.H[idx] : [1, 0, 0, 0, 1, 0, 0, 0, 1];
+    return (uv) => {
+      const w = M[6] * uv[0] + M[7] * uv[1] + M[8]; const fu = (M[0] * uv[0] + M[1] * uv[1] + M[2]) / w, fv = (M[3] * uv[0] + M[4] * uv[1] + M[5]) / w;
+      const vx = (fu - X.cx) * X.zoom + 0.5, vy = ((1 - fv) - X.cy) * X.zoom + 0.5;
+      return [vx * W, (1 - vy) * H];
+    };
+  }
   const sweepTex = (s) => (sweep ? sweep.time(s) : photoTex);
   const WIPE = 0.14; // seconds for the pencil to cross the frame (~4 frames)
+  const ins = await makeSlabInsert(ctx);   // (v4b)
+  let inIns = false;
 
   function pen(t, t0, kind) {
     const u = T.clamp01((t - t0) / WIPE);
@@ -119,6 +138,8 @@ export async function setup(ctx) {
   return {
     stage: { kind: '3d', fx },
     update(t) {
+      inIns = !!ins.window(t);
+      if (inIns) { ins.update(t); fx.flash = ins.stage.fx.flash; fx.flashColor = ins.stage.fx.flashColor; return; }   // (v4b) the slab insert
       U.uHasB.value = 0; U.uPenOn.value = 0;
       const X = viewXform(t); U.uZoom.value = X.zoom; U.uC.value.set(X.cx, X.cy);
       if (t < AER.fix) { U.tA.value = sweepTex(sweepTime(t)); if (t >= AER.fix - 0.001) {} }
@@ -129,6 +150,10 @@ export async function setup(ctx) {
       else { const d = diveXform(t, dive.duration); U.tA.value = dive.time(d.clip); } // Seedance first+last dive, compressed to the riser
       fx.flash = 0;
     },
-    render(t, target) { ctx.renderer.setRenderTarget(target); quad.render(ctx.renderer); },
+    render(t, target) {
+      if (inIns) { ins.render(t, target); return; }   // (v4b)
+      ctx.renderer.setRenderTarget(target); quad.render(ctx.renderer);
+      if (t < ROUTE_T.out1) { route.draw(t, { toScreen: partyScreen(t), map: false }); route.render(ctx.renderer, target); }
+    },
   };
 }

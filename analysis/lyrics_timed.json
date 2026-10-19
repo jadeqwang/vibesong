@@ -15,7 +15,8 @@
   "(一笔一画!) chants at 79.36 and 172.80 lead straight into the silences before each drop; (Fixtures!)/(Functions!) are shouted inside the drops between whistle-hook phrases.",
   "Word \"end\" = next word start (legato) except the last word, whose end is measured from vocal-stem activity. Word confidence: high = aligners within 0.12 s, medium = within 0.3 s or single-source, low = aligners disagree (base aligner used).",
   "vocal_accent (chants) = first 5 ms frame where the vocal stem exceeds -32 dBFS after the start, i.e. the loud hit of a shout (consonant onsets can be 0.1-0.5 s earlier and quiet).",
-  "check.vocal_active_frac = fraction of 5 ms frames inside the line where the vocal stem is above -42 dBFS; pre_onset_db = vocal level 30-250 ms before the start (low value = clean onset)."
+  "check.vocal_active_frac = fraction of 5 ms frames inside the line where the vocal stem is above -42 dBFS; pre_onset_db = vocal level 30-250 ms before the start (low value = clean onset).",
+  "v4B type M3 2026-10-18: word-timing audit on the vocal stem (faster-whisper large-v3 free run, stable-ts + MMS CTC group alignment, teacher-forced whisper window and boundary tests, RMS/flux/f0/>4 kHz energy). Every moved word carries m3_prev_start + m3_fix; table in engine/checkpoints/passB_type.md \"M3\". Structural fixes: verse 1 \"blossoms\" is the held note 18.10-20.11 and \"because\" 20.13 (the old data had \"because\" on the held note); both \"And everything goes from there\" lines were one word early; the outro \"just blossoms\" was one word early."
  ],
  "lines": [
   {
@@ -150,7 +151,7 @@
    "type": "lead",
    "text": "Everything I love about life just blossoms",
    "start": 14.11,
-   "end": 17.58,
+   "end": 20.11,
    "start_bar": "9.1+0.23",
    "confidence": "high",
    "evidence": "verse register (D4/B3) starts 14.11 on bar 9 downbeat; 13.0-13.8 is the high melisma ending the intro tag",
@@ -198,15 +199,18 @@
      "w": "just",
      "start": 16.477,
      "conf": "low",
-     "end": 17.088
+     "end": 18.09
     },
     {
      "w": "blossoms",
-     "start": 17.098,
+     "start": 18.1,
      "conf": "low",
-     "end": 17.58
+     "end": 20.11,
+     "m3_prev_start": 17.098,
+     "m3_fix": "v4B type M3 2026-10-18: held note 18.10-20.11 is \"blossoms\" (teacher-forced whisper: blossoms -2.5 vs because -10.4); voiced b murmur 18.06, release 18.16"
     }
-   ]
+   ],
+   "m3_prev_end": 17.58
   },
   {
    "id": 6,
@@ -214,11 +218,11 @@
    "section": "Verse 1",
    "type": "lead",
    "text": "because",
-   "start": 18.1,
-   "end": 20.1,
-   "start_bar": "11.2+0.65",
-   "confidence": "medium",
-   "evidence": "voiced onset of \"be-\" in spectrogram",
+   "start": 20.13,
+   "end": 21.14,
+   "start_bar": "12.3+0.45",
+   "confidence": "high",
+   "evidence": "b release 20.13 (vocal-stem spectrogram + teacher-forced whisper); the held 18.10-20.11 note before it is \"blossoms\" (line 5)",
    "check": {
     "vocal_active_frac": 1.0,
     "vocal_db_p50": -25.7,
@@ -231,12 +235,15 @@
    "words": [
     {
      "w": "because",
-     "start": 18.1,
+     "start": 20.13,
      "conf": "low",
-     "end": 20.1
+     "end": 21.14,
+     "m3_prev_start": 18.1,
+     "m3_fix": "v4B type M3 2026-10-18: b release 20.13 after the 20.08-20.12 dip; /k/ closure 20.27; window 20.10-21.16 = \"because\" (-1.7 vs my -9.4)"
     }
    ],
-   "end_capped_by_next_event": true
+   "m3_prev_start": 18.1,
+   "m3_prev_end": 20.1
   },
   {
    "id": 7,
@@ -244,9 +251,9 @@
    "section": "Verse 1",
    "type": "lead",
    "text": "my imagination is linked to my everyday life",
-   "start": 20.12,
+   "start": 21.16,
    "end": 27.78,
-   "start_bar": "12.3+0.42",
+   "start_bar": "13.1+0.88",
    "confidence": "medium",
    "evidence": "new note onset after held \"because\"; ASR my@20.34",
    "check": {
@@ -261,15 +268,19 @@
    "words": [
     {
      "w": "my",
-     "start": 20.12,
+     "start": 21.16,
      "conf": "low",
-     "end": 21.17
+     "end": 21.41,
+     "m3_prev_start": 20.12,
+     "m3_fix": "v4B type M3 2026-10-18: m 21.16 (dip 21.15), vowel 21.20 (paper M3 measurement, confirmed)"
     },
     {
      "w": "imagination",
-     "start": 21.18,
+     "start": 21.42,
      "conf": "low",
-     "end": 22.39
+     "end": 22.39,
+     "m3_prev_start": 21.18,
+     "m3_fix": "v4B type M3 2026-10-18: i 21.42, nasal m 21.50-21.63 (paper M3)"
     },
     {
      "w": "is",
@@ -308,7 +319,8 @@
      "end": 27.78
     }
    ],
-   "end_capped_by_next_event": true
+   "end_capped_by_next_event": true,
+   "m3_prev_start": 20.12
   },
   {
    "id": 8,
@@ -466,13 +478,15 @@
      "w": "就",
      "start": 36.076,
      "conf": "medium",
-     "end": 36.387
+     "end": 36.17
     },
     {
      "w": "存",
-     "start": 36.397,
+     "start": 36.18,
      "conf": "medium",
-     "end": 36.57
+     "end": 36.57,
+     "m3_prev_start": 36.397,
+     "m3_fix": "v4B type M3 2026-10-18: c burst 36.17-36.21, note 36.22-36.42; 36.40 was the dip before 在"
     },
     {
      "w": "在",
@@ -598,13 +612,15 @@
      "w": "I",
      "start": 42.7,
      "conf": "low",
-     "end": 43.71
+     "end": 43.49
     },
     {
      "w": "read",
-     "start": 43.72,
+     "start": 43.5,
      "conf": "low",
-     "end": 45.805
+     "end": 45.805,
+     "m3_prev_start": 43.72,
+     "m3_fix": "v4B type M3 2026-10-18: onset after silence 43.49 (flux 3.4); 43.72 was the 64->66 pitch rise inside \"read\""
     }
    ]
   },
@@ -675,13 +691,15 @@
      "w": "that",
      "start": 51.856,
      "conf": "low",
-     "end": 52.528
+     "end": 52.36
     },
     {
      "w": "I",
-     "start": 52.538,
+     "start": 52.37,
      "conf": "low",
-     "end": 52.608
+     "end": 52.608,
+     "m3_prev_start": 52.538,
+     "m3_fix": "v4B type M3 2026-10-18: /t/ dip 52.32-52.36 between \"that\" and \"I\"; whisper + teacher-forced boundary both put \"I\" earlier"
     },
     {
      "w": "need",
@@ -802,25 +820,31 @@
      "w": "everything",
      "start": 61.7,
      "conf": "low",
-     "end": 62.47
+     "end": 63.32
     },
     {
      "w": "goes",
-     "start": 62.48,
+     "start": 63.33,
      "conf": "low",
-     "end": 63.59
+     "end": 64.96,
+     "m3_prev_start": 62.48,
+     "m3_fix": "v4B type M3 2026-10-18: 62.75-63.33 is still \"everything\" (teacher-forced: everything -5.0 vs goes -12.8); g release 63.35"
     },
     {
      "w": "from",
-     "start": 63.6,
+     "start": 64.97,
      "conf": "low",
-     "end": 64.13
+     "end": 65.67,
+     "m3_prev_start": 63.6,
+     "m3_fix": "v4B type M3 2026-10-18: voiceless f dip 64.97-65.2; window 64.97-65.68 = \"from\""
     },
     {
      "w": "there",
-     "start": 64.14,
+     "start": 65.68,
      "conf": "low",
-     "end": 68.155
+     "end": 68.155,
+     "m3_prev_start": 64.14,
+     "m3_fix": "v4B type M3 2026-10-18: dh dip 65.68; window 65.68-66.5 = \"there\" (-1.9 vs from -7.8)"
     }
    ]
   },
@@ -1659,13 +1683,15 @@
      "w": "画",
      "start": 124.065,
      "conf": "high",
-     "end": 124.376
+     "end": 124.14
     },
     {
      "w": "也是",
-     "start": 124.386,
+     "start": 124.15,
      "conf": "medium",
-     "end": 124.787
+     "end": 124.787,
+     "m3_prev_start": 124.386,
+     "m3_fix": "v4B type M3 2026-10-18: 也 onset (note 67 starts 124.15 after the dip); 124.39 was 是 inside the word"
     },
     {
      "w": "一",
@@ -1737,13 +1763,15 @@
      "w": "画",
      "start": 127.0,
      "conf": "low",
-     "end": 127.596
+     "end": 127.35
     },
     {
      "w": "都是",
-     "start": 127.606,
+     "start": 127.36,
      "conf": "medium",
-     "end": 127.85
+     "end": 127.85,
+     "m3_prev_start": 127.606,
+     "m3_fix": "v4B type M3 2026-10-18: 都 onset (d release, note 67 from 127.36); 127.61 was 是 inside the word"
     },
     {
      "w": "我的",
@@ -1809,13 +1837,15 @@
      "w": "画",
      "start": 130.514,
      "conf": "high",
-     "end": 130.836
+     "end": 130.55
     },
     {
      "w": "也是",
-     "start": 130.846,
+     "start": 130.56,
      "conf": "medium",
-     "end": 131.07
+     "end": 131.07,
+     "m3_prev_start": 130.846,
+     "m3_fix": "v4B type M3 2026-10-18: 也 onset (note 67 from 130.57 after the 130.48-130.54 dip); 130.85 was 是 inside the word"
     },
     {
      "w": "一",
@@ -1965,13 +1995,15 @@
      "w": "I",
      "start": 137.78,
      "conf": "low",
-     "end": 138.69
+     "end": 138.52
     },
     {
      "w": "read",
-     "start": 138.7,
+     "start": 138.53,
      "conf": "low",
-     "end": 142.715
+     "end": 142.715,
+     "m3_prev_start": 138.7,
+     "m3_fix": "v4B type M3 2026-10-18: onset after the 138.50 dip (flux 1.75); 138.70 was the pitch rise inside \"read\""
     }
    ]
   },
@@ -2042,13 +2074,15 @@
      "w": "that",
      "start": 146.556,
      "conf": "low",
-     "end": 147.208
+     "end": 147.0
     },
     {
      "w": "I",
-     "start": 147.218,
+     "start": 147.01,
      "conf": "low",
-     "end": 147.348
+     "end": 147.348,
+     "m3_prev_start": 147.218,
+     "m3_fix": "v4B type M3 2026-10-18: dip 146.98-147.00 between \"that\" and \"I\" (parallel to line 13); whisper + teacher-forced boundary agree it is earlier"
     },
     {
      "w": "need",
@@ -2148,35 +2182,46 @@
    "words": [
     {
      "w": "And",
-     "start": 154.26,
+     "start": 155.9,
      "conf": "low",
-     "end": 154.61
+     "end": 156.14,
+     "m3_prev_start": 154.26,
+     "m3_fix": "v4B type M3 2026-10-18: 153.0-155.45 is a wordless \"oh\" melisma (teacher-forced: oh -4.2 vs and -6.6); \"and\" = 155.85-156.18 (-2.2 vs every -10.5)"
     },
     {
      "w": "everything",
-     "start": 154.62,
+     "start": 156.15,
      "conf": "low",
-     "end": 156.67
+     "end": 157.49,
+     "m3_prev_start": 154.62,
+     "m3_fix": "v4B type M3 2026-10-18: after the d of \"and\" (dip 156.08-156.15); window 156.15-157.5 = \"everything\""
     },
     {
      "w": "goes",
-     "start": 156.68,
+     "start": 157.5,
      "conf": "low",
-     "end": 157.71
+     "end": 159.11,
+     "m3_prev_start": 156.68,
+     "m3_fix": "v4B type M3 2026-10-18: 156.93-157.5 is still \"everything\" (-6.3 vs goes -11.9); g at the 157.45-157.52 dip"
     },
     {
      "w": "from",
-     "start": 157.72,
+     "start": 159.12,
      "conf": "low",
-     "end": 159.21
+     "end": 159.71,
+     "m3_prev_start": 157.72,
+     "m3_fix": "v4B type M3 2026-10-18: voiceless f dip 159.1-159.3; window 159.25-159.75 = \"from\"; 158.5-159.15 is still \"goes\""
     },
     {
      "w": "there",
-     "start": 159.22,
+     "start": 159.72,
      "conf": "low",
-     "end": 162.815
+     "end": 162.815,
+     "m3_prev_start": 159.22,
+     "m3_fix": "v4B type M3 2026-10-18: dh dip 159.72; window 159.72-160.6 = \"there\" (-3.3 vs from -9.1)"
     }
-   ]
+   ],
+   "m3_note": "v4B type M3 2026-10-18: words re-timed (\"And\" is sung at 155.90; 153.0-155.45 is a wordless \"oh\" ad-lib). The LINE start stays 154.26 on purpose: stage_3d act4/main3d.js keys its gang-vocal switch (K.gang) to T.line(41).start, and that cue must not move. Use words[0].start for the first word."
   },
   {
    "id": 42,
@@ -2379,7 +2424,7 @@
    "type": "lead",
    "text": "Everything I love about life just blossoms",
    "start": 186.7,
-   "end": 190.79,
+   "end": 191.93,
    "start_bar": "114.4+0.14",
    "confidence": "high",
    "evidence": "first vocal after break; aligners 186.70/187.12, onset visible at 186.70",
@@ -2421,21 +2466,26 @@
      "w": "life",
      "start": 188.36,
      "conf": "low",
-     "end": 188.97
+     "end": 189.42
     },
     {
      "w": "just",
-     "start": 188.98,
+     "start": 189.43,
      "conf": "low",
-     "end": 189.67
+     "end": 191.21,
+     "m3_prev_start": 188.98,
+     "m3_fix": "v4B type M3 2026-10-18: dj burst after the 189.38 dip (teacher-forced boundary life|just 189.40); 188.98 was a pitch rise inside \"life\""
     },
     {
      "w": "blossoms",
-     "start": 189.68,
+     "start": 191.22,
      "conf": "low",
-     "end": 190.79
+     "end": 191.93,
+     "m3_prev_start": 189.68,
+     "m3_fix": "v4B type M3 2026-10-18: the hard onset 191.22 after the 190.4-191.2 gap; 189.36-190.45 = \"just\" (-1.4 vs blossoms -15.5), 191.15-192.0 = \"blossoms\" (-2.9 vs that's -15.2)"
     }
-   ]
+   ],
+   "m3_prev_end": 190.79
   },
   {
    "id": 49,
@@ -2443,9 +2493,9 @@
    "section": "Outro",
    "type": "adlib",
    "text": "(that's it.)",
-   "start": 191.3,
+   "start": 191.95,
    "end": 193.64,
-   "start_bar": "117.2+0.71",
+   "start_bar": "117.4+0.19",
    "confidence": "medium",
    "evidence": "\"That's\" onset after held \"blossoms\" (~191.25), \"it\" 193.2 (ASR it@193.46)",
    "check": {
@@ -2460,17 +2510,23 @@
    "words": [
     {
      "w": "That's",
-     "start": 191.3,
-     "end": 193.15,
-     "conf": "medium"
+     "start": 191.95,
+     "end": 193.41,
+     "conf": "medium",
+     "m3_prev_start": 191.3,
+     "m3_fix": "v4B type M3 2026-10-18: pitch restarts 191.92 after the 191.85 dip (teacher-forced boundary 191.95-193.15, best 192.05); 191.30 was inside \"blossoms\""
     },
     {
      "w": "it.",
-     "start": 193.2,
+     "start": 193.42,
      "end": 193.64,
-     "conf": "high"
+     "conf": "high",
+     "m3_prev_start": 193.2,
+     "m3_fix": "v4B type M3 2026-10-18: LOW confidence: 193.2 hf burst read as the -ts of \"that's\"; whisper 193.48 and teacher-forced boundary 193.45 put \"it\" after it"
     }
-   ]
+   ],
+   "m3_prev_start": 191.3,
+   "m3_note": "v4B type M3 2026-10-18: \"blossoms\" (line 48) is re-sung 191.22-191.93 after a 0.8 s gap; \"that's\" starts 191.95. \"it.\" is low confidence."
   },
   {
    "id": 50,

@@ -1,0 +1,97 @@
+{
+  "updated": "2026-10-16",
+  "groups": [
+    {
+      "title": "Follow-ups from your answers",
+      "intro": "Thanks! All 13 answers are logged (see the Decided log tab), and the build has started. Here's your model with your notes applied, plus three things that came out of your notes.",
+      "items": [
+        {
+          "id": "f-model-r6",
+          "q": "Your 3D model with your notes: right?",
+          "why": "Three fixes from your notes. The chin is a soft U instead of a point, and the heart shape stays. Both eraser caps point up out of a top bun (pink on one side, blue on the other), with the tips hidden. Headphones sit around the neck with dark cups and orange rims, like the paper art. These are close-ups at the new 2.5 density. Your note on half2_v2 is being fixed too: the sleeve patch moves onto the orange band. And going by your reference sheet, a black crop top with a strip of bare midriff (I had briefly made it all black).",
+          "options": [
+            "Looks right",
+            "Close, notes below",
+            "Not yet, notes below"
+          ],
+          "rec": null,
+          "imgs": [
+            [
+              "../../engine/out/review/models/r6/canon_r6e.jpg",
+              "Latest: next to your reference sheet (patch on the band, crop top, RARE EARTH on the back only)"
+            ],
+            [
+              "../../engine/out/review/models/r6/faces_r5_vs_r6b.jpg",
+              "Face: before vs after (chin)"
+            ],
+            [
+              "../../engine/out/review/models/r6/bun_r5_vs_r6b.jpg",
+              "Bun pencils: before vs after, with the paper art"
+            ],
+            [
+              "../../engine/out/review/models/r6/headphones_r6b.jpg",
+              "Headphones around the neck, all angles"
+            ],
+            [
+              "../../engine/out/review/models/r6/canon_turnaround_r6b.jpg",
+              "Full turnaround, all three"
+            ]
+          ]
+        },
+        {
+          "id": "f-talos-level",
+          "q": "The Talos level design: does it make sense now?",
+          "why": "You're right that the tripod was upside down and didn't do anything you could follow. The fix: the tripod is a Talos connector, legs down and a crystal on top. It catches a beam and sends it on to whatever it faces. Each room now has a clear goal (a dark receiver that opens something when the beam hits it), something blocking the easy shot, and one solution. In Room B, which is laid out like k08b, a ruined sea stack blocks Ricky's straight shot, and the tripod spot on the cliff edge is the only place that sees both Ricky and the receiver. The receiver sits behind a force-field curtain that stays open only while someone stands on the pressure plate. That's why Charlie is stuck on the plate, and why leaving a spare hat there frees him. Ricky plays into a fixed amp that keeps running, so he can cross too.",
+          "options": [
+            "Yes, build it this way",
+            "Yes, with my notes",
+            "Not quite (notes)"
+          ],
+          "rec": 0,
+          "imgs": [
+            [
+              "talos_level.svg",
+              "Top-down plans of both rooms"
+            ],
+            [
+              "../../engine/out/review/round4/now_back_86.8.jpg",
+              "Today at 1:26.8, for reference"
+            ]
+          ]
+        },
+        {
+          "id": "f-turn",
+          "q": "The 3D turn (1:17.8–1:26.4): which heroes?",
+          "why": "Sorry, my question wasn't clear. The 8-bit world isn't touched either way. The heroes only become 3D at the turn, and in your approved turn they're the older, blockier 3D models. At 1:26.4 they switch to the new ones (left vs right below). So \"Only in half 2\" keeps that switch. Using the new models in the turn too would hide it; I'd re-render just the turn and check its seams frame by frame.",
+          "options": [
+            "New heroes in the turn too (no switch at 1:26.4)",
+            "Keep the turn as it is"
+          ],
+          "rec": 0,
+          "imgs": [
+            [
+              "../../engine/out/review/round4/turn_seam_carve_vs_native.jpg",
+              "Left: the turn today (1:25.9). Right: half 2 at 1:26.9"
+            ]
+          ]
+        },
+        {
+          "id": "f-headphones",
+          "q": "Headphones around the neck: where?",
+          "why": "Got it: they're canon now, and I updated the character rules. I'm adding them to the new 3D heroes in half 2 (black band, dark cups with orange rims resting on the collar, like the paper art below). The question is whether the half-1 8-bit sprites and the HUD portraits get them too. At sprite scale they'd be 2–3 pixels on the collar. I'd show you a mock before changing any approved half-1 frame.",
+          "options": [
+            "Everywhere, including the half-1 sprites (mock first)",
+            "Only the 3D heroes and the paper art"
+          ],
+          "rec": 0,
+          "imgs": [
+            [
+              "../../engine/out/review/round4/paper_headphones_125.9.jpg",
+              "The paper art at 2:05.9: the look to match"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+"Z": 16,
+"frames": [
+{
+"name": "bug_ladybug_idle",
+"k": 0,
+"x": 24,
+"y": 24,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_ladybug_idle",
+"k": 1,
+"x": 592,
+"y": 24,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_ladybug_dance",
+"k": 0,
+"x": 1160,
+"y": 24,
+"w": 34,
+"h": 40
+},
+{
+"name": "bug_beetle_idle",
+"k": 0,
+"x": 1728,
+"y": 24,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_beetle_idle",
+"k": 1,
+"x": 2296,
+"y": 24,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_beetle_dance",
+"k": 0,
+"x": 2864,
+"y": 24,
+"w": 34,
+"h": 40
+},
+{
+"name": "bug_moth_idle",
+"k": 0,
+"x": 3432,
+"y": 24,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_moth_idle",
+"k": 1,
+"x": 4000,
+"y": 24,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_moth_dance",
+"k": 0,
+"x": 4568,
+"y": 24,
+"w": 34,
+"h": 40
+},
+{
+"name": "bug_caterpillar_idle",
+"k": 0,
+"x": 24,
+"y": 688,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_caterpillar_idle",
+"k": 1,
+"x": 592,
+"y": 688,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_caterpillar_dance",
+"k": 0,
+"x": 1160,
+"y": 688,
+"w": 34,
+"h": 40
+},
+{
+"name": "bug_firefly_idle",
+"k": 0,
+"x": 1728,
+"y": 688,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_firefly_idle",
+"k": 1,
+"x": 2296,
+"y": 688,
+"w": 34,
+"h": 34
+},
+{
+"name": "bug_firefly_dance",
+"k": 0,
+"x": 2864,
+"y": 688,
+"w": 34,
+"h": 40
+}
+]
+}

@@ -3,4 +3,5 @@
 export const SHOWS = {
   main: () => import('./main.js'),
   dev: () => import('./dev.js'),
+  mocks: () => import('./mocks.js'),
 };

@@ -1,0 +1,93 @@
+{
+"Z": 16,
+"frames": [
+{
+"name": "charlie_jump",
+"k": 0,
+"x": 24,
+"y": 24,
+"w": 36,
+"h": 44
+},
+{
+"name": "charlie_jump",
+"k": 1,
+"x": 624,
+"y": 24,
+"w": 36,
+"h": 44
+},
+{
+"name": "charlie_hat_throw",
+"k": 0,
+"x": 1224,
+"y": 24,
+"w": 44,
+"h": 44
+},
+{
+"name": "charlie_hat_throw",
+"k": 1,
+"x": 1952,
+"y": 24,
+"w": 44,
+"h": 44
+},
+{
+"name": "ricky_jump",
+"k": 0,
+"x": 2680,
+"y": 24,
+"w": 36,
+"h": 44
+},
+{
+"name": "ricky_jump",
+"k": 1,
+"x": 3280,
+"y": 24,
+"w": 36,
+"h": 44
+},
+{
+"name": "ricky_power_chord",
+"k": 0,
+"x": 3880,
+"y": 24,
+"w": 64,
+"h": 44
+},
+{
+"name": "ricky_power_chord",
+"k": 1,
+"x": 24,
+"y": 752,
+"w": 64,
+"h": 44
+},
+{
+"name": "ricky_sustain",
+"k": 0,
+"x": 1072,
+"y": 752,
+"w": 44,
+"h": 44
+},
+{
+"name": "ricky_sustain",
+"k": 1,
+"x": 1800,
+"y": 752,
+"w": 44,
+"h": 44
+},
+{
+"name": "ricky_victory",
+"k": 0,
+"x": 2528,
+"y": 752,
+"w": 36,
+"h": 48
+}
+]
+}

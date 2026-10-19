@@ -12,7 +12,8 @@ import * as THREE from 'three';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { FullScreenQuad } from 'three/addons/postprocessing/Pass.js';
 import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
-import { SKY_GLSL, envUniforms } from './env.js';
+import { SKY_GLSL, envUniforms, skyGLSL, K8U, LOOKCFG } from './env.js';
+import { CS, CS_GLSL, csAt, csTintVec } from './core/colorscript.js';
 
 // ------------------------------------------------------------- palette LUT
 function srgbToOklab([r, g, b]) {
@@ -52,6 +53,51 @@ float viewDist(float d){
   if (uOrtho > 0.5) return uNear + d * (uFar - uNear);
   float z = d * 2.0 - 1.0; return (2.0 * uNear * uFar) / (uFar + uNear - z * (uFar - uNear));
 }`;
+
+/** the depth-of-field gather (N taps over a disc of uMaxR px). The default (32, no tilt) is the original chain's shader string,
+ *  byte for byte; --r5 (src/look.js LOOK_R5) builds a second one with 64 taps, a tilt-shift screen band (uTilt / uTiltY) and
+ *  HDR emissives above uProtL (the glyph, the beam) kept sharp. */
+export function makeDofMat(w, h, N = 32, tilt = false) {
+  const mat = new THREE.ShaderMaterial({
+    uniforms: { tColor: { value: null }, tDepth: { value: null }, uRes: { value: new THREE.Vector2(w, h) },
+      uNear: { value: 1 }, uFar: { value: 1000 }, uOrtho: { value: 0 }, uFocus: { value: 300 }, uAperture: { value: 0 }, uMaxR: { value: 10 }, ...(tilt ? { uTilt: { value: 0 }, uTiltY: { value: 0.5 }, uProtL: { value: 1e9 } } : {}) },
+    vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
+    fragmentShader: DEPTH_GLSL + /* glsl */`
+      uniform sampler2D tColor, tDepth; uniform vec2 uRes; uniform float uFocus, uAperture, uMaxR${tilt ? ', uTilt, uTiltY, uProtL' : ''}; varying vec2 vUv;
+      float coc(vec2 uv){ float z = viewDist(texture2D(tDepth, uv).x); return clamp(uAperture * abs(z - uFocus) / z${tilt ? ' + uTilt * smoothstep(0.10, 0.45, abs(uv.y - uTiltY))' : ''}, 0.0, 1.0) * uMaxR${tilt ? ' * (1.0 - smoothstep(uProtL, uProtL * 1.6, dot(texture2D(tColor, uv).rgb, vec3(0.2126, 0.7152, 0.0722))))' : ''}; }
+      vec3 sane(vec3 c){ return (any(isnan(c)) || any(isinf(c))) ? vec3(0.0) : min(max(c, 0.0), vec3(64.0)); }
+      void main(){
+        vec4 c0 = texture2D(tColor, vUv); c0.rgb = sane(c0.rgb);   // NaN/Inf guard (protects bloom mips)
+        if (uAperture <= 0.0) { gl_FragColor = c0; return; }
+        float r0 = coc(vUv);
+        vec3 acc = c0.rgb; float wsum = 1.0;
+        const int N = ${N}; const float GA = 2.39996323;
+        for (int i = 1; i < N; i++) {
+          float fi = float(i); float rr = sqrt(fi / float(N)); float th = fi * GA;
+          vec2 off = vec2(cos(th), sin(th)) * rr * uMaxR / uRes;
+          vec2 uv = vUv + off;
+          float rs = coc(uv);
+          // sample contributes if its own CoC reaches us (background can't bleed over sharp foreground)
+          float w = smoothstep(rr * uMaxR - 1.0, rr * uMaxR + 0.5, max(min(rs, r0 + 2.0), 0.0));
+          acc += sane(texture2D(tColor, uv).rgb) * w; wsum += w;
+        }
+        gl_FragColor = vec4(acc / wsum, 1.0);
+      }`,
+    depthTest: false, depthWrite: false,
+  });
+  return mat;
+}
+
+/** near / far for the depth reconstruction (DOF focus, outline). Under --r5 they come from the camera's PROJECTION MATRIX: the
+ *  legacy lookFrom() shots (act4 camTail / pencil tip, any act3 shot that keeps a construction projection) set camera.near = dist * 0.02
+ *  without updating the projection, so camera.near disagreed with the depth buffer and the focus distance was wrong. Without --r5:
+ *  camera.near / far exactly as before (default renders unchanged). */
+function nearFar(camera) {
+  if (!LOOKCFG.r5) return [camera.near, camera.far];
+  const e = camera.projectionMatrix.elements, a = e[10], b = e[14];
+  if (camera.isOrthographicCamera) return [(b + 1) / a, (b - 1) / a];
+  return [b / (a - 1), b / (a + 1)];
+}
 
 export class Post {
   constructor(renderer, w, h) {
@@ -121,34 +167,7 @@ export class Post {
     });
     this.atmosQuad = new FullScreenQuad(this.atmosMat);
 
-    this.dofMat = new THREE.ShaderMaterial({
-      uniforms: { tColor: { value: null }, tDepth: { value: null }, uRes: { value: new THREE.Vector2(w, h) },
-        uNear: { value: 1 }, uFar: { value: 1000 }, uOrtho: { value: 0 }, uFocus: { value: 300 }, uAperture: { value: 0 }, uMaxR: { value: 10 } },
-      vertexShader: 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }',
-      fragmentShader: DEPTH_GLSL + /* glsl */`
-        uniform sampler2D tColor, tDepth; uniform vec2 uRes; uniform float uFocus, uAperture, uMaxR; varying vec2 vUv;
-        float coc(vec2 uv){ float z = viewDist(texture2D(tDepth, uv).x); return clamp(uAperture * abs(z - uFocus) / z, 0.0, 1.0) * uMaxR; }
-        vec3 sane(vec3 c){ return (any(isnan(c)) || any(isinf(c))) ? vec3(0.0) : min(max(c, 0.0), vec3(64.0)); }
-        void main(){
-          vec4 c0 = texture2D(tColor, vUv); c0.rgb = sane(c0.rgb);   // NaN/Inf guard (protects bloom mips)
-          if (uAperture <= 0.0) { gl_FragColor = c0; return; }
-          float r0 = coc(vUv);
-          vec3 acc = c0.rgb; float wsum = 1.0;
-          const int N = 32; const float GA = 2.39996323;
-          for (int i = 1; i < N; i++) {
-            float fi = float(i); float rr = sqrt(fi / float(N)); float th = fi * GA;
-            vec2 off = vec2(cos(th), sin(th)) * rr * uMaxR / uRes;
-            vec2 uv = vUv + off;
-            float rs = coc(uv);
-            // sample contributes if its own CoC reaches us (background can't bleed over sharp foreground)
-            float w = smoothstep(rr * uMaxR - 1.0, rr * uMaxR + 0.5, max(min(rs, r0 + 2.0), 0.0));
-            acc += sane(texture2D(tColor, uv).rgb) * w; wsum += w;
-          }
-          gl_FragColor = vec4(acc / wsum, 1.0);
-        }`,
-      depthTest: false, depthWrite: false,
-    });
-    this.dofQuad = new FullScreenQuad(this.dofMat);
+    this.dofMat = makeDofMat(w, h); this.dofQuad = new FullScreenQuad(this.dofMat);
 
     this.finalMat = new THREE.ShaderMaterial({
       uniforms: {
@@ -222,6 +241,45 @@ export class Post {
     this.finalQuad = new FullScreenQuad(this.finalMat);
     this.params = { dof: 0, focus: 300, bloom: 0.35, ao: 0, atmos: 0, distOffset: 0, rays: 0 };
   }
+  /** --look k08b (called by LookPass): the atmosphere pass uses the k08b sky (time-of-day uniforms in K8U) */
+  enableK8() {
+    this.atmosMat.fragmentShader = this.atmosMat.fragmentShader.replace(SKY_GLSL, skyGLSL());
+    Object.assign(this.atmosMat.uniforms, K8U); this.atmosMat.needsUpdate = true;
+    // lifted, slightly cool blacks (k08b's histogram: blacks ~20/255); uK8Lift = 0 outside k08b frames
+    const F = this.finalMat; F.uniforms.uK8Lift = { value: 0 };
+    F.fragmentShader = F.fragmentShader.replace('uniform float uPix,', 'uniform float uK8Lift; uniform float uPix,')
+      .replace('col += (hash(frag) - 0.5) * uGrain;', 'col += uK8Lift * vec3(1.0, 1.08, 1.3) * (1.0 - col);\n          col += (hash(frag) - 0.5) * uGrain;');
+    F.needsUpdate = true;
+  }
+  /** v4 colour script (src/core/colorscript.js; LookPass enables it for `--look k08b+cs`): the time-keyed ration grade in the
+   *  final pass, after tone map + grade, before pixelate / outline / palette / vignette. Exempt: heroes + creatures (paint.js's
+   *  alpha-0.5 mask in rtScene), HDR emissives (beams, glyph), and per key high-chroma accents. 2D stages (scene.userData.cs2d)
+   *  are graded per material in core/stage2d.js instead, so this pass skips them. Not called = shader string unchanged. */
+  enableCS() {
+    if (this._cs) return; this._cs = true; CS.enabled = true;   // the frame clock: ShowRunner.render sets CS.t
+    const F = this.finalMat;
+    Object.assign(F.uniforms, { uCsOn: { value: 0 }, uCsSat: { value: 1 }, uCsTintAmt: { value: 0 }, uCsKeepAmt: { value: 1 }, uCsTint: { value: new THREE.Vector3(1, 1, 1) },
+      tCsScene: { value: null }, uCsProtL: { value: 2 }, uCsProtSat: { value: 0 } });
+    F.fragmentShader = F.fragmentShader.replace('precision highp sampler3D;', 'precision highp sampler3D;\n' + CS_GLSL + 'uniform sampler2D tCsScene; uniform float uCsProtL, uCsProtSat;')
+      .replace('vec3 col = shade(uv);', `vec3 col = shade(uv);
+          if (uCsOn > 0.5) {
+            float ca = texture2D(tCsScene, uv).a; float hero = 1.0 - smoothstep(0.08, 0.2, abs(ca - 0.5));
+            vec3 hdr = texture2D(tColor, uv).rgb; float hl = (any(isnan(hdr)) || any(isinf(hdr))) ? 0.0 : dot(hdr, vec3(0.2126, 0.7152, 0.0722));
+            float prot = smoothstep(uCsProtL, uCsProtL * 1.6, hl);
+            float mx = max(col.r, max(col.g, col.b)), mn = min(col.r, min(col.g, col.b)); float hs = (mx - mn) / max(mx, 1e-4);
+            if (uCsProtSat > 0.0) prot = max(prot, smoothstep(uCsProtSat, uCsProtSat + 0.15, hs) * smoothstep(0.2, 0.35, mx));
+            col = csGrade(col, max(hero, prot));
+          }`);
+    F.needsUpdate = true;
+  }
+  /** per post.render call: the script's values for this frame (2D stages: off here, they grade per material) */
+  _csFrame(scene) {
+    const U = this.finalMat.uniforms;
+    const s = csAt(CS.t), on = s.on && !scene?.userData?.cs2d && !scene?.userData?.csSkip;   // csSkip: paper / card scenes keep their own colour
+    U.uCsOn.value = on ? 1 : 0; if (!on) return;
+    U.uCsSat.value = s.sat3d; U.uCsTintAmt.value = s.tintAmt; U.uCsKeepAmt.value = s.keepAmt; U.uCsTint.value.set(...csTintVec(s.tint));
+    U.uCsProtL.value = s.protL; U.uCsProtSat.value = s.protSat; U.tCsScene.value = this.rtScene.texture;
+  }
   setScene(scene, perspCamera) {
     this.gtao = new GTAOPass(scene, perspCamera, this.w, this.h);
     const g = this.gtao, cache = g._visibilityCache;
@@ -241,11 +299,31 @@ export class Post {
     F.uExposure.value = exposure; F.uFlatGain.value = 1; F.uVignette.value = 0; F.uGrain.value = 0; F.uGrade.value = 0; F.uSat.value = 1; F.uContrast.value = 1;
     Object.assign(this.params, { dof: 0, bloom: 0, ao: 0, atmos: 0, rays: 0, distOffset: 0 });
   }
-  /** target: null = canvas, or a WebGLRenderTarget (used by the show runner for transitions). */
+  /** target: null = canvas, or a WebGLRenderTarget (used by the show runner for transitions).
+   *  With sub-frame accumulation active (setAccum, driven by ENGINE.render --mblur) a call either adds a jittered HDR
+   *  sub-frame into its slot ('sub'), records the reference camera ('probe'), or tone-maps the slot's average ('final').
+   *  Off (the default) it is exactly the old single pass. */
   render(scene, camera, target = null) {
+    const M = this._acc;
+    if (this._cs) this._csFrame(scene);
+    const restore = this.look && camera.isPerspectiveCamera ? this.look.begin(this, camera) : null;   // --look preset (src/look.js)
+    try {
+      if (!M) return this._render(scene, camera, target);
+      return this._renderAccum(M, scene, camera, target);
+    } finally { if (restore) restore(); }
+  }
+  _render(scene, camera, target) {
+    const dof = this._chain(scene, camera);
+    const r = this.r, U = this.finalMat.uniforms;
+    U.tColor.value = dof.texture; U.tDepth.value = this.rtScene.depthTexture;
+    r.setRenderTarget(target); this.finalQuad.render(r);
+  }
+  /** everything up to (and including) bloom; returns the HDR target the final pass reads */
+  _chain(scene, camera) {
     const r = this.r; const U = this.finalMat.uniforms, D = this.dofMat.uniforms, A = this.atmosMat.uniforms, R = this.raysMat.uniforms;
     const ortho = camera.isOrthographicCamera ? 1 : 0;
-    for (const u of [U, D]) { u.uNear.value = camera.near; u.uFar.value = camera.far; u.uOrtho.value = ortho; }
+    const nf = nearFar(camera);
+    for (const u of [U, D]) { u.uNear.value = nf[0]; u.uFar.value = nf[1]; u.uOrtho.value = ortho; }
     for (const u of [A, R]) { u.uInvProj.value.copy(camera.projectionMatrixInverse); u.uCamWorld.value.copy(camera.matrixWorld); u.uCamPos.value.setFromMatrixPosition(camera.matrixWorld); }
     r.setRenderTarget(this.rtScene); r.clear(); r.render(scene, camera);
     let src = this.rtScene;
@@ -270,6 +348,7 @@ export class Post {
       dst = src === this.rtB ? this.rtA : this.rtB;
       r.setRenderTarget(dst); this.atmosQuad.render(r);
     }
+    if (this.look && camera.isPerspectiveCamera) { const o = dst === this.rtA ? this.rtB : this.rtA; this.look.render(this, dst, o, camera, scene); dst = o; }
     // DOF
     let dof = dst;
     if (this.params.dof > 0.0001 || this.params.bloom > 0.001) { // bloom always reads a sanitised copy (R-D3)
@@ -284,7 +363,79 @@ export class Post {
       }
       this.bloom.strength = this.params.bloom; this.bloom.render(r, null, dof, 0, false);
     }
-    U.tColor.value = dof.texture; U.tDepth.value = this.rtScene.depthTexture;
+    return dof;
+  }
+
+  // ------------------------------------------------------------- sub-frame accumulation (motion blur + AA)
+  /** M = null (off) | { mode:'probe'|'sub'|'final', frame, call:0, jitter:[jx,jy] px, cutDist, cutAngle } */
+  setAccum(M) { this._acc = M; if (M) M.call = 0; }
+  _accSlot(k) {
+    if (!this._slots) {
+      this._slots = [];
+      const VS = 'varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy,0.,1.); }';
+      this.accQuad = new FullScreenQuad(new THREE.ShaderMaterial({ uniforms: { tPrev: { value: null }, tCur: { value: null }, uFirst: { value: 1 } }, vertexShader: VS,
+        fragmentShader: `uniform sampler2D tPrev, tCur; uniform float uFirst; varying vec2 vUv;
+          void main(){ vec3 c = texture2D(tCur, vUv).rgb; c = (any(isnan(c)) || any(isinf(c))) ? vec3(0.0) : clamp(c, 0.0, 64.0);
+            if (uFirst < 0.5) c += texture2D(tPrev, vUv).rgb; gl_FragColor = vec4(c, 1.0); }`, depthTest: false, depthWrite: false }));
+      this.resolveQuad = new FullScreenQuad(new THREE.ShaderMaterial({ uniforms: { tSum: { value: null }, uInv: { value: 1 } }, vertexShader: VS,
+        fragmentShader: 'uniform sampler2D tSum; uniform float uInv; varying vec2 vUv; void main(){ gl_FragColor = vec4(texture2D(tSum, vUv).rgb * uInv, 1.0); }',
+        depthTest: false, depthWrite: false }));
+    }
+    if (!this._slots[k]) {
+      const o = { type: THREE.FloatType, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthBuffer: false };
+      this._slots[k] = { rt: [new THREE.WebGLRenderTarget(this.w, this.h, o), new THREE.WebGLRenderTarget(this.w, this.h, o)], cur: 0, n: 0, frame: -1, ref: null };
+    }
+    return this._slots[k];
+  }
+  _camSnap(camera) {
+    camera.updateMatrixWorld();
+    const e = camera.matrixWorld.elements;
+    return { cam: camera, p: new THREE.Vector3(e[12], e[13], e[14]), f: new THREE.Vector3(-e[8], -e[9], -e[10]).normalize(), fov: camera.fov || 0 };
+  }
+  _camDelta(a, b) { return [a.p.distanceTo(b.p), THREE.MathUtils.radToDeg(Math.acos(Math.min(1, a.f.dot(b.f))))]; }
+  /** a cut inside the shutter: the camera object changes, or the camera lands much farther from where it is at t than its
+   *  own speed (probed at t +- one sub-step) predicts. Smooth fast moves (drop-2 dolly, cart chase, whip pans) pass. */
+  _isCut(slot, s, M) {
+    if (slot.ref.cam !== s.cam) return 'camera object';
+    const [d, a] = this._camDelta(slot.ref, s), o = Math.abs(M.o || 0);
+    const pd = slot.pre.length ? Math.min(...slot.pre.map((x) => x[0])) : 0, pa = slot.pre.length ? Math.min(...slot.pre.map((x) => x[1])) : 0;
+    if (M.stats) { M.stats.maxD = Math.max(M.stats.maxD || 0, d); M.stats.maxA = Math.max(M.stats.maxA || 0, a); M.stats.vD = pd; M.stats.vA = pa; }
+    if (d > M.cutK * o * pd + M.cutDist) return 'jump ' + d.toFixed(1) + ' (v ' + pd.toFixed(2) + '/step)';
+    if (a > M.cutK * o * pa + M.cutAngle) return 'turn ' + a.toFixed(1) + 'deg (v ' + pa.toFixed(2) + '/step)';
+    if (slot.ref.fov && Math.abs(s.fov / slot.ref.fov - 1) > 0.25 + 0.05 * o) return 'fov';
+    return null;
+  }
+  _renderAccum(M, scene, camera, target) {
+    const k = M.call++, r = this.r, persp = !!camera.isPerspectiveCamera;   // ortho (2D stages, flat turn) is never accumulated
+    if (M.mode === 'probe' || M.mode === 'sub') {
+      if (!persp) return;
+      const slot = this._accSlot(k), snap = this._camSnap(camera);
+      if (slot.frame !== M.frame) { slot.frame = M.frame; slot.n = 0; slot.ref = snap; slot.pre = []; }   // first sight this frame (probe at t) = reference
+      else if (M.mode === 'probe') { if (slot.ref.cam === snap.cam) slot.pre.push(this._camDelta(slot.ref, snap)); return; }   // speed probe at t +- 1 step
+      else { const why = this._isCut(slot, snap, M); if (why) { M.cuts = (M.cuts || 0) + 1; M.why = why; return; } }
+      if (M.mode === 'probe') return;
+      // sub-pixel jitter (only where the image isn't block-pixelated)
+      const pm = camera.projectionMatrix, pe = pm.elements, saveP = pe.slice(), saveI = camera.projectionMatrixInverse.elements.slice();
+      const j = this.finalMat.uniforms.uPix.value <= 1.01 ? (M.jitter || [0, 0]) : [0, 0];
+      if (j[0] || j[1]) { pe[8] += 2 * j[0] / this.w; pe[9] += 2 * j[1] / this.h; camera.projectionMatrixInverse.copy(pm).invert(); }
+      let dof;
+      try { dof = this._chain(scene, camera); } finally { pe.splice(0, 16, ...saveP); camera.projectionMatrixInverse.elements.splice(0, 16, ...saveI); }
+      const AQ = this.accQuad.material.uniforms;
+      AQ.tCur.value = dof.texture; AQ.tPrev.value = slot.rt[slot.cur].texture; AQ.uFirst.value = slot.n === 0 ? 1 : 0;
+      r.setRenderTarget(slot.rt[1 - slot.cur]); this.accQuad.render(r); slot.cur ^= 1; slot.n++;
+      M.used = (M.used || 0) + 1;
+      return;
+    }
+    // final: tone-map / grade / pixelate the average of this call's sub-frames (UI is drawn by the caller afterwards, at t)
+    const slot = persp && this._slots ? this._slots[k] : null;
+    if (!slot || slot.frame !== M.frame || slot.n === 0) return this._render(scene, camera, target);
+    const U = this.finalMat.uniforms, D = this.dofMat.uniforms;
+    const nf = nearFar(camera);
+    for (const u of [U, D]) { u.uNear.value = nf[0]; u.uFar.value = nf[1]; u.uOrtho.value = 0; }
+    if (U.uOutline.value > 0) { r.setRenderTarget(this.rtScene); r.clear(); r.render(scene, camera); }   // outline needs depth at t
+    const RQ = this.resolveQuad.material.uniforms; RQ.tSum.value = slot.rt[slot.cur].texture; RQ.uInv.value = 1 / slot.n;
+    r.setRenderTarget(this.rtA); this.resolveQuad.render(r);
+    U.tColor.value = this.rtA.texture; U.tDepth.value = this.rtScene.depthTexture;
     r.setRenderTarget(target); this.finalQuad.render(r);
   }
 }

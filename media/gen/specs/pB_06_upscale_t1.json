@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "pB_06_upscale_t1", "notes": "passB paper card 06: precise 2.25x of the chosen 480p take segment (media/cutscenes/_work/passB/upscale/seg_06.txt = start/dur in the take)",
+ "input": {"input_video": "file:media/cutscenes/_work/passB/upscale/seg_06.mp4", "upscale_factor": 2.25, "creativity": 0, "safety_tolerance": 4}}

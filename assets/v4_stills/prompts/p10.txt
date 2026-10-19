@@ -1,0 +1,6 @@
+Edit the attached image (a game-engine keyframe) into the NEXT moment, "FUNCTIONS!" (song 1:29.9). Keep the exact same camera, slabs, world, lighting style and the three voxel heroes in the same places.
+Changes:
+- The word carved into the big central slab now reads FUNCTIONS (spelled F-U-N-C-T-I-O-N-S) in the same huge, clean, deeply chiseled bold block capitals spanning the slab; the grooves of the letters now GLOW from inside with bright rainbow light (red, orange, yellow, green, blue, violet running left to right), the biggest object on screen, perfectly legible.
+- Ricky (blue-and-white striped shirt, image-right) raises his natural-wood Stratocaster electric guitar; a straight beam of bright pink-white light (a sound-wave laser connector with faint ring ripples along it) shoots from his guitar to the left slab, then bounces in straight segments linking the left slab, the central slab and the right slab; where the beam touches, each slab lights up with rainbow edges and starts to tilt and rotate toward each other like a bridge assembling.
+- Color sparks and pencil-hatched rainbow light spill onto the plaster ground around the slab bases.
+No other text, no UI.

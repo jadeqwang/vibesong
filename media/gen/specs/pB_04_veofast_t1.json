@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "pB_04_veofast_t1",
+ "notes": "passB paper card 04; S0=48.3 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. After a short breath she sings, in English, clearly and in a steady pop rhythm at about 140 beats per minute: \"I just ask myself what it is that I need\", her lips shaping each syllable: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself'. She sings it softly, thoughtful, eyes searching slightly up and to the side as if reading a screen; a cool blue screen glow lights her face and the small bright rectangle of a prompt window stays reflected in both of her eyes. The blueprint grid and the two wireframe cubes behind her stay still. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects. Audio: only her singing voice over a soft beat.",
+  "image_input": "file:media/cutscenes/_work/passB/c04/ff.jpg",
+  "duration": "6s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": true
+ }
+}

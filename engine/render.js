@@ -6,6 +6,14 @@
 //   node render.js --show main --stills 0.343:a.png,2.63:b.png --res 960x540
 //   node render.js --show main --from 0 --to 41.03 --sheet out/review/act1_sheet.jpg --sheet-only   (one frame per beat)
 //   node render.js --scene turn_demo --from 0 --to 6 --mp4 out/turn_demo.mp4      (legacy single scenes)
+//   --fig native|carve             hero figure source for this render (default: voxfig FIGURE_SRC)
+//   --figres 2.5                   native hero voxel density (heroes.js RES; opt-in, default 1.25 = the approved models)
+//   --figrig 0|1                   r6 split rig on the native 2.5 heroes (voxfig FIGRIG; default ON at --figres 2.5; with --fig)
+//   --mblur N [--shutter 0.5] [--shutter-phase open|center] [--jitter 1] [--mblur-cut 40] [--mblur-turn 15]
+//                                  motion blur + AA: N jittered sub-frames per frame, averaged in HDR (3D only; UI crisp)
+//   --look k08b                    opt-in look preset (warm grade / golden key / haze / rim; src/look.js)
+//   --r5 0                         opt OUT of the round-5 staging (default ON since v4; the page gets ?r5=0; R5() in src/scenes/act3/common.js).
+//                                  A bare --r5 is accepted and is a no-op.
 //   node render.js --serve            preview server: http://localhost:8123/web/?show=main&t=3.2  (&live=1 loops)
 //
 // Options: --res WxH (default 1920x1080) | --width --height, --fps (30), --gpu vulkan|gl|swiftshader,
@@ -139,11 +147,15 @@ async function openEngine(port, from, to) {
   page.on('console', (m) => { if (['error', 'warn', 'warning'].includes(m.type()) || /^\[engine\]/.test(m.text())) console.log('[page]', m.text()); });
   page.on('pageerror', (e) => console.log('[pageerror]', e.message));
   await page.setViewport({ width: W, height: H });
-  await page.goto(`http://127.0.0.1:${port}/web/index.html`, { waitUntil: 'load' });
+  await page.goto(`http://127.0.0.1:${port}/web/index.html${args.fig ? '?fig=' + encodeURIComponent(args.fig) + (args.figscale ? '&figscale=' + encodeURIComponent(args.figscale) : '') + (args.figres ? '&figres=' + encodeURIComponent(args.figres) : '') + (args.figrig !== undefined ? '&figrig=' + (args.figrig === true ? '1' : encodeURIComponent(args.figrig)) : '') : (args.figres ? '?figres=' + encodeURIComponent(args.figres) : '')}${String(args.r5) === '0' ? (args.fig || args.figres ? '&' : '?') + 'r5=0' : ''}`, { waitUntil: 'load' });   // --fig native|carve: hero figure source (src/core/voxfig.js FIGURE_SRC)
   await page.waitForFunction(() => !!window.ENGINE);
   const t0 = Date.now();
   const info = await page.evaluate((o) => window.ENGINE.init(o),
-    { show: args.show || null, scene: args.show ? null : (args.scene || 'turn_demo'), width: W, height: H, fps: FPS, from, to, shot: args.shot || null });
+    { show: args.show || null, scene: args.show ? null : (args.scene || 'turn_demo'), width: W, height: H, fps: FPS, from, to, shot: args.shot || null,
+      ...(args.mblur ? { mblur: +args.mblur, shutter: args.shutter != null ? +args.shutter : undefined, shutterPhase: args['shutter-phase'] || undefined,
+        jitter: args.jitter != null ? +args.jitter : undefined, cutDist: args['mblur-cut'] != null ? +args['mblur-cut'] : undefined,
+        cutAngle: args['mblur-turn'] != null ? +args['mblur-turn'] : undefined } : {}),
+      ...(args.look ? { look: String(args.look) } : {}) });
   const gpu = await page.evaluate(() => window.ENGINE.gpu());
   return { browser, page, mode, info, gpu, initMs: Date.now() - t0 };
 }
@@ -176,7 +188,10 @@ async function renderRange({ port, from, to, mp4, label = '' }) {
     }
     if (outDir) { const png = await E.page.evaluate(() => window.ENGINE.capture()); fs.writeFileSync(path.join(outDir, `f_${String(f).padStart(5, '0')}.png`), Buffer.from(png, 'base64')); }
     const c = Date.now(); tr += b - a; tc += c - b;
-    if (k % 60 === 0) console.log(`${label}t=${t.toFixed(3)}  render ${b - a}ms  readback ${c - b}ms`);
+    if (k % 60 === 0 || (args['mblur-log'] && args.mblur)) {
+      const mb = args.mblur ? await E.page.evaluate(() => window.ENGINE.mbStats && window.ENGINE.mbStats()) : null;
+      console.log(`${label}t=${t.toFixed(3)}  render ${b - a}ms  readback ${c - b}ms` + (mb ? `  mblur used=${mb.used} cuts=${mb.cuts} skipped=${mb.skipped} maxD=${(mb.maxD || 0).toFixed(2)} maxA=${(mb.maxA || 0).toFixed(2)} ${mb.why}` : ''));
+    }
   }
   const wall = Date.now() - tStart;
   if (enc) { enc.stdin.end(); await new Promise((r) => enc.on('close', r)); }

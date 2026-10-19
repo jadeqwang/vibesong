@@ -3,6 +3,8 @@
 // renders show the right number. Teams append events for their acts in their own block below (keep them sorted).
 // event: [t0, dur, n, curve]: n lines arrive linearly over dur seconds (curve 'in' = accelerating), and n may be negative.
 import * as T from './timing.js';
+import { act1LocEvents } from '../scenes/act1/level.js';
+import { act2LocEvents } from '../scenes/act2/plan.js';   // ACT II: exact draw frames (one source with the scene)
 
 /** 'count' = the counter counts up (director's note 2026-10-15, default). 'zero' = the script.md joke: "LINES OF CODE: 0"
  *  never moves (we're not writing code). Switch here in one line. */
@@ -12,20 +14,24 @@ let EV = null;
 function build() {
   const C = (k) => T.cue('act1.' + k), N = C('whistle_notes');
   EV = [
-    // ---------------------------------------------------------------- ACT I (Team A)
-    [0.21, 0.13, 1], [N[0], 0.27, 10], [N[1], 0.1, 1], [N[2], 0.5, 7], [N[3] - 0.1, 0.09, 1],   // the title, stroke by stroke
-    [C('chant_stabs')[0], 0.4, 12], [5.345, 0.2, 24], [C('chant_words')[5], 0.15, 64],          // PAINT / RUN / SHIP
-    [C('breathy_syllables')[0], 1.5, 20],                                                         // PRESS START redraw
-    [14.11, 2.6, 34], [C('stop1')[0] + 0.05, 0.6, -30],                                           // lyric floor; the Eraser rubs lines out
-    [18.1, 1.8, 7], [T.word(7, 3).start, 0.1, 52],                                                // because; linked (52 links)
-    [27.8, 3.2, 30], [31.2, 3.5, 24], [C('pre_accents')[0], 0.05, 3], [C('pre_accents')[1], 0.05, 4], [38.25, 1.72, 12],
+    // ---------------------------------------------------------------- ACT I (Team A1) — DERIVED, don't hand-edit:
+    // scenes/act1/level.js act1LocEvents(): +1 on the frame each stroke/block is drawn (title strokes, flowers, Jade's post,
+    // platforms, spring, slammed words, 未来 strokes; the generated LEVEL 1-1 chunk on the dive), -1 on the frame the
+    // Eraser's rubbing edge passes a GRAPHITE block (colour is locked; it stops dropping once Jade colours, 28.32).
+    ...act1LocEvents(),
+    // ---------------------------------------------------------------- END ACT I
     // ---------------------------------------------------------------- ACT II (Team A)
-    [46.05, 1.6, 4], [49.4, 5.0, 40], [50.65, 2.2, 15],                                           // canvas, blueprint, typing
-    [T.word(14, 3).start - 0.12, 0.57, 40], [T.word(14, 6).start, 0.7, 80],                       // FIXTURES / FUNCTIONS
-    [59.555, 0.1, 16], [59.975, 0.1, 16], [60.425, 0.1, 16],                                      // oh oh oh
-    [61.3, 6.3, 900, 'in'], [68.0, 4.0, 60],                                                      // everything goes from there
-    [73.057, 0.36, 200], [73.555, 0.42, 200],                                                     // 出 发
+    // Round 2 rule: +1 on the exact frame each stroke/block is drawn, +chunk size when a hat seeds a chunk; never down
+    // (no Eraser in the void). The frames come from src/scenes/act2/plan.js, which the Act II scene draws from.
+    ...act2LocEvents(),
     // ---------------------------------------------------------------- ACT III-V: Teams B/C/D append here
+    // act3.turn (triplet roll, measured hits = act3/common.js CUE.roll): each drum hit pumps a graphite pillar up by c+1
+    // bricks (pillar c = 0..2), the last triplet taps out the 一 (3 segments), 一笔一画 = 1+10+1+8 strokes in stroke order,
+    // the impact loads Reality Lv 2 (one generated 16x16x16 chunk), Ricky's clicks raise causeway chunks (16-px tiles x 4 rows)
+    ...[77.757, 77.895, 78.033, 78.17, 78.308, 78.446, 78.583, 78.721, 78.859, 78.996, 79.134, 79.272].map((e, i) => [T.snap(e) - 1e-6, 0, i < 9 ? Math.floor(i / 3) + 1 : 1]),
+    [79.36, 0.025, 1], [79.536, 0.25, 10], [79.767, 0.025, 1], [80.309, 0.2, 8],
+    [T.snap(80.815) - 1e-6, 0.3, 4096, 'in'],
+    [T.snap(82.265) - 1e-6, 0.16, 28], [T.snap(83.09) - 1e-6, 0.16, 52], [T.snap(85.56) - 1e-6, 0.16, 28], [T.snap(86.385) - 1e-6, 0.16, 184],   // (the last chunk rises in act3.drop's first beat)
   ];
 }
 export function locAt(t) {

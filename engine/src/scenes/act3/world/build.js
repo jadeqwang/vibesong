@@ -15,13 +15,18 @@
 //   W.look(t, L, cam)                 // lights + post for this frame (see applyLook)
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
-import { makeSky, makeSea, makeEnvironment, envUniforms } from '../../../env.js';
+import { makeSky, makeSea, makeEnvironment, envUniforms, LOOKCFG } from '../../../env.js';
 import { makeStrip, makeMeadow, makeCliff, makeTufts, makeBoulders, makeRuins, makeIslands, terrainHeight, boxesToMesh } from '../../../world.js';
 import { triplanarMaterial, rockTexture, stoneTexture } from '../../../materials.js';
 import { G, mulberry32, vnoise, fbm, lerp } from '../../../util.js';
 import { Actor } from '../../../core/sprites.js';
-import { patchPaint, patchTree, PAINT_U, HERO_U } from './paint.js';
+import { meshVoxelGrid } from '../../../voxel.js';
+import { patchPaint, patchTree, PAINT_U, HERO_U, r5DepthMaterial } from './paint.js';
 import { buildProps, marbleTexture } from './props.js';
+import { buildDetail, voxelCypressGeo } from './detail.js';
+import { buildCompose } from './compose.js';
+import { buildK8 } from './k08b.js';   // --look k08b world pass (inert without the flag)
+import { buildR5Columns } from './r5cols.js';   // --r5 column density (LOOK_R5; inert without both flags)
 
 export const SEA_Y = -200;
 export const SUN_DIR = new THREE.Vector3(0.97, 0.13, -0.2).normalize();
@@ -70,10 +75,9 @@ function cypressGeo(h, seed) {
 
 // --------------------------------------------------------------- mesas
 function makeMesa({ x0, x1, z0, z1, top }, { seed = 1, s = 6, topKind = 'grass' } = {}) {
-  const rnd = mulberry32(seed); const list = []; const topList = [];
-  const rock = new THREE.Color('#b9a68a'), rockD = new THREE.Color('#8c7a64'), sand = new THREE.Color('#d8c49a');
+  const rnd = mulberry32(seed); const topList = [];
   const grass = [new THREE.Color('#6d9e3c'), new THREE.Color('#7cad46'), new THREE.Color('#5c8e33'), new THREE.Color('#86b552')];
-  const paver = new THREE.Color('#cdbd9e');
+  const paver = new THREE.Color('#cdbd9e'), rock = new THREE.Color('#b9a68a');
   const margin = (x, z) => 4 + 16 * fbm(x * 0.02, z * 0.02, 3, seed);
   const inside = (x, z) => { const m = margin(x, z); return x > x0 + m && x < x1 - m && z > z0 + m && z < z1 - m; };
   for (let x = x0; x < x1; x += s) for (let z = z0; z < z1; z += s) {
@@ -84,18 +88,29 @@ function makeMesa({ x0, x1, z0, z1, top }, { seed = 1, s = 6, topKind = 'grass' 
     else { const px = Math.floor(cx / 18), pz = Math.floor(cz / 18); c = paver.clone().offsetHSL(0, 0, (vnoise(px * 1.3, pz * 1.7, seed) - 0.5) * 0.12); }
     if (edge) c = c.clone().lerp(rock, 0.4);
     topList.push({ x: cx, y: top - s / 2, z: cz, c });
-    if (!edge) continue;
-    const ledge = Math.floor(vnoise(cx * 0.05, cz * 0.05, seed + 4) * 3);
-    for (let y = top - s * 1.5, k = 0; y > SEA_Y - 20; y -= s, k++) {
-      if (k > 2 && k % 7 === ledge) continue; // ledges / strata
-      let col = rock.clone().lerp(rockD, vnoise(cx * 0.06, y * 0.06 + cz * 0.04, seed + 9)).multiplyScalar(0.9 + 0.15 * vnoise(cx * 0.5, y * 0.3, 7));
-      if (y < SEA_Y + 14) col = sand.clone().lerp(col, 0.5);
-      list.push({ x: cx, y, z: cz, c: col });
-    }
   }
+  // sides (density pass): a fine voxel cliff (v = 3) with stratified ledges, vertical fissures and a sandy foot,
+  // face-culled with baked AO. The top cap (s = 6 tiles, gameplay surface) overhangs it slightly like cap rock.
+  const v = 3, yb = SEA_Y - 21, yt = top - s; const pad = 12;
+  const gx0 = x0 - pad, gz0 = z0 - pad, nx = Math.ceil((x1 - x0 + 2 * pad) / v), nz = Math.ceil((z1 - z0 + 2 * pad) / v), ny = Math.ceil((yt - yb) / v);
+  const occ = new Uint8Array(nx * ny * nz), col = new Uint8Array(nx * ny * nz * 3);
+  const bandOff = (y) => { const b = Math.floor((yt - y) / 11); return b === 0 ? 2.5 : (vnoise(b * 0.83, seed, 4) - 0.45) * 9; };
+  for (let j = 0; j < ny; j++) { const y = yb + (j + 0.5) * v; const off = bandOff(y) + (y < SEA_Y + 14 ? -6 : 0);
+    for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) {
+      const x = gx0 + (i + 0.5) * v, z = gz0 + (k + 0.5) * v;
+      const m = margin(x, z) + off + 3 * (vnoise(x * 0.09 + z * 0.09, y * 0.012, seed + 6) - 0.5) + (vnoise(x * 0.2 + z * 0.2, 0.5, seed + 8) > 0.82 ? 3 : 0);
+      if (!(x > x0 + m && x < x1 - m && z > z0 + m && z < z1 - m)) continue;
+      const idx = i + nx * (j + ny * k); occ[idx] = 1;
+      const bnd = Math.floor((yt - y) / 11); const tone = vnoise(bnd * 0.77, seed, 3), streak = vnoise((x + z) * 0.05, y * 0.02, seed + 5);
+      let r = 0xb9 + (0x8c - 0xb9) * Math.min(1, Math.max(0, 0.2 + 0.55 * tone + 0.4 * (streak - 0.5))), g = 0xa6 + (0x7a - 0xa6) * Math.min(1, Math.max(0, 0.2 + 0.55 * tone + 0.4 * (streak - 0.5))), bl = 0x8a + (0x64 - 0x8a) * Math.min(1, Math.max(0, 0.2 + 0.55 * tone + 0.4 * (streak - 0.5)));
+      if (vnoise(bnd * 1.3, 7, seed) > 0.7) { r = r * 0.5 + 0xd8 * 0.5; g = g * 0.5 + 0xc4 * 0.5; bl = bl * 0.5 + 0x9a * 0.5; }
+      if (y < SEA_Y + 14) { r = r * 0.5 + 0xd8 * 0.5; g = g * 0.5 + 0xc4 * 0.5; bl = bl * 0.5 + 0x9a * 0.5; }
+      const sh = 0.9 + 0.15 * vnoise(x * 0.5, y * 0.33, z * 0.5);
+      col[idx * 3] = Math.min(255, r * sh); col[idx * 3 + 1] = Math.min(255, g * sh); col[idx * 3 + 2] = Math.min(255, bl * sh);
+    } }
   const g = new THREE.Group();
-  const rockMat = triplanarMaterial({ tex: rockTexture(), scale: 0.02, bump: 1.4, roughness: 0.9 }); rockMat.userData.plaster = PLASTER.rock;
-  const sides = boxesToMesh(list, s, {}, rockMat); g.add(sides);
+  const rockMat = triplanarMaterial({ tex: rockTexture(), scale: 0.02, bump: 0.9, roughness: 0.9, vertexColors: true }); rockMat.color.setScalar(1.3); rockMat.userData.plaster = PLASTER.rock;
+  const sides = new THREE.Mesh(meshVoxelGrid({ nx, ny, nz, occ, col }, { s: v, origin: [gx0, yb, gz0], ao: 0.35 }), rockMat); sides.castShadow = sides.receiveShadow = true; g.add(sides);
   const topMat = triplanarMaterial({ tex: stoneTexture(), scale: 0.03, bump: 0.8, roughness: 0.9 }); topMat.userData.plaster = PLASTER.mesa;
   const tops = boxesToMesh(topList, s, {}, topMat); g.add(tops);
   g.userData = { top, sides, tops };
@@ -110,18 +125,27 @@ function makeLook(scene, renderer, post, width, height, sky) {
   const sunTarget = new THREE.Object3D(); scene.add(sunTarget); sun.target = sunTarget; scene.add(sun);
   const hemi = new THREE.HemisphereLight(new THREE.Color(0.50, 0.60, 0.90), new THREE.Color(0.80, 0.58, 0.36), 1.0); scene.add(hemi);
   const fill = new THREE.DirectionalLight(new THREE.Color(1.0, 0.85, 0.7), 0); scene.add(fill); scene.add(fill.target);
-  let envKey = '';
+  let envKey = ''; const curSun = new THREE.Vector3().copy(SUN_DIR);
+  let envExtra = '';   // (k08b) the time-of-day sky also keys the IBL
+  let sunXform = null; const effSun = () => (sunXform ? sunXform(curSun) : curSun);   // (k08b) time-of-day elevation, scene azimuth
   function setSun(dir) {
-    envUniforms.uSunDir.value.copy(dir).normalize();
-    const key = envUniforms.uSunDir.value.toArray().map((v) => v.toFixed(4)).join();
+    curSun.copy(dir).normalize();
+    envUniforms.uSunDir.value.copy(effSun()).normalize();
+    const key = envUniforms.uSunDir.value.toArray().map((v) => v.toFixed(4)).join() + envExtra;
     if (key !== envKey) { if (scene.environment) scene.environment.dispose(); scene.environment = makeEnvironment(renderer); envKey = key; }
   }
+  /** (k08b) regenerate the IBL for the current sky uniforms (called when the time of day moves) */
+  function refreshEnv() { envExtra = '|k8:' + (++envGen); setSun(curSun.clone()); }
+  let envGen = 0;
   /**
    * L: { flat, light, shadow, tone, palette, pix, outline, bloom, dof, dofAmount, grade, atmos, rays, ao, exposure, fill, sat }
    * cam: { camera, target, focus, shadowExtent, virtFov }
    */
   function applyLook(t, L, { camera, target, focus, shadowExtent = 700, virtFov = 0, distOffset = 0 }) {
     envUniforms.uTime.value = t;
+    // the shared world owns its sun: Act V's world writes envUniforms.uSunDir directly (its own high sun), which used to
+    // leak into every Act III frame of a batch that had set up Act V. Re-assert this world's sun (W.setSun) every frame.
+    if (envUniforms.uSunDir.value.distanceToSquared(effSun()) > 1e-10) setSun(curSun.clone());
     G.uFlat.value = L.flat;
     G.uValueKeep.value = lerp(0.9, 0.35, L.light);
     const dim = L.dim ?? 1;
@@ -158,7 +182,7 @@ function makeLook(scene, renderer, post, width, height, sky) {
     post.params.dof = (L.dofAmount ?? 0.4) * L.dof; post.params.focus = camera.position.distanceTo(focus || target); post.dofMat.uniforms.uMaxR.value = 7;
     post.params.ao = L.ao; post.params.atmos = L.atmos; post.params.rays = L.rays; post.params.distOffset = L.hazeStart ?? distOffset;
   }
-  return { sun, hemi, fill, setSun, applyLook };
+  return { sun, hemi, fill, setSun, applyLook, refreshEnv, setSunXform(f) { sunXform = f; } };
 }
 
 /** the settled TALOS look (u = 1) */
@@ -176,7 +200,7 @@ async function build(ctx) {
   const M = new THREE.Group(); M.scale.x = -1; scene.add(M);
   const strip = makeStrip(); M.add(strip); strip.visible = false; // replaced by the coloured drawn-level strip (props.drawnStrip)
   const meadow = makeMeadow({ x0: -3600, x1: 1600, z0: -4200 }); M.add(meadow);
-  const cliff = makeCliff({ seaY: SEA_Y }); M.add(cliff);
+  const cliff = makeCliff({ seaY: SEA_Y, fine: { x0: -3400, x1: 640, s: 4 } }); // proto coords (mirrored): world x -640 .. 3400 is fine voxels M.add(cliff);
   const tufts = makeTufts({ x0: -2000, x1: 700, count: 60000 }); M.add(tufts);
   // lusher full colour (what THE PAINT FLOOD reveals): more saturated, greener meadow and tufts
   const lush = (c) => { const h = {}; c.getHSL(h); if (h.h > 0.07 && h.h < 0.22) h.h += (0.24 - h.h) * 0.45; c.setHSL(h.h, Math.min(1, h.s * 1.45 + 0.05), Math.min(0.62, h.l * 1.04)); return c; };
@@ -192,24 +216,29 @@ async function build(ctx) {
   for (let k = 0; k < 9; k++) {
     const x = 262 + 74 * k + (rnd() - 0.5) * 8, z = -47 + (rnd() - 0.5) * 4, h = 125 + rnd() * 45;
     const mat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95 }); mat.userData.plaster = PLASTER.clay;
-    const m = new THREE.Mesh(cypressGeo(h, 500 + k), mat); m.position.set(x, groundY(x, z) - 2, z); m.rotation.y = rnd() * 6.28;
+    const m = new THREE.Mesh(voxelCypressGeo(h, 500 + k, 2), mat); m.position.set(x, groundY(x, z) - 2, z); m.rotation.y = rnd() * 6.28;
     m.castShadow = m.receiveShadow = true; m.userData = { h, base: m.position.y }; scene.add(m); avenue.push(m);
   }
   const clumpSpots = [[900, -520, 1.2], [180, -560, 1], [480, -470, 0.9],
     [1500, -420, 1.3], [1180, -470, 1.0], [1230, -500, 0.85], [2000, -380, 1.2], [2060, -420, 1.0], [760, -900, 1.4], [820, -940, 1.1], [300, -1200, 1.5],
     [1600, -1100, 1.6], [1700, -1150, 1.3], [2400, -900, 1.6], [-200, -800, 1.2], [-260, -840, 1.0], [-120, -300, 1.1], [-60, -380, 0.9]];
-  const cg = []; clumpSpots.forEach(([x, z, s], i) => { const h = (140 + rnd() * 90) * s; const g = cypressGeo(h, 900 + i); g.rotateY(rnd() * 6.28); g.translate(x, groundY(x, z) - 2, z); cg.push(g); });
+  const cg = []; clumpSpots.forEach(([x, z, s], i) => { const h = (140 + rnd() * 90) * s; const g = voxelCypressGeo(h, 900 + i, 2.5); g.rotateY(rnd() * 6.28); g.translate(x, groundY(x, z) - 2, z); cg.push(g); });
   const clumpMat = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95 }); clumpMat.userData.plaster = PLASTER.clay;
   const clumps = new THREE.Mesh(mergeGeometries(cg), clumpMat); clumps.castShadow = clumps.receiveShadow = true; scene.add(clumps);
 
   // mesas out in the sea
   const mesaA = makeMesa(MESA_A, { seed: 3, topKind: 'grass' }); scene.add(mesaA);
   const mesaB = makeMesa(MESA_B, { seed: 5, topKind: 'paver' }); scene.add(mesaB);
-  { // grass tufts on mesa A (plaster until coloured)
-    const r2 = mulberry32(31); const list = []; const greens = ['#6f9a36', '#86a744', '#9aaf4c', '#5d8530'].map((h) => new THREE.Color(h));
-    for (let i = 0; i < 3500; i++) { const x = MESA_A.x0 + 25 + r2() * (MESA_A.x1 - MESA_A.x0 - 50), z = MESA_A.z0 + 25 + r2() * (MESA_A.z1 - MESA_A.z0 - 50);
-      const h = 1 + Math.floor(r2() * 2); for (let k = 0; k < h; k++) list.push({ x: Math.round(x) + 0.5, y: MESA_A.top + k + 0.5, z: Math.round(z) + 0.5, c: greens[Math.floor(r2() * 4)] }); }
-    const tm = boxesToMesh(list, 1, { roughness: 0.9, plaster: PLASTER.meadow }); tm.material.userData.plaster = PLASTER.meadow; tm.castShadow = false; scene.add(tm); mesaA.userData.tufts = tm;
+  { // grass on mesa A (plaster until coloured): fine instanced 3-blade clumps instead of 1-unit cubes (no popcorn)
+    const r2 = mulberry32(31); const greens = ['#6f9a36', '#86a744', '#9aaf4c', '#5d8530', '#78a03c'].map((h) => new THREE.Color(h));
+    const blade = mergeGeometries([-0.5, 0.15, 0.75].map((a, i) => { const b = new THREE.BoxGeometry(0.42, 1, 0.42); b.translate(0, 0.5, 0); b.rotateZ(0.22 * Math.cos(a * 4)); b.rotateX(0.22 * Math.sin(a * 4)); b.translate(0.5 * Math.cos(a * 4 + i), 0, 0.5 * Math.sin(a * 4 + i)); b.deleteAttribute('uv'); return b; }));
+    const N = 60000; const tm = new THREE.InstancedMesh(blade, new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9 }), N);
+    const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), p = new THREE.Vector3(), sc = new THREE.Vector3(); let n = 0;
+    for (let i = 0; i < N; i++) { const x = MESA_A.x0 + 22 + r2() * (MESA_A.x1 - MESA_A.x0 - 44), z = MESA_A.z0 + 22 + r2() * (MESA_A.z1 - MESA_A.z0 - 44);
+      const dens = fbm(x * 0.02, z * 0.02, 2, 5); if (r2() > 0.2 + 0.8 * dens) { r2(); r2(); continue; }
+      const h = 0.35 + 0.9 * r2() * (0.4 + dens); q.setFromEuler(e.set(0, r2() * 6.28, 0)); m4.compose(p.set(x, MESA_A.top, z), q, sc.set(0.9, h, 0.9));
+      tm.setMatrixAt(n, m4); tm.setColorAt(n, greens[Math.floor(r2() * 5)].clone().multiplyScalar(0.85 + 0.3 * dens)); n++; }
+    tm.count = n; tm.material.userData.plaster = PLASTER.meadow; tm.castShadow = false; tm.userData.noAO = true; tm.receiveShadow = true; scene.add(tm); mesaA.userData.tufts = tm;
   }
 
   // heroes (full colour voxels, never plaster) + bugs
@@ -229,8 +258,19 @@ async function build(ctx) {
   }
 
   const props = await buildProps({ scene, lib, groundY });
+  // density layer (detail.js): temples, terraces, aqueduct, sea stacks, hill strata (decoration only, plaster until coloured)
+  const detail = buildDetail({ scene, sun: SUN_DIR, SEA_Y });
+  // shot composition layer (compose.js): floating ink strokes, sea arcade, wide-shot parapets, voxel islands, per-shot framing
+  const compose = buildCompose({ scene, sun: SUN_DIR, SEA_Y, islandsOld: islands });
 
   const look = makeLook(scene, renderer, post, width, height, sky);
+  // --look k08b world pass (k08b.js): voxel ground at hero density, time-of-day light, rim, PCSS, colour-map hook
+  const r5cols = LOOKCFG.k08b && LOOKCFG.r5 ? buildR5Columns({ MESA_B, SEA_Y }) : null;   // --r5: the column registry + cull (r5cols.js)
+  const k8 = LOOKCFG.k08b ? buildK8({ W: { scene, props, mesaA, mesaB, meadow, r5cols }, ctx, MESA_A, MESA_B, groundY }) : null;
+  if (k8) { post.k8Sun = look.sun; post.k8Scene = scene; }
+  { const base = look.applyLook; look.applyLook = k8
+    ? (t, L, cam) => { k8.pre(t, look, L); compose.update(t, cam.camera); base(t, L, cam); k8.post(t, L, cam, look); }
+    : (t, L, cam) => { compose.update(t, cam.camera); base(t, L, cam); }; }
   look.setSun(SUN_DIR);
 
   // the painted (post-flood) stone should read as warm clean marble, not pitted cork: soften the prototype's bump
@@ -239,6 +279,7 @@ async function build(ctx) {
   mesaB.userData.tops.material.color.set('#fff4e2');
   // paint patch on everything not yet patched (prototype materials carry userData.plaster tints)
   patchTree(scene);
+  if (r5cols) { const dm = r5DepthMaterial(); scene.traverse((o) => { if (o.isMesh && o.castShadow && o.material?.userData?.r5cull) o.customDepthMaterial = dm; }); }   // --r5: culled columns drop their shadow too
   const avenueLP = avenue.map((m) => m.material.userData.lp);
 
   post.setScene(scene, new THREE.PerspectiveCamera());
@@ -248,7 +289,8 @@ async function build(ctx) {
   // everything a scene may toggle; reset() puts it back each frame (pure function of t per scene)
   const W = {
     scene, sky, sea, M, strip, meadow, cliff, tufts, boulders, ruins, islands, avenue, avenueLP, clumps, mesaA, mesaB,
-    heroes, bugs, BUGS, props, ...look, groundY,
+    heroes, bugs, BUGS, props, detail, compose, ...look, groundY, k8, colorMap: k8?.colorMap,
+    r5: r5cols ? { columns: r5cols.columns, ids: r5cols.ids, columnsInView: r5cols.columnsInView, cullIds: r5cols.cullIds } : undefined,   // --r5 column registry (checkpoints/look_r5.md)
     reset() {
       G.uPaintR.value = -1; G.uPaintC.value.set(0, 0, 0); G.uPaintW.value = 160;
       for (const lp of avenueLP) lp.reset();
@@ -257,6 +299,7 @@ async function build(ctx) {
       for (const b of Object.values(bugs)) { b.visible = false; b.rotation.set(0, 0, 0); b.position.z = 0; }
       props.reset();
       sky.visible = sea.visible = true; M.visible = true;
+      if (k8) { k8.root.visible = true; if (mesaA.userData.tufts) mesaA.userData.tufts.visible = true; }
     },
     /** place a voxel hero/bug: s = { x, y, z, anim, t, frame, pencil, facing, rotY, visible } */
     put(g, s) {
@@ -266,6 +309,6 @@ async function build(ctx) {
     },
   };
   W.reset();
-  console.log(`[act3] world built in ${Math.round(performance.now() - t0)} ms`);
+  console.log(`[engine] [act3] world built in ${Math.round(performance.now() - t0)} ms`);
   return W;
 }

@@ -4,6 +4,7 @@
 // (sRGB bytes in, sRGB bytes out) so it looks identical on the canvas and inside transition targets.
 import * as THREE from 'three';
 import { subtitleFor } from '../../core/ui.js';
+import { SmoothSubs } from '../act3/common.js';
 import { SUBS } from '../../show/subtitles.js';
 import * as T from '../../show/timing.js';
 
@@ -52,7 +53,14 @@ export class Overlay {
 
   // ------------------------------------------------------------------ subtitles (both directions, one slot)
   /** style: 'hand' (PAPER / bridge: ink on a torn paper strip) | 'sans' (TALOS 3D: white on a dark box) */
-  subtitle(t, ids, style = 'sans', { y = 0.075, x = 0.5, botOnly = [] } = {}) {
+  subtitle(t, ids, style = 'sans', opts = {}) {
+    // (v4) ONE lyric style: every caller gets the SmoothSubs slot (bottom centre), whatever style it asks for
+    if (!this.smooth) { this.smooth = new SmoothSubs(this.W, this.H); this.smooth.mesh.renderOrder = 30; this.scene.add(this.smooth.mesh); }
+    let c1 = null; for (const id of ids) { c1 = subtitleFor(t, id); if (c1) break; }
+    this.smooth.set(c1); void style; void opts;
+  }
+  /** (v3, unused since v4) the handwritten paper strip / sans box */
+  subtitleV3(t, ids, style = 'sans', { y = 0.075, x = 0.5, botOnly = [] } = {}) {
     let c = null;
     for (const id of ids) { c = subtitleFor(t, id, { lit: style === 'hand' ? '#1b1b22' : '#ffd23f', unlit: style === 'hand' ? '#9a92a2' : '#ffffff' }); if (c) { if (botOnly.includes(id)) c = { ...c, top: null }; break; } }
     if (!c) { const m = this.items.get('sub'); if (m) m.visible = false; return; }

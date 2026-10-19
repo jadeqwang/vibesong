@@ -1,0 +1,4 @@
+16-bit SNES-style pixel-art PROP SHEET for building 3D voxel props, matching the attached pixel sprites' colours and style: hard square pixels, 1-px near-black outline, flat colours with 2-3 tone shading, no anti-aliasing, transparent background, no text, no labels, no ground, no shadows. STRICT ORTHOGRAPHIC views, each prop shown twice side by side: FRONT view and SIDE (edge-on) view at exactly the same scale, all props at one common scale (as if held by a character about 100 pixels tall).
+Row 1: an electric guitar, natural light-wood Stratocaster body, white pickguard, maple neck and headstock, standing upright (headstock up): front view, then edge-on side view.
+Row 2: a honey-wood acoustic guitar with dark sound hole and brown strap, upright: front view, then edge-on side view.
+Row 3: a beige flat newsboy cap (soft rounded crown with a small button on top, short stiff peak): front view (peak toward the viewer), then side view (peak pointing right).

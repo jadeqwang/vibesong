@@ -15,6 +15,10 @@ import { viewXform } from './aerial.js';
 import { Overlay } from '../act4/overlay.js';
 import { mulberry32 as mulberry } from '../../util.js';
 import { loadFonts } from '../../core/text.js';   // Team C's overlay: shared 一笔一画 chant stamp slots + subtitle style
+import { makeAct5HUD } from './hud5.js';
+import { SmoothSubs } from '../act3/common.js';  // v7: Act IV's subtitle style for line 43 (it switched to SmoothSubs), so 173.02 matches
+import { subtitleFor } from '../../core/ui.js';         // v7: the bar's LOADING… in the silence, its shatter at 174.40, the LEVEL LOADED toast
+import { makeRoute, REF_CAM } from './route5.js'; // v7: the world-map route, 4 flags, the nine party dots
 
 export const AERIAL_CAM = { pos: new THREE.Vector3(0, 1850, 240), target: new THREE.Vector3(0, 0, -10), fov: 35 };
 export const TIMES = { hit: 173.01, sil0: 173.19, sil1: 173.58, pick: [174.015, 174.22], drop: 174.40, settle: 175.45, wave0: 175.5, wave1: 176.6 }; // measured: data/cues.json act5
@@ -138,9 +142,21 @@ export async function setup(ctx) {
 
   const fx = { flash: 0, fade: 0, flashColor: '#ffffff', fadeColor: '#000000' };
   const ov = new Overlay(ctx);
+  const smooth = new SmoothSubs(ctx.width, ctx.height); ov.scene.add(smooth.mesh); smooth.mesh.renderOrder = 30;
   const W43 = T.words(43); // 一 笔 一 画 (chant line 43): Act IV stamps the first two, we stamp 一 + 画 in the same slots
   const STAMPS = [{ ch: '一', t: W43[0].start }, { ch: '笔', t: W43[1].start }, { ch: '一', t: W43[2].start }, { ch: '画', t: W43[3].start }];
   const close = { pos: new THREE.Vector3(), look: new THREE.Vector3() };
+  const hud = makeAct5HUD(ctx);
+  const route = await makeRoute(ctx);
+  console.assert(REF_CAM.pos[1] === AERIAL_CAM.pos.y && REF_CAM.fov === AERIAL_CAM.fov, '[act5] route5 REF_CAM != AERIAL_CAM');
+  const pv = new THREE.Vector3();
+  /** world point -> output px (y down): the live camera, then the shared 2D view transform (identity before 175.5) */
+  function toScreen(uv, p, X) {
+    pv.copy(p).project(cam); if (pv.z > 1 || pv.z < -1) return null;
+    const sx = (pv.x + 1) / 2, sy = (pv.y + 1) / 2;
+    const vx = (sx - X.cx) * X.zoom + 0.5, vy = (sy - X.cy) * X.zoom + 0.5;
+    return [vx * ctx.width, (1 - vy) * ctx.height];
+  }
   const tmp = new THREE.Vector3();
 
   function closeUp(t) {
@@ -153,7 +169,9 @@ export async function setup(ctx) {
     pencil.rotateY(-0.5); pencil.rotateZ(-0.62); pencil.rotateX(0.18);
     lineMat.uniforms.uP.value = (tx - (tip.x - 2.4)) / 2.4;
     // camera: low, tight on the tip, the stroke surface running away toward the horizon
-    const drift = T.span(t, TIMES.hit, TIMES.drop, T.ease.linear);
+    // (v7) the camera holds still in the silence: 100% · LOADING… is the only motion there
+    const sil = TIMES.sil1 - TIMES.sil0, te = t < TIMES.sil0 ? t : t < TIMES.sil1 ? TIMES.sil0 : t - sil;
+    const drift = T.span(te, TIMES.hit, TIMES.drop - sil, T.ease.linear);
     close.pos.set(tip.x - 0.55 - 0.05 * drift, GLYPH.top + 0.26, tip.z + 0.62);
     close.look.set(tip.x - 0.05, GLYPH.top + 0.06, tip.z - 0.05);
   }
@@ -203,6 +221,7 @@ export async function setup(ctx) {
       this._speed = camAt(t); updatePuffs(t);
       lookFor(t);
       fx.flash = T.exactFrame(t, [TIMES.drop]) ? 0.6 : 0;
+      hud.update(t);
     },
     render(t, target) {
       const r = ctx.renderer;
@@ -217,8 +236,15 @@ export async function setup(ctx) {
       r.setRenderTarget(target); comp.render(r);
       // chant stamps hold through the freeze; gone on the rocket (174.40)
       ov.hideAll();
-      if (t < TIMES.drop) { ov.stampChars(t, 'yibi', STAMPS, { y: 0.62, size: 0.22, gap: 0.08 }); ov.subtitle(t, [43], 'sans', { botOnly: [43] }); }
+      smooth.set(null);
+      if (t < TIMES.drop) { ov.stampChars(t, 'yibi', STAMPS, { y: 0.62, size: 0.22, color: '#ffffff', stroke: '#1b1b22', gap: 0.08 });
+        const c = subtitleFor(t, 43, { lit: '#ffd23f', unlit: '#ffffff', hold: 0.25 }); if (c) { c.hideTop = true; smooth.set(c, 'bottom'); } }
       ov.render(target);
+      // (v7) the world map over the aerial (path + flags dissolve with the wave; the nine dots survive it), then the bar / toast
+      { const X = viewXform(t); const waving = t >= TIMES.wave0 && U.uVid.value > 0;
+        route.draw(t, { toScreen: (uv, p) => toScreen(uv, p, X), wave: waving ? { F, suv: (uv) => [uv[0], 1 - uv[1]] } : (t >= TIMES.wave0 ? { F: 9, suv: (uv) => [uv[0], 1 - uv[1]] } : null) });
+        route.render(r, target); }
+      if (hud.visibleAt(t)) hud.render(r, target);
     },
   };
 }

@@ -1,0 +1,214 @@
+<title>一笔一画 v4 Checkpoint</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column of sketchbook-paper sections; review images full-width; a fixed answer bar at the foot. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #6a6c72; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ok: #2f7d4f; --ok-bg: #e3f1e8; --redo: #b5452c; --redo-bg: #f8e4de; --flag: #8a5a00; --flag-bg: #fbefd2;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ok: #7fd3a0; --ok-bg: #1f3529; --redo: #f09a84; --redo-bg: #3d241e; --flag: #f0c56b; --flag-bg: #3a2f17; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ok: #7fd3a0; --ok-bg: #1f3529; --redo: #f09a84; --redo-bg: #3d241e; --flag: #f0c56b; --flag-bg: #3a2f17; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 32px 140px; display: grid; gap: 44px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.1; font-weight: 700; }
+h1 .stroke { display: block; width: 120px; height: 6px; margin-top: 14px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 24px; font-weight: 700; }
+p { margin: 0; max-width: 68ch; }
+.lead { font-size: 17px; }
+.muted { color: var(--muted); }
+code { font-family: var(--mono); font-size: 13px; background: var(--card); border: 1px solid var(--rule); padding: 1px 6px; border-radius: 4px; overflow-wrap: anywhere; }
+section { display: grid; gap: 16px; min-width: 0; }
+.sechead { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+ul.plain { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 72ch; }
+figure { margin: 0; display: grid; gap: 6px; min-width: 0; }
+figure img { width: 100%; height: auto; display: block; border-radius: 4px; border: 1px solid var(--rule); background: var(--card); }
+figcaption { font-size: 13.5px; color: var(--muted); }
+figcaption b { color: var(--graphite); font-weight: 600; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 20px; }
+.tall { max-height: 720px; overflow: auto; border-radius: 4px; }
+.card { background: var(--card); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card[data-v] { border-color: var(--ok); }
+.t { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.flag { font-size: 13.5px; background: var(--flag-bg); color: var(--flag); padding: 6px 10px; border-radius: 4px; max-width: 80ch; }
+.flag b { font-weight: 600; }
+table { border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.tw { overflow-x: auto; }
+th, td { text-align: left; padding: 6px 12px 6px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.ctl { display: flex; gap: 8px; flex-wrap: wrap; }
+.ctl button { font: 500 13.5px var(--body); padding: 6px 14px; border-radius: 999px; border: 1px solid var(--rule); background: transparent; color: var(--graphite); cursor: pointer; }
+.ctl button:focus-visible, .bar button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ctl button[aria-pressed="true"] { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
+.ctl button[aria-pressed="true"].neg { background: var(--redo-bg); border-color: var(--redo); color: var(--redo); }
+textarea { width: 100%; box-sizing: border-box; min-height: 44px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+.q { font-weight: 600; }
+.bar { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--rule);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-top: 10px; padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+.bar .in { max-width: 1120px; margin: 0 auto; display: flex; gap: 14px; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.bar button { font: 600 14px var(--body); padding: 9px 18px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+#tally { font-size: 13.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#out { width: 100%; min-height: 140px; font-family: var(--mono); font-size: 12.5px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:14px">
+    <h1>一笔一画 v4 · Pass B checkpoint<span class="stroke" aria-hidden="true"></span></h1>
+    <p class="lead">All five Pass B units are in and <b>full_v4</b> is rendered. Watch it, mark the items below, then press <b>Copy answers</b> and paste the result into chat. After your notes come the 1080p master, the thumbnail and the three 9:16 cuts.</p>
+    <p class="muted">Watch locally: <code>engine/out/review/full_v4.mp4</code> (540p, 3:23, with audio). Paper spend $25.00 of its $40 cap; project about $96 of $500.</p>
+  </header>
+
+  <section id="v4">
+    <div class="sechead"><h2>What's new in v4</h2><span class="t">0:00–3:23</span></div>
+    <ul class="plain">
+      <li><b>Open and close on the 2011 page.</b> The page holds for 0:00–0:02.9, the year rolls 2011 → 2026 on SAVE FILE FOUND, and the outro ends on page 11 with the stamp and the dedication "For every partial project in a drawer." at both ends.</li>
+      <li><b>Paper cards with your lips on the vocal</b> at 0:20, 0:48, 1:47 (inside the stage beat) and 2:23. Lip sync is within 0.02 s on every card.</li>
+      <li><b>Stage, type and colour passes.</b> The band on the stage at 1:47, 绽 / 舞台 / 答, the couplet, warm plaster before the flood, and cuts snapped to the beat grid (72 of 86 cuts within 20 ms; v3.1 had 41 of 61).</li>
+      <li><b>Subtitles re-timed against the vocal.</b> 24 words were a word early. The worst were "because" (2 s), both "And everything goes from there" lines, and the second "blossoms" in the outro.</li>
+      <li><b>Outro.</b> The moving spread has your v11 brows. The bodies now breathe and strum. The flower blooms on "blossoms", and "(that's it.)" lands on time.</li>
+    </ul>
+    <div class="tw"><table>
+      <thead><tr><th>Check</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Luma drops (one-frame flashes)</td><td>33 drops, all on deliberate cuts. The 2:49–2:54 run is the speedrun stutter and matches v3.1 frame for frame.</td></tr>
+        <tr><td>Cuts vs beat grid</td><td>72 on grid, 13 within 20–60 ms (most are measured vocal cues). One is 94 ms off at 0:52.6, the same as in v3.1.</td></tr>
+        <tr><td>Canon crops</td><td>Pass on every new card and on the outro layer (pencils, caps, patch, headphones, pants).</td></tr>
+        <tr><td>Page errors</td><td>None; the same 4 harmless 404s as v3.1.</td></tr>
+      </tbody>
+    </table></div>
+    <label class="q" for="n-v4">Your notes on v4</label>
+    <textarea id="n-v4" placeholder="Timestamps + what to change"></textarea>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Card 03 timing</h2><span class="t">0:20.17–0:23.77</span></div>
+    <p>v3 had your lips one word early: the "m" of "my" sat on the "cause" of "because". The vocal stem puts "because" at 20.13, "my" at 21.16 and "imagination" at 21.42. The new card opens on "because" and closes for "my" at 21.03–21.17, then for "imagination" at 21.50–21.63.</p>
+    <p class="muted">Listen: <code>media/cutscenes/paper_0020/preview_540p_with_song.mp4</code> (or <code>preview_540p_with_song_context.mp4</code>, with 1 s of song either side).</p>
+    <figure><img src="img/card03_words.jpg" alt="Card 03 mouth shapes under each word of because my imagination" loading="lazy"><figcaption><b>Mouth per word.</b> The middle row is the card as shipped.</figcaption></figure>
+    <div class="flag"><b>Flag:</b> the lips close a little early, over the "z" of "because". The release into "my" is on time.</div>
+    <div class="card" data-id="card03"></div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Forehead lift on 03 / 04 / 05</h2><span class="t">your "yes" from Pass A</span></div>
+    <p>The same fix as #06: about 20% more forehead and more volume in the bun. The pencils are the originals, moved straight, and nothing below the brows changed. The approved stills are kept; the cards were re-generated from these.</p>
+    <div class="two">
+      <div class="tall"><figure><img src="img/forehead.jpg" alt="Approved stills on the left, lifted versions on the right, with 2x head crops" loading="lazy"></figure></div>
+      <div class="tall"><figure><img src="img/cards_canon.jpg" alt="Canon crops of the three new cards" loading="lazy"><figcaption><b>The new cards</b> at 1/4, 1/2 and 3/4 of each clip.</figcaption></figure></div>
+    </div>
+    <div class="card" data-id="forehead"></div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Outro moving spread</h2><span class="t">3:06.65–3:14.9</span></div>
+    <p>You liked the brows and called out the stillness. The old Veo clip only moved the heads; the bodies were frozen. This is a new take with the v11 brows put back. Body motion is now about three times higher, and frozen frames dropped from about 100 to about 20 (short dips where a strum or sway turns around).</p>
+    <p class="muted">Watch: <code>engine/out/review/passB/paper/m3c_184-197_spread.mp4</code> (also inside full_v4).</p>
+    <div class="two">
+      <div class="tall"><figure><img src="img/spread_canon.jpg" alt="Canon crops of the outro layer at five frames" loading="lazy"><figcaption><b>Canon crops</b> at five frames.</figcaption></figure></div>
+      <div class="tall"><figure><img src="img/spread_brows.jpg" alt="Brow crops of the new outro layer" loading="lazy"><figcaption><b>Brows</b> on the new take.</figcaption></figure></div>
+    </div>
+    <figure><img src="img/outro_timing.jpg" alt="Outro frames from 189.5 to 193.9 seconds" loading="lazy"><figcaption><b>Re-timed beats.</b> The flower blooms on the second "blossoms" (191.22), and "(that's it.)" appears at 191.95.</figcaption></figure>
+    <div class="flag"><b>Flags:</b> mid-clip, the pencils still swing out of a clean X (pink goes horizontal left, blue horizontal right). Both caps stay up and the X is clean at both ends. Charlie's head now bobs with his strum. The fix for the pencils is to composite the bun and pencils from the still, at no gen cost.</div>
+    <div class="card" data-id="spread"></div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Two subtitle calls</h2><span class="t">0:18–0:21</span></div>
+    <div class="two">
+      <div class="card" data-id="bridge">
+        <figure><img src="img/because_bridge.jpg" alt="The Eraser chewing the graphite because bridge at 18.6 seconds" loading="lazy"></figure>
+        <p class="q">Act 1's "because" bridge sits over the held "blossoms".</p>
+        <p>The Eraser chews the letters of "because" at 18.1–20.1 while you hold "blossoms". The real "because" starts as card 03 cuts in. I'd leave it: the Eraser eats the word just before you sing it.</p>
+      </div>
+      <div class="card" data-id="caption">
+        <p class="q">No subtitle for "because" on card 03 (20.17–21.04).</p>
+        <p>The card only captions "my imagination…", so the sung "because" goes uncaptioned for about 0.9 s. I recommend adding it. It's a small change to the card and to act 1's subtitles.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Drop-2 FIXTURES slab</h2><span class="t">3:00.2–3:01.1</span></div>
+    <div class="two">
+      <figure><img src="img/fixtures_slab.jpg" alt="The trio in front of a grey slab reading FIXTURES at 180.5 seconds" loading="lazy"><figcaption><b>180.5 in v4.</b></figcaption></figure>
+      <div class="card" data-id="slab">
+        <p>My flag from the review: at 540p the word reads as flat black type on a plain grey box, not carved stone like the 1:26.9 slab and still 09. A redo would carve the grooves and add stone texture to the face, with no gen cost.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Your answers</h2></div>
+    <textarea id="out" readonly aria-label="Answers to paste into chat"></textarea>
+  </section>
+</div>
+
+<div class="bar"><div class="in"><span id="tally">0 of 6 marked</span><button id="copy" type="button">Copy answers</button></div></div>
+
+<script>
+const ITEMS = [
+  { id: "card03", label: "Card 03 timing (by ear)", opts: [["Holds", ""], ["Still off", "neg"]] },
+  { id: "forehead", label: "Forehead lift 03/04/05", opts: [["Approve", ""], ["Redo", "neg"]] },
+  { id: "spread", label: "Outro moving spread", opts: [["Approve as is", ""], ["Fix the pencils too", ""], ["Redo", "neg"]] },
+  { id: "bridge", label: "Act 1 because bridge", opts: [["Leave it", ""], ["Relabel to blossoms", ""]] },
+  { id: "caption", label: "Caption because on card 03", opts: [["Add it", ""], ["Leave it", ""]] },
+  { id: "slab", label: "FIXTURES slab 3:00", opts: [["Keep", ""], ["Carve it", ""]] }
+];
+const KEY = "v4ck-passB";
+let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} render(); };
+
+ITEMS.forEach(({ id, opts }) => {
+  const card = document.querySelector(`[data-id="${id}"]`);
+  const grp = document.createElement("div");
+  grp.className = "ctl"; grp.setAttribute("role", "group"); grp.setAttribute("aria-label", "Your call");
+  const btns = opts.map(([label, cls]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.textContent = label; if (cls) b.className = cls;
+    b.onclick = () => { const s = st[id] || {}; st[id] = { ...s, v: s.v === label ? "" : label }; sync(); save(); };
+    grp.appendChild(b); return b;
+  });
+  const n = document.createElement("textarea");
+  n.id = "n-" + id; n.placeholder = "Note (optional)"; n.value = (st[id] || {}).note || "";
+  n.oninput = () => { st[id] = { ...(st[id] || {}), note: n.value }; save(); };
+  const sync = () => {
+    const v = (st[id] || {}).v || "";
+    btns.forEach(b => b.setAttribute("aria-pressed", b.textContent === v));
+    if (v) card.dataset.v = v; else delete card.dataset.v;
+  };
+  card.appendChild(grp); card.appendChild(n); sync();
+});
+
+const v4 = document.getElementById("n-v4");
+v4.value = (st.v4 || {}).note || "";
+v4.oninput = () => { st.v4 = { note: v4.value }; save(); };
+
+const out = document.getElementById("out"), tally = document.getElementById("tally");
+function text() {
+  const L = ["v4 Pass B checkpoint answers"];
+  L.push("v4 notes: " + (((st.v4 || {}).note || "").trim() || "(none)"));
+  ITEMS.forEach(({ id, label }) => { const s = st[id] || {}; L.push(`${label}: ${s.v || "unmarked"}${s.note && s.note.trim() ? " — " + s.note.trim() : ""}`); });
+  return L.join("\n");
+}
+function render() {
+  const done = ITEMS.filter(i => (st[i.id] || {}).v).length;
+  tally.textContent = `${done} of ${ITEMS.length} marked`;
+  out.value = text();
+}
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; render();
+  try { await navigator.clipboard.writeText(out.value); b.textContent = "Copied"; }
+  catch (err) { out.focus(); out.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answers"; }, 1800);
+};
+render();
+</script>

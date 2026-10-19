@@ -90,6 +90,8 @@ float hatch(vec2 fxy, float k){ float h1 = fract((fxy.x + fxy.y) * 0.045); float
  */
 export async function buildGlyphField(ch, opts) {
   const o = { s: 0.00095, xC: 500, yH: 520, groundStrokes: [6, 7], coherentStrokes: [0], groundY: 0, seed: 7, airDepth: [0.1, 0.85], skyDepth: [130, 1150], minDist: 85, ...opts };
+  // (act4 r5) opts.pieceScale / maxPieces: more, smaller shards (the chaos reads as a mess); opts.r5: vivid shard skin GLSL (injected only with r5)
+  const R5_SHARD = o.r5 ? ' skin = mix(skin * 1.3, hueF * 1.9, 0.45);' : '';
   const data = await loadHanzi(ch);
   const { tex, data: px } = rasterGlyph(data);
   const E = o.E.clone(), Fh = o.Fh.clone().setY(0).normalize(), R = new THREE.Vector3(-Fh.z, 0, Fh.x), Up = new THREE.Vector3(0, 1, 0);
@@ -103,7 +105,7 @@ export async function buildGlyphField(ch, opts) {
   const frags = [];
   for (let s = 0; s < nS; s++) {
     if (ground.has(s)) continue;
-    const L = medianLen(data.medians[s]); const n = Math.max(2, Math.min(5, Math.round(L / 120)));
+    const L = medianLen(data.medians[s]); const n = Math.max(2, Math.min(o.maxPieces ?? 5, Math.round(L / 120 * (o.pieceScale ?? 1))));
     const cuts = [0]; for (let k = 1; k < n; k++) cuts.push((k + (rnd() - 0.5) * 0.45) / n); cuts.push(1);
     for (let k = 0; k < n; k++) frags.push({ stroke: s, p0: cuts[k], p1: cuts[k + 1], box: [1e9, 1e9, -1e9, -1e9], n: 0, sx: 0, sy: 0 });
   }
@@ -120,6 +122,7 @@ export async function buildGlyphField(ch, opts) {
   const U = {
     uE: { value: E }, uFh: { value: Fh }, uR: { value: R }, uS: { value: o.s }, uXC: { value: o.xC }, uYH: { value: o.yH }, tGlyph: { value: tex },
     uIgnite: { value: 0 }, uIgniteT: { value: 0 }, uTime: { value: 0 }, uSunDir: envUniforms.uSunDir, uGlow: { value: 0 }, uShow: { value: 1 },
+    uColorShards: { value: 0 }, uLampP: { value: new THREE.Vector3() }, uLampK: { value: 0 },   // (act4 M3) colour shards + the firefly lamp
   };
   const VS = /* glsl */`
     attribute vec3 aFrag; // stroke id, p0, p1
@@ -127,7 +130,7 @@ export async function buildGlyphField(ch, opts) {
     void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; vFrag = aFrag; vN = normalize(mat3(modelMatrix) * normal);
       gl_Position = projectionMatrix * viewMatrix * w; }`;
   const FS = PROJ_GLSL + /* glsl */`
-    uniform float uIgnite, uIgniteT, uTime, uGlow, uShow; uniform vec3 uSunDir;
+    uniform float uIgnite, uIgniteT, uTime, uGlow, uShow, uColorShards, uLampK; uniform vec3 uSunDir, uLampP;
     varying vec3 vW; varying vec3 vFrag; varying vec3 vN;
     void main(){
       vec3 q = glyphProj(vW); if (q.z < 0.5) discard;
@@ -141,6 +144,16 @@ export async function buildGlyphField(ch, opts) {
       vec3 graphite = mix(vec3(0.010, 0.011, 0.016), vec3(0.045, 0.046, 0.056), 0.6 * edge + 0.4 * grain);
       float diff = max(dot(n, uSunDir), 0.0); float back = max(dot(n, -uSunDir), 0.0);
       vec3 col = graphite * (0.7 + 0.8 * diff + 0.5 * back) + vec3(0.30, 0.26, 0.24) * pow(diff, 12.0) * 0.25;
+      // (act4 M3) the rule: graphite was rubbed out; what floats is COLOUR: each fragment is a piece of the coloured world, in
+      // coloured-pencil hatching (its own hue), lit warm by the firefly lamp so Jade can see and measure them in the dusk
+      if (uColorShards > 0.0) {
+        vec3 hueF = rbHue(vFrag.x * 0.137 + vFrag.y * 0.53 + 0.07) * 0.78 + 0.04;
+        float hc0 = hatch(q.xy, 0.82);
+        vec3 skin = mix(vec3(0.62, 0.58, 0.54), hueF, 0.35 + 0.65 * hc0) * (0.55 + 0.75 * diff + 0.35 * back);
+        vec3 toL = uLampP - vW; float lamp = uLampK * (0.35 + 0.65 * max(dot(n, normalize(toL)), 0.0)) / (1.0 + length(toL) / 900.0);
+        skin += hueF * vec3(1.0, 0.78, 0.45) * lamp;` + R5_SHARD + /* glsl */`
+        col = mix(col, skin, uColorShards);
+      }
       col *= gl_FrontFacing ? 1.0 : 0.7;
       // ignition: rainbow coloured-pencil hatching sweeping in stroke order
       float k = clamp(uIgnite * 1.4 - (vFrag.x / 8.0) * 0.4 - p * 0.15, 0.0, 1.0);
@@ -257,7 +270,18 @@ export async function buildGlyphField(ch, opts) {
  * Patch a MeshStandardMaterial into the erased-world PAPER ground: pale paper + the rub trails that close the 画
  * from E (+ rainbow ignition + a colour-return wavefront). Keeps three's lighting + shadows.
  */
-export function patchPaperGround(mat, field, extra) {
+export function patchPaperGround(mat, field, extra, opts = {}) {
+  // (act4 r5) opts.r5: blank-paper details (faint pencil grid, graphite smudges, eraser dust) injected only with --r5 (the default
+  // shader string is untouched)
+  const R5_PAPER = opts.r5 ? /* glsl */`
+          { vec2 gp = vGW.xz / 46.0 + 0.025 * vec2(gn(vGW.zx * 0.03), gn(vGW.xz * 0.03 + 7.0));   // a hand-ruled pencil grid, 46 u
+            vec2 gf = abs(fract(gp) - 0.5); float gl = 1.0 - smoothstep(0.0, 0.03, min(gf.x, gf.y));
+            float gw = 0.45 + 0.55 * gn(vGW.xz * 0.13);                                             // the pencil pressure wanders
+            diffuseColor.rgb *= 1.0 - 0.13 * gl * gw;
+            float sm = smoothstep(0.58, 0.9, gn(vGW.xz * 0.0055 + 3.0)) * (0.55 + 0.45 * gn(vGW.xz * 0.045));   // graphite smudges
+            diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * vec3(0.74, 0.73, 0.77), 0.4 * sm);
+            float dust = step(0.982, gh(floor(vGW.xz * 0.6))) * smoothstep(0.35, 0.7, gn(vGW.xz * 0.02 + 11.0));  // eraser dust specks
+            diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.58, 0.56, 0.60), 0.7 * dust); }` : '';
   const U = { ...field.U, uTrail: { value: 0 }, uTrailIgnite: { value: 0 }, uPaperVis: { value: 1 },
     uEraseC: { value: new THREE.Vector3() }, uEraseR: { value: 1e9 },
     uColC: { value: new THREE.Vector3() }, uColR: { value: -1 }, uRestC: { value: new THREE.Vector3() }, uRestR: { value: -1 }, ...extra };
@@ -280,7 +304,7 @@ export function patchPaperGround(mat, field, extra) {
         {
           // paper tooth
           float tooth = gn(vGW.xz * 0.9) * 0.6 + gn(vGW.xz * 3.7) * 0.4;
-          diffuseColor.rgb *= 0.94 + 0.08 * tooth;
+          diffuseColor.rgb *= 0.94 + 0.08 * tooth;` + R5_PAPER + /* glsl */`
           // rub trails: the ground part of the glyph, revealed along each trail (uTrail = 0..1 rub progress)
           vec3 q = glyphProj(vGW);
           if (q.z > 0.5) {
@@ -318,7 +342,7 @@ export function patchPaperGround(mat, field, extra) {
         }`)
       .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\n totalEmissiveRadiance += paperEmit;');
   };
-  mat.customProgramCacheKey = () => 'act4paperground';
+  mat.customProgramCacheKey = () => 'act4paperground' + (opts.r5 ? '_r5' : '');
   mat.userData.U = U;
   return U;
 }

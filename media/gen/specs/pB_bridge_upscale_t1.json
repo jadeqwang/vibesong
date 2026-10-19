@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "pB_bridge_upscale_t1", "notes": "passB bridge v11 take segment from 0.125 s (2.8 s), precise 1.5x",
+ "input": {"input_video": "file:media/cutscenes/_work/passB/upscale/seg_bridge.mp4", "upscale_factor": 1.5, "creativity": 0, "safety_tolerance": 4}}

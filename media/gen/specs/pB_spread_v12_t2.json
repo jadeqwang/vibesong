@@ -1,0 +1,13 @@
+{
+ "model": "google/veo-3.1-fast",
+ "tag": "pB_spread_v12_t2",
+ "notes": "v4 Pass B paper Task C2: living right-page layer with whole-body life, from the v11 crop (rect media/act5/stills/spread_right_crop.txt = spread.js:106)",
+ "input": {
+  "prompt": "A hand-drawn colored-pencil illustration on a sketchbook page comes gently to life, like a living illustration. Camera completely static, no zoom, no pan; the paper, the page edges and the drawing style stay exactly the same (colored pencil hatching and paper grain hold steady, no change in line style, no new details, no text).\nContinuous, gentle, whole-body life the whole time, like three friends really playing music together: all three breathe visibly, their shoulders and chests rising and falling softly; the young man in the flat cap on the left strums his acoustic guitar steadily with his strumming hand while the fingers of his fretting hand shift along the neck; the young man on the right in the striped shirt keeps picking his electric guitar, his picking hand moving and his fretting fingers changing; the young woman in the middle sways to the music, tilts her head and smiles, her hands resting on the bench; all three sway slightly to the rhythm. No pose is ever fully frozen, but every movement stays small, relaxed and natural, and they stay seated in the same places on the rainbow bench. The young woman's two pencils stay fixed in her hair bun, crossed in an X, with both eraser caps pointing up (one pink, one blue); her headphones stay around her neck. The sunset glow shimmers softly and the drawn clouds drift a tiny bit. Silent.",
+  "image_input": "file:media/act5/stills/spread_right_crop_v11.jpg",
+  "duration": "8s",
+  "aspect_ratio": "16:9",
+  "resolution": "1080p",
+  "generate_audio": false
+ }
+}

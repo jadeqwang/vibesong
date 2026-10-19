@@ -1,0 +1,11 @@
+16-bit SNES pixel art sprite sheet, The Lost Vikings (1993) style, EXACTLY the same resolution, pixel size, palette and character designs as the attached pixel sheets (each character about 40 game-pixels tall, every game pixel a big square block on one global grid, 1-px near-black outline, flat colour clusters, no anti-aliasing, no glow). Transparent background. No text, no labels, no grid lines, no ground.
+
+JADE: black hair, white CROPPED racer jacket with band collar and orange stripes on chest and sleeves, ONE small pale-blue dot on the chest, black crop top, wide navy cargo pants with orange straps, chunky white sneakers, NO glasses. Her two pencils always have YELLOW bodies: one has a BLUE eraser cap and a multicolour RAINBOW lead at the sharpened tip, the other has a PINK-ORANGE eraser cap and a grey GRAPHITE lead. The two caps never match.
+
+All sprites face RIGHT (side / three-quarter view, like the attached sheets). 2 rows, evenly spaced, same scale, feet on a shared baseline.
+Row 1, 4 frames, "TWIN DRAW" (she draws her two pencils out of her hair like twin swords):
+ 1. Hair UP in a bun with the two pencils stuck THROUGH the bun crossed in an X (caps sticking out one side of the bun, tips out the other side); both her hands reach up and grab the pencils at the bun.
+ 2. Both arms sweep out and down: a pencil in each fist held like a short sword (blue cap pencil in the front hand, pink cap pencil in the back hand); the bun is coming undone, hair starting to fall.
+ 3. Hair falling: long black hair mid-air, flowing loose down to her mid-back; arms crossed in front of her chest, a pencil in each fist.
+ 4. Battle stance, knees bent, hair LONG and LOOSE down her back, arms out to both sides, a pencil in each fist like twin swords (blue cap pencil pointing forward, pink cap pencil pointing back). Proud grin.
+Row 2, 3 frames, "ERASE" loop: hair LONG and LOOSE (no bun, no pencils in the hair). She stands facing RIGHT, leaning in, scrubbing hard with the PINK-ORANGE eraser cap end of the graphite pencil (pencil flipped, tip pointing back toward her, cap pressed forward) against an invisible wall at the right edge of the sprite; small pink rubber crumbs flying off the cap; her other hand holds the blue cap pencil down at her side. Frames 1-3: the scrubbing hand at top, middle, bottom of the stroke.

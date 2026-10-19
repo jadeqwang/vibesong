@@ -1,0 +1,66 @@
+{
+ "still": "assets/v4_stills/04_paper_0048.png",
+ "box": [
+  670,
+  0,
+  1370,
+  560
+ ],
+ "brow_y": 250,
+ "hair_y": 180,
+ "crown_y": 105,
+ "dh": 18,
+ "dc": 28,
+ "wx": [
+  40,
+  560
+ ],
+ "pencils": [
+  {
+   "kind": "slide",
+   "line": [
+    [
+     334,
+     20
+    ],
+    [
+     410,
+     96
+    ]
+   ],
+   "w": 26,
+   "max_up": 12
+  },
+  {
+   "kind": "fixed",
+   "line": [
+    [
+     517,
+     264
+    ],
+    [
+     578,
+     362
+    ]
+   ],
+   "w": 26
+  },
+  {
+   "kind": "translate",
+   "line": [
+    [
+     564,
+     40
+    ],
+    [
+     467,
+     133
+    ]
+   ],
+   "w": 26,
+   "max_up": 12
+  }
+ ],
+ "nbp": "media/cutscenes/_work/passB/m3/s04/head_np.png",
+ "out": "media/cutscenes/_work/passB/m3/s04/04_paper_0048_v2_work.png"
+}

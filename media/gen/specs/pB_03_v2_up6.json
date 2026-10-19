@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "pB_03_v2_up6", "notes": "passB paper M3c card 03 (+6 frames, lag 0.12): precise 2.25x of take pB_03_v2_sd25_t2 from 0.1667 s (seg_03_v2_up6.txt) so all 108 slot frames come from the upscale",
+ "input": {"input_video": "file:media/cutscenes/_work/passB/upscale/seg_03_v2_up6.mp4", "upscale_factor": 2.25, "creativity": 0, "safety_tolerance": 4}}

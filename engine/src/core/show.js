@@ -16,6 +16,7 @@ import * as T from '../show/timing.js';
 import { SpriteLib } from './sprites.js';
 import { loadFonts } from './text.js';
 import { SHOWS } from '../show/index.js';
+import { CS } from './colorscript.js';
 
 const COMP_FS = /* glsl */`
   uniform sampler2D tA, tB; uniform float uU, uType, uAspect; varying vec2 vUv;
@@ -82,6 +83,7 @@ export class ShowRunner {
     for (const e of this.entries) if (e.inst?.prepare && t >= e.t0 - 1e-9 && t < e.t1) await e.inst.prepare(t);
   }
   render(t) {
+    CS.t = t;   // the colour script's frame clock (src/core/colorscript.js; sub-frames included under --mblur)
     const r = this.renderer;
     const act = this.entries.filter((e) => e.inst && t >= e.t0 - 1e-9 && t < e.t1).sort((a, b) => a.t0 - b.t0);
     if (!act.length) { r.setRenderTarget(null); r.setClearColor(0x000000, 1); r.clear(); return; }

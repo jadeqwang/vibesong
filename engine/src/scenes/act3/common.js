@@ -5,6 +5,25 @@ import * as T from '../../show/timing.js';
 import { subtitleFor } from '../../core/ui.js';
 import { loadFonts } from '../../core/text.js';
 import { makeLedger } from './paintlog.js';
+import { r5Shot, r5ShotNow } from '../../look.js';
+
+/** (v4b stage_3d) the DOF cap: look_r5's tilt-shift could blur up to 24 px (1080p) at the far plane / the tilt band, so the world
+ *  went to mush behind the subject. Every Act III-IV frame now caps the blur RADIUS at DOF_CAP_PX (1080p; scaled with the output
+ *  height by look.js), whatever the shot's dof / tilt: the subject stays the sharpest thing, the world still reads. */
+export const DOF_CAP_PX = 8;
+/** (v4b stage_3d, colour hooks H9-H12) exempt a material from the colour script's pre-flood graphite grade: it writes alpha 0.5 into
+ *  the scene target (the mask core/colorscript.js reads; COLOR_REQUESTS.md "How a scene exempts something"). Opaque materials only
+ *  (blended ones cannot carry the mask: name them + userData.cs instead). Chains any existing onBeforeCompile; idempotent. */
+export function csTag(mat) {
+  if (!mat || mat.userData.csTag || mat.transparent) return mat;
+  if (mat.isShaderMaterial) return mat;   // custom shaders write their own alpha (see carved_slab.js)
+  const prev = mat.onBeforeCompile; const prevKey = mat.customProgramCacheKey?.bind(mat);
+  mat.onBeforeCompile = (sh, r) => { if (prev) prev.call(mat, sh, r); sh.fragmentShader = sh.fragmentShader.replace('#include <opaque_fragment>', '#include <opaque_fragment>\n  gl_FragColor.a = 0.5;   // (csTag)'); };
+  mat.customProgramCacheKey = () => (prevKey ? prevKey() : '') + '|csTag';
+  mat.userData.csTag = true; mat.needsUpdate = true; return mat;
+}
+export function csTagObject(o) { o.traverse((m) => { if (!m.isMesh) return; for (const x of [].concat(m.material || [])) csTag(x); }); return o; }
+export function capDof() { const s = r5ShotNow(); if (!s || s.dofMaxPx == null || s.dofMaxPx > DOF_CAP_PX) r5Shot({ dofMaxPx: DOF_CAP_PX }); }
 
 // Measured from the demucs stems (5 ms RMS envelopes, 2026-10-14, team B). Post-stop / accent transients land
 // 30-80 ms after the timing.json grid; these are the transients.
@@ -33,8 +52,10 @@ export class SmoothSubs {
     this.mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, this.h), new THREE.MeshBasicMaterial({ map: this.tex, transparent: true, depthTest: false, depthWrite: false }));
     this.key = '';
   }
-  /** c = subtitleFor() result (+ optional { hideTop }), pos 'bottom' | 'top' */
+  /** c = subtitleFor() result, or null. (v4) ONE fixed slot, bottom centre: `pos` is ignored, and a line flagged
+   *  hideTop / inWorld (its words are built into the world) shows NO subtitle (never a translation-only chip). */
   set(c, pos = 'bottom') {
+    pos = 'bottom'; if (c && (c.hideTop || c.inWorld)) c = null;
     const key = c ? JSON.stringify([c.top, c.bot, c.hideTop, pos]) : '';
     this.mesh.visible = !!c;
     this.mesh.position.set(this.W / 2, pos === 'top' ? this.H - this.h / 2 - this.H * 0.02 : this.h / 2 + this.H * 0.03, 0);
@@ -63,12 +84,16 @@ export class SmoothSubs {
   }
 }
 
+/** round 5 flag. DEFAULT ON since v4 (2026-10-18). Opt out for the pre-r5 (round 4) staging with render.js `--r5 0` -> `?r5=0`
+ *  (or globalThis.R5 = false in dev). All r5 behaviour is gated by this. */
+export function R5() { try { if (new URLSearchParams(globalThis.location?.search || '').get('r5') === '0') return false; } catch (e) { /* no location */ } return globalThis.R5 !== false; }
+
 /** lyric line ids sung inside Act III, in order */
 export const ACT3_LINES = [18, 24, 25, 26, 27, 28, 30, 32, 33, 34];
 export function currentSub(t, { inWorld = [] } = {}) {
   for (const id of ACT3_LINES) {
     const c = subtitleFor(t, id, { lit: '#ffd23f', unlit: '#ffffff', hold: 0.25 });
-    if (c) { if (inWorld.includes(id)) c.hideTop = true; return c; }
+    if (c) return inWorld.includes(id) ? null : c;   // (v4) in-world line: no subtitle
   }
   return null;
 }
@@ -94,6 +119,7 @@ export async function make3D(ctx, W, { frame, subs = true, subPos, inWorldSubs =
       W.ledger(t);
       cur = frame(t, fx);
       W.applyLook(t, cur.look, cur);
+      capDof();   // (v4b stage_3d) after the shot's own look.r5 has been forwarded
       if (subs) smooth.set(cur.noSubs ? null : currentSub(t, { inWorld: inWorldSubs }), (typeof subPos === 'function' ? subPos(t) : subPos) || cur.subPos || 'bottom');
       else smooth.set(null);
     },

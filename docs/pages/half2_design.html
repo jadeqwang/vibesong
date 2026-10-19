@@ -1,0 +1,183 @@
+<title>一笔一画 Half Two</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+SC:wght@500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column; Dragon Quest battle windows are the only "objects" (mocks, the recruit prompt, decisions). */
+:root {
+  --bg: #eef0f6;          /* cool plaster paper */
+  --fg: #1b1f33;
+  --muted: #565d78;
+  --rule: #c9cddd;
+  --win: #151a3d;         /* DQ window navy */
+  --win-fg: #f4f5fb;
+  --win-edge: #f4f5fb;
+  --gold: #e8b923;        /* "can be spared" yellow, ♥, victory */
+  --heart: #e3466b;
+  --tag-paint: #b34fd6; --tag-run: #2f7fe0; --tag-ship: #a07c3c;
+  --glitch-a: #d01fd0; --glitch-b: #111;
+  --display: "Pixelify Sans", "Courier New", monospace;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1226; --fg: #e7e9f3; --muted: #9aa1bf; --rule: #2a3058;
+  --win: #1d2453; --win-fg: #f4f5fb; --win-edge: #cfd3ea;
+  --tag-paint: #cf7cf0; --tag-run: #6aa8ff; --tag-ship: #d4ae6c; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1226; --fg: #e7e9f3; --muted: #9aa1bf; --rule: #2a3058;
+  --win: #1d2453; --win-fg: #f4f5fb; --win-edge: #cfd3ea;
+  --tag-paint: #cf7cf0; --tag-run: #6aa8ff; --tag-ship: #d4ae6c; color-scheme: dark }
+
+body { background: var(--bg); color: var(--fg); font: 17px/1.6 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 40px 80px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 56px; }
+.col { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(34px, 6vw, 56px); letter-spacing: .01em; }
+h1 .zh { font-family: var(--zh); font-weight: 700; }
+h2 { font-size: clamp(24px, 3.4vw, 32px); }
+h3 { font-size: 20px; }
+p { margin: 0; }
+section { display: grid; gap: 18px; }
+.eyebrow { font: 600 13px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.lede { font-size: 20px; color: var(--fg); }
+.muted { color: var(--muted); }
+.zh { font-family: var(--zh); }
+code, .t { font-family: var(--mono); font-size: .9em; }
+.t { font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+
+/* the DQ window: double white border on navy */
+.win { background: var(--win); color: var(--win-fg); border: 3px solid var(--win-edge); border-radius: 6px;
+  box-shadow: 0 0 0 3px var(--win), 0 0 0 5px var(--win-edge); padding: 18px 20px; font-family: var(--display); }
+.win p { font-size: 19px; line-height: 1.5; }
+.win .opt { display: inline-flex; gap: 28px; margin-top: 10px; }
+.win .sel::before { content: "▶"; margin-right: 6px; color: var(--gold); }
+.win .x { text-decoration: line-through; opacity: .55; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag { font: 700 13px/1 var(--mono); letter-spacing: .08em; padding: 6px 9px; border-radius: 4px; border: 2px solid currentColor; }
+.p { color: var(--tag-paint); } .r { color: var(--tag-run); } .s { color: var(--tag-ship); }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.rule { border-top: 3px solid var(--fg); padding-top: 12px; display: grid; gap: 6px; min-width: 0; }
+.rule.glitch { border-image: repeating-linear-gradient(90deg, var(--glitch-a) 0 8px, var(--glitch-b) 8px 16px) 3; }
+
+.tbl { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 15.5px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+th { font: 600 12px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+td.name { font-family: var(--display); font-size: 18px; white-space: nowrap; }
+td.feat { color: var(--gold); font-family: var(--display); font-size: 18px; white-space: nowrap; }
+:root td.feat { color: #a87e00; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) td.feat { color: var(--gold); } }
+:root[data-theme="dark"] td.feat { color: var(--gold); }
+
+.mocks { display: grid; gap: 28px; }
+figure { margin: 0; display: grid; gap: 10px; }
+figure img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border: 3px solid var(--win-edge);
+  box-shadow: 0 0 0 3px var(--win), 0 0 0 5px var(--win-edge); border-radius: 6px; background: var(--win); display: block; }
+figcaption { display: grid; gap: 2px; }
+figcaption b { font-family: var(--display); font-size: 18px; }
+
+.beats { display: grid; gap: 0; }
+.beat { display: grid; grid-template-columns: 7.5em 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.beat > div { min-width: 0; }
+.beat .what { font-weight: 700; }
+@media (max-width: 520px) { .beat { grid-template-columns: 1fr; gap: 2px; } }
+
+.decide { counter-reset: d; display: grid; gap: 12px; padding-left: 0; margin: 0; list-style: none; }
+.decide li { display: grid; grid-template-columns: 2em 1fr; gap: 8px; }
+.decide li::before { counter-increment: d; content: counter(d); font-family: var(--display); color: var(--gold); font-size: 20px; }
+.foot { font-size: 14px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; }
+</style>
+
+<div class="wrap">
+
+<header class="col" style="display:grid;gap:14px">
+  <span class="eyebrow">Game design · second half · 1:26 → 3:27 · decided Oct 15</span>
+  <h1><span class="zh">一笔一画</span>, half two: a pacifist RPG</h1>
+  <p class="lede">Half one played like The Lost Vikings: three heroes, one verb each, and no room you could clear alone. In half two, reality levels up and so does the genre. The 3D world plays as a JRPG with no FIGHT command. You win a battle by fixing the enemy until it wants to join you.</p>
+  <div class="tags"><span class="tag p">JADE · PAINT</span><span class="tag r">RICKY · RUN</span><span class="tag s">CHARLIE · SHIP</span></div>
+</header>
+
+<section class="col">
+  <span class="eyebrow">Two enemies, one for each half of the chorus</span>
+  <h2>Fixtures and functions both have a nemesis</h2>
+  <div class="rules">
+    <div class="rule"><h3>The Eraser eats fixtures</h3><p>It rubs out graphite, the structure. It can't touch color: that rule comes from Act I and still holds. It joins at the end as <b>UNDO</b>.</p></div>
+    <div class="rule glitch"><h3>Bugs live in functions</h3><p>Anything colored that a bug crawls over glitches into the purple-and-black checkerboard from the Act I void. Each one joins as the <b>feature</b> it was hiding.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="col" style="display:grid;gap:14px">
+    <span class="eyebrow">The bug battle · 1:47 → 2:03 · the rap is the battle theme</span>
+    <h2>A turn-based dance battle that ends in a recruit</h2>
+    <p>The pixel UI from half one comes back only for battles, so the old 2D game cuts into the 3D world. The rap types into the message window like JRPG battle text, and that window is the subtitle. Enemies have a ♥ meter instead of HP. Every turn takes half a bar: the bug shows its problem, then two heroes answer with a combo. The boss needs all three, and their three-hero combo fixes two bugs at once.</p>
+  </div>
+  <div class="mocks" id="mocks">
+    <figure><img src="m1_encounter.jpg" alt="Mock: the party on the amphitheater stage under spotlights facing five voxel bugs, with battle windows along the bottom" loading="lazy"><figcaption><b>Encounter</b><span class="muted"><span class="t">107.7</span> · <span class="zh">世界 是我的舞台</span>. Each of the three spotlights introduces one hero.</span></figcaption></figure>
+    <figure><img src="m2_triple_tech.jpg" alt="Mock: Jade sketching graphite drafts over the ladybug and caterpillar while Ricky's sound ring and Charlie's hats land" loading="lazy"><figcaption><b>Triple tech 一笔一画</b><span class="muted"><span class="t">118.4</span> · <span class="zh">就当草稿再画</span>: "call it a draft and draw it again."</span></figcaption></figure>
+    <figure><img src="m3_recruit.jpg" alt="Mock: the five features lined up looking at the party, with a Dragon Quest prompt asking to let them join" loading="lazy"><figcaption><b>The recruit</b><span class="muted"><span class="t">121.4</span> · Charlie presses the ladybug, now a big red button, to answer YES.</span></figcaption></figure>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Bug</th><th>Software bug</th><th>Its turn (the problem)</th><th>Fixed by</th><th>Becomes</th><th>Used later</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Firefly</td><td>flaky test</td><td>blinks off the beat; lights it lands on flicker</td><td><span class="r">RUN</span> + <span class="s">SHIP</span>: three chords set its tempo, and the hat becomes its lampshade</td><td class="feat">lamp</td><td>lights the floating shards at dusk</td></tr>
+        <tr><td class="name">Moth</td><td>crash loop</td><td>dives into the spotlights and knocks them out</td><td><span class="p">PAINT</span> + <span class="r">RUN</span>: colored wings, then Ricky's updraft</td><td class="feat">glider</td><td>flies Jade up to the Eraser's face</td></tr>
+        <tr><td class="name">Beetle</td><td>infinite loop</td><td>rolls in circles, grinding glitch rings</td><td><span class="p">PAINT</span> + <span class="s">SHIP</span>: a drawn axle, and the boomerang pulls the loop straight (<code>break;</code>)</td><td class="feat">wheel</td><td>gives slow Ricky a ride</td></tr>
+        <tr><td class="name">Caterpillar</td><td>stack overflow</td><td>grows segments until it spills off the stage</td><td rowspan="2">all three, <b>triple tech <span class="zh">一笔一画</span></b>: Jade drafts them, Ricky runs the drafts, Charlie ships them</td><td class="feat">bridge</td><td>spans gaps in the erased world</td></tr>
+        <tr><td class="name">Ladybug ★</td><td>the original bug</td><td>flashes its red error spots; sends a glitch wave</td><td class="feat">SHIP button</td><td>answers YES; launches the party at <span class="zh">出发</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="win col" role="img" aria-label="Recruit prompt mock">
+    <p>The BUGS look at you longingly.<br>Let them join your party?</p>
+    <div class="opt"><span class="sel">YES</span><span>NO</span></div>
+  </div>
+</section>
+
+<section class="col">
+  <span class="eyebrow">Act by act</span>
+  <h2>The rest of the second half</h2>
+  <div class="beats">
+    <div class="beat"><span class="t">86.6 – 94.2</span><div><div class="what">FIXTURES! / FUNCTIONS!</div>Jade draws the slabs, Charlie's hat tags them in order, and Ricky's beam connects them into a bridge.</div></div>
+    <div class="beat"><span class="t">94.2 – 100.1</span><div><div class="what">Room 1, remixed in 3D</div>The same lyric as 0:14, so each hero repeats their room 1 move: Jade's flip, Ricky's heavy hop, Charlie's hat bounce. Tiny bugs show up and glitch a cypress.</div></div>
+    <div class="beat"><span class="t">100.1</span><div><div class="what">because</div>Ricky, who fell through the graphite <i>because</i> in Act I, tests the stone <i>e</i> with one foot before stepping on it. One letter has a fresh eraser bite.</div></div>
+    <div class="beat"><span class="t">101.0 – 107.1</span><div><div class="what">The co-op crossing (kept)</div>Plate, tripod, beam, and a hat pulled out of the hat. The moth bonks off Ricky's beam twice.</div></div>
+    <div class="beat"><span class="t">107.2 – 123.3</span><div><div class="what">The bug battle, the paint flood as VICTORY, the recruit</div>The party grows from 3 to 8.</div></div>
+    <div class="beat"><span class="t">123.2 – 129.3</span><div><div class="what">THE ERASER draws near!</div>It rubs out every bit of graphite. Everything colored stays, hanging in the air over blank paper, like the flowers in Act I but at the scale of the world.</div></div>
+    <div class="beat"><span class="t">129.4 – 139.4</span><div><div class="what">The perspective lock</div>The colored shards they left behind, plus the Eraser's own trails, line up into one huge <span class="zh">画</span>. The lamp and the bridge help Jade climb to the spot where it lines up.</div></div>
+    <div class="beat"><span class="t">143.5 – 149.2</span><div><div class="what">"What is it that I need?"</div>Jade types <code>&gt; an eraser</code>. The glider flies her up, she colors it pink, Ricky's chord makes it smile, and Charlie gives it a hat. The Eraser joins as UNDO.</div></div>
+    <div class="beat"><span class="t">149.2 – 162.8</span><div><div class="what">Rebuild, then all nine at once</div>A second bar, <code>REALITY LV2 → LV3</code>, fills. The features click together into a party cart.</div></div>
+    <div class="beat"><span class="t">165.9 – 173.0</span><div><div class="what"><span class="zh">出发</span>, a speedrun, and 99% again</div>Charlie presses the button and the cart launches. The montage is a speedrun with split times. The bar sticks at 99% until the pink Eraser rubs the 99 out, and it hits 100% on the last hit.</div></div>
+    <div class="beat"><span class="t">174.4 – end</span><div><div class="what">REALITY LV 3 (kept)</div>The route they traveled is drawn like a world map along the four strokes, with nine dots on the <span class="zh">一</span>. Then photoreal, then the sketchbook.</div></div>
+  </div>
+</section>
+
+<section class="col">
+  <span class="eyebrow">Look</span>
+  <h2>As dense as the keyframes, or denser</h2>
+  <p>The concept keyframes' heroes are about 64–70 voxels tall, with heads about a fifth of their height. Ours are carved from pixel art, which makes them chibi and turns the painted shading into voxel noise. The plan is to rebuild them as 3D models in code at about 96 voxels tall. The bugs and their features get built as matched pairs, so a conversion flies each voxel of the bug into its place in the feature.</p>
+</section>
+
+<section class="col">
+  <span class="eyebrow">Decided · Oct 15</span>
+  <h2>What's locked in</h2>
+  <ol class="decide">
+    <li><span>The battle as described: the UI comes back, <code>&gt; let's dance</code>, and Charlie answers YES with the ladybug button.</span></li>
+    <li><span>The Eraser erases graphite only, and color stays floating over the blank page.</span></li>
+    <li><span><code>&gt; an eraser</code> is the answer to "what is it that I need?"</span></li>
+    <li><span>A second bar, with the 99% gag again. The pink Eraser fixes it.</span></li>
+    <li><span>The heroes get rebuilt as 3D models at about 96 voxels tall.</span></li>
+    <li><span>The party cart, the speedrun montage, and doodles in the outro margins are all in.</span></li>
+    <li><span>No headphones anywhere. At the bridge, Jade pushes her pencils through her bun when the drums stop and draws them again when the drums come back.</span></li>
+  </ol>
+</section>
+
+<p class="foot col">The mocks are image-model concept frames that show the target look. They aren't engine renders. Song times are in seconds. Full beat sheet: <code>docs/game_design_acts3-5.md</code> in the vibesong project.</p>
+</div>

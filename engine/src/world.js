@@ -10,6 +10,7 @@ import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { mulberry32, fbm, vnoise } from './util.js';
 import { triplanarMaterial, stoneTexture, rockTexture, grassTexture } from './materials.js';
+import { meshVoxelGrid } from './voxel.js';
 
 const C = (h) => new THREE.Color(h);
 const PLASTER = { stone: 0xf4efe6, clay: 0xcfc0a4, meadow: 0xd9c9aa, rock: 0xcbbb9f, ink: 0x202020 };
@@ -25,6 +26,114 @@ export function boxesToMesh(list, s = 1, matOpts = {}, material) {
   list.forEach((b, i) => { m.makeTranslation(b.x, b.y, b.z); mesh.setMatrixAt(i, m); mesh.setColorAt(i, b.c); });
   mesh.castShadow = true; mesh.receiveShadow = true;
   return mesh;
+}
+
+
+// --------------------------------------------------------------- architecture kit (density pass 2026-10-15)
+// Geometry-only builders (position + normal, no uv: every stone material is triplanar). Combine with `bake([...])`
+// into one merged geometry per material: hundreds of columns cost a handful of draw calls.
+const _m4 = new THREE.Matrix4(), _q = new THREE.Quaternion(), _e = new THREE.Euler(), _v = new THREE.Vector3(), _s = new THREE.Vector3();
+/** normalise a geometry for merging: non-indexed, no uv, normals present */
+export function prep(g) { let o = g.index ? g.toNonIndexed() : g; if (o.attributes.uv) o.deleteAttribute('uv'); if (o.attributes.uv1) o.deleteAttribute('uv1'); if (!o.attributes.normal) o.computeVertexNormals(); return o; }
+/** transformed copy: g placed at (x,y,z), rotated (rx,ry,rz), scaled */
+export function place(g, x = 0, y = 0, z = 0, ry = 0, rx = 0, rz = 0, sx = 1, sy = 1, sz = 1) {
+  const o = prep(g.clone()); _q.setFromEuler(_e.set(rx, ry, rz)); _m4.compose(_v.set(x, y, z), _q, _s.set(sx, sy, sz)); o.applyMatrix4(_m4); return o;
+}
+/** merge a list of geometries (any mix of indexed / uv) into one */
+export function bake(list) { return list.length ? mergeGeometries(list.map(prep)) : new THREE.BufferGeometry(); }
+const box = (w, h, d, x = 0, y = 0, z = 0, ry = 0) => place(new THREE.BoxGeometry(w, h, d), x, y, z, ry);
+const cyl = (rt, rb, h, seg, y, open = false) => place(new THREE.CylinderGeometry(rt, rb, h, seg, 1, open), 0, y, 0);
+
+/** Doric column (base at y = 0): plinth + attic base, fluted shaft with entasis, necking, curved echinus, abacus.
+ *  h = shaft height, r = shaft radius. broken: jagged top, no capital. Returns { geo, top } (top = height of the abacus top). */
+export function columnGeo({ h = 160, r = 10, flutes = 20, broken = 0, seed = 1, plinth = true } = {}) {
+  const rnd = mulberry32(seed); const parts = []; let y = 0;
+  if (plinth) { parts.push(box(r * 2.9, r * 0.55, r * 2.9, 0, r * 0.275)); y = r * 0.55; }
+  parts.push(cyl(r * 1.26, r * 1.36, r * 0.32, 40, y + r * 0.16)); y += r * 0.32;          // lower torus
+  parts.push(cyl(r * 1.12, r * 1.18, r * 0.16, 40, y + r * 0.08)); y += r * 0.16;          // scotia
+  parts.push(cyl(r * 1.12, r * 1.2, r * 0.18, 40, y + r * 0.09)); y += r * 0.18;           // upper torus
+  const sh = broken ? h * (0.25 + 0.5 * rnd()) : h; const seg = flutes * 8, hs = Math.max(4, Math.round(sh / 8));
+  const shaft = new THREE.CylinderGeometry(1, 1, sh, seg, hs, true); const P = shaft.attributes.position;
+  const dropTop = broken ? (a) => r * (0.4 + 1.6 * fbm(Math.cos(a) * 2 + seed, Math.sin(a) * 2, 2, seed)) : () => 0;
+  for (let i = 0; i < P.count; i++) {
+    const x = P.getX(i), yy = P.getY(i), z = P.getZ(i); const a = Math.atan2(z, x); const t = (yy + sh / 2) / sh; const H = h ? (t * sh) / h : t;
+    const R = r * (1 - 0.13 * H + 0.035 * Math.sin(Math.PI * H)); const u = ((a / (Math.PI * 2)) * flutes % 1 + 1) % 1;
+    const k = 1 - 0.07 * Math.pow(Math.sin(Math.PI * u), 0.8);
+    let yo = yy; if (broken && t > 0.999) yo -= dropTop(a);
+    P.setXYZ(i, Math.cos(a) * R * k, yo, Math.sin(a) * R * k);
+  }
+  shaft.computeVertexNormals(); parts.push(place(shaft, 0, y + sh / 2, 0, rnd() * 6.28));
+  if (broken) { // a jagged cap over the break
+    const cap = new THREE.CircleGeometry(r * (1 - 0.13 * sh / h) * 0.93, 24); cap.rotateX(-Math.PI / 2); const C2 = cap.attributes.position;
+    for (let i = 0; i < C2.count; i++) { const a = Math.atan2(C2.getZ(i), C2.getX(i)); C2.setY(i, -(Math.hypot(C2.getX(i), C2.getZ(i)) > 0.01 ? dropTop(a) : r * 0.8)); }
+    cap.computeVertexNormals(); parts.push(place(cap, 0, y + sh, 0));
+    return { geo: bake(parts), top: y + sh };
+  }
+  y += sh; const rt = r * (1 - 0.13 + 0) * 1.0;
+  parts.push(cyl(rt * 0.98, rt, r * 0.3, 48, y + r * 0.15)); y += r * 0.3;                  // necking
+  for (let k = 0; k < 3; k++) parts.push(cyl(rt * 1.03, rt * 1.03, r * 0.05, 48, y + r * (0.03 + 0.08 * k)));   // annulets
+  y += r * 0.24;
+  const prof = [[rt * 0.98, 0], [rt * 1.1, r * 0.1], [rt * 1.3, r * 0.24], [r * 1.42, r * 0.38], [r * 1.48, r * 0.46]].map(([a, b]) => new THREE.Vector2(a, b));
+  parts.push(place(new THREE.LatheGeometry(prof, 48), 0, y, 0)); y += r * 0.46;             // echinus
+  parts.push(box(r * 3.05, r * 0.5, r * 3.05, 0, y + r * 0.25)); y += r * 0.5;             // abacus
+  return { geo: bake(parts), top: y };
+}
+
+/** Doric entablature along x, centred, bottom at y = 0: architrave (2 fasciae + taenia), triglyph frieze, cornice with mutules.
+ *  L length, D depth, H total height, tri = triglyph spacing (0 = plain). */
+export function entablatureGeo(L, D, H, { tri = 37, guttae = true } = {}) {
+  const P = []; const a = H * 0.38, f = H * 0.34, c = H * 0.28;
+  P.push(box(L, a * 0.48, D - 2, 0, a * 0.24)); P.push(box(L + 0.8, a * 0.42, D - 1.2, 0, a * 0.48 + a * 0.21)); P.push(box(L + 1.6, a * 0.1, D - 0.4, 0, a * 0.95));
+  P.push(box(L - 1, f, D - 3.2, 0, a + f / 2));                                              // frieze (metope plane)
+  if (tri) { const n = Math.max(1, Math.round(L / tri)); const w = Math.min(tri * 0.42, D * 0.3);
+    for (let k = 0; k <= n; k++) { const x = -L / 2 + 1 + (L - 2) * k / n;
+      for (const zs of [1, -1]) { const z = zs * (D / 2 - 1.2);
+        for (let b = 0; b < 3; b++) P.push(box(w * 0.26, f, 1.6, x + (b - 1) * w * 0.36, a + f / 2, z));   // triglyph bars
+        if (guttae) P.push(box(w, a * 0.08, 1.4, x, a * 0.86, z + zs * 0.3)); } } }
+  P.push(box(L + 6, c * 0.42, D + 6, 0, a + f + c * 0.21));                                  // geison
+  P.push(box(L + 7.5, c * 0.3, D + 7.5, 0, a + f + c * 0.42 + c * 0.15));                    // sima moulding
+  P.push(box(L + 6.6, c * 0.28, D + 6.6, 0, a + f + c * 0.72 + c * 0.14));
+  if (tri) { const n = Math.max(1, Math.round(L / tri)) * 2; for (let k = 0; k <= n; k++) { const x = -L / 2 + L * k / n;
+    for (const zs of [1, -1]) P.push(box(Math.min(5, tri * 0.3), 1.1, 2.6, x, a + f - 0.5, zs * (D / 2 + 1.8))); } }   // mutules under the geison
+  return bake(P);
+}
+
+/** pediment over a W-wide front, bottom at y = 0, apex height Hp, depth D: tympanum (recessed), raking cornices, acroteria */
+export function pedimentGeo2(W, Hp, D) {
+  const P = []; const s = new THREE.Shape(); s.moveTo(-W / 2, 0); s.lineTo(W / 2, 0); s.lineTo(0, Hp); s.closePath();
+  const tri = new THREE.ExtrudeGeometry(s, { depth: D - 4, bevelEnabled: false }); P.push(place(tri, 0, 0, -(D - 4) / 2));
+  const ang = Math.atan2(Hp, W / 2), len = Math.hypot(W / 2, Hp) + 6;
+  for (const sg of [-1, 1]) {
+    P.push(place(new THREE.BoxGeometry(len, 4.5, D + 6), sg * W / 4, Hp / 2 + 2.4, 0, 0, 0, -sg * ang));
+    P.push(place(new THREE.BoxGeometry(len, 2.2, D + 8), sg * W / 4, Hp / 2 + 5.6, 0, 0, 0, -sg * ang));
+    P.push(box(7, 9, 7, sg * (W / 2 + 1), 4.5, D / 2 + 1)); P.push(box(7, 9, 7, sg * (W / 2 + 1), 4.5, -D / 2 - 1));
+  }
+  P.push(box(8, 12, 8, 0, Hp + 8, D / 2)); P.push(box(8, 12, 8, 0, Hp + 8, -D / 2));
+  return bake(P);
+}
+/** gabled tile roof over a W x Len footprint (ridge along z), eaves at y = 0, apex Hp; ridge tiles as fine ribs */
+export function roofGeo(W, Len, Hp, { ribs = 3.2 } = {}) {
+  const P = []; const ang = Math.atan2(Hp, W / 2), sl = Math.hypot(W / 2, Hp) + 4;
+  for (const sg of [-1, 1]) {
+    const cx = sg * W / 4, cy = Hp / 2;
+    P.push(place(new THREE.BoxGeometry(sl, 3, Len), cx, cy, 0, 0, 0, -sg * ang));
+    for (let z = -Len / 2 + ribs / 2; z < Len / 2; z += ribs * 2) P.push(place(new THREE.BoxGeometry(sl, 1.2, ribs * 0.7), cx + Math.sin(ang) * sg * 0, cy + 1.9, z, 0, 0, -sg * ang));
+  }
+  P.push(place(new THREE.CylinderGeometry(2.4, 2.4, Len + 2, 8), 0, Hp + 1.5, 0, 0, Math.PI / 2));
+  return bake(P);
+}
+/** a straight stair flight along +x: n steps of (rise, run), width w (z), starting at the origin going up */
+export function stairGeo(n, rise, run, w) { const P = []; for (let k = 0; k < n; k++) P.push(box(run * (n - k), rise, w, run * k + run * (n - k) / 2, rise * (k + 0.5), 0)); return bake(P); }
+/** ashlar wall (x along length) built from individual blocks with a mortar gap: reads as masonry coursing at any scale */
+export function ashlarGeo(L, H, D, { bw = 22, bh = 9, gap = 0.7, seed = 1, jitter = 0.6 } = {}) {
+  const rnd = mulberry32(seed); const P = []; const rows = Math.max(1, Math.round(H / bh)), rh = H / rows;
+  for (let r = 0; r < rows; r++) { let x = -L / 2 - (r % 2 ? bw / 2 : 0);
+    while (x < L / 2) { const w = bw * (0.7 + 0.6 * rnd()); const x0 = Math.max(-L / 2, x), x1 = Math.min(L / 2, x + w);
+      if (x1 - x0 > 1) P.push(box(x1 - x0 - gap, rh - gap, D + (rnd() - 0.5) * jitter, (x0 + x1) / 2, rh * (r + 0.5), (rnd() - 0.5) * jitter * 0.5));
+      x += w; } }
+  P.push(box(L, gap * 1.5, D - 1.5, 0, H / 2)); // mortar core (fills the gaps from behind)
+  P.push(place(new THREE.BoxGeometry(L - 0.5, H - 0.5, D - 1.4), 0, H / 2, 0));
+  return bake(P);
 }
 
 // --------------------------------------------------------------- geography
@@ -117,12 +226,13 @@ export function makeMeadow({ x0 = -6000, x1 = 2000, z0 = -4200, z1 = CLIFF_Z, nx
   return m;
 }
 
-export function makeCliff({ x0 = -4600, x1 = 1400, z1 = 440, s = 8, seaY = -200 } = {}) {
+export function makeCliff({ x0 = -4600, x1 = 1400, z1 = 440, s = 8, seaY = -200, fine = null } = {}) {
   const list = [];
+  const inFine = (x) => fine && x >= fine.x0 && x < fine.x1;
   const rock = C('#a8977f'), rockD = C('#776a5c'), moss = C('#6f7d3c'), sand = C('#d6c193');
   const q = (xx, zz) => (zz <= CLIFF_Z ? 1e9 : Math.round(cliffTop(xx, zz) / s) * s);
   for (let x = x0; x < x1; x += s) for (let z = CLIFF_Z; z < z1; z += s) {
-    const cx = x + s / 2, cz = z + s / 2;
+    const cx = x + s / 2, cz = z + s / 2; if (inFine(cx)) continue;
     const h = Math.round(cliffTop(cx, cz) / s) * s;
     if (h < seaY - 8) continue;
     const base = rock.clone().lerp(rockD, vnoise(cx * 0.07, cz * 0.07, 41)).multiplyScalar(0.85 + 0.3 * vnoise(cx * 0.9, cz * 0.9, 7));
@@ -143,7 +253,32 @@ export function makeCliff({ x0 = -4600, x1 = 1400, z1 = 440, s = 8, seaY = -200 
       list.push({ x: cx, y, z: CLIFF_Z - s / 2, c: rock.clone().lerp(rockD, vnoise(cx * 0.1, y * 0.1, 5)) });
   }
   const mat = withPlaster(triplanarMaterial({ tex: rockTexture(), scale: 0.02, bump: 1.6, roughness: 0.9 }), PLASTER.rock);
-  return boxesToMesh(list, s, {}, mat);
+  const coarse = boxesToMesh(list, s, {}, mat);
+  if (!fine) return coarse;
+  // fine segment (density pass): v-sized voxels, solid columns face-culled by the mesher, sedimentary beds every ~6 units,
+  // moss on the lip, sand at the waterline, baked AO
+  const v = fine.s, yb = seaY - 16, nx = Math.ceil((fine.x1 - fine.x0) / v), nz = Math.ceil((z1 - CLIFF_Z) / v);
+  let ymax = -1e9; const tops = new Float32Array(nx * nz);
+  for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) { const t = cliffTop(fine.x0 + (i + 0.5) * v, CLIFF_Z + (k + 0.5) * v); tops[i + nx * k] = t; ymax = Math.max(ymax, t); }
+  const ny = Math.ceil((ymax - yb) / v) + 1; const occ = new Uint8Array(nx * ny * nz), col = new Uint8Array(nx * ny * nz * 3);
+  const c = new THREE.Color();
+  for (let k = 0; k < nz; k++) for (let i = 0; i < nx; i++) {
+    const cx = fine.x0 + (i + 0.5) * v, cz = CLIFF_Z + (k + 0.5) * v; const h = tops[i + nx * k]; if (h < seaY - 8) continue;
+    const jt = Math.min(ny - 1, Math.floor((h - yb) / v));
+    for (let j = 0; j <= jt; j++) {
+      const y = yb + (j + 0.5) * v, bed = Math.floor((y + 3 * vnoise(cx * 0.01, 0, 3)) / 6);
+      c.copy(rock).lerp(rockD, Math.min(1, Math.max(0, 0.25 + 0.6 * vnoise(bed * 0.71, 1.3, 41) + 0.3 * (vnoise(cx * 0.04, y * 0.03, 7) - 0.5))));
+      if (vnoise(bed * 1.7, 4.1, 42) > 0.72) c.lerp(sand, 0.45);
+      c.multiplyScalar(0.9 + 0.15 * vnoise(cx * 0.6, y * 0.4, cz * 0.6));
+      if (j === jt && h > -70) c.lerp(moss, 0.55);
+      if (y < seaY + 12) c.lerp(sand, 0.5);
+      const idx = i + nx * (j + ny * k); occ[idx] = 1; col[idx * 3] = Math.round(c.r * 255); col[idx * 3 + 1] = Math.round(c.g * 255); col[idx * 3 + 2] = Math.round(c.b * 255);
+    }
+  }
+  const fmat = withPlaster(triplanarMaterial({ tex: rockTexture(), scale: 0.02, bump: 0.9, roughness: 0.9, vertexColors: true }), PLASTER.rock);
+  const fm = new THREE.Mesh(meshVoxelGrid({ nx, ny, nz, occ, col }, { s: v, origin: [fine.x0, yb, CLIFF_Z], ao: 0.32 }), fmat);
+  fm.castShadow = fm.receiveShadow = true;
+  const g = new THREE.Group(); g.add(coarse, fm); return g;
 }
 
 // grass tufts + wildflowers scattered on the meadow near the action
@@ -228,44 +363,57 @@ export function makeRuins({ seed = 3 } = {}) {
   const rnd = mulberry32(seed); const grp = new THREE.Group();
   const mat = stoneMat('#e6dac2'), matD = stoneMat('#cdbd9e');
   const ground = (x, z) => terrainHeight(x, z);
-  const colTop = 170 + 11 + 12; // shaft + base + capital of an intact h=170 column
-  // colonnade along the cliff edge, receding toward -x
+  const L = [], LD = []; // merged geometry lists for mat / matD
+  const colTop = columnGeo({ h: 170, r: 10 }).top; // top of an intact h=170 column
+  // colonnade along the cliff edge, receding toward -x (same RNG order as before: column positions are gameplay anchors)
   const rows = [{ z: -78, x0: -300, x1: -1250, step: 74 }, { z: -170, x0: -330, x1: -1200, step: 74 }];
+  const runs = [];
   rows.forEach((row, ri) => {
+    let run = [];
     for (let x = row.x0, k = 0; x > row.x1; x -= row.step, k++) {
-      const r = rnd(); if (r < 0.12 && k > 4) continue;
+      const r = rnd(); if (r < 0.12 && k > 4) { if (run.length) runs.push({ ri, cols: run }); run = []; continue; }
       const broken = (r < 0.38 && k > 4) ? 1 : 0;
-      const col = makeColumn({ h: 170 + ri * 10, r: 10, broken, seed: seed * 100 + k + ri * 50, mat: k % 3 ? mat : matD });
-      col.position.set(x + (rnd() - 0.5) * 4, ground(x, row.z), row.z + (rnd() - 0.5) * 4); grp.add(col);
+      const h = 170 + ri * 10; const { geo, top } = columnGeo({ h, r: 10, broken, seed: seed * 100 + k + ri * 50 });
+      const px = x + (rnd() - 0.5) * 4, pz = row.z + (rnd() - 0.5) * 4, py = ground(x, row.z);
+      geo.translate(px, py, pz); (k % 3 ? L : LD).push(geo);
+      if (!broken && !(ri === 0 && k <= 4)) run.push({ x: px, y: py + top, z: pz }); else { if (run.length) runs.push({ ri, cols: run }); run = []; }
       if (broken && rnd() < 0.7) {
-        const dm = new THREE.Mesh(fluteColumn(26, 10), mat); dm.rotation.z = Math.PI / 2; dm.rotation.y = rnd() * 3;
-        dm.position.set(x + 20 + rnd() * 20, ground(x + 25, row.z) + 10, row.z + 18 + rnd() * 10);
-        dm.castShadow = dm.receiveShadow = true; grp.add(dm);
+        const dm = place(fluteColumn(26, 10), x + 20 + rnd() * 20, 0, 0, rnd() * 3, 0, Math.PI / 2);
+        dm.translate(0, ground(x + 25, row.z) + 10, row.z + 18 + rnd() * 10); L.push(dm);
       }
     }
+    if (run.length) runs.push({ ri, cols: run });
   });
+  // continuous Doric entablature over every run of standing columns (single standing columns keep a lone block)
+  for (const { cols } of runs) {
+    const xa = Math.max(...cols.map((c) => c.x)), xb = Math.min(...cols.map((c) => c.x)); const y = Math.min(...cols.map((c) => c.y)); const z = cols[0].z;
+    const len = xa - xb + 34; const e = entablatureGeo(len, 34, cols.length > 1 ? 34 : 22, { tri: 37 }); e.translate((xa + xb) / 2, y, z); L.push(e);
+  }
   // temple front: entablature + pediment over the first five columns of the front row
-  const ent = new THREE.Mesh(new THREE.BoxGeometry(330, 18, 34), mat); ent.position.set(-448, ground(-448, -78) + colTop + 9, -78);
-  const cor = new THREE.Mesh(new THREE.BoxGeometry(340, 6, 40), mat); cor.position.set(-448, ent.position.y + 12, -78);
-  const [pg, pr] = pedimentGeo(340, 58, 36); const ped = new THREE.Mesh(pg, mat); ped.position.set(-448, cor.position.y + 3, -78);
-  const pin = new THREE.Mesh(pr, matD); pin.position.copy(ped.position);
-  const side = new THREE.Mesh(new THREE.BoxGeometry(18, 18, 120), mat); side.position.set(-300, ent.position.y, -124);
-  for (const m of [ent, cor, ped, pin, side]) { m.castShadow = m.receiveShadow = true; grp.add(m); }
+  const fy = ground(-448, -78) + colTop;
+  { const e = entablatureGeo(334, 36, 38, { tri: 37 }); e.translate(-448, fy, -78); L.push(e);
+    const pd = pedimentGeo2(344, 62, 40); pd.translate(-448, fy + 38, -78); L.push(pd);
+    const ty = new THREE.BoxGeometry(300, 2, 4); // tympanum shadow line
+    L.push(place(ty, -448, fy + 40, -78 + 18));
+    // side return toward the back row (a roofed porch: entablature + roof)
+    const se = entablatureGeo(120, 34, 38, { tri: 37 }); se.rotateY(Math.PI / 2); se.translate(-292, fy, -124); L.push(se);
+    const rf = roofGeo(344, 100, 62); rf.translate(-448, fy + 38, -128); LD.push(rf); }
   // broken pediment fragment + architrave blocks lying in the grass
-  const [fg] = pedimentGeo(180, 34, 30); const frag = new THREE.Mesh(fg, matD);
-  frag.rotation.set(-1.25, 0.6, 0.15); frag.position.set(-905, ground(-905, -125) + 8, -125); frag.castShadow = frag.receiveShadow = true; grp.add(frag);
+  { const fg = pedimentGeo2(180, 34, 30); const m = new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(-1.25, 0.6, 0.15)); fg.applyMatrix4(m); fg.translate(-905, ground(-905, -125) + 8, -125); LD.push(fg); }
   for (const [x, z, ry] of [[-760, -128, 0.3], [-1010, -110, 1.2], [-640, -210, 2.0]]) {
-    const b = new THREE.Mesh(new THREE.BoxGeometry(70, 16, 30), mat); b.rotation.set(0.05, ry, 0.08); b.position.set(x, ground(x, z) + 7, z); b.castShadow = b.receiveShadow = true; grp.add(b);
+    const e = entablatureGeo(70, 30, 18, { tri: 35 }); e.applyMatrix4(new THREE.Matrix4().makeRotationFromEuler(new THREE.Euler(0.05, ry, 0.08))); e.translate(x, ground(x, z) - 1, z); L.push(e);
   }
-  // stylobate steps under the colonnade
+  // stylobate steps under the colonnade (crepidoma: three steps with block joints)
   for (let s = 0; s < 3; s++) {
-    const st = new THREE.Mesh(new THREE.BoxGeometry(1000 - s * 10, 4, 160 - s * 12), matD);
-    st.position.set(-780, ground(-780, -120) + 2 + s * 4 - 8, -124); st.receiveShadow = st.castShadow = true; grp.add(st);
+    const st = ashlarGeo(1000 - s * 10, 4, 160 - s * 12, { bw: 40, bh: 4, gap: 0.6, seed: 40 + s, jitter: 0 });
+    st.translate(-780, ground(-780, -120) + s * 4 - 10, -124); LD.push(st);
   }
-  // great gate further away (inland)
+  // great gate further away (inland): two colossal columns + a full entablature
   const gx = -1050, gz = -330, gy = ground(gx, gz);
-  for (const dx of [-60, 60]) { const p = makeColumn({ h: 300, r: 18, seed: 900 + dx, mat }); p.position.set(gx + dx, gy, gz); grp.add(p); }
-  const top = new THREE.Mesh(new THREE.BoxGeometry(190, 26, 50), mat); top.position.set(gx, gy + 300 + 11 + 12 + 13, gz); top.castShadow = top.receiveShadow = true; grp.add(top);
+  let gTop = 0; for (const dx of [-60, 60]) { const { geo, top } = columnGeo({ h: 300, r: 18, seed: 900 + dx }); geo.translate(gx + dx, gy, gz); L.push(geo); gTop = top; }
+  { const e = entablatureGeo(190, 56, 46, { tri: 40 }); e.translate(gx, gy + gTop, gz); L.push(e); }
+  const meshOf = (list, m) => { const o = new THREE.Mesh(bake(list), m); o.castShadow = o.receiveShadow = true; return o; };
+  grp.add(meshOf(L, mat), meshOf(LD, matD));
   grp.add(makeMonument({ mat, matD }));
   return grp;
 }
@@ -274,22 +422,25 @@ export function makeRuins({ seed = 3 } = {}) {
 // rising from the sea cliff, a colossal lintel, a stepped crown.
 export function makeMonument({ x = -2650, mat, matD } = {}) {
   const grp = new THREE.Group(); mat = mat || stoneMat(); matD = matD || stoneMat('#cdbd9e');
-  const add = (g, m, px, py, pz) => { const o = new THREE.Mesh(g, m); o.position.set(px, py, pz); o.castShadow = o.receiveShadow = true; grp.add(o); return o; };
+  const A = [], B = []; // mat / matD geometry lists (density pass: ashlar coursing, mouldings, a Doric lintel, a framed inner portal)
   const H = 640, zA = -110, zB = 104, W = 96;
   for (const z of [zA, zB]) {
     const y0 = z > 0 ? -200 : terrainHeight(x, z) - 10;
-    add(new THREE.BoxGeometry(W, H - y0, W), mat, x, (H + y0) / 2, z);
-    add(new THREE.BoxGeometry(W + 16, 14, W + 16), matD, x, y0 + 7 + (z > 0 ? 150 : 0), z);
-    for (let k = 0; k < 6; k++) add(new THREE.BoxGeometry(W + 6, 3, W + 6), matD, x, H - 60 - k * 70, z); // banding
+    const body = ashlarGeo(W, H - y0, W, { bw: 34, bh: 16, gap: 0.9, seed: z > 0 ? 71 : 72, jitter: 0.8 }); body.translate(x, y0, z); A.push(body);
+    const pb = y0 + (z > 0 ? 150 : 0); // plinth (on the sea side it starts above the water line)
+    for (let k = 0; k < 3; k++) { const g = ashlarGeo(W + 30 - k * 9, 10, W + 30 - k * 9, { bw: 40, bh: 10, seed: 80 + k, jitter: 0 }); g.translate(x, pb + k * 10, z); B.push(g); }
+    for (let k = 0; k < 5; k++) { const yy = H - 70 - k * 120; B.push(place(new THREE.BoxGeometry(W + 7, 4, W + 7), x, yy, z)); B.push(place(new THREE.BoxGeometry(W + 4, 2, W + 4), x, yy - 3, z)); }
+    for (const sx of [-1, 1]) for (const sz of [-1, 1]) B.push(place(new THREE.BoxGeometry(8, H - pb - 30, 8), x + sx * (W / 2 + 1), (H + pb + 30) / 2, z + sz * (W / 2 + 1))); // corner pilasters
   }
-  const span = zB - zA + W + 40;
-  add(new THREE.BoxGeometry(W + 20, 60, span), mat, x, H + 30, (zA + zB) / 2);
-  add(new THREE.BoxGeometry(W + 32, 10, span + 14), matD, x, H + 65, (zA + zB) / 2);
-  add(new THREE.BoxGeometry(W - 8, 40, span * 0.55), mat, x, H + 90, (zA + zB) / 2);
-  add(new THREE.BoxGeometry(W - 20, 26, span * 0.25), mat, x, H + 123, (zA + zB) / 2);
-  // inner frame (smaller portal inside the big one)
-  add(new THREE.BoxGeometry(18, 210, 18), matD, x + 10, 105, -40); add(new THREE.BoxGeometry(18, 210, 18), matD, x + 10, 105, 40);
-  add(new THREE.BoxGeometry(22, 18, 104), matD, x + 10, 219, 0);
+  const span = zB - zA + W + 40, zc = (zA + zB) / 2;
+  { const e = entablatureGeo(span, W + 20, 70, { tri: 44 }); e.rotateY(Math.PI / 2); e.translate(x, H, zc); A.push(e); }
+  { const c1 = ashlarGeo(span * 0.62, 36, W - 6, { bw: 36, bh: 12, seed: 90 }); c1.rotateY(Math.PI / 2); c1.translate(x, H + 70, zc); A.push(c1);
+    const c2 = ashlarGeo(span * 0.3, 28, W - 22, { bw: 30, bh: 14, seed: 91 }); c2.rotateY(Math.PI / 2); c2.translate(x, H + 106, zc); A.push(c2);
+    B.push(place(new THREE.BoxGeometry(W + 2, 4, span * 0.64), x, H + 108, zc)); }
+  // inner portal: two Doric columns + entablature
+  for (const z of [-40, 40]) { const { geo } = columnGeo({ h: 176, r: 9, seed: 950 + z }); geo.translate(x + 10, -1, z); B.push(geo); }
+  { const e = entablatureGeo(104, 26, 24, { tri: 26 }); e.rotateY(Math.PI / 2); e.translate(x + 10, 196, 0); B.push(e); }
+  for (const [list, m] of [[A, mat], [B, matD]]) { const o = new THREE.Mesh(bake(list), m); o.castShadow = o.receiveShadow = true; grp.add(o); }
   return grp;
 }
 

@@ -6,6 +6,9 @@ import { pixelCanvas } from '../../core/gfx.js';
 import { flowerCanvas, FLOWER_COLORS } from '../../core/props.js';
 import { PAL } from '../../core/palette.js';
 import { Z } from '../../core/stage2d.js';
+import * as THREE from 'three';
+import * as T from '../../show/timing.js';
+import { panel } from '../../core/ui.js';
 
 /** Title layout in world px (zoom-1 framing = the 320x180 screen). */
 export const TITLE = { size: 64, y0: 74, xs: [17, 91, 165, 239], chars: ['一', '笔', '一', '画'], pinyin: ['yī', 'bǐ', 'yī', 'huà'] };
@@ -101,4 +104,33 @@ export function arcCanvas(r, c1 = '#ffffff', c2 = '#5aa8ff') {
       if (Math.abs(d - r) < 1.0) px(x, y, c1); else if (Math.abs(d - r) < 2.0) px(x, y, c2);
     }
   });
+}
+
+/**
+ * Lost Vikings level card: The Vibe Coding Song / (一笔一画) (Jade's note 2026-10-15: the song's real name). UI layer. Shared by press_start (the dive) and
+ * kaizo (the level opens) so it bridges the scene cut seamlessly: levelCardAt(t) is the same pure placement in both.
+ *   const card = buildLevelCard(st); ... card.update(t)
+ * In: stamps in on the melisma (13.02), holds over the dive, slides up and away 14.30 -> 14.55.
+ */
+// (v4) the card leaves BEFORE the first lyric (14.11 floor lyric; it used to fly out through it at 14.30-14.55, critique 0:14):
+// out on the melisma's end 13.82, gone by 14.0 (the verse downbeat is 14.012)
+export const LEVEL_CARD = { tIn: 13.02, tOut: 13.82, tGone: 14.0, x: 160, y: 104 };
+export function buildLevelCard(st, ZUI_LAYER = 20) {
+  const g = new THREE.Group();
+  const W = 184, H = 44;
+  const bg = panel(W, H, 'gold'); bg.place(-W / 2, -H / 2); g.add(bg);
+  const l1 = new TextSprite({ text: 'The Vibe Coding Song', font: 'px', color: PAL.gold, shadow: { dx: 1, dy: -1, color: '#3a2a08' } }, { anchor: 'c' }); l1.place(0, 7); g.add(l1);
+  const l2 = new TextSprite({ spans: [{ text: '(', color: '#c8cce0' }, { text: '一笔一画', color: PAL.white }, { text: ')', color: '#c8cce0' }], font: 'fp12' }, { anchor: 'c' }); l2.place(0, -9); g.add(l2);
+  l1.userData.dz = l2.userData.dz = 0.5;
+  st.addUI(g, ZUI_LAYER);
+  return {
+    group: g,
+    update(t) {
+      const T0 = T.snap(LEVEL_CARD.tIn); const vis = t >= T0 && t < LEVEL_CARD.tGone; g.visible = vis; if (!vis) return;
+      const k = Math.floor((t - T0) * T.fps());
+      const sc = [1.3, 1.12, 1.03, 1][Math.min(3, k)];
+      const out = T.span(t, LEVEL_CARD.tOut, LEVEL_CARD.tGone, T.ease.inQuad);
+      g.scale.set(sc, sc, 1); g.position.set(LEVEL_CARD.x, Math.round(LEVEL_CARD.y + out * 110), 0);
+    },
+  };
 }

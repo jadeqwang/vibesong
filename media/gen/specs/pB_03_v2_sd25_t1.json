@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "pB_03_v2_sd25_t1",
+ "notes": "passB paper card 03; S0=20.1 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, still a hand-drawn pencil drawing in every frame: the same fine pencil lines, the same paper texture and soft hatching as the first frame, never a photo, never 3D. The young woman sings, in English, the words from the reference audio, 'because my imagination is linked to my everyday life', her lips shaping each syllable in time with the voice: she starts singing at once with 'because': lips pressing together on the 'b' of 'be-', opening into a long rounded 'cause'; then pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a' and 'life', a quick 'l' on 'linked'. She sings it with bright wonder, eyes sparkling, a small lift of her chin, a hint of a smile between words. Beside her the drawn blue chain of everyday things (coffee mug, notebook, bicycle, laptop, ticket, potted plant, keys) sways gently and the little sparkles twinkle. Through all of it she stays the same person as in the first frame: the same large head, heart-shaped face with a soft chin, tall forehead with the high centre-parted hairline and full hair volume above it, the two slightly different eyebrows, the same big dark-brown eyes, natural matte lips. Do not redraw, beautify, slim, age or restyle her face; no makeup. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps up (one blue, one pink), never falling. The black-and-orange headphones stay round her neck; the white cropped jacket with its horizontal orange bands and the round 1420 MHz patch stays the same. Static locked-off camera, no zoom, no push-in, framing exactly as in the first frame. No captions, no subtitles, no new text, no new objects.",
+  "image": "file:media/cutscenes/_work/passB/c03/ff_v2.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/passB/c03/voc_20.10_6s.mp3"
+  ],
+  "duration": 6,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

@@ -5,6 +5,69 @@
 - The previous installed set (v5) is kept in `paper/old_v5/` (incl. `party_paper_sheet_v5.png`).
 - All PAPER cutscene first frames (media/cutscenes/) start from these v9 panels.
 
+## A-4 orthographic turnarounds + item props (2026-10-15)
+Spend: $1.12 (5 gpt-image-2.5-sunburst calls `art11_turn_*`: charlie, ricky, ricky2 = no guitar, jade = up + down rows in one sheet, items). Raw: `raw/a4_*_t1/t2.png`; prompts `prompts/a4_*.txt`. Tool: `tools/sprites/a4_turn.py` with steps build, canon, align_back, install, items, review (STAGE = scratch dir). Output: `assets/sprites/turn/` + `turnaround.json`; review `review/a4_turnarounds_x6.png`.
+Method: each view is pixelized with the hero's palette. Every view is scaled so the figure is 80 px tall (the jade_up row reuses the jade_down scale), set on baseline y=95, and centred on the hips at x=36. The back views are then shifted for the best front/back mirror match. Jade canon post-pass: the X crossing is hidden in the bun (back view), the tip cores are fixed by hand, and RARE / EARTH is set in 3x4 letters. The pencil props are code-drawn.
+Weak spots: listed in ART_REQUESTS A-4. Part boxes are approximate.
+
+**A-4 back-dot fix:** the jacket back (turn_jade_*_back + jade_back_hi) uses `tools/sprites/backdot.py`: a 12-px dot drawn from the top of the back panel, and RARE / EARTH as two lines of 3x3 capitals right under it, about as wide as the dot (as in costume/artwork/back_dot_and_lettering). The panel is extended about 4 rows to fit them. Weak spot: the waist outline crowds the outer letter columns on the hair-down back.
+
+## A-3 2x-density `_hi` strips for the voxel heroes (density team request, 2026-10-15)
+Spend: **$1.68** list (7 nano-banana-pro 4K edits, tags `art11_hi_*`). Inputs/outputs: `raw/a3_<batch>_in.png/.json`, `raw/a3_<batch>_out_t1.*`; prompts `prompts/a3_hi*.txt`.
+**Installed (36 strips, all P1 + P2 + P3):** jade idle/run/back/run_hairdown/back_hairdown/back_hairdown_run/draw_rainbow/draw_graphite/sing/jump/victory/drum; charlie idle/run/back/back_run/jump/hat_throw; ricky idle/run/back/back_run/jump/power_chord/sustain/victory; bug_{ladybug,beetle,moth,caterpillar,firefly}_{idle,dance} — each `<name>_hi`, frame size exactly 2x, same frame count/fps/loop, anchor = 2x + [0,1].
+
+**Method** (`tools/sprites/a3_hi.py`, `a3_post.py`)
+1. `a3_hi.py compose`: the low-res frames NEAREST-upscaled 16x per texel on a 5504x3072 grey canvas (8 px per new texel).
+2. nano-banana-pro redraws the canvas "at exactly twice the pixel resolution, same poses" (faces with eye highlights, brows, mouth; hair strands, folds, guitar strings, boot/sneaker detail).
+3. `a3_hi.py extract`: per frame, ±12 px registration (silhouette overlap 0.91-0.99), median of each texel's central half, palette = hero palette + its 10 most used in-between shades, despeckle, 1-px interior outline. **Alpha = Scale2x of the low-res alpha**, so silhouettes, poses, timing and anchors are exactly 2x the low-res strips (and back strips keep the low-res back silhouettes).
+4. `a3_post.py`: Jade pencil canon: wherever the audited low-res has a pencil colour the _hi pixel takes it (caps, bodies, rainbow/graphite tips exactly as audited); in hair-up strips any pencil colour the model added on the head is reverted. Installs via `a2_install` (sprites.json backup each time) and writes the review sheets.
+
+**Review:** `review/a3_jade_hi_x8.png`, `a3_charlie_hi_x8.png`, `a3_ricky_hi_x8.png`, `a3_bugs_hi_x8.png` (4x per hi texel = 8x per game pixel).
+
+**Weak spots**
+- jade_back_hi has no RARE EARTH lettering (only the big dot); the jacket band under the dot is ~4 px tall at 2x, too small for 5-px letters without changing the silhouette.
+- Hair-down Jade strips now show grey over-ear headphones with orange cups (the model's reading of "orange headphones"); hair-up strips keep the neck headphones.
+- jade_back_hi keeps the low-res strip's two tip pixels low on the bun (tips out the bottom of the bun, as audited at 1x).
+- Shading adds ~10 shades per hero overall (Jade 32 colours on the busiest strip), not strictly 2-4 per material.
+- Faces are 3/4 side views, so "both eyes" read only in front-ish frames; the run frames are a single-eye profile.
+
+**Canon pass after the coordinator's review** (`tools/sprites/a3_canon.py`, $0; pre-pass copies in `bak/a3_pre_canon/`, re-run with `--from-bak`):
+- Hair-up `_hi` strips (idle, run, back, jump, victory): the pasted 1x pencil pixels and the floating tip are removed. A round bun (full outline + crescent sheen) is drawn at the top-back of the head. Two 2x pencils go THROUGH it in an X, drawn only outside the hair/bun so the crossing stays hidden and nothing lies on the hair: blue + pink caps out the top/forward side, continuous yellow bodies, ferrules, tips out behind the head (rainbow core on the blue-cap pencil, graphite on the pink). The back view uses the same X turned sideways (caps out the left, tips out the right). Same angles in every frame.
+- `jade_back_hi`: RARE EARTH in a 3x4 pixel font, two lines, under the dot. To fit, the dot is a little smaller and higher (9x5) and the back panel runs about 3 rows lower over the waistband.
+- Hair-down `_hi` strips: the model's grey over-ear headphones with orange cups are reverted to the 1x pixels, plus a 2-px margin so the cup rings and the head band go too.
+- Weak spots of this pass: the pencils are short (about 4-6 px visible per arm) because the bun sits about 6 px under the frame top. The faces of the hair-down strips are partly back to the blockier 1x pixels where the headphones were. The back panel is slightly longer than the cropped 1x jacket.
+
+## A-2 game-design pass (engine request, 2026-10-15)
+Spend: **$1.52** list (7 gpt-image-2.5-sunburst calls, tags `art11_*`: jade_a, jade_b, ricky, ricky_dangle, charlie, charlie_carry, eraser). Raw sheets: `raw/a2_*_t1/t2.png`; prompts: `prompts/a2_*.txt`.
+Pipeline: `tools/sprites/a2_cfg.py STAGE` → `build.py tools/sprites/a2.json` (builds into a staging dir, palettes locked with `palette_from`) → `tools/sprites/a2_post.py STAGE` (canon fixes, anchors, Scale2x, code-made strips, installs through `a2_install.py`, which backs sprites.json up to `sheets/bak/` first) → `a2_review.py`. `--dry` on a2_post writes to STAGE/final instead of assets/sprites.
+
+**P1 `portrait_jade_hairdown`** (32x32 x2, $0, `tools/sprites/a2_portrait.py`): `portrait_jade` with the bun + pencils replaced by a hand-drawn crown and long loose hair framing the face, hanging BEHIND the shoulders (jacket white, orange stripes and chest dot stay visible). Same 13 colours as portrait_jade.
+
+**P2 hero poses** (all palette-locked; off-palette check = 0 for every hero strip)
+- `jade_twin_draw` 44x44 x4: bun with X'd pencils → twin swords → hair falling → stance (blue-cap pencil forward with rainbow tip, pink-cap back). One light-yellow pixel at the crossing in f0 recoloured to hair so the X stays inside the bun.
+- `jade_erase` 36x44 x3: pink cap forward on the wall to her right, pink/peach rubber crumbs added in code (the cleanup pass eats 1-px specks).
+- `jade_dangle` / `ricky_dangle` 36x44 x2: frames shifted so the raised fist sits on the same pixel; anchor = the fist ([27,2] / [10,2]). Jade f1 got a painted rainbow tip. Ricky's first take mirrored frame 2 (faced left); retake `raw/a2_ricky_dangle_t2.png`.
+- `ricky_dangle_play` 36x48 x2: hangs from the strap loop (anchor [16,1] = loop top), Strat neck up.
+- `charlie_parachute_carry` 48x56 x3: retake t2 (t1 kept his cap on and the canopy was too wide for 48 px). No cap on his head: the cap is the canopy (button on top + a code-drawn peak on the left rim). sprites.json carries per-frame `boots` grab points.
+- `jade_read` / `charlie_read` / `ricky_read` 36x44 x2: small plain page in the hands; Jade's page-side pencil end recoloured from pure blue to the red/green core (it read as a 2nd blue cap).
+
+**P3 Eraser** (x2 strips = Scale2x of a 66x62 base, like the existing ones)
+- `eraser_skid_x2` x3 and `eraser_peer_x2` x2 from `raw/a2_eraser_t1.png`; peer has a baked-in pixel "?" above its head.
+- `eraser_blink_x2` x2: code edit of eraser_chase frame 0 (eye cleared; 0 = U-shaped shut lid + lashes, 1 = lid dropped to a 2-px slit + flat heavy brow).
+- `eraser_smear_x2` x4: transparent overlay, rainbow rub-streaks on the lower front (mouth, eye and right fist left clean), registered to chase/blink; `skid_offset` per skid frame in sprites.json.
+
+**P4 props** (code): `prop_page_zitie` (red 田字格 cell with 画 from Fusion Pixel 12), `prop_page_tab` (3x5 "TAB", 6 strings, fret blobs), `prop_page_spec` (blue "SPEC" bar, checkbox bullets), `prop_hat_canopy` (cut from charlie_parachute_carry f0).
+
+**Review:** `review/a2_portrait_x8.png`, `a2_jade_x8.png`, `a2_ricky_charlie_x8.png`, `a2_eraser_x8.png` (x2 strips at 4x/texel = 8x/game px), `a2_props_x8.png`. Magenta cross = anchor.
+
+**Weak spots**
+- Eraser skid/peer faces use big round cartoon eyes (startled / puzzled), not the chase strips' heavy-lidded eyes; body, bands and outline match.
+- The canopy's cap peak is a flat 2-px plank; it reads as "hat" mostly through the beige colour and the top button.
+- jade_dangle / jade_read show only the blue-cap pencil (the pink one is implied in the other fist / off-frame). Twin-draw f1-f2 hide the tips in her fists (only caps show).
+- Ricky's strap loop in dangle_play is thin (1 px per side) at 1x.
+- The smear overlay is keyed to the chase pose; on skid it needs the per-frame offset and may spill past the silhouette by a pixel or two.
+- Read strips draw a small plain page; the 20x24 prop pages are bigger than the hands, so place them beside/over the hands.
+
 ## A-1 back-view strips (engine request)
 Generated with gpt-image-2.5-sunburst: 1 call, $0.21, tag `art10_backs`. Raw sheet: `raw/backs_t1.png`. Config: `tools/sprites/backs_cfg.py`. Each strip uses its hero's existing palette.
 

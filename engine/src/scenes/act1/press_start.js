@@ -2,6 +2,8 @@
 // Jade (hair DOWN: graphite pencil in hand) taps START on each syllable; that title character redraws in fast
 // stroke order. Subtitle: translation only ("stroke by stroke"; the characters themselves are on screen).
 // 12.95-13.82 melisma riser: the camera dives into the first 一 stroke (it becomes the ground of LEVEL 1-1).
+// 13.02 the Lost Vikings level card stamps in: The Vibe Coding Song / (一笔一画) (common.js buildLevelCard; kaizo
+//       carries it on until 14.55).
 import * as T from '../../show/timing.js';
 import { Stage2D, Z, ZUI } from '../../core/stage2d.js';
 import { PAL } from '../../core/palette.js';
@@ -10,7 +12,7 @@ import { Actor } from '../../core/sprites.js';
 import { TextSprite } from '../../core/text.js';
 import { panel, Subtitle, subtitleFor } from '../../core/ui.js';
 import { Hanzi2D } from '../../core/hanzi2d.js';
-import { TITLE, buildTitle, act1Atlas } from './common.js';
+import { TITLE, buildTitle, act1Atlas, buildLevelCard } from './common.js';
 
 export async function setup(ctx) {
   const C = (k) => T.cue('act1.' + k);
@@ -32,8 +34,9 @@ export async function setup(ctx) {
   const start = st.add(new TextSprite({ text: 'START', font: 'px', color: PAL.gold, shadow: { dx: 1, dy: -1, color: '#3a2a08' } }, { anchor: 'c' }), Z.TEXT);
   const press = st.add(new TextSprite({ text: 'PRESS', font: 'px', color: PAL.g1 }, { anchor: 'c' }), Z.TEXT);
   const jade = st.add(new Actor(ctx.lib, 'jade', { name: 'jade' }), Z.ACTOR);
-  const sub = st.addUI(new Subtitle({ y: 4 }), ZUI.SUBS); sub.position.x = 50; // bottom-right, clear of Jade/START
+  const sub = st.addUI(new Subtitle(), ZUI.SUBS);   // (v4) the one slot; line 4 (一笔 一画) is drawn in the world, so it stays empty
   const batch = st.add(new Batch(act1Atlas(ctx.lib)), Z.FX);
+  const card = buildLevelCard(st, ZUI.BANNER);   // The Vibe Coding Song / (一笔一画) (continues into kaizo)
   const P0 = hz[0].medianAt(0, 0.5); const P = [P0[0], P0[1]]; // dive target: the middle of the first 一 stroke (in its slot)
 
   return {
@@ -72,6 +75,7 @@ export async function setup(ctx) {
       // ---------------------------------------------------------------- subtitle (translation only: the title is on screen)
       const c = subtitleFor(t, 4, { hold: 0.9 });
       sub.set(u > 0.2 ? null : c);
+      card.update(t);
     },
   };
 }
