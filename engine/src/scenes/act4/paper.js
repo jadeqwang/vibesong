@@ -14,13 +14,18 @@ import { VideoClip } from '../../core/video.js';
 
 const A = '/src/scenes/act4/assets/';
 const CUT = '/media/cutscenes/';
+const JADE_SING_V47 = '+3';   // v47_trio timing switch for act4.paper_jade_sing (see CLIPS.jade_sing); null = v4.6 card. '+3' = v47_trio's measured pick, Jade decides by ear
 export const CLIPS = {
   // (v4, Jade's pick 2026-10-18: +0.10 s) the picture runs 0.1 s ahead of the v3 card: source take from 0.309 s (was 0.209 s);
   // built with tools/cutscenes/card.py from jade_sing_bridge_1/jade_sing_bridge_1_adv0.10.mp4. v3 card: fallback_card_480p_portrait_lag0.00.mp4
   // (v4 Pass B) the v11 brows tracked onto every frame of the source take (tools/cutscenes/pb_browtrack.py), same 0.309 s start;
   // the pre-brow card is fallback_card_480p_portrait_adv0.10.mp4
   // + flux-video-upscale precise 1.5x of the v11 take (lines crisper; frame-aligned, mouth curve corr 0.965 at shift 0): *_v11_up.mp4
-  jade_sing: CUT + 'jade_sing_bridge_1/fallback_card_480p_portrait_adv0.10_v11_up.mp4',
+  // (v4.7, unit v47_trio; Jade "2:07 lip sync is slightly off") JADE_SING_V47 picks the timing: null = the v4.6 card (fallback), or
+  // '-4'|'-2'|'+0'|'+2'|'+3'|'+4'|'+6' = picture K frames later (tools/cutscenes/js47_shift.py; same take, same pixels, clean 30 fps: the v4.6
+  // card was resampled through a 25 fps image loop, ~1 frame jitter). +3 = back to the measured lag 0.00 (before the v4 +0.10 s advance).
+  jade_sing: JADE_SING_V47 === null ? CUT + 'jade_sing_bridge_1/fallback_card_480p_portrait_adv0.10_v11_up.mp4'
+    : CUT + `jade_sing_bridge_1/fallback_card_v47_shift${JADE_SING_V47}.mp4`,
   charlie: [CUT + 'charlie_play_bridge_1/charlie_play_bridge_1.mp4', CUT + 'charlie_listen_bridge_1/charlie_listen_bridge_1.mp4'],
   ricky: [CUT + 'ricky_play_bridge_1/ricky_play_bridge_1.mp4', CUT + 'ricky_listen_bridge_1/ricky_listen_bridge_1.mp4'],
 };

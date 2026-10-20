@@ -1,0 +1,235 @@
+<title>Vibe Coding Song v4.7</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of notes in song order; each note = stage with stacked preloaded versions (switch keeps the playhead) + version strip; picks at the end. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #66686e; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ink-bg: #e4ebfb; --ok: #2f7d4f; --ok-bg: #e3f1e8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.5vw, 38px); line-height: 1.1; }
+h1 .stroke { display: block; width: 100px; height: 5px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 21px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+h2 .ts { font: 500 14px var(--mono); color: var(--ink); background: var(--ink-bg); padding: 1px 8px; border-radius: 4px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.quote { font-style: italic; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 10px; max-width: 68ch; }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.stage video.on { visibility: visible; }
+.hud { position: absolute; left: 10px; top: 10px; font: 500 13px var(--mono); background: rgba(0,0,0,.65); color: #fff; padding: 3px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vbtn { font: 500 14px var(--mono); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--graphite); cursor: pointer; min-width: 64px; }
+.vbtn[aria-pressed="true"] { background: var(--ink-bg); border-color: var(--ink); color: var(--ink); }
+.vbtn.rec::after { content: " · in show"; color: var(--muted); font-size: 12px; }
+.vbtn.old { font-style: italic; }
+.card { display: grid; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.card.active .stage { outline: 2px solid var(--ink); outline-offset: 2px; }
+ul.notes { margin: 0; padding-left: 20px; max-width: 68ch; display: grid; gap: 4px; }
+.tbtn { font: 600 14px var(--body); padding: 8px 16px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+.tbtn.ghost { background: transparent; color: var(--graphite); border: 1px solid var(--rule); }
+.tbtn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.keys { font-size: 13px; color: var(--muted); }
+kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--card); }
+.picks { display: grid; gap: 14px; }
+.pick { display: grid; gap: 6px; min-width: 0; }
+.pick .lab { font-weight: 600; }
+textarea { width: 100%; box-sizing: border-box; min-height: 48px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+.shot { width: 100%; max-width: 100%; border-radius: 6px; display: block; }
+#out { font-family: var(--mono); font-size: 13px; min-height: 80px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>v4.7: who's who, who's casting, and hands on the strings<span class="stroke" aria-hidden="true"></span></h1>
+    <p>All nine of your v4.6 notes plus the 3:08 jacket. The version marked “in show” is what's in the full cut, <code>engine/out/review/full_v4.7.mp4</code> on your machine. Switch versions while a clip plays and the playhead stays put. Timestamps are song time. Where lip timing is the question, there are frame-shift versions to judge by ear.</p>
+  </header>
+  <div id="cards"></div>
+
+  <section class="card" style="border-top:1px solid var(--rule)">
+    <h2>Your picks</h2>
+    <div class="picks" id="picks"></div>
+    <label for="note" class="muted">Anything else (optional)</label>
+    <textarea id="note" placeholder="e.g. 2:10 callouts too big; 0:49 still too still"></textarea>
+    <div class="row"><button class="tbtn" id="copy" type="button">Copy answers</button></div>
+    <textarea id="out" readonly aria-label="Answers to paste into chat"></textarea>
+  </section>
+</div>
+
+<script>
+const V46 = (f) => ({ lab: "v4.6", f, old: true });
+const CARDS = [
+  { id: "intro", ts: "0:04", title: "Meet Jade, Ricky and Charlie on PAINT IT / RUN IT / SHIP IT", t0: 0, src: v => `v/intro_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "plate", f: "plate", rec: true }, { lab: "card", f: "card" }],
+    quote: "maybe we can find a way to introduce Jade, Ricky, and Charlie, since we no longer have character intro screens any more",
+    notes: ["Each name tag slams in on its hero's first chant word: P1 JADE “vocals · paints the world”, P2 RICKY “electric guitar”, P3 CHARLIE “wrote this song in 2011”.",
+            "<b>plate</b>: a fighting-game name plate in each hero's colour. <b>card</b>: a party card in the SAVE FILE FOUND style, with the pixel portraits (Jade's lets her hair down on the same frame her sprite pulls the pencil).",
+            "Both sit low and clear of the big words, the Chinese and the gloss. They stay in colour while the world is still graphite."] },
+  { id: "p03", ts: "0:21", title: "Card 03: the idea arrives", t0: 17, src: v => `v/p03_${v.f}.mp4`,
+    vers: [V46("old"), { lab: "new", f: "new_R18", rec: true }, { lab: "new +0", f: "new_shift+0" }, { lab: "new +6", f: "new_shift+6" }, { lab: "medium shot", f: "alt_med2_shift+0" }],
+    quote: "can we find a way to amplify expression and body language some more? like she’s actively thinking about the lyrics and about vibe coding their way past the known edges of the video game world?",
+    notes: ["Direction: eyes up and off to the side through “because”, as if she can see past the edge of the page; taps her temple on “imagination”; both hands open outward on “linked”; back to camera with a grin on “everyday life”. One motivated move per phrase, the way the rare-earth shots were directed.",
+            "<b>new</b> uses your v4.4 timing (+0 on “because”, +6 after). <b>new +0</b> and <b>new +6</b> hold one timing throughout.",
+            "<b>medium shot</b>: the first frame extended so both hands show. Lovely acting, slightly looser sync."] },
+  { id: "p04", ts: "0:49", title: "Card 04: a plotting pause", t0: 45, src: v => `v/p04_${v.f}.mp4`,
+    vers: [V46("old"), { lab: "new +0", f: "new_shift+0", rec: true }, { lab: "+2", f: "new_shift+2" }, { lab: "+4", f: "new_shift+4" }, { lab: "+6", f: "new_shift+6" }, { lab: "alt", f: "alt_med2_shift+0" }],
+    quote: "(same note as 0:21)",
+    notes: ["Direction: knuckles under her chin, eyes narrowed, reading a glowing window of the world's code; the hand drops on “myself”.",
+            "Limit: the card is only 2.1 s. In all six usable takes the lean-in with a sly smile came after the cut, so this one reads as “plotting”, not “mischievous”. A longer card would let the smile land, at the cost of the prompt box's entrance.",
+            "<b>alt</b>: finger on chin, looking at a glowing screen."] },
+  { id: "drop", ts: "1:27–1:33", title: "FIXTURES / FUNCTIONS no longer hang; the lens close-up pulls back", t0: 85, src: v => `v/drop_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "drift", f: "drift", rec: true }, { lab: "punch", f: "punch" }],
+    quote: "at “fixtures” and “functions” there’s a stillness that feels glitched … we have a closeup of a glowy thing, but maybe if the camera is actively zooming out, we can see more context",
+    notes: ["Why it hung: the song stops after each word (1:27.3–1:27.8 and 1:30.4–1:31.1), and the scene froze its own clock for the stop, cameras included. Now the clock runs: the camera keeps pushing, Jade's slash follows through, she glances back at the guys, Ricky's chord rings out with his hand shaking.",
+            "<b>drift</b>: a slow push and sway through the stops. <b>punch</b>: adds a 2–3 frame snap-in on each hit, bolder (this clip predates the guitar-hands fix).",
+            "1:32: the camera now backs off the lens and cranes up to show the beam through FUNCTIONS into the receiver, Ricky at his amp and Charlie on the plate, landing just as the slab slams down."] },
+  { id: "c05", ts: "1:47", title: "Card 05: the band finds its groove", t0: 105.6, src: v => `v/c05_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "new", f: "b2fix", rec: true }, { lab: "alt", f: "a1_shift+0" }],
+    quote: "CAn we get more animated on the body language of all 3? like more excitement / stage presence / energy?",
+    notes: ["<b>new</b>: one continuous shot, the camera pushing in while Charlie and Ricky step toward you grinning, hands on the strings; you reach out over the crowd. Sync measures better than v4.6. The sleeve patch is a clean 1420 MHz patch (the take had drawn gibberish).",
+            "<b>alt</b>: your biggest reach, but the model cut to a two-shot of the guys partway (and its patch isn't fixed yet)."] },
+  { id: "js", ts: "2:07", title: "Lip sync on the bridge card", t0: 124, loop: [125.7, 128.3], src: v => `v/js_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "−4", f: "-4" }, { lab: "−2", f: "-2" }, { lab: "+0", f: "+0" }, { lab: "+2", f: "+2" }, { lab: "+3", f: "+3", rec: true }, { lab: "+4", f: "+4" }, { lab: "+6", f: "+6" }],
+    quote: "lip sync is slightly off in this clip",
+    notes: ["Shifts are in frames from v4.6's timing (+ = mouth later). Measured: her mouth opens wide on 画 about 0.15 s before the vowel; +3 undoes the 0.10 s lead it was built with. It's a close call, so your ear decides.",
+            "Also fixed: this card used to drop or repeat about one frame in six (it was built at 25 fps). All versions here are clean 30 fps."] },
+  { id: "boss", ts: "2:10", title: "The Eraser fight: who casts the spiral, and why it works", t0: 127, src: v => `v/boss_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "no callouts", f: "coverage" }, { lab: "callouts", f: "ui", rec: true }],
+    quote: "it would be cool if we could tell that the light spiral was being cast by Ricky and our new bug friends … I think this boss battle could be made visually more coherent and interesting",
+    notes: ["What was wrong: no opponent (the Eraser wasn't in a single frame from 2:05.8 to 2:15.6), no caster (the spiral rose out of a knot of heroes and bugs), and no setup for “erasing was drawing all along”.",
+            "The idea: every attack the Eraser makes draws part of 画. It charges, rubbing the left stroke of 凵 into the page. Ricky holds his note and the beam leaves his headstock to become the spiral; the five bugs each pop and feed their own colour into it, one per 8th note.",
+            "On the big drum hit the braid fires a ring of colour that knocks the Eraser sideways, and its skid is the bottom stroke. It backs off rubbing the right stroke while Charlie and the caterpillar lead the climb. On the slam its own trails light up; it looks down at them, brows up, and Jade lowers her pencils and turns to it, into 2:24.",
+            "Party left, Eraser right the whole time. The floating orange shells, ruins and orbit camera are gone, and the braid is solid pencil colour now (it used to wash out to white).",
+            "<b>callouts</b> adds three short battle-UI lines: “RICKY + BUGS · LIGHT BRAID” (a square lights as each bug joins), “THE ERASER uses RUB OUT!”, “It can't erase color!”."] },
+  { id: "p06", ts: "2:24", title: "Card 06: befriending the Eraser", t0: 141.5, src: v => `v/p06_${v.f}.mp4`,
+    vers: [V46("old"), { lab: "new +0", f: "new_shift+0", rec: true }, { lab: "+2", f: "new_shift+2" }, { lab: "+4", f: "new_shift+4" }, { lab: "+6", f: "new_shift+6" }, { lab: "expressive", f: "alt_r1cur1_shift+0" }],
+    quote: "what acting directions would you give her if she’s trying to befriend the eraser? also, her arm patch is gibberish here (1420 MHz)",
+    notes: ["Direction: she's approaching a scared stray. She lowers the pencil, tip down, never aimed at him, and leans in with her head tilted and soft eyes; on “ask myself” the hand holding the pencil rests on her chest, honest and a little vulnerable; on “what it is” she turns to him with her brows up and offers the pencil on her open palm, a small hopeful smile, a real question. The Eraser's wary side-eye softens.",
+            "In <b>new</b> she lowers the pencil, puts it to her chest and closes her eyes on “what it is” with a soft smile; the offered palm lands just after the cut. The patch now reads 1420 MHz, on the band.",
+            "<b>expressive</b> is the strongest acting (open palm on “is”, the Eraser shuts his mouth), but the pencil morphs away around 2:24.1 with her hair down, which breaks the hair rule, and its patch isn't fixed. Pick it only if you'd trade canon for expression."] },
+  { id: "h238", ts: "2:38", title: "Hands on the guitars (Ricky at the steps)", t0: 156.5, src: v => `v/h_s238_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "v4.7", f: "v47", rec: true }],
+    quote: "Charlie and Ricky’s hands go through their guitars while they’re playing",
+    notes: ["Cause: every 3D guitar pose goes through one function, which put the strumming fist half inside the guitar with the elbow behind it. It was wrong in every shot; the ones that looked right just caught the hand up in a windup.",
+            "Now the picking hand holds a pick over the pickups or sound hole with the forearm draped over the top, and the fretting hand wraps the neck. Fixed in that one function, so every 3D guitar shot in the video gets it."] },
+  { id: "hjam", ts: "2:29", title: "Hands on the guitars (the jam)", t0: 149, src: v => `v/h_jam_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "v4.7", f: "v47", rec: true }],
+    quote: "and also elsewhere",
+    notes: ["Same fix. It also covers the walk, the laser, verse 2, the battle and recruit chord, the lock, the cart ride and the drop-2 slabs."] },
+  { id: "outro", ts: "3:08", title: "Outro: same performance, canon jacket", t0: 186, src: v => `v/outro_${v.f}.mp4`,
+    vers: [V46("v46"), { lab: "v4.7", f: "v47", rec: true }],
+    img: "v/outro_jacket.jpg", imgAlt: "Jade's jacket at 3:08.4, v4.6 on the left with orange hem, cuffs and shoulder strips and a gibberish patch; v4.7 on the right with white hem, cuffs and shoulders, snap epaulettes and a round 1420 MHz patch on the arm band.",
+    quote: "the arm patch is gibberish, and the shoulder epaulette detail is wrong, and the bottom of the jacket and cuffs shouldn't be orange",
+    notes: ["Only the jacket changed; her performance is the same pixels. The hem, cuffs, shoulder strips and pocket slashes are white, leaving one orange band per arm plus the chest band. The shoulders get white straps with a small snap, and the patch is a clean round 1420 MHz patch on her left arm band, tracked through the clip.",
+            "The end page (3:15 on) had the same errors and is fixed too; its patch is blank because it's only about 19 px wide there."] },
+];
+const PICKS = [
+  { id: "intro", lab: "0:04 intros", opts: ["plate", "card", "Keep v4.6"] },
+  { id: "p03", lab: "0:21 card 03", opts: ["new", "new +0", "new +6", "medium shot", "Keep v4.6"] },
+  { id: "p04", lab: "0:49 card 04", opts: ["new +0", "+2", "+4", "+6", "alt", "Keep v4.6"] },
+  { id: "drop", lab: "1:27 stops", opts: ["drift", "punch", "Keep v4.6"] },
+  { id: "c05", lab: "1:47 card 05", opts: ["new", "alt", "Keep v4.6"] },
+  { id: "js", lab: "2:07 timing", opts: ["−4", "−2", "+0", "+2", "+3", "+4", "+6", "Keep v4.6"] },
+  { id: "boss", lab: "2:10 boss", opts: ["callouts", "no callouts", "Keep v4.6"] },
+  { id: "p06", lab: "2:24 card 06", opts: ["new +0", "+2", "+4", "+6", "expressive", "Keep v4.6"] },
+  { id: "hands", lab: "Guitar hands", opts: ["Good", "Still wrong somewhere"] },
+  { id: "outro", lab: "3:08 jacket", opts: ["Good", "Change"] },
+];
+let active = null;
+const players = CARDS.map(C => {
+  const sec = document.createElement("section"); sec.className = "card"; sec.id = C.id;
+  sec.innerHTML = `<h2><span class="ts">${C.ts}</span>${C.title}</h2><p class="quote">“${C.quote}”</p>
+    <ul class="notes">${C.notes.map(n => `<li>${n}</li>`).join("")}</ul>
+    ${C.img ? `<img class="shot" src="${C.img}" alt="${C.imgAlt}">` : ""}
+    <div class="stage"><span class="hud"></span></div>
+    <div class="row vars" role="group" aria-label="Version"></div>
+    <div class="row"><button class="tbtn play" type="button">Play</button>
+      ${C.loop ? `<button class="tbtn ghost loop" type="button">Loop the key words (${C.loop[0]}–${C.loop[1]})</button>` : ""}
+      <button class="tbtn ghost restart" type="button">Back to start</button></div>`;
+  document.getElementById("cards").appendChild(sec);
+  const stage = sec.querySelector(".stage"), hud = sec.querySelector(".hud");
+  const vids = C.vers.map(v => { const el = document.createElement("video"); el.src = C.src(v); el.preload = "auto"; el.playsInline = true; el.muted = true; stage.insertBefore(el, hud); return el; });
+  const P = { C, sec, vids, cur: C.vers.findIndex(v => v.rec), looping: !!C.loop, playing: false };
+  vids[P.cur].classList.add("on");
+  const L = C.loop ? [C.loop[0] - C.t0, C.loop[1] - C.t0] : null;
+  const vbtns = C.vers.map((v, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn" + (v.rec ? " rec" : "") + (v.old ? " old" : ""); b.textContent = v.lab; b.onclick = () => { activate(P); show(i); }; sec.querySelector(".vars").appendChild(b); return b; });
+  function show(i) {
+    if (i === P.cur) return; const a = vids[P.cur], b = vids[i];
+    b.currentTime = a.currentTime; if (P.playing) { b.muted = false; b.play().catch(() => {}); a.pause(); } a.muted = true;
+    a.classList.remove("on"); b.classList.add("on"); P.cur = i; sync();
+  }
+  function sync() { vbtns.forEach((b, i) => b.setAttribute("aria-pressed", i === P.cur)); }
+  const playBtn = sec.querySelector(".play"), loopBtn = sec.querySelector(".loop");
+  function label() { playBtn.textContent = P.playing ? "Pause" : "Play"; if (loopBtn) loopBtn.setAttribute("aria-pressed", P.looping); }
+  function setPlaying(p) {
+    if (p && active && active !== P && active.playing) active.setPlaying(false);
+    P.playing = p; const v = vids[P.cur];
+    if (p) { v.muted = false; if (L && P.looping && (v.currentTime < L[0] || v.currentTime > L[1])) v.currentTime = L[0]; v.play().catch(() => { P.playing = false; label(); }); }
+    else v.pause();
+    label();
+  }
+  playBtn.onclick = () => { activate(P); setPlaying(!P.playing); };
+  if (loopBtn) loopBtn.onclick = () => { activate(P); P.looping = !P.looping; label(); };
+  sec.querySelector(".restart").onclick = () => { activate(P); vids[P.cur].currentTime = (L && P.looping) ? L[0] : 0; };
+  vids.forEach(v => v.addEventListener("ended", () => { if (v === vids[P.cur]) { P.playing = false; label(); } }));
+  sec.addEventListener("pointerdown", () => activate(P));
+  Object.assign(P, { show, setPlaying, label, L, hud }); sync(); label(); return P;
+});
+function activate(P) { active = P; players.forEach(x => x.sec.classList.toggle("active", x === P)); }
+activate(players[0]);
+(function tick() {
+  players.forEach(P => { const v = P.vids[P.cur];
+    if (P.playing && P.L && P.looping && v.currentTime >= P.L[1]) v.currentTime = P.L[0];
+    const t = P.C.t0 + v.currentTime, m = Math.floor(t / 60), s = (t - 60 * m).toFixed(1).padStart(4, "0");
+    P.hud.textContent = `${P.C.vers[P.cur].lab} · ${m}:${s}`; });
+  requestAnimationFrame(tick);
+})();
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA" || !active) return;
+  const n = "123456789".indexOf(e.key);
+  if (n >= 0 && n < active.vids.length) { active.show(n); e.preventDefault(); }
+  else if (e.key === " ") { active.setPlaying(!active.playing); e.preventDefault(); }
+  else if ((e.key === "l" || e.key === "L") && active.L) { active.looping = !active.looping; active.label(); }
+});
+const keys = document.createElement("p"); keys.className = "keys";
+keys.innerHTML = "<kbd>1</kbd>–<kbd>9</kbd> switch version · <kbd>Space</kbd> play / pause · <kbd>L</kbd> loop on / off. Keys act on the outlined player; click a player to select it. Sound starts after your first click.";
+document.getElementById("cards").before(keys);
+
+const KEY = "v47-review"; let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} out(); };
+const picksEl = document.getElementById("picks");
+PICKS.forEach(K => {
+  const d = document.createElement("div"); d.className = "pick";
+  d.innerHTML = `<span class="lab">${K.lab}</span><div class="row" role="group" aria-label="${K.lab}"></div>`;
+  const row = d.querySelector(".row");
+  const bs = K.opts.map(lab => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn"; b.textContent = lab;
+    b.onclick = () => { st[K.id] = st[K.id] === lab ? "" : lab; bs.forEach(x => x.setAttribute("aria-pressed", x.textContent === st[K.id])); save(); };
+    b.setAttribute("aria-pressed", st[K.id] === lab); row.appendChild(b); return b; });
+  picksEl.appendChild(d);
+});
+const note = document.getElementById("note"), outEl = document.getElementById("out");
+note.value = st.note || ""; note.oninput = () => { st.note = note.value; save(); };
+function out() { outEl.value = "v4.7 review: " + PICKS.map(K => `${K.lab}: ${st[K.id] || "unmarked"}`).join("; ") + (st.note && st.note.trim() ? ". Note: " + st.note.trim() : ""); }
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; out();
+  try { await navigator.clipboard.writeText(outEl.value); b.textContent = "Copied"; }
+  catch (err) { outEl.focus(); outEl.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answers"; }, 1800);
+};
+out();
+</script>

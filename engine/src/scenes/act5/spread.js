@@ -76,10 +76,16 @@ const LIVES = {
   //   outline, no vertical line through the hill / Ricky's shirt), then flux-video-upscale precise 2x (creativity 0) -> 1080 instead of
   //   lanczos from 720p (spreadR_v46r2b; the lanczos v4.5 set spreadR_v45r2 is kept as the fallback). Lip lag on word events = 0..+0.04 s (< 1 frame): lag 0.
   v45r2: { seq: 'spreadR_v46r2b', tex: 'spreadR_v46r2b', rt: { t0: 186.30, lag: 0 }, close: [0.50, 0.45], cy: 0.515, feather: [0.08, 0.035, 0.05, 0.05] },
+  // (v4.7 v47_outro, Jade: "the arm patch is gibberish, and the shoulder epaulette detail is wrong, and the bottom of the jacket and cuffs
+  //   shouldn't be orange") the same frames (performance untouched), only the jacket fixed (tools/cutscenes/pb_spread47_jacket.py): hem, cuffs,
+  //   shoulder strips + pocket slashes white, white snap epaulettes, round b/w 1420 MHz patch ON the left arm band (tracked); the end page
+  //   page11*.jpg got the same fix (pb_spread47_page11.py; originals page11*_v46.jpg). Fallback = v45r2 (spreadR_v46r2b).
+  v47: { seq: 'spreadR_v47', tex: 'spreadR_v47', rt: { t0: 186.30, lag: 0 }, close: [0.50, 0.45], cy: 0.515, feather: [0.08, 0.035, 0.05, 0.05] },
 };
 // const LIVE = LIVES.v44b1, CAMV = 'page';   // (v4.5) Jade picked take B (pre-v45_ricky; A/B: swap with the line below)
 // const LIVE = LIVES.v45r1, CAMV = 'page';   // (v4.5 v45_ricky) take B + Ricky on model (r1)
-const LIVE = LIVES.v45r2, CAMV = 'page';   // (v4.6) Jade picked "fixed, alt" = r2
+// const LIVE = LIVES.v45r2, CAMV = 'page';   // (v4.6) Jade picked "fixed, alt" = r2 (= the v4.7 fallback)
+const LIVE = LIVES.v47, CAMV = 'page';   // (v4.7 v47_outro) r2 with the jacket fixed
 const CLOSE = LIVE.rt && CAMV === 'fill' ? { h: [0.40, 0.37], cy: 0.497, hold: true } : { h: LIVE.close, cy: LIVE.cy, hold: !!LIVE.rt && CAMV === 'hold' };
 const A = 5504 / 3072;                       // spread aspect (world: x 0..A, y 0..1, y up)
 const P = (u, v) => [u * A, 1 - v];          // image-normalised (u right, v down) -> world

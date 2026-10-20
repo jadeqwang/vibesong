@@ -28,7 +28,7 @@
 //   172.795  一笔一画!  tight on Jade's pencil tip; hand-off to Team D at the last hit 173.02
 import * as THREE from 'three';
 import * as T from '../../show/timing.js';
-import { loadFonts } from '../../core/text.js';
+import { loadFonts, raster } from '../../core/text.js';
 import { LOOK as TALOS_LOOK, CRISP, SmoothSubs, R5, capDof } from '../act3/common.js';   // (act4 r5) R5(): the round-5 switch
 import { lipSync } from '../../core/motion/index.js';   // (act4 r5) Jade's lip sync on the erased page (lines 36-37)
 import { r5Shot } from '../../look.js';   // (act4 r5) look_r5's per-shot overrides (checkpoints/look_r5.md API)
@@ -57,6 +57,9 @@ export const CART_V45 = 'power';
 // 'strum' = on the band stop (137.03) he swings the acoustic round and waits; his ONE strum on the lone hit (138.595) sends a bolt of
 // light from his guitar to the top 一, which snaps home on it (the snap was already on that hit) as the camera whips into Jade's eye
 export const LOCK_V45 = 'strum';
+// (v47_boss, Jade 2026-10-19 on v4.6 at 2:10) the boss fight 129.385-143.4 (docs/v47_boss_design.md): null = v4.6 | 'coverage' (establish /
+// Ricky casts / the charge) | 'coverage_ui' (+ two JRPG callouts: who casts the braid, what the Eraser does) | 'arena' (one locked wide)
+export const BOSS_V47 = 'coverage_ui';   // (coord v4.7) live = callouts; 'coverage' = same without them
 /** the bar's steps for the cart (hud2d opts.steps): the same strums as CART.steps below, from cues (K is built later in setup) */
 function cartSteps() { const b = T.cue('act4.build'), e = T.cue('act4.eights'), acc = [163.715, 164.112, 164.708, 164.907, 165.502, 165.701, 166.098, 166.694, 166.892, 167.288, 167.883];
   return [...new Set([...T.beatsIn(b - 0.01, e - 0.01, 1), ...acc, T.cue('act4.chufa_accent')].filter((x) => x < e - 0.01).map((x) => Math.round(T.snap(x) * 1000) / 1000)), e].sort((a, c) => a - c); }
@@ -72,6 +75,7 @@ export const LOOK = { flat: 0, light: 1, shadow: 1, tone: 1, palette: 0, pix: 1,
 
 export async function setup(ctx) {
   await loadFonts(['kai', 'sans']);
+  if (BOSS_V47 === 'coverage_ui') await loadFonts(['fp10', 'fp8']);   // (v47_boss) the callouts' pixel font
   const Wd = await getWorld(ctx);
   const { W, heroes, field, PG, eraser, eraserS, flyCap, heldCap, rings, ringMat, feats, moreWheels, cartRig, spiral, tramp, pencil, bugs, lampLights, gate, gateGroup, sea, baseObjs, cams, ERASE, root } = Wd;
   const cam = cams.main;
@@ -147,7 +151,7 @@ export async function setup(ctx) {
     // pre-erase: every top-level group shown (v7, the 123.354 seam); (act4 M2) the rebuilt world: what W.reset() leaves visible
     // (its props, e.g. the void wall and the books, stay hidden), minus Team B's floating ink sculptures (coordinator: hide after 149.786)
     const legacyBG = t >= K.pshot;   // the pencil-tip hand-off (172.44-173.02) keeps v7's background exactly (Team D's match cut)
-    const shells = !pre && t < K.stop;   // the erased page keeps the coloured shells until the band cut
+    const shells = !pre && t < K.stop && !(B47 && t >= K.dBack - 0.01);   // the erased page keeps the coloured shells until the band cut ((v47_boss) none on the fight's page: only the party's colour)
     for (const o of baseObjs) o.visible = pre || ((rebuilt || shells) && (legacyBG || resetVis.get(o) !== false));
     ERASE.uShell.value = rebuilt ? 0 : 1; ERASE.uShellT.value = t; ERASE.uPaperY.value = PAPER_Y;
     ERASE.uShellFade.value = shells ? T.ease.in(T.span(t, K.fc, K.stop)) : 0;
@@ -164,7 +168,8 @@ export async function setup(ctx) {
     Wd.ground.position.y = PAPER_Y;
     const P = PG; P.uEraseC.value.copy(EB); P.uEraseR.value = eraseR; P.uPaperVis.value = rebuilt && gangOn ? 0 : 1;
     P.uRestC.value.copy(rebuilt ? RB : RC); P.uRestR.value = rbR;
-    P.uTrail.value = 1;
+    P.uTrail.value = 1; P.uTrailB.value = 2; P.uIgFront.value = B47 ? T.span(t, K.slam, K.slam + 0.8, T.ease.inOut) : 2;
+    { const e47 = eraser47(t); if (e47) { P.uTrail.value = e47.q6; P.uTrailB.value = e47.q7; } }   // (v47_boss) the Eraser rubs 凵 in during the fight
     P.uTrailIgnite.value = sm(K.slam, K.slam + 0.9, t);
     // the colour return: a coloured-pencil hatching wavefront racing out from the glyph over the page
     P.uColC.value.copy(RC); P.uColR.value = pour || (rebuilt && !gangOn) ? 5600 * Math.pow(T.clamp01((t - K.slam) / 4.0), 1.6) + Math.max(0, t - K.slam - 4.0) * 2500 : -1;
@@ -190,6 +195,11 @@ export async function setup(ctx) {
     const SU = spiral.userData.U; SU.uProg.value = T.ease.out(T.clamp01((t - K.ht[1]) / (K.ht[3] - K.ht[1] + 0.1))); SU.uT.value = t;
     SU.uAmp.value = 0.7 + 0.5 * T.beatPulse(t, 2, 0.12);
     SU.uGap.value.set(GAP[0], GAP[1]);   // (act4 M3) the caterpillar bridge spans this stretch
+    SU.uBraid.value = B47 ? 1 : 0; { const m = spiral.children[0].material; const bl = B47 ? THREE.NormalBlending : THREE.AdditiveBlending; if (m.blending !== bl) { m.blending = bl; m.depthWrite = B47; m.needsUpdate = true; } }
+    if (B47) {   // (v47_boss) the braid: Ricky's strand climbs with his held note, each bug's strand races up after it (solid pencil colour, no gap: it can't be broken)
+      SU.uGap.value.set(2, 2);
+      B.CAST.forEach((c, i) => { SU.uStrP.value[i] = i === 0 ? T.ease.out(T.clamp01((t - c.t0) / (K.ht[2] - c.t0 + 0.1))) : Math.min(SU.uStrP.value[0], T.ease.out(T.clamp01((t - c.t0) / 0.55))); SU.uStrC.value[i].copy(c.c); });
+      SU.uFlash.value = 1.2 * T.pulse(t, [B.tFire], 0.3) + 1.6 * T.pulse(t, [B.tHit], 0.35); SU.uAmp.value = 0.85 + 0.25 * T.beatPulse(t, 2, 0.12) + 0.4 * T.pulse(t, [B.tHit], 0.4); }
     // (act4 M3) the air fragments are coloured shards (the rule: colour can't be erased), lit by the firefly lamp at dusk
     U.uColorShards.value = 1; U.uLampP.value.copy(LAMP_P).add(V(0, 30, 0)); U.uLampK.value = t >= K.dBack && t < K.slam ? 1.1 * (0.9 + 0.1 * Math.sin(t * 2.1)) : 0;
     Wd.vantage.visible = !pre && t < K.rebuilt;
@@ -209,7 +219,9 @@ export async function setup(ctx) {
       const scrub = t >= K.dOut ? Math.sin((t - K.dOut) * Math.PI * 2 * 1.4) * 0.11 : 0;
       st = { face: 'grumpy', scrub, lean: scrub * 0.6 + 0.05 * T.clamp01((t - K.dOut) * 3), blink: blink(0.2) };
     } else if (t < K.lookAt) {
-      pos = EP1.clone(); sc = 290; st = { face: 'grumpy', blink: blink(0.6), squash: 0.012 * Math.sin(t * 1.7) };
+      pos = EP1.clone(); sc = 290;
+      const e47 = eraser47(t); if (e47) { pos = e47.pos; yawE = e47.yaw; sc = e47.sc; }   // (v47_boss) the fight: charge, knock, retreat
+      st = { face: 'grumpy', blink: blink(0.6), squash: 0.012 * Math.sin(t * 1.7) };
       if (t >= K.slam) st.face = 'look';
       if (r5) {   // (act4 r5) busy rubbing through the whole chaos; on the slam it stops dead and stares (the stop-and-stare lands on the lock)
         const busy = t < K.slam, ph = (t - K.acc) * Math.PI * 2 * 1.1;
@@ -252,6 +264,12 @@ export async function setup(ctx) {
     const d = E.clone().sub(pos);
     e.rotation.set(0, yawE ?? Math.atan2(d.x, d.z), 0);
     e.set(st);
+    { const e47 = t >= K.acc ? eraser47(t) : null; if (e47) { e.rotation.set(e47.tilt, e47.yaw, 0, 'YXZ'); e.set({ ...st, ...e47.st }); } else e.rotation.order = 'XYZ'; }   // (v47_boss) the charge / the knock / the retreat
+    if (B47 && t >= K.lookAt && t < K.s2) {   // (v47_boss) the turn: still grumpy at the 画 (86.2), it tips to look down at its own lit trail (86.3), then comes back up soft, brows raised (86.4)
+      const b2 = T.nearestBeat(141.806), b3 = T.nearestBeat(142.205);
+      const down = T.ease.inOut(T.span(t, b2, b2 + 0.22)) * (1 - T.ease.inOut(T.span(t, b3 - 0.05, b3 + 0.2)));
+      e.rotation.set(0.2 * down, e.rotation.y, 0, 'YXZ');
+      e.set({ ...st, face: t < b2 ? 'grumpy' : 'look', blink: t >= b3 - 0.06 && t < b3 + 0.04 ? 1 : 0, squash: t >= b3 ? 0.05 * Math.exp(-(t - b3) * 6) * Math.cos((t - b3) * 20) : 0, wave: -0.6 * down, scrub: 0, lean: 0 }); }
     // battle UI anchor (the ♥+1 tags): just above its face
     { const fz = V(Math.sin(e.rotation.y), 0, Math.cos(e.rotation.y)), fx = V(fz.z, 0, -fz.x);   // its upper front corner (clear of the face and the cap)
       eraserAnchor.copy(pos).add(V(0, sc * 1.6 * 0.9, 0)).addScaledVector(fz, sc * 0.62 * 0.5).addScaledVector(fx, sc * 0.36); }
@@ -433,6 +451,21 @@ export async function setup(ctx) {
     if (t < K.dBack || t >= K.stop) return;
     const beat = T.beatAt(t);
     const put = (name, p, anim, o = {}, k = 1, yaw = yawFor(F)) => { const f = feats[name]; f.visible = true; f.position.copy(p); f.rotation.set(0, yaw, 0); f.scale.setScalar(k); f.set({ anim, t, beat, ...o }); return f; };
+    if (B47) {   // (v47_boss) the five bug-features in front of Ricky, each feeding its colour into the spiral's base (feedState) on its 8th
+      const src = {}; const toSp = (p) => yawFor(_sp0.clone().sub(p).setY(0).normalize());
+      const cast = (n) => T.pulse(t, [B.castOf(n).t0 + 0.02], 0.28);   // the bug hops + pops when its colour joins
+      put('lamp', B.P.lamp.clone().add(V(0, 12 * cast('lamp'), 0)), 'use', { glow: 1 }, 1 + 0.2 * cast('lamp'), toSp(B.P.lamp)); lampLights[0].position.copy(B.P.lamp).add(V(0, 30, 0)); lampLights[0].intensity = 2600 * (0.92 + 0.08 * Math.sin(t * 2.1)) * (1 + 0.6 * T.pulse(t, [B.tFire, B.tHit], 0.3));
+      put('button', B.P.button.clone().add(V(0, 12 * cast('button'), 0)), 'use', {}, 1 + 0.2 * cast('button'), toSp(B.P.button));
+      put('wheel', B.P.wheel.clone().add(V(0, 12 * cast('wheel'), 0)), 'use', {}, 1 + 0.2 * cast('wheel'), toSp(B.P.wheel) + Math.PI / 2);
+      if (t < K.ht[3]) put('bridge', B.P.bridge.clone().add(V(0, 10 * cast('bridge'), 0)), 'dance', {}, 1 + 0.18 * cast('bridge'), toSp(B.P.bridge));
+      else { const k = T.clamp01((t - K.ht[3]) / (K.steps[0] - K.ht[3])) * 0.95; const p = spiralPoint(k, 6), p2 = spiralPoint(Math.min(1, k + 0.01), 6); put('bridge', p.add(V(0, 1, 0)), 'dance', {}, 0.8, yawFor(p2.sub(spiralPoint(k, 6)).setY(0).normalize())); }   // the caterpillar leads the climb
+      const a = (t - K.dBack) * 1.1; const gp = B.P.glider.clone().addScaledVector(B.u, 30 * Math.cos(a)).addScaledVector(B.w, 22 * Math.sin(a)); gp.y += 6 * Math.sin(t * 1.3) + 10 * cast('glider');
+      put('glider', gp, 'use', {}, 1, yawFor(B.u.clone().multiplyScalar(-Math.sin(a)).addScaledVector(B.w, Math.cos(a))));
+      for (const n of ['lamp', 'button', 'wheel', 'bridge', 'glider']) { const f = feats[n]; src[n] = f.position.clone().add(V(0, n === 'glider' ? 0 : 14, 0)); }
+      const gtr = heroes.ricky.visible ? figOf(heroes.ricky)?.items.guitar : null;   // Ricky's beam leaves his headstock (past the fret point along the neck)
+      if (gtr) { gtr.updateWorldMatrix(true, false); const U = gtr.userData; src.ricky = gtr.localToWorld(U.fret.clone().add(U.fret.clone().sub(U.strum).multiplyScalar(0.42))); }
+      feedState(t, src); return;
+    }
     put('lamp', LAMP_P, 'use', { glow: 1 }, 1, yawFor(F) + 0.6); lampLights[0].position.copy(LAMP_P).add(V(0, 30, 0)); lampLights[0].intensity = 2600 * (0.92 + 0.08 * Math.sin(t * 2.1));
     put('button', at(GROUND.ricky, 12, -28).setY(GY), 'idle', {}, 1, yawFor(F) - 0.4);
     put('wheel', at(GROUND.charlie, -22, 26).setY(GY), 'idle', {}, 1, yawFor(RT));
@@ -448,6 +481,170 @@ export async function setup(ctx) {
   }
   const BRIDGE_LEN = (() => { const b = new THREE.Box3().setFromObject(feats.bridge); return Math.max(10, b.max.x - b.min.x); })();
   const BRIDGE_DECK = (() => { const b = new THREE.Box3().setFromObject(feats.bridge); return Number.isFinite(b.max.y) ? b.max.y * 0.8 : 6; })();
+
+  // ================================================================ (v47_boss) THE BOSS FIGHT 129.385-143.4 (docs/v47_boss_design.md)
+  // The Eraser charges the party, rubbing the left stroke of 凵 into the page on every beat; Ricky's held note (130.585) leaves his
+  // headstock as a beam and becomes the spiral; the five bug-features braid their own colours into it on the 8ths; on the half-time
+  // hit 131.785 the braid fires a ring of coloured pencil along the page that meets the Eraser at the corner of 凵 on 132.603 and
+  // knocks it sideways (the bottom stroke = its skid); it backs off rubbing the right stroke. Every attack drew part of 画.
+  const B47 = !!(BOSS_V47 && r5);
+  const B = (() => {
+    const C0 = SPIRAL.c.clone().setY(GY), u = F5.clone(), w = RT5.clone();
+    const L = (a, b, y = 0) => C0.clone().addScaledVector(u, a).addScaledVector(w, b).setY(GY + y);
+    // a ground stroke at font-arc parameter q (the reveal shader's g.g), projected through E onto the page
+    const med = (s) => field.data.medians[s].map(([x, y]) => [x, y]);
+    const fontAt = (m, q) => { const Ls = [0]; for (let i = 1; i < m.length; i++) Ls.push(Ls[i - 1] + Math.hypot(m[i][0] - m[i - 1][0], m[i][1] - m[i - 1][1]));
+      const d = T.clamp01(q) * Ls[Ls.length - 1]; for (let i = 1; i < m.length; i++) if (d <= Ls[i] + 1e-6) { const k = (d - Ls[i - 1]) / Math.max(1e-6, Ls[i] - Ls[i - 1]); return [m[i - 1][0] + (m[i][0] - m[i - 1][0]) * k, m[i - 1][1] + (m[i][1] - m[i - 1][1]) * k]; }
+      return m[m.length - 1]; };
+    const ground = ([fx, fy]) => { const lam = field.groundLambda(fy); return E.clone().addScaledVector(field.dirOf(fx, fy), Number.isFinite(lam) ? lam : 4000).setY(GY); };
+    const M6 = med(6), M7 = med(7);
+    const tr6 = (q) => ground(fontAt(M6, q)), tr7 = (q) => ground(fontAt(M7, 1 - q));   // stroke 7 is rubbed from its near end outward
+    // the corner of 凵 (the point of stroke 6 nearest the vantage) in font-arc parameter
+    let qc = 0, best = 1e9; for (let i = 0; i <= 200; i++) { const d = tr6(i / 200).distanceTo(E); if (d < best) { best = d; qc = i / 200; } }
+    const beats = T.beatsIn(K.dBack - 0.01, K.ht[3] + 0.01, 1);   // the charge: one push per beat
+    const tHit = T.nearestBeat(132.603), tFire = K.ht[2], tSkid = K.ht[3], tHome = K.lineFC - 0.25;
+    const e8 = T.beatsIn(K.ht[1] - 0.01, K.ht[2] + 0.01, 2);       // the roll call: Ricky + the five bugs on the 8ths
+    // casters: [feature | 'ricky', strand colour, start]
+    const CAST = [['ricky', V(0.1, 0.45, 1.0)], ['lamp', V(1.0, 0.66, 0.04)], ['button', V(1.0, 0.08, 0.1)], ['bridge', V(0.22, 0.95, 0.12)], ['wheel', V(0.0, 0.85, 0.72)], ['glider', V(0.62, 0.22, 1.0)]]   // saturated pencil colours (they must survive the colour script's drain: HSV sat > 0.62)
+      .map(([who, c], i) => ({ who, c, t0: e8[Math.min(i, e8.length - 1)] }));
+    const P = {   // spots: a along F5 (screen right in the side view), b along RT5 (toward the side camera)
+      ricky: L(-64, -6), charlie: L(-132, -34), jade: L(52, -52),
+      lamp: L(-18, 34), button: L(-102, 42), wheel: L(-152, 12), bridge: L(-60, 64), glider: L(-30, -10, 112) };   // all five in front of Ricky, in S2's frame
+    const castOf = (n) => CAST.find((c) => c.who === n);
+    return { C0, u, w, L, tr6, tr7, qc, beats, tHit, tFire, tSkid, tHome, e8, CAST, P, castOf };
+  })();
+  const HEAD47 = 0.55;   // her head turn toward the Eraser at 142.605 (rad, sign = her left)
+  const FIGHT_SC = 210;   // 336 u tall in the fight (~5x the heroes; the same size it meets Jade at, sc 200)
+  /** the Eraser in the fight: { pos, sc, yaw, tilt, q6, q7, st } or null outside the window */
+  function eraser47(t) {
+    if (!B47 || t < K.dBack || t >= K.lineFC) return null;
+    const push = (x) => { let k = 0; for (const b of B.beats) if (x >= b) k++; const b0 = B.beats[Math.max(0, k - 1)] ?? K.dBack, b1 = B.beats[k] ?? b0 + 0.4;
+      return k === 0 ? 0 : (k - 1 + T.ease.out(T.clamp01((x - b0) / Math.max(0.05, (b1 - b0) * 0.55)))); };   // a shove on each beat, a hold before the next
+    let pos, tilt = 0, face = 'grumpy', lean = 0, squash = 0, scrub = 0, blink = 0, q6 = 0, q7 = 0, look = B.C0;
+    if (t < B.tHit) {   // the charge down stroke 6
+      const n = B.beats.filter((b) => b < B.tHit + 0.01).length; q6 = B.qc * T.clamp01(push(t) / n);
+      pos = B.tr6(q6); tilt = -0.06 + 0.16 * T.beatPulse(t, 1, 0.16); scrub = 0.06 * Math.sin(t * Math.PI * 2 * 2.5); lean = 0.05 * Math.sin(t * Math.PI * 2 * 1.25);
+    } else if (t < B.tSkid) {   // hit: knocked sideways along the bottom stroke (the skid), rocking
+      const k = T.span(t, B.tHit, B.tSkid, T.ease.out); q6 = B.qc + (1 - B.qc) * k; pos = B.tr6(q6);
+      const a = t - B.tHit; tilt = -0.28 * Math.exp(-a * 5) * Math.cos(a * 16); lean = -0.32 * Math.exp(-a * 4) * Math.cos(a * 13);
+      squash = 0.14 * Math.exp(-a * 9); face = 'look'; blink = a > 0.18 && a < 0.27 ? 1 : 0; q7 = 0;
+    } else {   // backs off, rubbing stroke 7 outward, then slides to its lock spot (EP1)
+      q6 = 1; const k = T.span(t, B.tSkid, B.tHome - 0.6, T.ease.inOut); q7 = k; pos = B.tr7(k);
+      if (t > B.tHome - 0.6) pos = B.tr7(1).lerp(EP1, T.span(t, B.tHome - 0.6, B.tHome, T.ease.inOut));
+      scrub = 0.07 * Math.sin(t * Math.PI * 2 * 2.5); lean = 0.04 * Math.sin(t * 7); face = 'grumpy'; look = E;
+    }
+    const d = look.clone().sub(pos); const sc = t < B.tHome - 0.6 ? FIGHT_SC : T.lerp(FIGHT_SC, 290, T.span(t, B.tHome - 0.6, B.tHome, T.ease.inOut));
+    return { pos, sc, yaw: Math.atan2(d.x, d.z), tilt, q6, q7, st: { face, blink, scrub, lean, squash, crumbs: true } };
+  }
+  // the casters' feeds: an arc of colour from each caster into the base of the spiral (Ricky's from his headstock)
+  const feeds = B.CAST.map(({ c }) => {
+    const m = new THREE.Mesh(new THREE.BufferGeometry(), new THREE.ShaderMaterial({ transparent: true, depthWrite: true, blending: THREE.NormalBlending, side: THREE.DoubleSide,   // depthWrite: the post haze / DOF read the beam's own depth, not the sky's (else it washes out)
+      uniforms: { uC: { value: c.clone() }, uF: { value: 0 }, uT: { value: 0 }, uA: { value: 1 }, uB: { value: 0 } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform vec3 uC; uniform float uF, uT, uA, uB; varying vec2 vUv;
+        void main(){ float x = vUv.x; if (x > uF) discard; float flow = 0.6 + 0.4 * sin(x * 40.0 - uT * 26.0); float head = exp(-pow((uF - x) * 14.0, 2.0));
+          float burst = uB * exp(-x * 9.0);
+          gl_FragColor = vec4(uC * (0.62 + 0.22 * flow + 0.7 * head + 0.8 * burst) * uA, 0.96); }` }));
+    m.visible = false; m.frustumCulled = false; m.renderOrder = 41; m.userData.noAO = true; root.add(m); return m; });
+  const _sp0 = spiralPoint(0);
+  const castLight = new THREE.PointLight(0xffffff, 0, 70, 1.8); root.add(castLight);
+  function feedState(t, src) {
+    feeds.forEach((m, i) => { m.visible = false; const C = B.CAST[i]; const a = src[C.who]; if (!B47 || !a || t < C.t0 || t >= K.lineFC) return;
+      const b = _sp0.clone().add(V(0, 2, 0)); const mid = a.clone().lerp(b, 0.5); mid.y = Math.max(a.y, b.y) + 26 + 10 * (i % 2);
+      m.geometry.dispose(); m.geometry = new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(a, mid, b), 32, i === 0 ? 2.6 : 2.1, 8, false);
+      const U = m.material.uniforms; U.uF.value = T.clamp01((t - C.t0) / 0.14); U.uT.value = t; U.uA.value = 1 + 0.4 * T.pulse(t, [B.tFire, B.tHit], 0.25); U.uB.value = T.pulse(t, [C.t0 + 0.02], 0.3); m.visible = true; });
+    // the caster's own glow when its colour joins (a light in its colour on the bug)
+    castLight.intensity = 0; for (const C of B.CAST) { const p = src[C.who]; const k = T.pulse(t, [C.t0 + 0.02], 0.3); if (p && k > 0.02 && t >= C.t0) { castLight.position.copy(p).add(V(0, 12, 0)); castLight.color.setRGB(C.c.x, C.c.y, C.c.z); castLight.intensity = 900 * k; } }
+  }
+  // (v47_boss) THE RING the braid fires on 131.785: a band of the six casters' pencil colours racing out over the page from the spiral,
+  // standing up as a low wall at its front, timed so it meets the rubber at the corner of 凵 exactly on the hit (132.603). Normal blend:
+  // it is coloured pencil, not light, so it stays saturated on the bright page and through the drain.
+  const RING_COLS = B.CAST.map((c) => c.c);
+  const ringU = { uC: { value: new THREE.Vector3() }, uR: { value: -1 }, uA: { value: 0 }, uCol: { value: RING_COLS } };
+  const ringGround = (() => { const g = new THREE.PlaneGeometry(1, 1); g.rotateX(-Math.PI / 2);
+    const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4, uniforms: ringU,
+      vertexShader: `varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+      fragmentShader: `uniform vec3 uC; uniform float uR, uA; uniform vec3 uCol[6]; varying vec3 vW;
+        void main(){ if (uR < 0.0) discard; float d = length(vW.xz - uC.xz); float W = 26.0; float x = (uR - d) / W;   // 0 = the front, 1 = the band's back edge
+          if (x < 0.0 || x > 1.0) { float wake = d < uR ? 0.22 * exp(-(uR - d - W) / 90.0) : 0.0; if (wake < 0.01) discard;
+            float h = fract(atan(vW.z - uC.z, vW.x - uC.x) / 6.2832 * 6.0 + d * 0.004); int k = int(floor(h * 6.0)); vec3 c = uCol[0];
+            for (int i = 0; i < 6; i++) if (i == k) c = uCol[i]; gl_FragColor = vec4(c * 0.85, wake * uA); return; }
+          int k = int(min(5.0, floor(x * 6.0))); vec3 c = uCol[0]; for (int i = 0; i < 6; i++) if (i == k) c = uCol[i];
+          float hatch = 0.8 + 0.2 * sin((vW.x + vW.z) * 0.9);
+          gl_FragColor = vec4(c * hatch * 0.95, uA * smoothstep(0.0, 0.08, x) * smoothstep(1.0, 0.85, x)); }` }));
+    m.visible = false; m.frustumCulled = false; m.renderOrder = 6; m.userData.noAO = true; root.add(m); return m; })();
+  const ringWall = (() => { const g = new THREE.CylinderGeometry(1, 1, 1, 128, 1, true); g.translate(0, 0.5, 0);
+    const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, side: THREE.DoubleSide, uniforms: { uA: { value: 0 }, uCol: { value: RING_COLS } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform float uA; uniform vec3 uCol[6]; varying vec2 vUv;
+        void main(){ float v = vUv.y; int k = int(min(5.0, floor(v * 6.0))); vec3 c = uCol[0]; for (int i = 0; i < 6; i++) if (i == k) c = uCol[i];
+          float a = uA * pow(1.0 - v, 0.7) * smoothstep(0.0, 0.04, v); if (a < 0.01) discard; gl_FragColor = vec4(c * 0.95, a); }` }));
+    m.visible = false; m.frustumCulled = false; m.renderOrder = 7; m.userData.noAO = true; root.add(m); return m; })();
+  const RING_HIT = (() => { const p = B.tr6(B.qc); return p.distanceTo(B.C0) - FIGHT_SC * 0.62 * 0.5; })();   // the Eraser's front face at the corner
+  function ring47(t) {
+    ringGround.visible = ringWall.visible = false;
+    if (!B47 || t < B.tFire || t > B.tHit + 0.55) return;
+    const k = (t - B.tFire) / (B.tHit - B.tFire), r = RING_HIT * Math.min(1, k) + Math.max(0, t - B.tHit) * 120;   // it stops at the rubber (a little give)
+    const a = t < B.tHit ? 1 : 1 - T.span(t, B.tHit + 0.1, B.tHit + 0.55);
+    ringU.uC.value.copy(B.C0); ringU.uR.value = r; ringU.uA.value = a;
+    ringGround.position.set(B.C0.x, PAPER_Y + 0.6, B.C0.z); ringGround.scale.set(3000, 1, 3000); ringGround.visible = true;
+    ringWall.position.set(B.C0.x, GY - 1, B.C0.z); ringWall.scale.set(r, 30 + 26 * T.pulse(t, [B.tHit], 0.25) + 10 * Math.exp(-(t - B.tFire) * 3), r); ringWall.material.uniforms.uA.value = 0.9 * a; ringWall.visible = r > 6;
+  }
+  // (v47_boss) the vantage reads as the GOAL: a soft beacon of warm light over the floating 丶 from the establishing shot until she lands
+  const beacon = (() => { const g = new THREE.CylinderGeometry(1, 1, 1, 24, 1, true); g.translate(0, 0.5, 0);
+    const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, uniforms: { uA: { value: 0 } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform float uA; varying vec2 vUv; void main(){ float v = vUv.y; float a = uA * pow(1.0 - v, 1.6) * (0.75 + 0.25 * sin(v * 40.0)); gl_FragColor = vec4(vec3(1.0, 0.78, 0.45) * a, 1.0); }` }));
+    m.visible = false; m.frustumCulled = false; m.renderOrder = 8; m.userData.noAO = true; root.add(m); return m; })();
+  const vantageEm = Wd.vantage.material.emissive.clone(), vantageCol = Wd.vantage.material.color.clone(), vantageSc = Wd.vantage.scale.clone();
+  function beacon47(t) {
+    beacon.visible = false; Wd.vantage.material.emissive.copy(vantageEm); Wd.vantage.material.color.copy(vantageCol); Wd.vantage.scale.copy(vantageSc);
+    if (!B47 || t < K.dBack || t >= K.steps[2] + 0.2) return;
+    // the goal, not debris: a flatter gold stepping stone that pulses on the beat (the orange teardrop read as a floating carrot)
+    const p = T.beatPulse(t, 1, 0.14), out = 1 - T.span(t, K.steps[2], K.steps[2] + 0.2);
+    if (t < K.lineFC) { Wd.vantage.material.color.setRGB(1.0, 0.78, 0.28); Wd.vantage.material.emissive.setRGB(0.5 + 0.4 * p, 0.34 + 0.26 * p, 0.06); Wd.vantage.scale.set(vantageSc.x * 1.15, vantageSc.y * 0.6, vantageSc.z * 1.15); }   // back to the approved lock look on the cut
+    const charge = t >= K.ht[2] && t < K.trip[0];   // no beacon in the charge shot (it would cross the Eraser's face)
+    beacon.position.copy(J).add(V(0, 1, 0)); beacon.scale.set(5, 170, 5); beacon.material.uniforms.uA.value = (0.16 + 0.14 * p) * out; beacon.visible = !charge;
+  }
+  // (v47_boss 'coverage_ui') JRPG callouts in the battle UI's own window + pixel font (battle_ui.js win() / fp10), top of frame, clear of the
+  // subtitle band, only during the cast and the charge: WHO casts the braid (Ricky + the five bugs, each square lights in its colour as it
+  // joins), WHAT the Eraser does, and the rule on the hit
+  const B47UI = BOSS_V47 === 'coverage_ui';
+  const UIC = { navy0: '#0d1022', navy1: '#161b38', navy2: '#222a52', slate: '#5a6080', gold: '#f5c542', goldHi: '#ffe58a', white: '#ffffff', red: '#ff4d6d' };
+  const hex = (v) => '#' + [v.x, v.y, v.z].map((x) => Math.round(255 * Math.min(1, Math.max(0, x))).toString(16).padStart(2, '0')).join('');
+  const uiLow = document.createElement('canvas');
+  function uiWin(g, x0, y0, x1, y1, border) {
+    const f = (a, b, c, d, col) => { g.fillStyle = col; g.fillRect(a, b, c - a + 1, d - b + 1); };
+    const o = (a, b, c, d, col) => { f(a, b, c, b, col); f(a, d, c, d, col); f(a, b, a, d, col); f(c, b, c, d, col); };
+    g.globalAlpha = 0.94; f(x0, y0, x1, y1, UIC.navy2); g.globalAlpha = 1; o(x0, y0, x1, y1, UIC.navy0); o(x0 + 1, y0 + 1, x1 - 1, y1 - 1, border); o(x0 + 2, y0 + 2, x1 - 2, y1 - 2, UIC.slate);
+  }
+  const uiTxt = (spec) => raster({ shadow: { dx: 1, dy: -1, color: UIC.navy0 }, ...spec });
+  function ui47(t) {
+    if (!B47UI || t < K.ht[1] || t >= K.trip[0]) return;
+    let key, paint, lw, lh, right = false;
+    const pop = (t0) => (t - t0 < 0.07 ? 1 : 0);
+    if (t < B.tFire) {   // WHO: RICKY + BUGS · LIGHT BRAID, the five squares light on the 8ths
+      const n = B.CAST.filter((c) => t >= c.t0).length - 1;
+      const r1 = uiTxt({ spans: [{ text: 'RICKY', color: hex(B.CAST[0].c.clone().addScalar(0.25)) }, { text: ' + BUGS', color: UIC.white }], font: 'fp10' });
+      const r2 = uiTxt({ text: 'LIGHT BRAID', font: 'fp10', color: UIC.goldHi });
+      lw = Math.max(r1.w + 5 * 9 + 10, r2.w) + 16; lh = 34; key = `who|${n}|${pop(B.CAST[Math.max(0, n)].t0)}`;
+      paint = (g) => { uiWin(g, 0, 0, lw - 1, lh - 1, pop(B.CAST[Math.max(0, n)].t0) ? UIC.white : UIC.gold); g.drawImage(r1.canvas, 7, 4);
+        B.CAST.slice(1).forEach((c, i) => { const x = 7 + r1.w + 6 + i * 9, y = 7; g.fillStyle = i < n ? hex(c.c) : UIC.navy0; g.fillRect(x, y, 7, 7); g.strokeStyle = i < n ? UIC.white : UIC.slate; g.lineWidth = 1; g.strokeRect(x + 0.5, y + 0.5, 6, 6); });
+        g.drawImage(r2.canvas, Math.round((lw - r2.w) / 2), 18); };
+    } else if (t < B.tHit) {   // WHAT: the enemy's move, top right (the boss side)
+      const r1 = uiTxt({ spans: [{ text: 'THE ERASER', color: UIC.red }, { text: ' uses ', color: UIC.white }, { text: 'RUB OUT!', color: UIC.goldHi }], font: 'fp10' });
+      lw = r1.w + 16; lh = 20; right = true; key = `what|${pop(B.tFire)}`;
+      paint = (g) => { uiWin(g, 0, 0, lw - 1, lh - 1, pop(B.tFire) ? UIC.white : UIC.red); g.drawImage(r1.canvas, 7, 4); };
+    } else {   // the rule, on the hit
+      const r1 = uiTxt({ text: "It can't erase color!", font: 'fp10', color: UIC.goldHi });
+      lw = r1.w + 16; lh = 20; key = `rule|${pop(B.tHit)}`;
+      paint = (g) => { uiWin(g, 0, 0, lw - 1, lh - 1, pop(B.tHit) ? UIC.white : UIC.gold); g.drawImage(r1.canvas, 7, 4); };
+    }
+    const k = ctx.height / 216, W = lw * k, H = lh * k;
+    ov.show('b47ui', key, W, H, right ? ctx.width - 8 * k - W : Math.round((ctx.width - W) / 2), ctx.height - 8 * k - H, (g) => {
+      uiLow.width = lw; uiLow.height = lh; const lg = uiLow.getContext('2d'); lg.clearRect(0, 0, lw, lh); paint(lg);
+      g.imageSmoothingEnabled = false; g.drawImage(uiLow, 0, 0, W, H); }, { renderOrder: 35 });
+  }
 
   // ---------------------------------------------------------------- heroes
   const triplets = T.beatsIn(K.trip[0] - 0.01, K.trip[1] + 0.05, 3);
@@ -466,11 +663,17 @@ export async function setup(ctx) {
     if (t < (r5 ? K.down : K.slam + 4.0) && t < K.down) {   // (v4b) r5: the vantage holds to the paper card (143.48): the front-on reaction shot
       // ---------------- Ricky: sustain at the spiral base from the 2nd half-time hit
       const rp = at(spiralPoint(0), -14, 12).setY(GY);
-      if (t >= K.ht[1]) placeHero(H.ricky, rp, F.clone().negate().addScaledVector(RT, 0.2), { anim: 'sustain', t, pencil: false });
+      if (B47) {   // (v47_boss) Ricky plays the band back in, then HOLDS the note: the beam leaves his headstock (feedState) and becomes the spiral
+        const rd = B.u.clone().multiplyScalar(0.55).addScaledVector(B.w, 0.83).normalize();
+        if (t < K.ht[1]) playFig(H.ricky, 'ricky', B.P.ricky, rd, strumP(t, T.beatsIn(K.dBack - 0.01, K.ht[1], 1), 0.08), { nod: T.beatPulse(t, 1, 0.13), lean: 0, dip: 0.4 * T.beatPulse(t, 2, 0.09) });
+        else playFig(H.ricky, 'ricky', B.P.ricky, rd, 0.75, { anim: 'sustain', nod: 0, lean: 0.8 * T.ease.out(T.span(t, K.ht[1], K.ht[1] + 0.25)) + 0.5 * T.pulse(t, [B.tFire, B.tHit], 0.3), dip: 0 });
+      } else if (t >= K.ht[1]) placeHero(H.ricky, rp, F.clone().negate().addScaledVector(RT, 0.2), { anim: 'sustain', t, pencil: false });
       else placeHero(H.ricky, GROUND.ricky, fwd, { anim: 'idle', t: t + 0.5, pencil: false });
       // ---------------- Charlie: up the spiral first (132.2 -> 134.35), hat trampoline at the end
-      const cT0 = K.ht[2] + 0.4, cT1 = K.trip[0] + 1.2;
-      if (t < cT0) placeHero(H.charlie, GROUND.charlie, fwd, { anim: 'idle', t: t + 0.2, pencil: false });
+      const cT0 = B47 ? K.ht[3] : K.ht[2] + 0.4, cT1 = K.trip[0] + 1.2;
+      if (B47 && t < B.tHit) playFig(H.charlie, 'charlie', B.P.charlie, B.u.clone().multiplyScalar(0.5).addScaledVector(B.w, 0.87).normalize(), strumP(t, T.beatsIn(K.dBack - 0.01, B.tHit, 2), 0.06), { nod: T.beatPulse(t + 0.05, 1, 0.13), lean: 0.4 * T.pulse(t, [B.tFire], 0.3), dip: T.beatPulse(t, 2, 0.09), swing: T.span(t, K.dBack, K.dBack + 0.32) });   // (v47_boss) Charlie strums the 8ths with Ricky
+      else if (B47 && t < cT0) { const k = T.span(t, B.tHit, cT0); const p = lerpV(B.P.charlie, spiralPoint(0, 3), k); placeHero(H.charlie, p, spiralPoint(0, 3).sub(B.P.charlie).setY(0).normalize(), { anim: 'run', t, pencil: false }); }   // (v47_boss) on the hit he dashes for the spiral
+      else if (t < cT0) placeHero(H.charlie, GROUND.charlie, fwd, { anim: 'idle', t: t + 0.2, pencil: false });
       else {
         const u = T.clamp01((t - cT0) / (cT1 - cT0)) * 0.9;
         const p = spiralPoint(u, 3), p2 = spiralPoint(Math.min(1, u + 0.01), 3);
@@ -488,12 +691,13 @@ export async function setup(ctx) {
         tramp.scale.setScalar(T.clamp01((t - tIn) / 0.12) * 0.9);
       }
       // ---------------- Jade
-      if (t < K.drawOut + 0.22) placeHero(H.jade, GROUND.jade, fwd, { anim: 'jade_bun_pull', t: t - K.dBack, pencil: false });       // hand up to the bun (hair up)
-      else if (t < K.drawOut + 0.5) placeHero(H.jade, GROUND.jade, fwd, { anim: 'jade_twin_draw', t: t - K.drawOut - 0.22, pencil: false });   // both pencils out (still up)
-      else if (t < K.ht[2]) placeHero(H.jade, GROUND.jade, fwd, { anim: 'draw_graphite', frame: 0, pencil: true });      // hair down; the painter's gesture
+      const GJ = B47 ? B.P.jade : GROUND.jade, jf = B47 ? F5 : fwd, jRun = B47 ? B.tHit : K.ht[2];   // (v47_boss) her spot beside the spiral, facing the boss; she runs on the hit
+      if (t < K.drawOut + 0.22) placeHero(H.jade, GJ, jf, { anim: 'jade_bun_pull', t: t - K.dBack, pencil: false });       // hand up to the bun (hair up)
+      else if (t < K.drawOut + 0.5) placeHero(H.jade, GJ, jf, { anim: 'jade_twin_draw', t: t - K.drawOut - 0.22, pencil: false });   // both pencils out (still up)
+      else if (t < jRun) placeHero(H.jade, GJ, jf, { anim: 'draw_graphite', frame: 0, pencil: true });      // hair down; the painter's gesture
       else if (t < K.trip[0]) {
-        const u = T.ease.inOut(T.clamp01((t - K.ht[2]) / (K.trip[0] - K.ht[2])));
-        const p = lerpV(GROUND.jade, spiralPoint(0, -2), u); const d = spiralPoint(0).sub(GROUND.jade).setY(0).normalize();
+        const u = T.ease.inOut(T.clamp01((t - jRun) / (K.trip[0] - jRun)));
+        const p = lerpV(GJ, spiralPoint(0, -2), u); const d = spiralPoint(0).sub(GJ).setY(0).normalize();
         placeHero(H.jade, p, u < 1 ? d : fwd, { anim: 'run', t, pencil: true });
       } else if (t < K.steps[0]) {
         // up the spiral on the triplets: one stride per triplet 8th
@@ -510,6 +714,9 @@ export async function setup(ctx) {
       } else {
         const hideAtEye = r5 ? (t > K.lone + 0.1 && t < K.slam + 2.0) : (t > K.stop2 - 0.2 && t < K.slam + 2.0);  // the camera IS her eye (r5: the whip starts on the lone hit)
         placeHero(H.jade, J, r5 ? F5 : fwd, { anim: 'draw_graphite', frame: 0, pencil: true });   // (act4 r5) she faces the 画 (28 deg left of the sun)
+        if (B47 && t >= T.snap(V4B.lockFront) - 1e-6) {   // (v47_boss) the turn: she lowers the pencil (never aimed at it) and looks to her left, at the Eraser (screen right; card 06 = Jade left, Eraser right)
+          const u = T.ease.inOut(T.span(t, V4B.lockFront, V4B.lockFront + 0.35));
+          placeHero(H.jade, J, F5, { anim: 'idle', t, pencil: true }); const Fg = figOf(H.jade); if (Fg?.J?.head) Fg.J.head.rotation.y += HEAD47 * u; }
         H.jade.visible = !hideAtEye;
       }
       if (r5 && t >= K.drawOut + 0.5 && H.jade.visible) jadeFace(t);   // (act4 r5) lip sync while she sings on the page
@@ -1043,12 +1250,23 @@ export async function setup(ctx) {
     // the erased page: low, behind Jade, her painter's gesture toward the shards
     // (act4 M3) from her LEFT side (the native heroes are bigger: from the right, Ricky and Charlie covered her): she draws the
     // pencils out of her bun (hair drops), then the painter's gesture toward the coloured shards, the firefly lamp at her feet
+    if (B47 && t >= K.dBack && t < K.trip[0]) {   // (v47_boss) party left, the Eraser right, the vantage between: one screen axis for the whole fight
+      const L = B.L;
+      if (BOSS_V47 === 'arena' || t < K.ht[1] || t >= K.ht[2]) {   // ESTABLISH (129.385) / THE CHARGE (131.785): low 3/4 behind the party toward the boss
+        const ch = t >= K.ht[2] && BOSS_V47 !== 'arena', u = BOSS_V47 === 'arena' ? T.span(t, K.dBack, K.trip[0], T.ease.inOut) : ch ? T.span(t, K.ht[2], K.trip[0], T.ease.inOut) : T.span(t, K.dBack, K.ht[1], T.ease.inOut);
+        const c = ch ? shot(L(-215 + 40 * u, 215 - 20 * u, 48), L(330, -80, 150 - 20 * u), 46) : shot(L(-340 + 40 * u, 270 - 25 * u, 66 - 8 * u), L(330, -130, 140), 46);
+        c.focus = ch ? L(160, -40, 60) : L(-40, 0, 40); return c; }
+      // RICKY CASTS (130.585): low medium-wide on him and all five bugs; the beam leaves his headstock, each bug's colour joins it on its 8th
+      const u = T.span(t, K.ht[1], K.ht[2], T.ease.inOut);
+      const c = shot(L(-78 + 10 * u, 200 - 10 * u, 40 + 4 * u), L(-44, -14, 52 + 8 * u), 50); c.focus = B.P.ricky.clone().add(V(0, 40, 0)); return c;
+    }
     if (t < K.ht[1]) { const u = T.span(t, K.dBack, K.ht[1]); return lf5(at(GROUND.jade, -95 + 15 * u, -150 + 15 * u, 46), at(GROUND.jade, 50, 12, 40), 48, 0.02); }
     // Ricky's note: low orbit around the spiral as it draws up
     if (t < K.trip[0]) { const u = T.span(t, K.ht[1], K.trip[0], T.ease.inOut); const a = -0.7 + 1.2 * u; const c = SPIRAL.c;   // from the sun side: no glare
       return lf5(at(c, Math.cos(a) * 170, Math.sin(a) * 170, GY + 20 + 40 * u), at(c, 0, 0, GY + 35 + 20 * u), 52); }
     // the climb: wide side view of spiral + vantage + shards
     if (t < (r5 ? K.lineFC : K.fc)) { const u = T.span(t, K.trip[0], K.fc, T.ease.inOut); const c = SPIRAL.c;   // side-on: the sun at 90 degrees (r5: cut at 135.6, the lock shot owns the rest)
+      if (B47) { const ep = eraser.position; return shot(at(c, 10 + 30 * u, 270 - 20 * u, GY + 74 + 25 * u), at(c, 40 + 20 * u, 0, GY + 74 + 15 * u).lerp(V(ep.x, GY + 120, ep.z), 0.06), 60); }   // (v47_boss) wider: the climb + the vantage, the Eraser backing off rubbing 凵 at the right of frame
       return lf5(at(c, 20 + 30 * u, 235 - 20 * u, GY + 70 + 25 * u), at(c, 20 + 20 * u, 0, GY + 70 + 15 * u), 48); }
     // at the vantage: eye level with the chaos (over the shoulder, offset), then THE MOVE into her eye
     if (t < K.slam) {
@@ -1210,6 +1428,7 @@ export async function setup(ctx) {
   const SANS_LINES = [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43];   // 33 = Act III's last line (its hold ends inside the flood's clear frame)
   function overlay(t) {
     ov.hideAll(); smooth.set(null);
+    ui47(t);   // (v47_boss 'coverage_ui')
     if (t >= K.yibi) { // laid out for all four characters (Team D stamps 一 画 at 173.187 / 173.719 in the same slots)
       ov.stampChars(t, 'yibi', [{ ch: '一', t: K.yibiW[0] }, { ch: '笔', t: K.yibiW[1] }, { ch: '一', t: T.word(43, 2).start }, { ch: '画', t: T.word(43, 3).start }], { y: 0.62, size: 0.22, color: '#ffffff', stroke: '#1b1b22', gap: 0.08 }); }
     if (api.suppressSubs) return;
@@ -1284,8 +1503,9 @@ export async function setup(ctx) {
     if (t >= K.acc) handover(W, null);           // (battle scene v2) the battle cast is not part of W.reset(): hide it
     const ws = worldState(t);
     for (const f of Object.values(feats)) f.visible = false;   // (act4 M1) set per range below
-    heldCap.visible = false; flyCap.visible = false; bolt.visible = false; for (const l of lampLights) l.intensity = 0; for (const w of moreWheels) w.visible = false;
-    eraserState(t); heroState(t); bugState(t); ringState(t); gateState(t); slabState(t); beamState(t); finaleState(t);
+    heldCap.visible = false; flyCap.visible = false; bolt.visible = false; for (const m of feeds) m.visible = false; for (const l of lampLights) l.intensity = 0; for (const w of moreWheels) w.visible = false;
+    eraserState(t); heroState(t); bugState(t); ring47(t); beacon47(t);   // (v47_boss) the ring, the goal beacon
+    ringState(t); gateState(t); slabState(t); beamState(t); finaleState(t);
     jamS = jamLight.state(t);   // (v45_jam) Ricky's light rings
     if (jamS.lampHit) { lampLights[0].intensity += 2600 * jamS.lampHit; }
     lastCam = camera(t);
@@ -1303,6 +1523,7 @@ export async function setup(ctx) {
       const jp = heroes.jade.position;
       const SH = { focus: lastCam.focus || lastCam.target };
       if (t < K.acc) Object.assign(SH, { focus: V(1400, GY + 30, 452), dof: 0.18, tilt: 0.15, skyGain: 1.45, columns: { keep: ['R0', 'R1'] }, beam: 0 });   // the band's backs; the far silhouette may soften
+      else if (B47 && t < K.lineFC) Object.assign(SH, { focus: lastCam.focus, dof: 0.22, tilt: 0.1, pairAmt: 0.1, skyGain: 1.35, lift: 0.08, protectSat: 1.6 });   // (v47_boss) a luminous dusk behind the dark rubber; the party's colour kept
       else if (t < K.ht[1]) Object.assign(SH, { focus: jp.clone().add(V(0, 40, 0)), dof: 0.35, pairAmt: 0.15 });
       else if (t < K.trip[0]) Object.assign(SH, { focus: V(SPIRAL.c.x, GY + 35, SPIRAL.c.z), dof: 0.3, pairAmt: 0.15 });
       else if (t < K.lineFC) Object.assign(SH, { focus: jp.clone().add(V(0, 35, 0)), dof: 0.3, pairAmt: 0.15 });

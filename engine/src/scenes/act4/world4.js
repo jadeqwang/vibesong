@@ -136,13 +136,26 @@ function makeSpiral() {
     if (i < N) { const k = i * 2; idx.push(k, k + 1, k + 2, k + 1, k + 3, k + 2); }
   }
   const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2)); geo.setIndex(idx);
-  const U = { uProg: { value: 0 }, uT: { value: 0 }, uAmp: { value: 1 }, uLen: { value: SPIRAL.turns * 2 * Math.PI * SPIRAL.r }, uGap: { value: new THREE.Vector2(2, 2) } };   // (act4 M3) uGap: the stretch the caterpillar bridge spans
+  const U = { uProg: { value: 0 }, uT: { value: 0 }, uAmp: { value: 1 }, uLen: { value: SPIRAL.turns * 2 * Math.PI * SPIRAL.r }, uGap: { value: new THREE.Vector2(2, 2) }, uBraid: { value: 0 }, uStrP: { value: [0, 0, 0, 0, 0, 0] }, uStrC: { value: [V(1, 1, 1), V(1, 1, 1), V(1, 1, 1), V(1, 1, 1), V(1, 1, 1), V(1, 1, 1)] }, uFlash: { value: 0 }, uGainB: { value: 0.75 } };   // (v47_boss) uBraid 1 = the braided spiral: strand k (Ricky + 5 bugs) drawn up to uStrP[k] in colour uStrC[k]   // (act4 M3) uGap: the stretch the caterpillar bridge spans
   const mat = new THREE.ShaderMaterial({
     uniforms: U, side: THREE.DoubleSide, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
     vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-    fragmentShader: /* glsl */`uniform float uProg, uT, uAmp, uLen; uniform vec2 uGap; varying vec2 vUv;
+    fragmentShader: /* glsl */`uniform float uProg, uT, uAmp, uLen, uBraid, uFlash, uGainB; uniform float uStrP[6]; uniform vec3 uStrC[6]; uniform vec2 uGap; varying vec2 vUv;
       vec3 hue(float h){ return clamp(abs(fract(h + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0); }
       void main(){
+        if (uBraid > 0.5) {   // (v47_boss) the braid: six strands (Ricky + the five bugs) twisting round each other up the ribbon, solid colour like pencil
+          float s = vUv.x * uLen; float v = vUv.y * 2.0 - 1.0; vec3 c = vec3(0.0); float wsum = 0.0, amax = 0.0;
+          for (int k = 0; k < 6; k++) { float fk = float(k);
+            if (vUv.x > uStrP[k]) continue;
+            float y = 0.66 * sin(s * 0.075 - uT * 7.0 + fk * 1.0472) * uAmp;
+            float dy = (v - y) * (k == 0 ? 2.6 : 3.2); float a = exp(-dy * dy * dy * dy);
+            float tip = smoothstep(uStrP[k] - 0.05, uStrP[k], vUv.x);
+            float depth = 0.5 + 0.5 * cos(s * 0.075 - uT * 7.0 + fk * 1.0472);   // in front of / behind the others as it twists
+            float wk = a * (0.3 + depth); c += uStrC[k] * wk * (1.0 + 2.0 * tip); wsum += wk; amax = max(amax, a); }
+          if (amax < 0.02) discard;
+          c = c / max(wsum, 1e-3);
+          float hatch = 0.85 + 0.15 * sin((s * 1.7 + v * 9.0) * 3.0);
+          gl_FragColor = vec4(c * uGainB * hatch * (1.0 + uFlash), amax); return; }
         if (vUv.x > uProg || (vUv.x > uGap.x && vUv.x < uGap.y)) discard;
         float s = vUv.x * uLen;                       // arc length
         float v = vUv.y * 2.0 - 1.0;

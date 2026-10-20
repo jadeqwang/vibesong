@@ -14,11 +14,17 @@ import { VideoClip } from '../core/video.js';
 import { Overlay } from './act4/overlay.js';
 
 const CUT = '/media/cutscenes/';
+// (v47_cards, Jade 10-19 on v4.6: "amplify expression and body language") per-card switch: a suffix picks
+// paper_00XX/paper_00XX_<suffix>.mp4 (the v4.7 acting takes, slot-exact, lag baked in); null = the v4.6 clip paper_00XX.mp4.
+// Suffixes: 'v47' (installed pick = a copy of one timing variant), or a variant itself, e.g. 'v47_cur1_shift+2'
+// (all variants: media/cutscenes/paper_00XX/paper_00XX_v47_*.mp4; checkpoint engine/checkpoints/v47_cards.md).
+const CARDS_V47 = { p03: 'v47', p04: 'v47', p06: 'v47' };
+const pick = (dir, k) => CUT + `${dir}/${dir}${CARDS_V47[k] ? '_' + CARDS_V47[k] : ''}.mp4`;
 export const CLIPS = {
-  p03: CUT + 'paper_0020/paper_0020.mp4',
-  p04: CUT + 'paper_0048/paper_0048.mp4',
+  p03: pick('paper_0020', 'p03'),
+  p04: pick('paper_0048', 'p04'),
   p05: CUT + 'paper_0147/paper_0147.mp4',      // for stage_3d (107.15-110.41)
-  p06: CUT + 'paper_0223/paper_0223.mp4',
+  p06: pick('paper_0223', 'p06'),
 };
 const INSERTS = {
   'paper.p03': { clip: CLIPS.p03, still: CUT + 'paper_0020/still.png', subs: [7] },

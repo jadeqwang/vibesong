@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v47_05_sd25_a1",
+ "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. Static camera, same framing. No captions, no text, no new objects.",
+  "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+  ],
+  "duration": 5,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

@@ -163,11 +163,13 @@ export class MotionFigure {
   }
   /** layers: [{ anim (voxfig keyed pose) | clip (mocap), t0, t1, fade = 0.2, mask = 'upper', rate (cycles/s), p(t) }] */
   _layered(track, st, P, layers, pencil, t) {
-    let itemsDone = false; this._animW = 0;
+    let itemsDone = false; this._animW = 0; this._gtr = null;
     for (const L of layers) {
       const fade = L.fade ?? 0.2; const w = Math.min(smooth((t - L.t0) / fade), 1 - smooth((t - (L.t1 - fade)) / fade)); if (w <= 0) continue;
       const K = this._pool[19];
-      if (L.anim) { this._animW = Math.max(this._animW, w); const p = L.p ? L.p(t) : (((t - L.t0) * (L.rate ?? 1)) % 1); voxPose(this.F, L.anim, p, { hero: this.hero, pencil: L.pencil ?? pencil }); captureFigure(this.F, K); K.root.fill(0); if (w > 0.5) itemsDone = true; else voxPose(this.F, 'idle', 0, { hero: this.hero, pencil }); }
+      if (L.anim) { this._animW = Math.max(this._animW, w); const p = L.p ? L.p(t) : (((t - L.t0) * (L.rate ?? 1)) % 1); voxPose(this.F, L.anim, p, { hero: this.hero, pencil: L.pencil ?? pencil }); captureFigure(this.F, K);
+        if (this.F._gtr47 && /arms|upper|all/.test(L.mask ?? 'upper') && (!this._gtr || w >= this._gtr.w)) this._gtr = { ...this.F._gtr47, w };   // (v47_hands) guitar wrist + grip hands ride the layer
+        K.root.fill(0); if (w > 0.5) itemsDone = true; else voxPose(this.F, 'idle', 0, { hero: this.hero, pencil }); }
       else { const c = track.clips[L.clip]; sampleClip(c, L.p ? L.p(t) : (t - L.t0) * (L.rate ?? 1) / c.dur, K, this.rs); }
       layerPose(P, P, K, w, L.mask ?? 'upper', L.rootW ?? 0);
     }
@@ -178,10 +180,11 @@ export class MotionFigure {
     const { layers = [], pencil = false } = opts;
     const st = track.state(t); const P = this._pool[18]; this._animW = 0;
     this.evalSources(track, st, P);
-    const items = layers.length ? this._layered(track, st, P, layers, pencil, t) : false;
+    this._gtr = null; const items = layers.length ? this._layered(track, st, P, layers, pencil, t) : false;
     if (!items) voxPose(this.F, 'idle', 0, { hero: this.hero, pencil });   // items (pencils, guitar, cap) at their defaults
     if (this.armOut) { // a little abduction so mocap arms clear the chunky torso
-      for (const [sd, sg] of [['shoulderR', -1], ['shoulderL', 1]]) { P.quat(sd, _q); _q2.setFromAxisAngle(X, sg * this.armOut); P.setQuat(sd, _q.premultiply(_q2)); } }
+      const ao = this.armOut * (1 - Math.min(1, this._gtr ? this._gtr.w : 0));   // (v47_hands) no abduction while a guitar layer plays: it pulled the hands off the neck / strings
+      for (const [sd, sg] of [['shoulderR', -1], ['shoulderL', 1]]) { P.quat(sd, _q); _q2.setFromAxisAngle(X, sg * ao); P.setQuat(sd, _q.premultiply(_q2)); } }
     applyToFigure(this.F, P);
     this._splitRig(P);
     if (this.ankles) { this.F.J.ankleR.rotation.set(0, 0, P.ankle[0]); this.F.J.ankleL.rotation.set(0, 0, P.ankle[1]); }
@@ -202,6 +205,7 @@ export class MotionFigure {
     const J = this.F.J;
     if (J.chest && J.chest.parent === J.body) { const T = J.body.quaternion.clone(); _q.set(P.ex[0], P.ex[1], P.ex[2], P.ex[3]); J.body.quaternion.copy(_q); J.chest.quaternion.copy(_q.invert().multiply(T)); }
     if (J.wristR) J.wristR.rotation.set(0, 0, P.ex[12] * 0.8); if (J.wristL) J.wristL.rotation.set(0, 0, P.ex[13] * 0.8);
+    if (this._gtr) { const g = this._gtr, w = Math.min(1, g.w); if (J.wristR) J.wristR.quaternion.slerp(_q.identity(), w); if (J.wristL && g.wL) J.wristL.quaternion.slerp(g.wL, w); }   // (v47_hands) the playing pose's wrists
   }
 
   // ---------------------------------------------------------------------------------------------- life (pure in t)
@@ -483,7 +487,7 @@ export class MotionFigure {
     if (need && need.d > 0) { this._reachLean(need.sd, T[need.sd].p, T[need.sd].w); T = resolve(); }
     for (const sd of ['R', 'L']) {
       const tg = T[sd], tr = st['h' + sd];
-      if (this.F.setHand) this.F.setHand(sd, tg && tg.w > 0.5 && tg.pose ? tg.pose : (hands?.pose?.[sd] || (tr && tr[3] > 0.5 ? 'open' : 'fist')));   // finger poses (models_r6 rig)
+      if (this.F.setHand) this.F.setHand(sd, tg && tg.w > 0.5 && tg.pose ? tg.pose : (hands?.pose?.[sd] || (tr && tr[3] > 0.5 ? 'open' : this._gtr && this._gtr.w > 0.5 ? 'grip' : 'fist')));   // (v47_hands) grip while a guitar layer plays   // finger poses (models_r6 rig)
       if (!tg) continue; const res = this.solveArm(sd, tg.p, tg.w, tg.pole); this.debug.hands[sd] = { target: tg.p, w: tg.w, residual: res };
     }
   }

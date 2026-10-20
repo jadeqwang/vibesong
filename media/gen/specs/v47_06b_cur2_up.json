@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "v47_06b_cur2_up", "notes": "v4.7 card 06 take v47_06b_sd25_cur2: precise 2.25x of take frames 3..80 (from 0.125 s; slots use S0 143.025), covers slot 143.40-146.20 at shifts -2..+8",
+ "input": {"input_video": "file:media/cutscenes/_work/v47/upscale/seg_06b_cur2.mp4", "upscale_factor": 2.25, "creativity": 0, "safety_tolerance": 4}}

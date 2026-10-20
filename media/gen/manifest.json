@@ -5531,8 +5531,1662 @@
     }
    ],
    "collected": 1792444781.624108
+  },
+  "vibesong/v47_05_sd25_a1-4ee88709d9": {
+   "id": "4ee88709d9",
+   "job": "vibesong/v47_05_sd25_a1-4ee88709d9",
+   "tag": "v47_05_sd25_a1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_a1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. Static camera, same framing. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874404,
+   "submitted": 1792464162.4500773,
+   "bytes": 1622662,
+   "started": 1792464278.135,
+   "gen_secs": 166.7,
+   "finished": 1792464444.871,
+   "latency_secs": 282.4,
+   "files": [
+    "media/gen/v47_05_sd25_a1_4ee88709d9.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3285418,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792464487.4169002
+  },
+  "vibesong/v47_05_sd25_b1-3130db4302": {
+   "id": "3130db4302",
+   "job": "vibesong/v47_05_sd25_b1-3130db4302",
+   "tag": "v47_05_sd25_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_b1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. The camera pushes in slowly, all three stay in frame. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874404,
+   "submitted": 1792464163.8387825,
+   "bytes": 1622687,
+   "started": 1792464278.504,
+   "gen_secs": 162.3,
+   "finished": 1792464440.755,
+   "latency_secs": 276.9,
+   "files": [
+    "media/gen/v47_05_sd25_b1_3130db4302.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 4198667,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792464488.5342276
+  },
+  "vibesong/v47_05_sd25_a2-180088c9d3": {
+   "id": "180088c9d3",
+   "job": "vibesong/v47_05_sd25_a2-180088c9d3",
+   "tag": "v47_05_sd25_a2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_a2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. Static camera, same framing. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874413,
+   "submitted": 1792464711.1444392,
+   "bytes": 1622662,
+   "started": 1792464818.336,
+   "gen_secs": 153.3,
+   "finished": 1792464971.634,
+   "latency_secs": 260.5,
+   "files": [
+    "media/gen/v47_05_sd25_a2_180088c9d3.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2424865,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792464986.554399
+  },
+  "vibesong/v47_05_sd25_b2-e25717a54e": {
+   "id": "e25717a54e",
+   "job": "vibesong/v47_05_sd25_b2-e25717a54e",
+   "tag": "v47_05_sd25_b2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_b2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. The camera pushes in slowly, all three stay in frame. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874413,
+   "submitted": 1792464712.4708452,
+   "bytes": 1622687,
+   "started": 1792464818.522,
+   "gen_secs": 164.5,
+   "finished": 1792464983.063,
+   "latency_secs": 270.6,
+   "files": [
+    "media/gen/v47_05_sd25_b2_e25717a54e.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 4497693,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792464987.950753
+  },
+  "vibesong/v47_03_sd25_cur1-2f73269564": {
+   "id": "2f73269564",
+   "job": "vibesong/v47_03_sd25_cur1-2f73269564",
+   "tag": "v47_03_sd25_cur1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 03 acting (cur); S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_03_sd25_cur1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', then the mouth stays open, never closing, through the long held 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. The idea arrives. Through the held note and 'because' her eyes drift up and off to the side, as if she can see past the edge of the page, lips parted in wonder; on 'imagination' she lifts one hand and taps her temple with a fingertip, eyes lighting up; on 'is linked' both hands open outward from her head, palms up, like the world unfolding along the drawn chain of everyday things beside her; on 'everyday' she turns back to the camera with a big grin and a nod. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c03/ff03_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c03/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874416,
+   "submitted": 1792464892.4613612,
+   "bytes": 797662,
+   "started": 1792464998.025,
+   "gen_secs": 270.9,
+   "finished": 1792465268.924,
+   "latency_secs": 376.5,
+   "files": [
+    "media/gen/v47_03_sd25_cur1_2f73269564.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3575744,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465316.4015095
+  },
+  "vibesong/v47_03_sd25_cur2-c2d1c65c79": {
+   "id": "c2d1c65c79",
+   "job": "vibesong/v47_03_sd25_cur2-c2d1c65c79",
+   "tag": "v47_03_sd25_cur2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 03 acting (cur); S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_03_sd25_cur2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', then the mouth stays open, never closing, through the long held 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. The idea arrives. Through the held note and 'because' her eyes drift up and off to the side, as if she can see past the edge of the page, lips parted in wonder; on 'imagination' she lifts one hand and taps her temple with a fingertip, eyes lighting up; on 'is linked' both hands open outward from her head, palms up, like the world unfolding along the drawn chain of everyday things beside her; on 'everyday' she turns back to the camera with a big grin and a nod. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c03/ff03_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c03/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874416,
+   "submitted": 1792464893.5143478,
+   "bytes": 797662,
+   "started": 1792464998.068,
+   "gen_secs": 251.0,
+   "finished": 1792465249.064,
+   "latency_secs": 355.5,
+   "files": [
+    "media/gen/v47_03_sd25_cur2_c2d1c65c79.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3564631,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465317.6919525
+  },
+  "vibesong/v47_03_sd25_med1-07ab50bfa2": {
+   "id": "07ab50bfa2",
+   "job": "vibesong/v47_03_sd25_med1-07ab50bfa2",
+   "tag": "v47_03_sd25_med1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 03 acting (med); S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_03_sd25_med1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', then the mouth stays open, never closing, through the long held 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. The idea arrives. Through the held note and 'because' her eyes drift up and off to the side, as if she can see past the edge of the page, lips parted in wonder; on 'imagination' she lifts one hand and taps her temple with a fingertip, eyes lighting up; on 'is linked' both hands open outward from her head, palms up, like the world unfolding along the drawn chain of everyday things beside her; on 'everyday' she turns back to the camera with a big grin and a nod. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c03/ff03_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c03/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874417,
+   "submitted": 1792464894.6340735,
+   "bytes": 1042330,
+   "started": 1792465058.107,
+   "gen_secs": 312.6,
+   "finished": 1792465370.748,
+   "latency_secs": 476.1,
+   "files": [
+    "media/gen/v47_03_sd25_med1_07ab50bfa2.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3331892,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465425.0512116
+  },
+  "vibesong/v47_03_sd25_med2-80b7019b57": {
+   "id": "80b7019b57",
+   "job": "vibesong/v47_03_sd25_med2-80b7019b57",
+   "tag": "v47_03_sd25_med2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 03 acting (med); S0=19.6 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_03_sd25_med2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings '(held note) because my imagination is linked to my everyday' from the reference audio, each syllable on the voice, lips shut on b and m: after a held note, lips press together on the 'b' of 'because', then the mouth stays open, never closing, through the long held 'cause'; lips pressing together on the 'm' of 'my' and the 'm' of 'imagination', opening wide on 'a'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. The idea arrives. Through the held note and 'because' her eyes drift up and off to the side, as if she can see past the edge of the page, lips parted in wonder; on 'imagination' she lifts one hand and taps her temple with a fingertip, eyes lighting up; on 'is linked' both hands open outward from her head, palms up, like the world unfolding along the drawn chain of everyday things beside her; on 'everyday' she turns back to the camera with a big grin and a nod. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c03/ff03_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c03/voc03_19.60_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874417,
+   "submitted": 1792464895.6187,
+   "bytes": 1042330,
+   "started": 1792465058.124,
+   "gen_secs": 150.8,
+   "finished": 1792465208.931,
+   "latency_secs": 313.3,
+   "files": [
+    "media/gen/v47_03_sd25_med2_80b7019b57.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3531951,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465260.953571
+  },
+  "vibesong/v47_04_sd25_cur1-466a4b9125": {
+   "id": "466a4b9125",
+   "job": "vibesong/v47_04_sd25_cur1-466a4b9125",
+   "tag": "v47_04_sd25_cur1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04 acting (cur); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04_sd25_cur1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A plotting pause. From the start she rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed and searching up and to the side at a glowing screen, as if reading the code of the world; on 'ask' the hand drops away; on 'myself' she leans toward the camera with a mischievous 'what if' smile, eyebrows lifting, as if about to type the idea; a small decisive nod on 'what it is'. A cool blue screen glow lights her face. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874418,
+   "submitted": 1792464896.7314327,
+   "bytes": 863047,
+   "started": 1792465118.027,
+   "gen_secs": 280.2,
+   "finished": 1792465398.243,
+   "latency_secs": 501.5,
+   "files": [
+    "media/gen/v47_04_sd25_cur1_466a4b9125.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2734879,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465425.8053432
+  },
+  "vibesong/v47_04_sd25_cur2-5b52f0847f": {
+   "id": "5b52f0847f",
+   "job": "vibesong/v47_04_sd25_cur2-5b52f0847f",
+   "tag": "v47_04_sd25_cur2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04 acting (cur); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04_sd25_cur2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A plotting pause. From the start she rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed and searching up and to the side at a glowing screen, as if reading the code of the world; on 'ask' the hand drops away; on 'myself' she leans toward the camera with a mischievous 'what if' smile, eyebrows lifting, as if about to type the idea; a small decisive nod on 'what it is'. A cool blue screen glow lights her face. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874418,
+   "submitted": 1792464897.670264,
+   "bytes": 863047,
+   "started": 1792465119.042,
+   "gen_secs": 160.0,
+   "finished": 1792465279.038,
+   "latency_secs": 381.4,
+   "files": [
+    "media/gen/v47_04_sd25_cur2_5b52f0847f.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2709199,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465319.2197547
+  },
+  "vibesong/v47_04_sd25_med1-666fed5b04": {
+   "id": "666fed5b04",
+   "job": "vibesong/v47_04_sd25_med1-666fed5b04",
+   "tag": "v47_04_sd25_med1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04 acting (med); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04_sd25_med1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A plotting pause. From the start she rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed and searching up and to the side at a glowing screen, as if reading the code of the world; on 'ask' the hand drops away; on 'myself' she leans toward the camera with a mischievous 'what if' smile, eyebrows lifting, as if about to type the idea; a small decisive nod on 'what it is'. A cool blue screen glow lights her face. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874419,
+   "submitted": 1792464898.6715872,
+   "bytes": 712111,
+   "started": 1792465178.09,
+   "gen_secs": 149.5,
+   "finished": 1792465327.6,
+   "latency_secs": 428.9,
+   "files": [
+    "media/gen/v47_04_sd25_med1_666fed5b04.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3035306,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 560,
+       "height": 752,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465373.1281328
+  },
+  "vibesong/v47_04_sd25_med2-aab70c8f0b": {
+   "id": "aab70c8f0b",
+   "job": "vibesong/v47_04_sd25_med2-aab70c8f0b",
+   "tag": "v47_04_sd25_med2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04 acting (med); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04_sd25_med2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A plotting pause. From the start she rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed and searching up and to the side at a glowing screen, as if reading the code of the world; on 'ask' the hand drops away; on 'myself' she leans toward the camera with a mischievous 'what if' smile, eyebrows lifting, as if about to type the idea; a small decisive nod on 'what it is'. A cool blue screen glow lights her face. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874419,
+   "submitted": 1792464899.6138961,
+   "bytes": 712111,
+   "started": 1792465178.079,
+   "gen_secs": 149.3,
+   "finished": 1792465327.366,
+   "latency_secs": 427.8,
+   "files": [
+    "media/gen/v47_04_sd25_med2_aab70c8f0b.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2550250,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465373.9171429
+  },
+  "vibesong/v47_05_sd25_a1-ede04548bc": {
+   "id": "ede04548bc",
+   "job": "vibesong/v47_05_sd25_a1-ede04548bc",
+   "tag": "v47_05_sd25_a1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_a1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. Static camera, same framing. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "cancelled",
+   "bucket": 29874420,
+   "submitted": 1792464901.26213,
+   "bytes": 1622662,
+   "cancelled": 1792464927.2571542,
+   "error": "cancelled by v47_cards: submitted by mistake (glob matched the trio unit's specs)"
+  },
+  "vibesong/v47_05_sd25_a2-7c31c14f81": {
+   "id": "7c31c14f81",
+   "job": "vibesong/v47_05_sd25_a2-7c31c14f81",
+   "tag": "v47_05_sd25_a2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_a2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. Static camera, same framing. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "cancelled",
+   "bucket": 29874420,
+   "submitted": 1792464902.6544862,
+   "bytes": 1622662,
+   "cancelled": 1792464927.8233948,
+   "error": "cancelled by v47_cards: submitted by mistake (glob matched the trio unit's specs)"
+  },
+  "vibesong/v47_05_sd25_b1-11f14227ae": {
+   "id": "11f14227ae",
+   "job": "vibesong/v47_05_sd25_b1-11f14227ae",
+   "tag": "v47_05_sd25_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_b1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. The camera pushes in slowly, all three stay in frame. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "cancelled",
+   "bucket": 29874421,
+   "submitted": 1792464904.1453755,
+   "bytes": 1622687,
+   "cancelled": 1792464928.42384,
+   "error": "cancelled by v47_cards: submitted by mistake (glob matched the trio unit's specs)"
+  },
+  "vibesong/v47_05_sd25_b2-50264a60da": {
+   "id": "50264a60da",
+   "job": "vibesong/v47_05_sd25_b2-50264a60da",
+   "tag": "v47_05_sd25_b2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 trio card 05 stage energy; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_05_sd25_b2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a pencil drawing in every frame, never a photo or 3D. Lip sync first: JADE, the young woman at the microphone in the centre, sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu'. A band that just found its groove, bursting with excitement from the first beat. Jade sings out, proud and thrilled, chin up, eyes bright over the crowd; on 'shi jie' her free arm sweeps up and reaches out over the audience, open palm, offering them the world, shoulders bouncing on the beat; on 'shi wo de' she grins at her bandmates and grips the microphone. CHARLIE (flat cap, left) strums his acoustic guitar hard, strumming hand over the sound hole, other hand on the neck; he bounces on his knees, head bobbing hard on every beat, and leans toward the centre with a huge grin, eyes on Ricky. RICKY (striped shirt, right) digs into his electric guitar, picking hand over the pickups, fretting hand on the neck; he leans toward Charlie, head banging on the beat, swings his guitar neck up high on 'shi jie' like a rock star and grins back at Charlie; then both grin out at us. Both keep their mouths closed. Hands stay on the strings and the neck, never passing through the guitars. Big, joyful motion like live concert footage; nobody is ever still. The spotlights pulse with the beat. Faces stay exactly as in the first frame (Jade's big eyes, soft chin; Ricky's short messy black hair); Charlie's flat cap stays on. Jade's bun keeps the two yellow pencils crossed through it in an X, eraser caps up (one blue, one pink), moving only with her head. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE pale-blue chest dot and ONE round sleeve patch, where they are. The camera pushes in slowly, all three stay in frame. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "cancelled",
+   "bucket": 29874421,
+   "submitted": 1792464905.414516,
+   "bytes": 1622687,
+   "cancelled": 1792464928.987061,
+   "error": "cancelled by v47_cards: submitted by mistake (glob matched the trio unit's specs)"
+  },
+  "vibesong/v47_06_sd25_cur1-b75704a53a": {
+   "id": "b75704a53a",
+   "job": "vibesong/v47_06_sd25_cur1-b75704a53a",
+   "tag": "v47_06_sd25_cur1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06 acting (cur); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06_sd25_cur1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. On 'I just' she slowly lowers the pencil to her side, tip pointing at the ground, never at him, and leans in a little closer, head tilted, soft eyes on his face; on 'ask myself' her empty hand touches her chest, honest and a little vulnerable; on 'what it is' she turns to him, brows up, and offers that open hand toward him, palm up, with a small hopeful smile, a real question; a tiny shrug on 'that I need'. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874422,
+   "submitted": 1792464906.9602287,
+   "bytes": 1174245,
+   "started": 1792465358.416,
+   "gen_secs": 140.9,
+   "finished": 1792465499.352,
+   "latency_secs": 592.4,
+   "files": [
+    "media/gen/v47_06_sd25_cur1_b75704a53a.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2522035,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465543.075419
+  },
+  "vibesong/v47_06_sd25_cur2-c2fa307cf7": {
+   "id": "c2fa307cf7",
+   "job": "vibesong/v47_06_sd25_cur2-c2fa307cf7",
+   "tag": "v47_06_sd25_cur2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06 acting (cur); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06_sd25_cur2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. On 'I just' she slowly lowers the pencil to her side, tip pointing at the ground, never at him, and leans in a little closer, head tilted, soft eyes on his face; on 'ask myself' her empty hand touches her chest, honest and a little vulnerable; on 'what it is' she turns to him, brows up, and offers that open hand toward him, palm up, with a small hopeful smile, a real question; a tiny shrug on 'that I need'. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874422,
+   "submitted": 1792464908.4778593,
+   "bytes": 1174245,
+   "started": 1792465358.226,
+   "gen_secs": 150.2,
+   "finished": 1792465508.474,
+   "latency_secs": 600.0,
+   "files": [
+    "media/gen/v47_06_sd25_cur2_c2fa307cf7.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2870166,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465543.9563317
+  },
+  "vibesong/v47_06_sd25_med1-69f2d2dc55": {
+   "id": "69f2d2dc55",
+   "job": "vibesong/v47_06_sd25_med1-69f2d2dc55",
+   "tag": "v47_06_sd25_med1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06 acting (med); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06_sd25_med1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. On 'I just' she slowly lowers the pencil to her side, tip pointing at the ground, never at him, and leans in a little closer, head tilted, soft eyes on his face; on 'ask myself' her empty hand touches her chest, honest and a little vulnerable; on 'what it is' she turns to him, brows up, and offers that open hand toward him, palm up, with a small hopeful smile, a real question; a tiny shrug on 'that I need'. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874423,
+   "submitted": 1792464909.57963,
+   "bytes": 1049085,
+   "started": 1792465418.104,
+   "gen_secs": 139.4,
+   "finished": 1792465557.48,
+   "latency_secs": 647.9,
+   "files": [
+    "media/gen/v47_06_sd25_med1_69f2d2dc55.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 3037525,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465607.7874188
+  },
+  "vibesong/v47_06_sd25_med2-55998fb9fc": {
+   "id": "55998fb9fc",
+   "job": "vibesong/v47_06_sd25_med2-55998fb9fc",
+   "tag": "v47_06_sd25_med2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06 acting (med); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06_sd25_med2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. On 'I just' she slowly lowers the pencil to her side, tip pointing at the ground, never at him, and leans in a little closer, head tilted, soft eyes on his face; on 'ask myself' her empty hand touches her chest, honest and a little vulnerable; on 'what it is' she turns to him, brows up, and offers that open hand toward him, palm up, with a small hopeful smile, a real question; a tiny shrug on 'that I need'. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874423,
+   "submitted": 1792464911.227373,
+   "bytes": 1049085,
+   "started": 1792465418.059,
+   "gen_secs": 269.4,
+   "finished": 1792465687.491,
+   "latency_secs": 776.3,
+   "files": [
+    "media/gen/v47_06_sd25_med2_55998fb9fc.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2893429,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465733.8331623
+  },
+  "vibesong/v47_05_b2_up-b6a3c05268": {
+   "id": "b6a3c05268",
+   "job": "vibesong/v47_05_b2_up-b6a3c05268",
+   "tag": "v47_05_b2_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.7 trio card 05 take v47_05_sd25_b2: precise 2.25x of take frames 0..89 (from 0 s, media/cutscenes/_work/v47/upscale/seg_05_v47b2.txt), covers slot 107.15-110.41 at shifts +0..+6",
+   "spec_file": "media/gen/specs/v47_05_b2_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/v47/upscale/seg_05_v47b2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874420,
+   "submitted": 1792465126.6716645,
+   "bytes": 4505249,
+   "started": 1792465264.362,
+   "gen_secs": 57.8,
+   "finished": 1792465322.164,
+   "latency_secs": 195.5,
+   "files": [
+    "media/gen/v47_05_b2_up_b6a3c05268.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.708,
+     "bytes": 12521531,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 89
+      }
+     ]
+    }
+   ],
+   "collected": 1792465384.8797584
+  },
+  "vibesong/v47_04b_sd25_med1-775ffd990b": {
+   "id": "775ffd990b",
+   "job": "vibesong/v47_04b_sd25_med1-775ffd990b",
+   "tag": "v47_04b_sd25_med1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04b acting (med); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04b_sd25_med1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A quick plotting beat. In the very first second she raises one hand and rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed, glancing up at a glowing screen beside her as if reading the code of the world; on 'ask' the hand drops and on 'myself' she is already leaning toward the camera, eyebrows up, a sly, mischievous 'what if' smile spreading while she sings, as if about to type the idea; she nods once on 'what'. A cool blue screen glow lights her face; the blueprint grid stays. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874427,
+   "submitted": 1792465523.6400046,
+   "bytes": 712182,
+   "started": 1792465658.384,
+   "gen_secs": 150.0,
+   "finished": 1792465808.401,
+   "latency_secs": 284.8,
+   "files": [
+    "media/gen/v47_04b_sd25_med1_775ffd990b.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2924193,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 480,
+       "height": 854,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465859.9689357
+  },
+  "vibesong/v47_04b_sd25_med2-79b1dc6d97": {
+   "id": "79b1dc6d97",
+   "job": "vibesong/v47_04b_sd25_med2-79b1dc6d97",
+   "tag": "v47_04b_sd25_med2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04b acting (med); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04b_sd25_med2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A quick plotting beat. In the very first second she raises one hand and rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed, glancing up at a glowing screen beside her as if reading the code of the world; on 'ask' the hand drops and on 'myself' she is already leaning toward the camera, eyebrows up, a sly, mischievous 'what if' smile spreading while she sings, as if about to type the idea; she nods once on 'what'. A cool blue screen glow lights her face; the blueprint grid stays. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874427,
+   "submitted": 1792465524.791809,
+   "bytes": 712182,
+   "started": 1792465658.154,
+   "gen_secs": 240.9,
+   "finished": 1792465899.045,
+   "latency_secs": 374.3,
+   "files": [
+    "media/gen/v47_04b_sd25_med2_79b1dc6d97.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2435713,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465923.9800045
+  },
+  "vibesong/v47_04b_sd25_cur1-a1a7ed38a4": {
+   "id": "a1a7ed38a4",
+   "job": "vibesong/v47_04b_sd25_cur1-a1a7ed38a4",
+   "tag": "v47_04b_sd25_cur1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 04b acting (cur); S0=48.0 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_04b_sd25_cur1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A quick plotting beat. In the very first second she raises one hand and rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed, glancing up at a glowing screen beside her as if reading the code of the world; on 'ask' the hand drops and on 'myself' she is already leaning toward the camera, eyebrows up, a sly, mischievous 'what if' smile spreading while she sings, as if about to type the idea; she nods once on 'what'. A cool blue screen glow lights her face; the blueprint grid stays. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c04/ff04_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874428,
+   "submitted": 1792465525.8736732,
+   "bytes": 863118,
+   "started": 1792465718.004,
+   "gen_secs": 270.1,
+   "finished": 1792465988.077,
+   "latency_secs": 462.2,
+   "files": [
+    "media/gen/v47_04b_sd25_cur1_a1a7ed38a4.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2963450,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792466048.1269608
+  },
+  "vibesong/v47_03_cur1_up-76dbbfa5ca": {
+   "id": "76dbbfa5ca",
+   "job": "vibesong/v47_03_cur1_up-76dbbfa5ca",
+   "tag": "v47_03_cur1_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.7 card 03 take v47_03_sd25_cur1: precise 2.25x of take frames 6..103 (from 0.25 s; slots use S0 19.85), covers slot 20.1667-23.7667 at shifts -2..+8",
+   "spec_file": "media/gen/specs/v47_03_cur1_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/v47/upscale/seg_03_cur1.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874428,
+   "submitted": 1792465558.1146517,
+   "bytes": 5651041,
+   "started": 1792465719.35,
+   "gen_secs": 47.0,
+   "finished": 1792465766.354,
+   "latency_secs": 208.2,
+   "files": [
+    "media/gen/v47_03_cur1_up_76dbbfa5ca.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 4.042,
+     "bytes": 11446283,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 97
+      }
+     ]
+    }
+   ],
+   "collected": 1792465812.9968376
+  },
+  "vibesong/v47_06b_sd25_cur1-79656776d2": {
+   "id": "79656776d2",
+   "job": "vibesong/v47_06b_sd25_cur1-79656776d2",
+   "tag": "v47_06b_sd25_cur1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06b acting (cur); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06b_sd25_cur1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. She never lets go of the yellow pencil: it stays visible in the same hand in every frame. On 'I just' she slowly lowers it, tip down, never aimed at him, and leans in closer, head tilted, soft eyes on his face; on 'ask myself' that hand, still holding the pencil, rests on her chest, honest, a little vulnerable; on 'what it is' she turns to him, brows up, and holds the pencil out to him lying flat across her open palm, offering it, with a hopeful smile, a real question. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874429,
+   "submitted": 1792465669.830205,
+   "bytes": 1174308,
+   "started": 1792465778.362,
+   "gen_secs": 250.1,
+   "finished": 1792466028.414,
+   "latency_secs": 358.6,
+   "files": [
+    "media/gen/v47_06b_sd25_cur1_79656776d2.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2609104,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792466076.9490528
+  },
+  "vibesong/v47_06b_sd25_cur2-9ee05b573b": {
+   "id": "9ee05b573b",
+   "job": "vibesong/v47_06b_sd25_cur2-9ee05b573b",
+   "tag": "v47_06b_sd25_cur2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06b acting (cur); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06b_sd25_cur2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. She never lets go of the yellow pencil: it stays visible in the same hand in every frame. On 'I just' she slowly lowers it, tip down, never aimed at him, and leans in closer, head tilted, soft eyes on his face; on 'ask myself' that hand, still holding the pencil, rests on her chest, honest, a little vulnerable; on 'what it is' she turns to him, brows up, and holds the pencil out to him lying flat across her open palm, offering it, with a hopeful smile, a real question. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_cur.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874429,
+   "submitted": 1792465671.7232032,
+   "bytes": 1174308,
+   "started": 1792465778.221,
+   "gen_secs": 150.8,
+   "finished": 1792465929.01,
+   "latency_secs": 257.3,
+   "files": [
+    "media/gen/v47_06b_sd25_cur2_9ee05b573b.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2707693,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792465947.569551
+  },
+  "vibesong/v47_06b_sd25_med1-3d13fd95b5": {
+   "id": "3d13fd95b5",
+   "job": "vibesong/v47_06b_sd25_med1-3d13fd95b5",
+   "tag": "v47_06b_sd25_med1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06b acting (med); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06b_sd25_med1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. She never lets go of the yellow pencil: it stays visible in the same hand in every frame. On 'I just' she slowly lowers it, tip down, never aimed at him, and leans in closer, head tilted, soft eyes on his face; on 'ask myself' that hand, still holding the pencil, rests on her chest, honest, a little vulnerable; on 'what it is' she turns to him, brows up, and holds the pencil out to him lying flat across her open palm, offering it, with a hopeful smile, a real question. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874430,
+   "submitted": 1792465672.8185344,
+   "bytes": 1049148,
+   "started": 1792465839.892,
+   "gen_secs": 149.2,
+   "finished": 1792465989.116,
+   "latency_secs": 316.3,
+   "files": [
+    "media/gen/v47_06b_sd25_med1_3d13fd95b5.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2694236,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792466013.291456
+  },
+  "vibesong/v47_06b_sd25_med2-59ecf399ae": {
+   "id": "59ecf399ae",
+   "job": "vibesong/v47_06b_sd25_med2-59ecf399ae",
+   "tag": "v47_06b_sd25_med2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06b acting (med); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06b_sd25_med2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. She never lets go of the yellow pencil: it stays visible in the same hand in every frame. On 'I just' she slowly lowers it, tip down, never aimed at him, and leans in closer, head tilted, soft eyes on his face; on 'ask myself' that hand, still holding the pencil, rests on her chest, honest, a little vulnerable; on 'what it is' she turns to him, brows up, and holds the pencil out to him lying flat across her open palm, offering it, with a hopeful smile, a real question. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874430,
+   "submitted": 1792465674.0842214,
+   "bytes": 1049148,
+   "started": 1792465839.918,
+   "gen_secs": 270.2,
+   "finished": 1792466110.156,
+   "latency_secs": 436.1,
+   "files": [
+    "media/gen/v47_06b_sd25_med2_59ecf399ae.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2827028,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792466139.7530148
+  },
+  "vibesong/v47_04b_cur1_up-d50e7b58c3": {
+   "id": "d50e7b58c3",
+   "job": "vibesong/v47_04b_cur1_up-d50e7b58c3",
+   "tag": "v47_04b_cur1_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.7 card 04 take v47_04b_sd25_cur1: precise 2.25x of take frames 1..62 (from 0.041667 s; slots use S0 48.041667), covers slot 48.5667-50.6667 at shifts -2..+8",
+   "spec_file": "media/gen/specs/v47_04b_cur1_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/v47/upscale/seg_04b_cur1.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874437,
+   "submitted": 1792466112.9152255,
+   "bytes": 3264697,
+   "started": 1792466258.137,
+   "gen_secs": 65.5,
+   "finished": 1792466323.649,
+   "latency_secs": 210.7,
+   "files": [
+    "media/gen/v47_04b_cur1_up_d50e7b58c3.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 2.542,
+     "bytes": 5405500,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 61
+      }
+     ]
+    }
+   ],
+   "collected": 1792466360.5738237
+  },
+  "vibesong/v47_06c_sd25_med1-d5c7184465": {
+   "id": "d5c7184465",
+   "job": "vibesong/v47_06c_sd25_med1-d5c7184465",
+   "tag": "v47_06c_sd25_med1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06c acting (med); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06c_sd25_med1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. On 'I just' the hand on the RIGHT side of the picture slowly lowers the yellow pencil to her waist, tip down, never aimed at him, and keeps holding it there; she leans in, head tilted, soft eyes on his face. On 'ask myself' her EMPTY hand, on the LEFT side of the picture, rises and rests on her chest, honest, a little vulnerable; on 'what it is' that empty hand opens toward him, palm up, brows up, a hopeful smile, a real question. The Eraser's wary side-eye slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera holds this medium shot, both of her hands always in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874438,
+   "submitted": 1792466207.6685622,
+   "bytes": 1049047,
+   "started": 1792466318.215,
+   "gen_secs": 161.4,
+   "finished": 1792466479.665,
+   "latency_secs": 272.0,
+   "files": [
+    "media/gen/v47_06c_sd25_med1_d5c7184465.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 1706518,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792466525.99067
+  },
+  "vibesong/v47_06c_sd25_med2-18de50c417": {
+   "id": "18de50c417",
+   "job": "vibesong/v47_06c_sd25_med2-18de50c417",
+   "tag": "v47_06c_sd25_med2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.7 paper card 06c acting (med); S0=142.9 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v47_06c_sd25_med2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. On 'I just' the hand on the RIGHT side of the picture slowly lowers the yellow pencil to her waist, tip down, never aimed at him, and keeps holding it there; she leans in, head tilted, soft eyes on his face. On 'ask myself' her EMPTY hand, on the LEFT side of the picture, rises and rests on her chest, honest, a little vulnerable; on 'what it is' that empty hand opens toward him, palm up, brows up, a hopeful smile, a real question. The Eraser's wary side-eye slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera holds this medium shot, both of her hands always in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/v47/c06/ff06_med.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29874438,
+   "submitted": 1792466208.9157276,
+   "bytes": 1049047,
+   "started": 1792466318.212,
+   "gen_secs": 151.9,
+   "finished": 1792466470.142,
+   "latency_secs": 261.2,
+   "files": [
+    "media/gen/v47_06c_sd25_med2_18de50c417.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 1648122,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792466526.8955956
+  },
+  "vibesong/v47_06b_cur2_up-f03cccba85": {
+   "id": "f03cccba85",
+   "job": "vibesong/v47_06b_cur2_up-f03cccba85",
+   "tag": "v47_06b_cur2_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.7 card 06 take v47_06b_sd25_cur2: precise 2.25x of take frames 3..80 (from 0.125 s; slots use S0 143.025), covers slot 143.40-146.20 at shifts -2..+8",
+   "spec_file": "media/gen/specs/v47_06b_cur2_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/v47/upscale/seg_06b_cur2.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874445,
+   "submitted": 1792466629.4848917,
+   "bytes": 4066221,
+   "started": 1792466738.516,
+   "gen_secs": 65.5,
+   "finished": 1792466803.977,
+   "latency_secs": 174.5,
+   "files": [
+    "media/gen/v47_06b_cur2_up_f03cccba85.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.208,
+     "bytes": 6606593,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 77
+      }
+     ]
+    }
+   ],
+   "collected": 1792466815.6390674
   }
  },
- "total_est_usd": 107.7046,
- "total_est_usd_done": 69.5704
+ "total_est_usd": 120.5546,
+ "total_est_usd_done": 82.4204
 }

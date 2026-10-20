@@ -2,7 +2,36 @@
 
 ## V4 (2026-10-18) — CURRENT. Jade approved the v3 critique; start with docs/v4_brief.md (plan + checkpoints + verification).
 
-### v4.6 IN PROGRESS (started 2026-10-19 ~13:20) — READ THIS FIRST
+### v4.7 SENT — HANDOFF (written 2026-10-20 ~00:30) — READ THIS FIRST
+**State: idle and safe.** No agents, renders or gens running. Jade went to sleep; she reviews in the morning and pastes "v4.7 review: ...".
+Her notes (verbatim) + unit plan: docs/v47_brief.md. Unit checkpoints engine/checkpoints/v47_<unit>.md; clips engine/out/review/v47/<unit>/; backups engine/out/bak_v47/<unit>/.
+- **Review page SENT:** https://claude.ai/artifact/EAKt8rYx4hDPcsZmUFCc4c (source docs/pages/v47_review/, republish with root "." from that dir; encode.sh <src> <name>, CRF env default 26).
+- **Full cut:** engine/out/review/full_v4.7.mp4 (540p, exit 0, 6090 frames, 393 s; log full_v4.7.log). Checks full_v4.7_check/: 68 luma drops (same count as v4.6b) / 84 cuts, 70 on grid;
+  only cut change 170.667 -> 171.833 = the act4 montage replays the 1:32 shot, which is now the pull-back. Spot frames OK: 84.2 (Jade has her head; the hands unit's batch glitch didn't recur), 87.5, 92.7, 131.2, 170.6-172.2.
+- **Live switches in the cut (= "in show" on the page):** INTRO_V47 'plate' (act1/paint_run_ship.js:36) · CARDS_V47 {p03,p04,p06:'v47'} (paper_inserts.js:21; p03 = R18 warp, p04/p06 = +0) ·
+  DROP_V47 'drift' (act3/drop_r5.js:50) · CARD05_V47 'b2fix_shift+0' (act3/card05.js:21) · JADE_SING_V47 '+3' (act4/paper.js:17) · BOSS_V47 'coverage_ui' (act4/main3d.js:62; coord changed from 'coverage' + spelling colour->color :639) ·
+  HANDS_V47 'grip' (core/voxfig.js:780) · spread.js:88 LIVE = LIVES.v47 (outro jacket fix; v45r2 = fallback).
+- **Applying her picks:** each pick maps to one switch value above (variant names on the page = switch suffixes; card variants per checkpoint, e.g. CARDS_V47.p04 = 'v47_<take>_shift+2'; JADE_SING_V47 '-4'..'+6' or null; "Keep v4.6" = null).
+  Small swaps: do directly, re-stitch 540p (~6.5 min). Anything needing new gens: brief a fresh agent from the unit checkpoint.
+- **Open / known soft spots** (tell her if she asks): 0:49 lean-in lands after the 2.1 s card (would need a longer card); 2:24 'expressive' alt loses the pencil + patch unfixed; card 05 alt a1 patch unfixed;
+  boss: Eraser look-down at 141.8-142.2 is subtle, braid thin early in the Ricky shot, black crumbs not thinned, 'arena' variant built but unreviewed; drop 'punch' clip predates the hands fix;
+  outro patch is a crisp disc (slightly cleaner than the drawing), end-page patch blank (19 px). Spend this round ~$16.2 (cards $13.58, trio $2.61); project ~$150 of $500.
+- **Then:** apply picks -> stitch full_v4.7b 540p -> checks -> 1080p master (`--res 1920x1080 --mblur 8 --shutter 0.33`, ~23 min, ~420 MB; disk has ~2.7 GB free, so delete
+  out/master/full_v4.6_1080p.mp4 first only with Jade's OK) -> refresh launch cuts/thumbnails (engine/checkpoints/launch.md; the 186-203 outro, 0:04 intro and boss changed).
+- Disk ~2.7 GB free. engine/out/dev/tmp holds ~225 MB of stale Chrome profiles (safe to clear when nothing renders). media/cutscenes/_work/v47/ is 181 MB (mp4s, gitignored; prune with her OK).
+
+Unit results (newest last):
+- v47_intro DONE ($0; engine/checkpoints/v47_intro.md): paint_run_ship.js INTRO_V47 'plate' (live) | 'card' (HUD portraits) | null; clips engine/out/review/v47/v47_intro/. Coordinator looked at compare_v46_plate_card.jpg: both clean.
+- v47_drop DONE ($0; engine/checkpoints/v47_drop.md): the 1:27 freeze was intentional (tau() pinned the clock in the stops 87.26-87.83 / 90.375-91.11); drop_r5.js:50 DROP_V47 'drift' (live) | 'punch' | null; 1:32 pull-back V47.pull :468. Coord asked for a polish pass on the dark FUNCTIONS slab back in the wide. Re-render drop clips once HANDS_V47 is on.
+- v47_hands DONE ($0; engine/checkpoints/v47_hands.md): cause = core/voxfig.js playGuitar (picking fist half inside the body, elbow behind). Fix HANDS_V47 'grip' (voxfig.js:780; null = v4.6), also core/motion/figure.js (backup bak_v47/v47_hands/figure.js.v46), slab_insert.js strumPose, drop_r5.js rickyPick/laser chord t1. Before/after crops engine/out/review/v47/v47_hands/crops/ (coord checked 158.9, 152.5: hands on neck/strings). WATCH in the full stitch: one batched still render lost Jade's head at 84.2 (order-dependent; alone it was fine).
+- v47_boss Phase 1 DONE (docs/v47_boss_design.md, mocks engine/out/review/v47/v47_boss/design/sheet_before_after.jpg): every Eraser attack draws part of 画; Ricky's held note becomes the braid fed by the 5 bugs; ring hit at 132.603. Coord approved option A 'coverage' + a callout sub-variant 'coverage_ui'; Phase 2 building (BOSS_V47 in act4/main3d.js).
+- v47_trio DONE ($2.61; engine/checkpoints/v47_trio.md): card05.js:21 CARD05_V47 'b2up_shift+0' (alt a1; null = v4.6), paper.js:17 JADE_SING_V47 '+3' (variants -4..+6 + loops for Jade's ear; v4.6 card also had a 25->30 fps judder, fixed). Coord sent it back to fix b2's gibberish sleeve patch (reuse v47_outro's method if any).
+- v47_trio patch fix DONE ($0): card05.js:21 CARD05_V47 'b2fix_shift+0' (patch asset inputs/sleeve_patch_1420MHz.png from v47_outro, tool tools/cutscenes/pb_trio47_patch.py); coord checked patch_before_after_3x.jpg: reads 1420 MHz. For the page, re-render the c05 shift clips from the b2fix slots (old ones show the gibberish).
+- v47_cards DONE ($13.58; engine/checkpoints/v47_cards.md): paper_inserts.js:17-28 CARDS_V47 {p03,p04,p06:'v47'} (null = v4.6 per card); clips engine/out/review/v47/v47_cards/ (old, new +0/+2/+4/+6, alt). 04's lean-in lands after the cut (card is 2.1 s). 06 = pencil kept (canon); more expressive alt p06_alt_r1cur1 loses the pencil. Patch fixed on 06 (pb_patchtrack47.py).
+- v47_outro DONE ($0; engine/checkpoints/v47_outro.md): tracked paint-over on the 1080 frames (tools/cutscenes/pb_spread47_jacket.py): hem/cuffs/shoulder strips/pocket slashes white, snap epaulettes, round 1420 MHz patch (inputs/sleeve_patch_1420MHz.png) on the band; end page page11 fixed (pb_spread47_page11.py, originals page11*_v46.jpg). Set spreadR_v47, spread.js:88.
+- v47_boss Phase 2 DONE ($0): main3d.js ~:62 BOSS_V47 'coverage' (live) | 'coverage_ui' (callouts) | 'arena' (unreviewed) | null; clips engine/out/review/v47/v47_boss/boss_{v46,coverage,coverage_ui}.mp4. Coord fixed callout spelling colour->color (main3d.js:639). Coord recommends coverage_ui to Jade.
+
+### v4.6 (done; master + launch cuts made) (started 2026-10-19 ~13:20) — READ THIS FIRST
 Jade's v4.5 picks: **docs/v46_brief.md**. All picks already live except the outro -> r2 (act5/spread.js:79 LIVE = LIVES.v45r2). full_v4.5_preRicky.mp4 deleted (her OK).
 - Build next (her pick): v46_outstrum = Charlie strums on the 2011 page at the end (~194-195.4), reusing v45_open's rig. Checkpoint engine/checkpoints/v46_outstrum.md.
 - v46_outstrum DONE ($0.13; engine/checkpoints/v46_outstrum.md): act5/spread.js:104 END_STRUM_V46 'groove'|'strum'|null (own rig cut from the spread page; Veo->still crossfade moved to 193.55-194.0 when on). Clips engine/out/review/v46/v46_outstrum/.

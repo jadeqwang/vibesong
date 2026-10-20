@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v47_04b_sd25_cur1",
+ "notes": "v4.7 paper card 04b acting (cur); S0=48.0 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short rounded 'j' on 'just', open on 'ask', lips pressing together on the 'm' of 'myself'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. A quick plotting beat. In the very first second she raises one hand and rests her knuckles under her chin (below her mouth, never covering it), eyes narrowed, glancing up at a glowing screen beside her as if reading the code of the world; on 'ask' the hand drops and on 'myself' she is already leaning toward the camera, eyebrows up, a sly, mischievous 'what if' smile spreading while she sings, as if about to type the idea; she nods once on 'what'. A cool blue screen glow lights her face; the blueprint grid stays. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall; her hands stay empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently in toward her face, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+  "image": "file:media/cutscenes/_work/v47/c04/ff04_cur.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/v47/c04/voc04_48.00_5s.mp3"
+  ],
+  "duration": 5,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

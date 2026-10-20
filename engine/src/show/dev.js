@@ -6,6 +6,7 @@ export default function show() {
     { id: 'dev.video', t0: 20, t1: 30, load: () => import('../scenes/dev/video_test.js') },
     { id: 'dev.voxel_back', t0: 30, t1: 36, load: () => import('../scenes/dev/voxel_back_test.js') },
     { id: 'dev.figures', t0: 40, t1: 76, load: () => import('../scenes/dev/figure_test.js') },
+    { id: 'dev.guitar', t0: 3000, t1: 3600, load: () => import('../scenes/dev/guitar_test.js') },   // (v47_hands) guitar rig bench
     { id: 'dev.creatures', t0: 1000, t1: 1400, load: () => import('../scenes/dev/creatures_test.js') },
     // MOTION spike (core/motion): OLD vs NEW locomotion. 2000: split (OLD | NEW), 2100: feet close-up split, 2200: NEW only
     { id: 'dev.motion', t0: 2000, t1: 2010, mode: 'split', load: () => import('../scenes/dev/motion_test.js') },

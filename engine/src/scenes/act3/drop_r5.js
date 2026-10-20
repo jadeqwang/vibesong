@@ -31,13 +31,28 @@ import { RA5, roomATracksR5, PLAN } from './talos_plan.js';
 import { press, onJoint } from '../../core/motion/index.js';
 import { slashPose, heroBlock, aimYawLocal, aimPitch } from './drop.js';
 import { makeCarvedFace } from './carved_slab.js';   // (v4b stage_3d) FIXTURES / FUNCTIONS carved into the slab
+import { HANDS_V47, guitarPick47 } from '../../core/voxfig.js';   // (v47_hands) Ricky's picking hand strikes over the strings
 import { patchPaint } from './world/paint.js';   // (M3) the carved slab shares the leaf's paint (Jade colours the plank at 92.5)
 
 const A5 = RA5;
 const { AMP, STUB, BASE, BY, FOOT, HINGE, LAND, LY, SOCKET, PLATE, RECV_H, GATE, WALL, STELE, STRUT, SLASH, RISE, POP, LAND_T, RISE_R, HOP, LAMPS, SWING0, JOLT, SWING_DUR, RESUME, SLAM, HEY, FF, RUN, OFFPLATE, TIP } = A5;
 const FUN = CUE.functions;
 const STOPS = [CUE.fixStop, CUE.funStop];
-const tau = (t) => (t >= CUE.fixStop[0] && t < CUE.fixStop[1] ? CUE.fixStop[0] : t >= CUE.funStop[0] && t < CUE.funStop[1] ? CUE.funStop[0] : t);
+// (v47_drop) Jade v4.6: "at 'fixtures' and 'functions' there's a stillness that feels glitched (like a zoom call that has hung)" + "1:32 a closeup
+// of a glowy thing, but maybe if the camera is actively zooming out, we can see more context". Cause: tau() below froze the whole scene clock
+// (heroes, slab, beam, dust) at the start of the song's two stops (CUE.fixStop 87.26-87.83, CUE.funStop 90.375-91.11) and the A1F / A3
+// cameras ran on holdClock (frozen too): ~0.6 / 0.7 s of identical frames, then a pose jump when the music came back.
+//   null    = v4.6 (the freeze frames; the firefly close-up holds)
+//   'drift' = the clock runs through both stops (the heroes breathe and act: Jade's slash follows through and she looks back at the boys, the
+//             boys look up at the slab; at FUNCTIONS Jade glances at Ricky, Ricky's flung arm rings out); the cameras keep a continuous push;
+//             the close-up at 91.335 pulls back and cranes up over the receiver to the room (beam, slab falling into the bridge, Charlie, Jade)
+//   'punch' = the same + a snap push-in on each stop's hit (the strut slam / the last gate lamp) that keeps creeping, and a hand-held sway
+const DROP_V47 = 'drift';
+const tau = DROP_V47 ? (t) => t : (t) => (t >= CUE.fixStop[0] && t < CUE.fixStop[1] ? CUE.fixStop[0] : t >= CUE.funStop[0] && t < CUE.funStop[1] ? CUE.funStop[0] : t);
+const camClock = (t) => (DROP_V47 ? t : holdClock(t, STOPS));   // (v47_drop) the cameras never stop
+const V47 = { strutHit: 87.33, lampHit: 90.35, punchFov: [2.4, 2.6],   // 'punch': the stop's hit = the strut lands (SLASH[2] + 0.04 + RISE) / the last gate lamp; fov snapped in by
+  settle: [87.43, 87.86],   // Jade's slash pose blends back to her stance (was a hard release, hidden by the freeze)
+  pull: { p0: [727, 58, 350], pc: [690, 100, 425], p1: [605, 215, 445], t1: [775, 10, 205], fov: [30, 44], hold: 0.16, land: 0.86 } };   // A4: the pull-back (bezier p0 -> pc -> p1): high over the receiver's north-west, the wall in front; Ricky + amp, the beam to the crystal and down into the receiver, Charlie on the plate
 const SHOT = [86.385, 88.052, 89.694, 91.335, 92.975, 94.204];   // cuts on beats 209 / 213 / 217 / 221
 const L2 = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
 const LEN = L2(BASE, LAND) - 3;                                    // the plank reaches the lip when it lies down
@@ -105,7 +120,7 @@ export async function setup(ctx) {
   };
   // (v45_laser) the guitar in playing position (the picking arm is the IK spec rickyPick below), the lean-back sustain through the freeze,
   // then the re-hit strums; the hey chords unchanged
-  if (LASER_V45) layers.ricky = [{ anim: 'chord', t0: LZ.plug - 0.3, t1: LZ.fling + 0.04, mask: 'armsHead', fade: 0.15, p: () => 0.25 },
+  if (LASER_V45) layers.ricky = [{ anim: 'chord', t0: LZ.plug - 0.3, t1: LZ.fling + (HANDS_V47 ? 0.13 : 0.04), mask: 'armsHead', fade: 0.15, p: () => 0.25 },   // (v47_hands) hold the chord until the sustain is in (the gap let the fretting hand drift off the neck at 90.0-90.1)
     { anim: 'sustain', t0: LZ.fling - 0.04, t1: LZ.rehit + 0.06, mask: 'upper', fade: 0.1 },
     { anim: 'chord', t0: LZ.rehit, t1: LZ.end, mask: 'armsHead', fade: 0.06, p: () => 0.25 }, layers.ricky[1]];
   // Ricky plugs his jack into the amp (arm IK: reach, push in along the socket axis, let go)
@@ -130,6 +145,14 @@ export async function setup(ctx) {
     ricky: [{ at: V(SOCKET[0], LY + 6, SOCKET[1]), t0: 86.385, t1: 86.6, fade: 0.2 }, { at: () => crysC(), t0: 86.66, t1: 87.9, fade: 0.15 }, { at: A.amp.localToWorld(A.amp.userData.jack.clone()).add(V(0, 2, 0)), t0: 88.2, t1: 89.1, fade: 0.2 },
       { at: () => crysC(), t0: 89.3, t1: 90.1, fade: 0.15 }, { at: () => recvC(), t0: 90.15, t1: 93.7, fade: 0.2 }, { at: () => A.slab.tipPos(), t0: 93.75, t1: 94.3, fade: 0.2 }],
   };
+  if (DROP_V47) {   // (v47_drop) eye-lines through the stops (the clock runs now, so the heads travel): FIXTURES = the boys look UP the slab they
+    // just saw slam up, Jade (the slasher) checks the boys over her shoulder, then back to the slab; FUNCTIONS = Jade glances at Ricky (he did it), back to the beam
+    const slabTop = () => A.slab.tipPos(); const rkHead = (t) => { const s = ricky.state(t); return V(s.x, s.y + 44, s.z); };
+    looks.jade.splice(1, 1, { at: () => crysC(), t0: 86.66, t1: 87.4, fade: 0.15 }, { at: chPos, t0: 87.4, t1: 87.72, fade: 0.14 }, { at: slabTop, t0: 87.72, t1: 88.05, fade: 0.14 });
+    looks.jade.splice(looks.jade.findIndex((L) => L.t0 === 89.7), 1, { at: () => recvC(), t0: 89.7, t1: 90.5, fade: 0.2 }, { at: rkHead, t0: 90.5, t1: 90.86, fade: 0.14 }, { at: () => recvC(), t0: 90.86, t1: 91.4, fade: 0.16 });
+    looks.charlie.splice(1, 1, { at: () => crysC(), t0: 86.66, t1: 87.25, fade: 0.15 }, { at: slabTop, t0: 87.25, t1: 87.9, fade: 0.18 });
+    looks.ricky.splice(1, 1, { at: () => crysC(), t0: 86.66, t1: 87.3, fade: 0.15 }, { at: slabTop, t0: 87.3, t1: 87.95, fade: 0.2 });
+  }
 
   // ---------------------------------------------------------------------------------------------- the glide (Charlie's y during the flight)
   const glideY = (u) => LY * u + 46 * Math.pow(Math.sin(Math.PI * Math.pow(u, 0.5)), 1.2);
@@ -152,6 +175,7 @@ export async function setup(ctx) {
       ch.apply(charlie, tc, { layers: layers.charlie, look: looks.charlie, hands: hNH ? undefined : { R: tipR } });
       F.ricky.apply(ricky, tc, { layers: layers.ricky, hands: { R: rickyHand }, look: looks.ricky });
       slashPose(F.jade, tc);
+      if (DROP_V47) slashSettle(F.jade, tc);
       const st = { jade: jade.state(tc), charlie: charlie.state(tc), ricky: ricky.state(tc) };
       { const u = glideU(tc); if (u > 0 && u < 1) { const g = ch.group; g.position.y += glideY(u) - st.charlie.y; g.rotateZ(-0.2 * Math.sin(Math.PI * u)); g.rotateX(0.07 * Math.sin(u * 11) * Math.sin(Math.PI * u)); g.updateMatrixWorld(true); } }
       // the tip of the hat: the cap lifts with his hand on it
@@ -164,7 +188,7 @@ export async function setup(ctx) {
       // the receiver rises out of the socket on 89.68 (a slight overshoot), lit when the beam reaches it, flickering while the firefly sits on it
       { const u = smooth(RISE_R, RISE_R + 0.24, tc); const over = 3 * Math.sin(Math.PI * clamp01((tc - RISE_R - 0.16) / 0.22)); A.recv.position.y = LY - RISE_H + RISE_H * u + over; }
       A.recv.userData.crystal.reset(); A.recv.userData.crystal.visible = true;
-      const ffGlow = fireflyAt(tc);
+      const ffGlow = fireflyAt(DROP_V47 && tc >= CUE.funStop[0] && tc < CUE.funStop[1] ? CUE.funStop[0] : tc);   // (v47_drop) it still lands on the re-hit (it would pop in mid-stop otherwise)
       const flick = tc >= SWING0 && tc < RESUME ? 0.45 - 0.38 * ffGlow : 1;
       const recvLit = smooth(tR, tR + 0.06, tc) * flick;
       A.recv.userData.crystal.lit(recvLit, tc);
@@ -196,6 +220,11 @@ export async function setup(ctx) {
         S.leafPivot.visible = e2 >= 0; S.leafPivot.position.y = S.pivY - (1 - Math.max(0, e2)) * drop;
         S.strut.visible = e3 >= 0; S.strut.position.y = S.strutY - (1 - Math.max(0, e3)) * drop; }
       { const fun = tc >= CARVE.fun; A.carve.fx.group.visible = !fun; A.carve.fn.group.visible = fun; A.carve.fn.setGlow(smooth(CARVE.fun, CARVE.fun + CARVE.fill, tc), (1.9 + 0.9 * T.pulse(tc, [CARVE.fun], 0.25)) * (t >= SHOT[3] - 1e-6 && t < SHOT[4] ? M4.closeGlow : 1)); }   // (M3) gain down: saturated hues (was 3.2-4.8); (M4) the close-up
+      { // (v47_drop) the pull-back sees the slab from behind: there the back + outer sides take the face's stone (no darker gloss, no metal) and the raking
+        // key mirrored onto the back, easing back to the v4.6 back as it lies down into the plank (the 93.2 crossing's plank top is matched to that)
+        const U0 = A.carve.fn.material.userData.carveU; if (!A.carve.back0) A.carve.back0 = { k: U0.uCvBackK.value, dir: U0.uCvKeyDir.value.clone() };
+        const b0 = A.carve.back0; const inPull = DROP_V47 && t >= SHOT[3] - 1e-6 && t < SHOT[4]; const kb = inPull ? 1 - smooth(RESUME, SLAM + 0.08, tc) : 0;
+        for (const f of [A.carve.fx, A.carve.fn]) { const U = f.material.userData.carveU; U.uCvBackK.value = b0.k * (1 - kb); U.uCvKeyDir.value.set(b0.dir.x, b0.dir.y, b0.dir.z * (1 - 2 * kb)).normalize(); } }
       { const late = t >= SHOT[3] - 1e-6; for (const f of [A.carve.fx, A.carve.fn]) f.material.userData.carveU.uCvHatchK.value = A.carve.hk0 * (late ? M4.hatchK : 1);   // (M4) the hatch down after the re-hit cut
         const hb = S.leafPivot.userData.hatchBack; if (hb) hb.material.opacity = late ? M4.backHatch : 1;
         S.beam.material = t >= RUN - 0.05 ? S.pierMat : S.mat; }   // (M4) the 一 hinge beam keeps out of Jade's paint (its end beyond the lying plank read as a stray red dash at 93.8)
@@ -302,6 +331,15 @@ export async function setup(ctx) {
   /** (v45_laser) picture time inside the 'wave' camera beat on Ricky */
   function inIns(t) { return LASER_V45 === 'wave' && t >= T.snap(LZ.ins[0]) - 1e-6 && t < T.snap(LZ.ins[1]) - 1e-6; }
   function beamOff(tc) { return smooth(RESUME + 0.04, SLAM - 0.1, tc); }
+  /** (v47_drop) slashPose() lets go of the third stroke's end pose at SLASH[2] + 0.3 (a hard release the freeze used to hide): blend it back
+   *  into her stance over V47.settle, with a small follow-through (the pencil arm carries on down, the torso unwinds) */
+  function slashSettle(fig, tc) {
+    const [a, b] = V47.settle; if (tc <= a || tc >= b) return; const J = fig.F.J; const D = Math.PI / 180;
+    const u = clamp01((tc - a) / (b - a)); const w = 1 - u * u * (3 - 2 * u); const ft = Math.sin(Math.PI * Math.min(1, u * 1.6));   // follow-through bump early in the settle
+    const end = { shoulderR: [0, -12, -25 - 14 * ft], elbowR: [0, 0, 6 + 10 * ft], body: [0, 10 - 6 * ft, -18 + 5 * ft], shoulderL: [0, 28, -10] };   // (x, y, z) degrees: the 3rd slash's end (side +1)
+    for (const [j, [x, y, z]] of Object.entries(end)) { const r = J[j].rotation; r.set(r.x + (x * D - r.x) * w, r.y + (y * D - r.y) * w, r.z + (z * D - r.z) * w); }
+    fig.group.updateMatrixWorld(true);
+  }
   /** (v45_laser) the amp lens: dim until plugged, a hum once plugged, charging (flicker) through the guitar swell, full on the chord */
   function lensK(tc) { if (tc >= FUN) return 3 + 2 * T.pulse(tc, LZ_HITS, 0.12); if (tc < LZ.plug) return 0.25; const c = smooth(89.75, LZ.hit, tc); return 0.7 + 1.1 * c + 0.3 * c * Math.sin(tc * 70); }
   /** (v45_laser) Ricky's picking hand (right-arm IK target, song time): the plug-in on the 89.69 accent, the wind-up through the swell,
@@ -312,7 +350,7 @@ export async function setup(ctx) {
     const at = (t, fig) => {
       const FF_ = fig.F; FF_.group?.updateWorldMatrix?.(true, true); fig.group.updateWorldMatrix(true, true);
       const sh = FF_.J.shoulderR.getWorldPosition(V(0, 0, 0)), shL = FF_.J.shoulderL.getWorldPosition(V(0, 0, 0));
-      const g = FF_.items.guitar; const G = g.localToWorld(g.userData.strum.clone()); const L = fig._armLen('R') * fig.scale;
+      const g = FF_.items.guitar; const G = g.localToWorld(HANDS_V47 ? guitarPick47(g, FF_) : g.userData.strum.clone()); const L = fig._armLen('R') * fig.scale;   // (v47_hands) strike over the strings, not inside the body
       const side = sh.clone().sub(shL).setY(0).normalize(); const fwd = up.clone().cross(side).normalize();
       const W = sh.clone().addScaledVector(up, 0.86 * L).addScaledVector(side, 0.22 * L).addScaledVector(fwd, 0.08 * L);
       const Fo = G.clone().addScaledVector(up, -0.32 * L).addScaledVector(side, 0.14 * L).addScaledVector(fwd, 0.12 * L);
@@ -329,10 +367,13 @@ export async function setup(ctx) {
       const mid = (LZ.up2 + LZ.hit2) / 2;
       if (t < mid) return lerp(Fo, Gu, e(LZ.up2, mid, t));
       if (t < LZ.hit2) { const u = clamp01((t - mid) / (LZ.hit2 - mid)); return lerp(Gu, G, u * u); }
-      if (t < LZ.rehit) return lerp(G, F2, 1 - Math.pow(1 - clamp01((t - LZ.hit2) / (LZ.fling - LZ.hit2)), 2));
-      return lerp(F2, strum(), e(LZ.rehit, LZ.rehit + 0.07, t));
+      // (v47_drop) the flung hand rings the chord out through the stop: it keeps rising and shakes (a guitarist's vibrato fist), not a held pose
+      const ring = (tt) => { if (!DROP_V47) return F2; const r = smooth(LZ.fling, LZ.rehit, tt), fade = Math.exp(-Math.max(0, tt - LZ.fling) / 0.5);
+        return F2.clone().addScaledVector(up, 0.12 * L * r).addScaledVector(fwd, -0.05 * L * r).addScaledVector(side, 0.035 * L * Math.sin(tt * 34) * (0.3 + 0.7 * fade) * smooth(LZ.fling, LZ.fling + 0.1, tt)); };
+      if (t < LZ.rehit) return lerp(G, ring(t), 1 - Math.pow(1 - clamp01((t - LZ.hit2) / (LZ.fling - LZ.hit2)), 2));
+      return lerp(ring(LZ.rehit), strum(), e(LZ.rehit, LZ.rehit + 0.07, t));
     };
-    return { at, t0: plugSpec.t0, t1: LZ.end, fade: plugSpec.fade, pole: null, pose: 'grip', kind: 'pick' };
+    return { at, t0: plugSpec.t0, t1: LZ.end, fade: plugSpec.fade, pole: HANDS_V47 ? [1.25, 0.9, 0.55] : null, pose: 'grip', kind: 'pick' };   // (v47_hands) elbow in front of the body
   }
   /** (v45_laser, 'wave') the sound wave: rings out of the guitar on each stroke (billboarded), a spark running down the cable into the
    *  amp, the cable left glowing pink while the chord rings */
@@ -389,11 +430,14 @@ export async function setup(ctx) {
     if (t >= T.snap(CUT_FIX) - 1e-6 && t < SHOT[1]) {   // (v4b stage_3d) A1F: FIXTURES! (still 09): low and long behind the party, the
       // carved slab slams up and fills the middle of the frame (the biggest thing on screen), the trio small at its foot on the right;
       // a slow push through the stop; the slab sharp (focus on the word), the DOF capped (common.js)
-      const c = holdClock(t, STOPS); const k = smooth(CUT_FIX, 88.052, c);
-      const pos = V(835, 30, -380).lerp(V(836, 31, -362), k), tgt = V(876, 94, 245);   // (v4b M2) lower + longer: it looms (~78 % of the height)
+      const c = camClock(t); const k = smooth(CUT_FIX, 88.052, c);
+      const pos = V(835, 30, -380).lerp(V(836, 31, DROP_V47 ? -334 : -362), DROP_V47 ? 0.35 * clamp01((c - CUT_FIX) / (88.052 - CUT_FIX)) + 0.65 * k : k), tgt = V(876, 94, 245);   // (v4b M2) lower + longer: it looms (~78 % of the height); (v47_drop) a longer push that never stops
       const sh = 2.2 * T.pulse(tc, SLASH.map((x) => x + 0.04 + RISE), 0.1); pos.x += Math.sin(tc * 90) * sh; pos.y += Math.cos(tc * 70) * sh;
+      let fov = 21;
+      if (DROP_V47) { tgt.y += 3 * k; pos.x += 3 * Math.sin(1.9 * c); pos.y += 1.2 * Math.sin(1.3 * c + 0.7); }   // the drift: a slow rise of the aim (up the slab), a slight lateral sway
+      if (DROP_V47 === 'punch') { const p = smooth(V47.strutHit - 0.03, V47.strutHit + 0.05, c); fov -= V47.punchFov[0] * p + 1.4 * smooth(V47.strutHit, 88.052, c); pos.x += 1.6 * Math.sin(5.3 * c) * p; pos.y += 1.0 * Math.sin(4.1 * c + 1) * p; }   // snap in on the strut's slam, keep creeping, hand-held
       const word = V(887, 112, 242);
-      return { pos, tgt, fov: 21, focus: word, dof: 0.12, r5: { dof: 0.25, focus: word, tilt: 0, beam: 0 } };
+      return { pos, tgt, fov, focus: word, dof: 0.12, r5: { dof: 0.25, focus: word, tilt: 0, beam: 0 } };
     }
     if (t < SHOT[1]) {   // A1: the reveal: a crane from chest height up to just above head height over the hold (M1 notes: the lock must read:
       // the bite, the cliff drop, the wall in the amp's line, the socket + plate), held through the slab's three slams and the stop;
@@ -415,14 +459,31 @@ export async function setup(ctx) {
       // to the far crystal (chest height, beside the wall's end) and bends in plan to the tiny lit receiver; sky over a third; the re-hit's jolt
       // (v4b stage_3d) still 10: the carved slab centre-left, FUNCTIONS lighting up rainbow as the chord lands; the beam leaves the amp
       // (right) and crosses in front of the slab to the crystal on its far flank (left), then back to the lit receiver beside it
-      const c = holdClock(t, STOPS); const k = smooth(89.694, 91.4, c);
+      const c = camClock(t); const k = smooth(89.694, 91.4, c);
       const pos = V(692 + 6 * k, 46, -300 + 14 * k), tgt = LASER_V45 ? V(822, 96, 245) : V(852, 98, 245);   // (v45_laser) panned right: Ricky's whole figure + his strum in frame
       const sh = 1.2 * T.pulse(tc, [tJolt], 0.12) + 1.6 * T.pulse(tc, [CARVE.fun], 0.1); pos.x += Math.sin(tc * 80) * sh; pos.y += Math.cos(tc * 60) * sh;
+      let fov = LASER_V45 ? 35 : 33;
+      if (DROP_V47) { const kk = clamp01((c - 89.694) / (SHOT[3] - 89.694)); pos.add(V(5 * kk, 5 * kk, 22 * kk)); tgt.y -= 4 * kk; pos.x += 2.2 * Math.sin(1.7 * c + 0.4); pos.y += 1.0 * Math.sin(1.2 * c); }   // (v47_drop) a steady push + crane that never stops, a slight sway
+      if (DROP_V47 === 'punch') { const p = smooth(V47.lampHit - 0.03, V47.lampHit + 0.05, c); fov -= V47.punchFov[1] * p + 1.2 * smooth(V47.lampHit, SHOT[3], c); pos.x += 1.4 * Math.sin(5.1 * c) * p; pos.y += 0.9 * Math.sin(3.9 * c + 1) * p; }   // snap in as the last gate lamp lights (the stop), keep creeping, hand-held
       const word = V(887, 112, 242);
-      return { pos, tgt, fov: LASER_V45 ? 35 : 33, focus: word, dof: 0.12, r5: { beam: 1, dof: 0.22, tilt: 0, focus: word, columns: { keep: [] } } };
+      return { pos, tgt, fov, focus: word, dof: 0.12, r5: { beam: 1, dof: 0.22, tilt: 0, focus: word, columns: { keep: [] } } };
     }
     if (t < SHOT[4]) {   // A4: the close-up: the firefly on the receiver lens; the slab slams down behind it; a slow drift
       const k = smooth(SHOT[3], SHOT[4], t); const ffp = PB.bugs.firefly.visible ? PB.bugs.firefly.position.clone() : recvC();
+      if (DROP_V47) {   // (v47_drop) the pull-back: a beat on the bug on the lens, then the camera backs off and cranes up over the receiver until the
+        // room reads: the lit receiver with the bug, Charlie on the plate, the beam coming in from the slab's crystal, the slab swinging down into
+        // the bridge (92.56-92.86) and Jade sprinting for it; it lands on that wide by the cut and keeps creeping
+        const Pp = V47.pull; const P1 = Pp.p1, T1 = Pp.t1, PC = Pp.pc;
+        const u = clamp01((t - SHOT[3]) / (SHOT[4] - SHOT[3])); let v = clamp01((u - Pp.hold) / (Pp.land - Pp.hold));
+        const e = v < 0.5 ? 4 * v * v * v : 1 - Math.pow(-2 * v + 2, 3) / 2;
+        const p0 = V(...Pp.p0).add(V(-3, -2, -2).multiplyScalar(clamp01(u / Pp.hold))), pc = V(...PC), p1 = V(...P1);
+        const pos = p0.clone().multiplyScalar((1 - e) * (1 - e)).addScaledVector(pc, 2 * (1 - e) * e).addScaledVector(p1, e * e);
+        pos.addScaledVector(p1.clone().sub(pc).normalize(), 5 * clamp01((u - Pp.land) / (1 - Pp.land)));   // the creep after it lands
+        const eT = Math.min(1, 1.15 * Math.pow(e, 0.8)); const tgt = V(...C.close[1]).lerp(ffp, 0.35).lerp(V(...T1), eT);
+        const fov = Pp.fov[0] + (Pp.fov[1] - Pp.fov[0]) * e;
+        const focus = ffp.clone().lerp(recvC().lerp(V(...T1), 0.5), e);
+        return { pos, tgt, fov, focus, dof: 0.42 - 0.28 * e, r5: { dof: 0.7 - 0.5 * e, focus, beam: 0 } };
+      }
       const pos = V(C.close[0][0] - 3 * k, C.close[0][1] - 2 * k, C.close[0][2] - 2 * k), tgt = V(...C.close[1]).lerp(ffp, 0.35);
       return { pos, tgt, fov: 30, focus: ffp, dof: 0.42, r5: { dof: 0.7, focus: ffp, beam: 0 } };
     }

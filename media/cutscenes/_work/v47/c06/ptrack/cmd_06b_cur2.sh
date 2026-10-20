@@ -1,0 +1,1 @@
+/home/jade/Documents/1-music-shipped/orbital-sunrise-video/video/out/.venv/bin/python tools/cutscenes/pb_patchtrack47.py media/gen/v47_06b_cur2_up_f03cccba85.mp4 media/cutscenes/_work/v47/c06/ff06_patch.png 720.5 718.5 34 media/cutscenes/_work/v47/c06/v47_06b_cur2_up_patched.mp4 --ff 722 722 37 --keys "64:717,767,1;68:707,767,1;71:692,760,0.6;73:680,760,0" --hide 27-32

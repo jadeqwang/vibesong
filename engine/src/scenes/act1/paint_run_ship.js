@@ -16,7 +16,7 @@ import { Stage2D, Z, ZUI } from '../../core/stage2d.js';
 import { PAL } from '../../core/palette.js';
 import { PaperBG, SunburstBG, Batch, dust, debris, sparkle, shake } from '../../core/fx.js';
 import { Actor } from '../../core/sprites.js';
-import { TextSprite } from '../../core/text.js';
+import { TextSprite, raster } from '../../core/text.js';
 import { Quad, canvasTex } from '../../core/gfx.js';
 import { cartridgeCanvas, consoleCanvas, playSwitchCanvas } from '../../core/props.js';
 import { Hanzi2D } from '../../core/hanzi2d.js';
@@ -24,6 +24,21 @@ import { pixelCanvas } from '../../core/gfx.js';
 import { TITLE, buildTitle, act1Atlas, floorColumn, arcCanvas } from './common.js';
 import { CHANT_ZH_PARTS } from '../../show/subtitles.js';
 
+// (v47 intro) Jade 10-19: "0:04 during paint it! run it! ship it! maybe we can find a way to introduce Jade, Ricky, and Charlie,
+// since we no longer have character intro screens any more". One name tag per hero, landing on that hero's word, bottom-left
+// (A: in the free band between 画出来 and the gloss; B/C: on the floor strip under the hero). Copy is shared by both variants.
+//   null    = v4.6 (no tags)
+//   'plate' = fighting-game name plate: ink slab + hero-colour top stripe + P1/P2/P3 chip + NAME (in its word's colours) + one line;
+//             slams in from the left on the hero's word, flashes on the second word
+//   'card'  = JRPG party card in the SAVE FILE FOUND screen's language (navy, gold frame, the HUD pixel portrait, cream name, teal line);
+//             slams in from the left on the word (same move as the plate); the portrait shouts each chant word (mouth frame); Jade's portrait lets the
+//             hair down on the same frame her sprite pulls the pencil (hair rule)
+export const INTRO_V47 = 'plate';
+const INTRO_COPY = [
+  { id: 'jade', p: 'P1', name: 'JADE', line: 'vocals · paints the world' },
+  { id: 'ricky', p: 'P2', name: 'RICKY', line: 'electric guitar' },
+  { id: 'charlie', p: 'P3', name: 'CHARLIE', line: 'wrote this song in 2011' },
+];
 const STAMP = [1.35, 1.15, 1.04, 1.0];
 const PUNCH = [1.14, 1.05, 1.0];
 function stampScale(t, on, stabs, base) {
@@ -33,6 +48,40 @@ function stampScale(t, on, stabs, base) {
   return s * base;
 }
 const heroSpec = (text, colors, outline = PAL.ink) => ({ text, font: 'px', charColor: colors, outline, outline8: true, shadow: { dx: 1, dy: -1, color: outline } });
+
+// ---------------------------------------------------------------- (v47 intro) name tags, built once as canvases
+const RICKY_GRAD = ['#ffffff', '#cfe6ff', '#7cc4ff', '#3b7bff'], CHARLIE_GRAD = ['#fff4dc', '#ecd3a4', '#cfa96c', '#a07848'];
+const INTRO_NAME = {   // the name in its word's colours (PAINT rainbow / RUN blue-white / SHIP hat-beige)
+  jade: { charColor: (i) => PAL.rainbow[(i * 3 + 1) % 12] }, ricky: { gradient: RICKY_GRAD }, charlie: { gradient: CHARLIE_GRAD },
+};
+const INTRO_ACCENT = { jade: null, ricky: '#4f9cff', charlie: '#cfa96c' };   // null = the rainbow stripe (her FUNCTIONS pencil)
+function x2(g, cv, x, y) { g.drawImage(cv, 0, 0, cv.width, cv.height, x, y, cv.width * 2, cv.height * 2); }
+function introPlate(c) {
+  const name = raster({ text: c.name, font: 'px', ...INTRO_NAME[c.id], shadow: { dx: 1, dy: -1, color: '#000000' } }), line = raster({ text: c.line, font: 'fp12', color: '#ece6d6' });
+  const chip = raster({ text: c.p, font: 'px', color: PAL.ink });
+  const NX = 30, W = Math.max(NX + name.w * 2, NX + line.w) + 14, H = 36;
+  const acc = (x) => INTRO_ACCENT[c.id] || PAL.rainbow[Math.floor(x / 6) % 12];
+  return pixelCanvas(W, H, (g, px) => {
+    for (let y = 0; y < H; y++) { const xr = W - 1 - Math.floor((H - 1 - y) / 3); px(0, y, y < 3 ? '#000000' : '#15171f', xr + 1, 1); }
+    for (let x = 0; x < W - 12; x++) px(x, 0, acc(x), 1, 3);                      // hero-colour stripe on top
+    px(0, H - 1, '#3b3f52', W - 1, 1);
+    px(4, 7, acc(4), 22, 13); px(4, 7, '#ffffff', 22, 1); px(4, 19, '#00000055', 22, 1);   // P chip
+    g.drawImage(chip.canvas, 4 + Math.floor((22 - chip.w) / 2), 8 + Math.floor((12 - chip.h) / 2));
+    x2(g, name.canvas, NX, 4);
+    g.drawImage(line.canvas, NX + 1, Math.min(H - line.h - 1, 4 + name.h * 2 + 1));
+  });
+}
+function introCard(c, portrait, frame) {
+  const name = raster({ text: c.name, font: 'px', color: '#f9f4d8', shadow: { dx: 1, dy: -1, color: '#05091c' } }), line = raster({ text: c.line, font: 'fp12', color: '#8fe3b6' });
+  const NX = 41, W = Math.max(NX + name.w * 2, NX + line.w) + 7, H = 38;
+  return pixelCanvas(W, H, (g, px) => {
+    px(0, 0, '#fed25a', W, H); px(1, 1, '#0e1e46', W - 2, H - 2); px(1, H - 2, '#08122e', W - 2, 1);   // save-screen panel: gold rim, navy
+    px(2, 2, '#cfa52c', 34, 34); px(3, 3, '#1d2030', 32, 32);                                       // portrait well (gold frame)
+    g.drawImage(portrait.img, frame * 32, 0, 32, 32, 3, 3, 32, 32);
+    x2(g, name.canvas, NX, 4);
+    g.drawImage(line.canvas, NX, Math.min(H - line.h - 2, 4 + name.h * 2 + 2));
+  });
+}
 
 export async function setup(ctx) {
   const C = (k) => T.cue('act1.' + k);
@@ -88,6 +137,22 @@ export async function setup(ctx) {
   for (const w of words) st.addUI(w.s, ZUI.BANNER);
   const zh = CHANT_ZH_PARTS.map((p) => st.addUI(new TextSprite({ text: p.replace(/[，！]$/, ''), font: 'fp12', color: PAL.white, outline: PAL.ink, outline8: true }, { anchor: 'c' }), ZUI.SUBS));
   zh.forEach((z) => z.setScale(2));
+  // (v47 intro) one tag per shot (A Jade, B Ricky, C Charlie); 'card' swaps textures for the mouth / Jade's hair
+  const tags = [];
+  if (INTRO_V47) {
+    const P = { jade: 'portrait_jade', ricky: 'portrait_ricky', charlie: 'portrait_charlie' };
+    if (INTRO_V47 === 'card') await ctx.lib.preload(['portrait_jade', 'portrait_jade_hairdown', 'portrait_ricky', 'portrait_charlie'].filter((n) => ctx.lib.has(n)));
+    for (const c of INTRO_COPY) {
+      let tex;
+      if (INTRO_V47 === 'card') {
+        const mk = (name) => { const sp = ctx.lib.get(name); return [0, 1].map((f) => canvasTex(introCard(c, sp, Math.min(f, sp.n - 1)))); };
+        tex = { up: mk(P[c.id]) }; if (c.id === 'jade') tex.down = mk(ctx.lib.has('portrait_jade_hairdown') ? 'portrait_jade_hairdown' : P.jade);
+      } else tex = { up: [canvasTex(introPlate(c))] };
+      const img = tex.up[0].image, q = st.addUI(new Quad(tex.up[0], img.width, img.height), ZUI.BANNER);
+      q.userData.cs = 1;   // hero ID card = hero colour (like the heroes and Charlie's hat): exempt from the pre-flood graphite grade
+      tags.push({ q, tex });
+    }
+  }
 
   return {
     stage: st,
@@ -182,6 +247,19 @@ export async function setup(ctx) {
       });
       const zi = A ? 0 : B ? 1 : 2; zh.forEach((z, i) => { z.visible = i === zi; });
       zh[0].place(88, 90); zh[1].place(110, 124); zh[2].place(46, 124);
+      // (v47 intro) the hero's tag lands on their first word, flashes on the second; card: the portrait shouts each word
+      tags.forEach((g, i) => {
+        const on = W[2 * i], k = Math.floor((t - T.snap(on)) * T.fps() + 1e-6);
+        g.q.visible = i === zi && k >= 0; if (!g.q.visible) return;
+        const k2 = Math.floor((t - T.snap(W[2 * i + 1])) * T.fps() + 1e-6);
+        const talk = (k >= 0 && k < 5) || (k2 >= 0 && k2 < 5);
+        const hair = g.tex.down && t >= tA + 0.09 ? g.tex.down : g.tex.up;      // same frame as the sprite's pencil pull
+        g.q.material.setMap(hair[talk && hair.length > 1 ? 1 : 0]);
+        const card = INTRO_V47 === 'card', x0 = 4, y0 = i === 0 ? 36 : card ? 0 : 2;      // B/C: the tag's top stays under the heroes' feet (floor top 39)
+        const bump = k2 >= 0 && k2 < 3 ? -[2, 1, 0][k2] : 0;                              // second word: a 2 px dip on the beat (no wash; never up into the feet)
+        g.q.place(x0 + [-(g.q.w + 8), -Math.round(g.q.w * 0.4), 6, 0][Math.min(k, 3)], y0 + bump);   // slams in from the left (A: never crosses the gloss)
+        g.q.flash = k === 1 ? 0.7 : 0;
+      });
     },
   };
 }

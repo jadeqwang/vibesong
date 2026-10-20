@@ -1,0 +1,1 @@
+frames 1..62 (from 0.041667 s; slots use S0 48.041667)

@@ -775,14 +775,58 @@ const _pt = new THREE.Vector3();
 function guitarPt(g, local) { g.updateMatrix(); _pt.copy(local).applyMatrix4(g.matrix); if (g.parent && g.parent.name !== 'body' && g.parent.parent && g.parent.userData.chest) { g.parent.updateMatrix(); _pt.applyMatrix4(g.parent.matrix); } return _pt; }   // r6 rig: chest space -> J.body space
 
 // ------------------------------------------------------------------------------------------------ poses
+/** (v47_hands) guitar-playing rig: null = v4.6 (hands IK'd onto points inside the guitar) | 'grip' = hands on the strings (fretting hand wraps the
+ *  neck, picking hand over the sound hole / pickups, no forearm through the body) */
+export const HANDS_V47 = 'grip';
 /** both hands on the Strat: neck = raise angle (rad), strum = picking-hand offset (model px), lift = guitar raise (px) */
-function playGuitar(F, { strum = 0, neck = 0.5, lift = 0 } = {}) {
+function playGuitar(F, { strum = 0, neck = 0.5, lift = 0, off = null } = {}) {
+  if ((globalThis.__HANDS47 !== undefined ? globalThis.__HANDS47 : HANDS_V47) && F.model.native) return playGuitar47(F, { strum, neck, lift, off });   // (__HANDS47: dev bench override)
   const g = F.items.guitar, U = g.userData, u = F.model.u;
   g.position.copy(U.base).add(_v[0].set(0, lift * u, 0)); g.rotation.set(neck, Math.PI / 2, 0);
   const fret = guitarPt(g, U.fret).clone(), st = guitarPt(g, U.strum).clone().add(_v[0].set(0, strum * u, 0));
   ikArm(F, 'L', fret, _v[1].set(0.1, -1, -0.7).clone());
   ikArm(F, 'R', st, _v[2].set(-0.4, -1, 0.6).clone());
 }
+/** (v47_hands) guitar geometry in guitar-mesh local model px (heroes.js stratGeo / acousticGeo): face = top-face z, neckZ = neck centre z,
+ *  fret = fretting-hand u along the neck, pick = picking-hand [u, v] (Strat: between the pickups; acoustic: over the sound hole),
+ *  wrap = fretting-hand centre offset from the neck centre [z, v] (px; behind + under: the palm takes the neck, the fingers close over the board),
+ *  over = picking-hand centre above the face (px), elbow / elbowL = elbow pole directions (guitar local) */
+export const GTR47 = {
+  strat: { face: 2, neckZ: 0.5, fret: 23, wrap: [0.6, 0], pick: [-1.0, 0.4], over: 4.4, elbow: [-0.55, 0.9, 1.25], elbowL: [0.15, -1, -0.55] },
+  acoustic: { face: 5, neckZ: 3.5, fret: 21, wrap: [0.6, 0], pick: [1.8, 0.2], over: 4.4, elbow: [-0.6, 0.75, 0.9], elbowL: [0.15, -1, -0.55] },
+};
+const _m47 = new THREE.Matrix4(), _q47 = new THREE.Quaternion(), _q47b = new THREE.Quaternion();
+/** (v47_hands) both hands ON the strings, nothing through the guitar: the fretting hand wraps the neck ('grip': palm behind the neck, fingers
+ *  curled over the fretboard, the wrist turned so the grip runs along the neck), the picking hand ('grip' = holding the pick) hovers over the
+ *  sound hole / pickups at a fist's height above the top and moves ACROSS the strings (guitar-local v), its forearm coming over the top of
+ *  the lower bout (elbow in front of the body, not behind it). Same signature as playGuitar. */
+function playGuitar47(F, { strum = 0, neck = 0.5, lift = 0, off = null } = {}) {
+  const g = F.items.guitar, U = g.userData, u = F.model.u, G = U.slung ? GTR47.acoustic : GTR47.strat, J = F.J;
+  g.position.copy(U.base).add(_v[0].set(0, lift * u, 0)); g.rotation.set(neck, Math.PI / 2, 0);
+  const mesh = g.children.find((c) => c.isMesh) || g;
+  const loc = (x, y, z) => guitarPt(g, _v[0].set(x * u, y * u, z * u).applyMatrix4(mesh.matrix)).clone();   // guitar-mesh px -> J.body space
+  const o = loc(0, 0, 0); const dir = (x, y, z) => loc(x, y, z).sub(o).normalize();
+  const fret = loc(G.fret, G.wrap[1], G.neckZ + G.wrap[0]), pick = loc(G.pick[0], G.pick[1] + strum, G.face + G.over);
+  if (off) pick.add(_v[1].set(off[0] * u, off[1] * u, off[2] * u));   // (slab_insert strumPose) extra picking-hand offset, J.body space px
+  const poleL = dir(...G.elbowL), poleR = dir(...G.elbow);
+  if (F.setHand) { setHand(F, 'L', 'grip'); setHand(F, 'R', 'grip'); }
+  // the fretting wrist: hand x (fingers) -> the fretboard normal, hand z (the grip channel) -> along the neck; re-solve the arm after turning it
+  const wL = J.wristL;
+  for (let k = 0; k < 3; k++) {
+    ikArm(F, 'L', fret, poleL);
+    if (!wL) break;
+    F.root.updateMatrixWorld(true);
+    const gw = mesh.matrixWorld, X = _v[2].setFromMatrixColumn(gw, 2).normalize(), Z = _v[3].setFromMatrixColumn(gw, 0).normalize(), Y = _v[4].crossVectors(Z, X).normalize();
+    _q47.setFromRotationMatrix(_m47.makeBasis(X, Y, Z));                                  // wanted hand orientation (world)
+    wL.parent.getWorldQuaternion(_q47b); wL.quaternion.copy(_q47b.invert().multiply(_q47));
+  }
+  ikArm(F, 'L', fret, poleL); ikArm(F, 'R', pick, poleR);
+  F._gtr47 = { wL: wL ? wL.quaternion.clone() : null };   // for MotionFigure layers (core/motion/figure.js): the wrist + finger poses survive the FK capture
+}
+/** (v47_hands) the playing pose for scene helpers (slab_insert strumPose): playGuitar with an extra picking-hand offset off = [x, y, z] (J.body px) */
+export function playGuitarRig(F, opts = {}) { if (F.items?.guitar?.userData.base) playGuitar(F, opts); }
+/** (v47_hands) where the picking hand plays (guitar-holder local; for FX origins / world IK): over the strings, not inside the body */
+export function guitarPick47(g, F) { const G = g.userData.slung ? GTR47.acoustic : GTR47.strat, u = F.model.u; return new THREE.Vector3(G.pick[0] * u, G.pick[1] * u, (G.face + G.over) * u); }
 /** zero every joint */
 function rest(F) { for (const k of ['body', 'head', 'shoulderR', 'shoulderL', 'elbowR', 'elbowL', 'hipR', 'hipL', 'kneeR', 'kneeL', 'legs', 'handR', 'handL']) { const j = F.J[k]; j.rotation.set(0, 0, 0); }
   if (F.rig) { for (const k of ['chest', 'ankleR', 'ankleL', 'toeR', 'toeL', 'wristR', 'wristL']) F.J[k].rotation.set(0, 0, 0); setHand(F, 'R', 'fist'); setHand(F, 'L', 'fist'); if (F.face) F.face.set({}); for (const k of F.rig.springs || []) F.J[k].rotation.set(0, 0, 0); }   /* r6 split rig: new joints, springs, fingers, face at rest */ F.J.body.position.y = F.model.piv[2].y; F.J.legs.position.y = F.model.piv[2].y; F.root.position.y = 0; }
@@ -801,6 +845,7 @@ export function pose(F, a, p, { hero = 'jade', pencil = false } = {}) {
   if (it.bunPencils) it.bunPencils.visible = !pencil;
   if (it.cap) it.cap.visible = false;
   if (it.capFront) it.capFront.visible = false;
+  F._gtr47 = null;
   if (it.guitar && it.guitar.userData.slung) { it.guitar.position.copy(it.guitar.userData.slung.pos); it.guitar.quaternion.copy(it.guitar.userData.slung.quat); }   // native Charlie: on his back
   else if (it.guitar && it.guitar.userData.base) { it.guitar.position.copy(it.guitar.userData.base); it.guitar.rotation.set(0.5, Math.PI / 2, 0); }
   let base = a.replace(/^(jade|charlie|ricky)_/, '').replace(/^hat_/, '').replace(/^back_/, '').replace(/_pencil$/, '').replace(/_hairdown$/, '');

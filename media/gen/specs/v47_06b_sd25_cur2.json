@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v47_06b_sd25_cur2",
+ "notes": "v4.7 paper card 06b acting (cur); S0=142.9 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, hand-drawn in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: she sings 'I just ask myself what it is that I need' from the reference audio, each syllable on the voice, lips shut on b and m: mouth opening on 'I', a short 'j' on 'just', lips closing on the 'm' of 'myself', opening on 'what' and 'is'. She acts the lyric like a music-video performer, thinking it through as she sings: her shoulders, arms and hands move with clear, motivated gestures; her face shows each thought. She is befriending a scared stray, the giant gray rubber-eraser creature on the right. She never lets go of the yellow pencil: it stays visible in the same hand in every frame. On 'I just' she slowly lowers it, tip down, never aimed at him, and leans in closer, head tilted, soft eyes on his face; on 'ask myself' that hand, still holding the pencil, rests on her chest, honest, a little vulnerable; on 'what it is' she turns to him, brows up, and holds the pencil out to him lying flat across her open palm, offering it, with a hopeful smile, a real question. The Eraser gives her a wary side-eye that slowly softens, one brow lifting; his mouth stays still. Same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead with the high centre-parted hairline, the two slightly different eyebrows, the same big dark-brown eyes; do not restyle her face. Her long black hair stays loose. She holds ONE yellow pencil (blue cap, rainbow tip) in one hand all the time; her other hand stays empty. Headphones stay round her neck; the white jacket keeps its horizontal orange bands, ONE small pale-blue chest dot where it is and ONE round 1420 MHz patch on the orange band of her upper arm. The camera drifts slowly and gently sideways toward the two of them, keeping her face, shoulders and hands in frame. One continuous shot, no cuts. No captions, no text, no new objects.",
+  "image": "file:media/cutscenes/_work/v47/c06/ff06_cur.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/v47/c06/voc06_142.90_5s.mp3"
+  ],
+  "duration": 5,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

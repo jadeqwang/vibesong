@@ -282,7 +282,7 @@ export function patchPaperGround(mat, field, extra, opts = {}) {
             diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * vec3(0.74, 0.73, 0.77), 0.4 * sm);
             float dust = step(0.982, gh(floor(vGW.xz * 0.6))) * smoothstep(0.35, 0.7, gn(vGW.xz * 0.02 + 11.0));  // eraser dust specks
             diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.58, 0.56, 0.60), 0.7 * dust); }` : '';
-  const U = { ...field.U, uTrail: { value: 0 }, uTrailIgnite: { value: 0 }, uPaperVis: { value: 1 },
+  const U = { ...field.U, uTrail: { value: 0 }, uTrailB: { value: 2 }, uIgFront: { value: 2 }, uTrailIgnite: { value: 0 }, uPaperVis: { value: 1 },
     uEraseC: { value: new THREE.Vector3() }, uEraseR: { value: 1e9 },
     uColC: { value: new THREE.Vector3() }, uColR: { value: -1 }, uRestC: { value: new THREE.Vector3() }, uRestR: { value: -1 }, ...extra };
   mat.onBeforeCompile = (sh) => {
@@ -290,7 +290,7 @@ export function patchPaperGround(mat, field, extra, opts = {}) {
     sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vGW;')
       .replace('#include <begin_vertex>', '#include <begin_vertex>\n vGW = (modelMatrix * vec4(position, 1.0)).xyz;');
     sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\n' + PROJ_GLSL + /* glsl */`
-        varying vec3 vGW; uniform float uTrail, uTrailIgnite, uIgniteT, uEraseR, uColR, uRestR, uPaperVis; uniform vec3 uEraseC, uColC, uRestC;
+        varying vec3 vGW; uniform float uTrail, uTrailB, uIgFront, uTrailIgnite, uIgniteT, uEraseR, uColR, uRestR, uPaperVis; uniform vec3 uEraseC, uColC, uRestC;
         float gh(vec2 p){ return fract(sin(dot(p, vec2(41.3, 289.1))) * 43758.5453); }
         float gn(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f); return mix(mix(gh(i), gh(i+vec2(1,0)), f.x), mix(gh(i+vec2(0,1)), gh(i+vec2(1,1)), f.x), f.y); }
         vec3 paperEmit = vec3(0.0);`)
@@ -298,7 +298,7 @@ export function patchPaperGround(mat, field, extra, opts = {}) {
         // paper exists only where the world has been erased and not yet restored (revealed rub trails stay, as ribbons)
         bool trailHere = false;
         { vec3 q0 = glyphProj(vGW); if (q0.z > 0.5) { vec4 g0 = glyphTexel(q0.xy); float i0 = glyphId(g0);
-            trailHere = i0 > 5.5 && i0 < 7.5 && g0.a > 0.5 && g0.g <= uTrail * 1.05; } }
+            trailHere = i0 > 5.5 && i0 < 7.5 && g0.a > 0.5 && (i0 < 6.5 ? g0.g <= uTrail * 1.05 : (uTrailB > 1.5 ? g0.g <= uTrail * 1.05 : 1.0 - g0.g <= uTrailB * 1.05)); } }
         if (uPaperVis < 0.5 || distance(vGW.xz, uEraseC.xz) > uEraseR || (uRestR > 0.0 && distance(vGW.xz, uRestC.xz) < uRestR && !trailHere)) discard;`)
       .replace('#include <color_fragment>', /* glsl */`#include <color_fragment>
         {
@@ -314,11 +314,11 @@ export function patchPaperGround(mat, field, extra, opts = {}) {
               // rubbing streaks run along the ray from E (radial on the ground): sample noise in (angle, distance)
               vec2 dv = vGW.xz - uE.xz; float ang = atan(dv.y, dv.x); float dist = length(dv);
               float streak = gn(vec2(ang * 900.0, dist * 0.02)) * 0.7 + gn(vec2(ang * 3100.0, dist * 0.08)) * 0.3;
-              float rev = step(g.g, uTrail * 1.05);
+              float rev = id < 6.5 ? step(g.g, uTrail * 1.05) : (uTrailB > 1.5 ? step(g.g, uTrail * 1.05) : step(1.0 - g.g, uTrailB * 1.05));   // (v47_boss) uTrailB: stroke 7 rubbed from its near end out (2 = follow uTrail)
               float edge = clamp(g.b * 255.0 / 4.0 / 5.0, 0.0, 1.0);
               vec3 white = vec3(1.55) * (0.95 + 0.1 * streak);
               diffuseColor.rgb = mix(diffuseColor.rgb, white, rev * (0.75 + 0.25 * edge) * (0.82 + 0.18 * streak));
-              if (uTrailIgnite > 0.0) {
+              if (uTrailIgnite > 0.0 && (uIgFront > 1.5 || g.g >= 1.0 - uIgFront)) {   // (v47_boss) uIgFront: the light runs out along its own trails, near end first
                 vec3 rb = rbHue(q.x * 0.0011 + q.y * 0.0007 - uIgniteT * 0.08);
                 float hc = hatch(q.xy, 0.3 + 0.7 * uTrailIgnite);
                 paperEmit = rev * uTrailIgnite * mix(rb * 0.3, rb * 1.6, hc * (0.5 + 0.5 * edge));

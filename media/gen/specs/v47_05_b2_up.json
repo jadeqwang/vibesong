@@ -1,0 +1,11 @@
+{
+ "model": "black-forest-labs/flux-video-upscale",
+ "tag": "v47_05_b2_up",
+ "notes": "v4.7 trio card 05 take v47_05_sd25_b2: precise 2.25x of take frames 0..89 (from 0 s, media/cutscenes/_work/v47/upscale/seg_05_v47b2.txt), covers slot 107.15-110.41 at shifts +0..+6",
+ "input": {
+  "input_video": "file:media/cutscenes/_work/v47/upscale/seg_05_v47b2.mp4",
+  "upscale_factor": 2.25,
+  "creativity": 0,
+  "safety_tolerance": 4
+ }
+}

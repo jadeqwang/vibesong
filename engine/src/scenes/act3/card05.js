@@ -15,7 +15,11 @@ export const CARD05 = { t0: 107.23, t1: 107.62 };   // first frame 107.233 (8th 
 const CUT = '/media/cutscenes/';
 // the paper unit's card (media/cutscenes/README row 05): it covers 107.15 -> 110.41 with frame k = 107.15 + k / 30 (lip sync 0.00 vs the
 // song mix); this slot plays the matching slice 107.238 -> 107.641
-export const CARD05_SRCS = [CUT + 'paper_0147/paper_0147.mp4'];
+// (v4.7, unit v47_trio; Jade "1:47 ... more animated body language of all 3"): CARD05_V47 picks the take, null = the v4.4 take a1 (paper_0147.mp4,
+// fallback). Values '<take>_shift<K>' -> paper_0147/paper_0147_v47_<take>_shift<K>.mp4 (Seedance 2.5 takes v47_05_sd25_<take>, tools/cutscenes/pb_trio47_specs.py;
+// measured lag -0.08 = +0, K = picture K frames later). Same time base: frame k = 107.15 + k / 30.
+const CARD05_V47 = 'b2fix_shift+0';   // v47_trio switch (b2fix = b2 1080 upscale + clean 1420 MHz patch (pb_trio47_patch.py), +0 = measured; b2up = same without the patch fix; null = v4.4 take a1 fallback; b2_* = lanczos, a1_*/b1_*/a2_* = other takes)
+export const CARD05_SRCS = [CARD05_V47 ? CUT + `paper_0147/paper_0147_v47_${CARD05_V47}.mp4` : CUT + 'paper_0147/paper_0147.mp4', CUT + 'paper_0147/paper_0147.mp4'];
 export const CARD05_CLIP_T0 = 107.15;
 const PLACEHOLDER = '/src/scenes/act3/assets/card05_placeholder.jpg';
 const VS = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';

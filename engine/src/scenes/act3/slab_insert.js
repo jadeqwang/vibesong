@@ -16,6 +16,7 @@ import { make3D, V, aim, persp, smooth, clamp01, LOOK } from './common.js';
 import { makeCarvedFace } from './carved_slab.js';
 import { r5ShotClear } from '../../look.js';
 import { Beam, Burst } from './world/props.js';
+import { HANDS_V47, playGuitarRig } from '../../core/voxfig.js';   // (v47_hands) strumPose uses the shared guitar rig when on
 
 export const INSERTS = { fix: [180.21, 181.125], fun: [183.30, 183.87] };
 const top = MESA_B.top;
@@ -63,6 +64,7 @@ export function strumPose(g, { strum = 0, out = 0, side = 0, neck = 0.5, lift = 
   J.body.rotation.z = (-5 + lean) * d; J.head.rotation.z = (-9 + nod) * d;
   J.hipR.rotation.z = (14 + 22 * crouch) * d; J.kneeR.rotation.z = (-34 * crouch) * d; J.hipL.rotation.z = (-14 + 12 * crouch) * d; J.kneeL.rotation.z = (-6 - 26 * crouch) * d;
   F.root.position.y = -2.2 * crouch * u;
+  if (HANDS_V47) { playGuitarRig(F, { strum, neck, lift, off: [out, 0, side] }); return true; }   // (v47_hands) the shared rig: hands on the strings, not through the guitar
   gt.position.copy(U.base).add(_w[0].set(0, lift * u, 0)); gt.rotation.set(neck, Math.PI / 2, 0);
   const fret = guitarPt(gt, U.fret).clone(), st = guitarPt(gt, U.strum).clone().add(_w[0].set(out * u, strum * u, side * u));
   ikArm(F, 'L', fret, _w[1].set(0.1, -1, -0.7).clone());

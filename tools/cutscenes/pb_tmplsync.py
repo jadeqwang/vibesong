@@ -1,5 +1,5 @@
 """v4.3: lag from a PHONEME TEMPLATE (expected mouth openness from the stem's word map) instead of the envelope (useless on legato lines).
-    $OSPY tools/cutscenes/pb_tmplsync.py TAKE.mp4 S0 CARD [CROP x0,y0,x1,y1]     CARD 03|04|05
+    $OSPY tools/cutscenes/pb_tmplsync.py TAKE.mp4 S0 CARD [CROP x0,y0,x1,y1]     CARD 03|04|05|06
 Template segments are song times measured on the vocal stem (03: M3 word map; 04: v4.3 RMS/fricative map). Prints the best lags
 (clip t = song t - S0 + lag) and the closure-event error per labial at the best lag."""
 import sys, numpy as np, cv2, mediapipe as mp
@@ -13,8 +13,15 @@ SEG = {"03": [(19.92, 20.08, .45), (20.08, 20.13, 0), (20.14, 20.25, .7), (20.26
        # wo 108.81-109.10 | de 109.11-109.50 | stop | wu 109.62-109.83 | gap | tai 109.92-110.40
        "05": [(106.98, 107.23, .3), (107.25, 107.63, .5), (107.65, 107.69, .1), (107.70, 107.85, .3), (107.88, 108.17, .9), (108.20, 108.44, .3),
               (108.48, 108.78, .5), (108.81, 108.95, .35), (108.98, 109.10, .7), (109.11, 109.14, .2), (109.15, 109.50, .6), (109.53, 109.60, .1),
-              (109.62, 109.83, .35), (109.86, 109.90, .1), (109.92, 110.03, .3), (110.04, 110.40, 1)]}[card]
-LAB = {"03": [("b because", 20.13), ("m my", 21.19), ("m imagination", 21.64)], "04": [("t just", 49.34), ("m myself", 49.78), ("f myself", 50.58)], "05": [("stop shi|jie", 107.67), ("stop de|wu", 109.56), ("gap wu|tai", 109.88)]}[card]
+              (109.62, 109.83, .35), (109.86, 109.90, .1), (109.92, 110.03, .3), (110.04, 110.40, 1)],
+       # (v4.7 v47_cards) card 06 "I just ask myself what it is", stem RMS / >3 kHz map like 04: I ..143.52 | j 143.56-143.64 | ust 143.66-144.00 |
+       # st 144.02-144.12 + stop 144.14 | ask 144.18-144.38 | sk 144.40-144.50 | m 144.51-144.56 | my 144.58-144.82 | s 144.84-144.98 | elf 145.02-145.26 |
+       # f 145.28-145.34 | what 145.36-145.56 | t | it 145.64-145.76 | is 145.78-146.14 | z 146.16-146.48
+       "06": [(143.30, 143.52, 1), (143.56, 143.64, .35), (143.66, 144.00, .75), (144.02, 144.12, .35), (144.13, 144.16, .15), (144.18, 144.38, 1),
+              (144.40, 144.50, .35), (144.51, 144.56, 0), (144.58, 144.82, 1), (144.84, 144.98, .35), (145.02, 145.26, .8), (145.28, 145.34, .15),
+              (145.36, 145.56, .8), (145.58, 145.62, .3), (145.64, 145.76, .5), (145.78, 146.14, .7), (146.16, 146.48, .3)]}[card]
+LAB = {"03": [("b because", 20.13), ("m my", 21.19), ("m imagination", 21.64)], "04": [("t just", 49.34), ("m myself", 49.78), ("f myself", 50.58)], "05": [("stop shi|jie", 107.67), ("stop de|wu", 109.56), ("gap wu|tai", 109.88)],
+       "06": [("t just", 144.15), ("m myself", 144.54), ("f myself", 145.31)]}[card]
 cap = cv2.VideoCapture(take); fps = cap.get(cv2.CAP_PROP_FPS)
 fm = mp.solutions.face_mesh.FaceMesh(static_image_mode=False, max_num_faces=1, refine_landmarks=True, min_detection_confidence=.3)
 g = []

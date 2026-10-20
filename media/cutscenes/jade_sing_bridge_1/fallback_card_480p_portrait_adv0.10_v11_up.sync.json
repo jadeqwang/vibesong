@@ -1,0 +1,44 @@
+{
+ "clip": "media/cutscenes/jade_sing_bridge_1/fallback_card_480p_portrait_adv0.10_v11_up.mp4",
+ "s0": 125.769,
+ "fps": 30.0,
+ "frames": 71,
+ "face_found": 69,
+ "win": [
+  125.8,
+  128.18
+ ],
+ "best_lag_s": 1.167,
+ "corr": 0.808,
+ "top5": [
+  [
+   1.167,
+   0.808
+  ],
+  [
+   1.2,
+   0.785
+  ],
+  [
+   1.533,
+   0.779
+  ],
+  [
+   1.5,
+   0.776
+  ],
+  [
+   1.8,
+   0.76
+  ]
+ ],
+ "eye_dist_ratio_min_max": [
+  1.0,
+  1.056
+ ],
+ "face_h_ratio_min_max": [
+  0.961,
+  1.035
+ ],
+ "eye_dist_px_f0": 132.2
+}
