@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "v46_outro_up15", "notes": "v4.6 v46_outro: outro spread v45r2 hybrid (media/act5/_work/v45/hyb_br1.mp4 re-encoded crf14 veryslow = media/act5/_work/v46/hyb_br1_crf14.mp4 PSNR 49.8 dB, 1280x720 24 fps 9.04 s, drawn frames only) precise 1.5x, creativity 0, for the 1080 master",
+ "input": {"input_video": "file:media/act5/_work/v46/hyb_br1_crf14.mp4", "upscale_factor": 1.5, "creativity": 0, "safety_tolerance": 4}}

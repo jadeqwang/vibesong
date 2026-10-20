@@ -63,6 +63,7 @@ export async function setup(ctx) {
   const cart = st.add(new Quad(canvasTex(cartridgeCanvas()), 34, 38, { anchor: [17, 0] }), Z.PROP - 1);
   const hatSp = ctx.lib.get('charlie_hat_boomerang');
   const hat = st.add(new Quad(hatSp.tex, 16, 16, { anchor: [8, 8] }), Z.ACTOR_FRONT);
+  hat.userData.cs = 1;   // (v44 open) Charlie's hat is hero gear: exempt from the pre-flood graphite grade (Jade 10-19: "0:06 charlie's hat is grey here")
   // the coloured 画 on the stage (B: it runs; C: the hat swallows it)
   const HS = 64, HX = 140, HY = 31;
   const run = await Hanzi2D.create('画', { size: HS, style: 'rainbow', shadowColor: '#c9b48a' }); run.place(HX, HY); run.setAll(1); st.add(run.group, Z.PROP + 1);

@@ -41,7 +41,7 @@ export function makeBattleFX(W) {
   // ---- Charlie's beige flat caps (the heromodels team's carved cap, the same shape as the one on his head). Hat scale:
   //      they land ON TOP of a bug, never over it. Origin = cap bottom centre, brim toward +x.
   const capG = capGeo(); capG.computeBoundingBox();
-  const capMat = new THREE.MeshStandardMaterial({ vertexColors: !!capG.attributes.color, color: capG.attributes.color ? 0xffffff : 0xcdae74, roughness: 0.8 }); patchPaint(capMat, { noPaint: true });
+  const capMat = new THREE.MeshStandardMaterial({ vertexColors: !!capG.attributes.color, color: capG.attributes.color ? 0xffffff : 0xcdae74, roughness: 0.8 }); patchPaint(capMat, { noPaint: true, hero: true });   // (v44 open) the caps are Charlie's hat (hero gear): the --r5 hero mask keeps their tan under the pre-flood 3D grade (was greyed at 113.3 / 116.2 / 118.4)
   const mkCap = (k = 1) => { const m = new THREE.Mesh(capG, capMat); m.castShadow = true; m.scale.setScalar(k); group.add(m); return m; };
   F.caps = [mkCap(), mkCap(), mkCap()];
   F.boomer = mkCap();

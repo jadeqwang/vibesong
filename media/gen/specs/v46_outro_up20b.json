@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "v46_outro_up20b", "notes": "v4.6 v46_outro: outro spread v45r2 hybrid with the shoulder seam fixed (tools/cutscenes/pb_spread46_hybrid.py -> media/act5/_work/v46/hyb_br1b.mp4, re-encoded crf14 veryslow = hyb_br1b_crf14.mp4; 1280x720 24 fps 9.04 s, drawn frames only) precise 2x, creativity 0, same settings as v46_outro_up20",
+ "input": {"input_video": "file:media/act5/_work/v46/hyb_br1b_crf14.mp4", "upscale_factor": 2.0, "creativity": 0, "safety_tolerance": 4}}

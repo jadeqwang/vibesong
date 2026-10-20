@@ -1,0 +1,20 @@
+{
+ "model": "pruna/p-video-replace",
+ "tag": "v45_ricky_pvr3",
+ "notes": "v4.5 Ricky likeness fix on take B via identity replacement; composite Ricky region only",
+ "input": {
+  "video": "file:media/act5/_work/v45/takeB_720_aud.mp4",
+  "images": [
+   "file:media/act5/_work/v45/id_ricky_r1.jpg",
+   "file:media/act5/_work/v45/ref_ricky_cards.jpg"
+  ],
+  "turbo": false,
+  "resolution": "720p",
+  "save_audio": false,
+  "ignore_audio": false,
+  "target_fps": "original",
+  "instruction_prompt": "Replace only the young man on the right who plays the electric guitar with the young man in the reference images: his short tousled spiky black hair, slim face, fair skin, long-sleeved white shirt with thin pale blue-grey stripes and rolled sleeves, navy strap, natural light-wood Stratocaster. Keep his exact motion. Keep the singing girl in the centre and the man in the flat cap on the left unchanged. Keep the colored-pencil drawing style and the sketchbook paper.",
+  "disable_safety_checker": false
+ },
+ "est_usd": 0.28
+}

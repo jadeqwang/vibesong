@@ -20,6 +20,8 @@
 //  67.78  the build: the bar sticks at 99%; everyone runs right to the start line.
 //  72.125 HARD CUT (shout) to the 出发 gate; three pressure plates: Ricky (从), Charlie (这里), Jade (出) -> exit open,
 //         出 73.057 / 发 73.555 erupt; red lights 75.27 / 76.10 / 76.93; GREEN 77.757 = handoff (HANDOFF_77.md).
+//  v45_lvl: Ricky's power chord presses ENTER (ENTER_V45); in the 出发 shot the REALITY bar only jumps on Ricky's strums
+//         (LVL_V45: notes / bolt), last big strum = windmill jump + slam at 77.367; Charlie nods/stomps. See the LVL block.
 // Timings / layout / every drawn block's frame: ./plan.js (shared with src/show/loc.js and src/show/build_bar.js).
 import * as THREE from 'three';
 import * as T from '../../show/timing.js';
@@ -68,6 +70,13 @@ export async function setup(ctx) {
   FLOWER_COLORS.forEach((c, i) => { for (let s = 0; s <= 4; s++) atlas.add(`flower${i}_${s}`, flowerCanvas(i, s), [2, 0]); });
   [8, 12, 16, 20, 24].forEach((r) => atlas.add('arc' + r, arcCanvas(r), [0, r + 1]));
   [6, 10, 14].forEach((L) => atlas.add('speed' + L, pixelCanvas(L, 1, (g, px) => px(0, 0, '#9ec2ff', L, 1)), [L, 0]));
+  // v45_lvl: pixel notes (white fill, ink outline; tinted per hit) for Ricky's strums -> the REALITY bar
+  atlas.add('note8', pixelCanvas(8, 10, (g, px) => { const I = PAL.ink, W = '#ffffff';
+    px(4, 0, I, 3, 1); px(3, 1, I, 1, 6); px(4, 1, W, 1, 6); px(5, 1, W, 2, 1); px(7, 1, I, 1, 3); px(5, 2, W, 1, 2); px(6, 2, W, 1, 1); px(5, 3, I, 2, 1); px(6, 4, I, 1, 1);
+    px(0, 6, I, 4, 4); px(1, 5, I, 3, 1); px(1, 7, W, 3, 2); px(1, 6, W, 2, 1); px(4, 7, I, 1, 2); }), [2, 1]);
+  atlas.add('note16', pixelCanvas(11, 10, (g, px) => { const I = PAL.ink, W = '#ffffff';
+    px(3, 0, I, 8, 1); px(3, 1, W, 7, 2); px(10, 1, I, 1, 2); px(3, 3, I, 8, 1); px(2, 1, I, 1, 6); px(3, 4, W, 1, 3); px(9, 4, W, 1, 3); px(4, 4, I, 1, 3); px(8, 4, I, 1, 3); px(10, 4, I, 1, 3);
+    px(0, 7, I, 4, 3); px(1, 7, W, 2, 2); px(6, 7, I, 4, 3); px(7, 7, W, 2, 2); px(0, 6, I, 1, 1); px(6, 6, I, 3, 1); px(3, 6, I, 1, 1); }), [2, 1]);
   [6, 10, 14, 18, 22, 26].forEach((r) => atlas.add('wup' + r, B.waveUp(r), [r + 1, 0]));
   atlas.add('fix', A2.fixtureTile(0), [0, 0]); atlas.add('fix1', A2.fixtureTile(1), [0, 0]);
   [0, 1, 2].forEach((v) => atlas.add('grass' + v, A2.grassTile(v), [0, 0])); [0, 1].forEach((v) => atlas.add('dirt' + v, A2.dirtTile(v), [0, 0]));
@@ -101,6 +110,7 @@ export async function setup(ctx) {
   const cTiles = st.add(new Batch(atlas, 1500), Z.PLATFORM); cTiles.userData.cs = 1;   // H5: the rainbow chunk tiles
   const cFx = st.add(new Batch(atlas, 600), Z.FX); cFx.userData.cs = 1;                // H5: her paint sparks, launch trail, paint tip
   const cHats = st.add(new Batch(atlas, 200), Z.PROP); cHats.userData.cs = 1;           // (v43 hat) Charlie's hats (in flight / seeding chunks) + the boomerang: canon tan, never graded
+  const lvlUi = st.addUI(new Batch(atlas, 300), ZUI.DIALOG + 3); lvlUi.userData.cs = 1;   // v45_lvl: the bar's hit sparks (UI px)
 
   // ---------------------------------------------------------------- the launch set (end state, shared with Team B)
   const groundChunk = (x) => P.chunks.find((c) => c.kind === 'ground' && x >= c.x && x < c.x + c.n * 16);
@@ -256,6 +266,53 @@ export async function setup(ctx) {
   // plates: one per chant beat
   const PL = LAUNCH.plates.step;
 
+  // ================================================================ v45_lvl: Ricky's guitar levels up reality (72.125-77.757)
+  // Jade v4.4: "1:15, maybe Ricky's guitar playing is needed to help level up reality". After the run the REALITY bar stalls
+  // (it blinks at its run value) until Ricky is on his plate; then every strum is a real ricky_strum frame cycle
+  // (up -> hit -> ring) on an onset of the demucs "other" stem, and each strum's charge jumps the bar (no smooth fill).
+  // The last big strum: windmill jump at 77.17, SLAM on landing at 77.367 (the beat before the LV2/green hit) -> 98%.
+  // Charlie nods on every beat and stomps on the three red lights. Sprites: tools/sprites/v45_lvl_jam.py.
+  //   LVL_V45 = 'notes' : each strum fires pixel notes up the left edge into the bar panel (bar jumps on arrival, 4 frames)
+  //             'bolt'  : each strum fires a zig-zag charge from the headstock into the panel (bar jumps on the hit frame)
+  //             null    : v4.4 (bar fills smoothly beat by beat, Ricky and Charlie stand idle)
+  const LVL_V45 = 'notes';
+  // v45_lvl setup (coordinator, from the v45 scout): who presses ENTER on "need?" (52.62), so reality's level-up starts with them
+  //   ENTER_V45 = 'chord' : Ricky winds up on the 52.33 stem hit and his power chord shot presses ENTER
+  //               'hat'   : Charlie throws a spare hat on 52.33 (boomerang curve under the box); it lands on ENTER (presses it) and rides the box away
+  //               null    : v4.4 (Jade's typing presses ENTER)
+  const ENTER_V45 = 'chord';
+  const ENTER_UP = S(52.334), ENTER_SHOT = 2 / T.fps();
+  const LVL = (() => {
+    const hits = [73.190, 73.612, 74.859, 75.280, 75.709, 76.103, 76.550, 76.940].map(S);   // other-stem onset peaks (beats +0-36 ms)
+    const wind = S(77.172), slam = S(77.367), land = S(PL.ricky), X = LAUNCH.party.ricky;
+    const travel = LVL_V45 === 'bolt' ? 0 : 4 / T.fps();
+    const p0 = buildAt(SHOUT - 1e-3).pct, D = 98 - p0, dSlam = Math.round(D * 0.22);
+    const w = hits.map((_, i) => 1 + 0.3 * i), ws = w.reduce((a, b) => a + b, 0);
+    let acc = 0; const steps = hits.map((h, i) => { const prev = Math.round(acc); acc += (D - dSlam) * w[i] / ws; return { h, at: h + travel, d: Math.round(acc) - prev, n: 2 }; });
+    steps.push({ h: slam, at: slam + travel, d: 98 - p0 - steps.reduce((a, q) => a + q.d, 0), n: 6, big: true });
+    const reds = LAUNCH.lights.reds.map(S), beats = T.beatsIn(73.0, 77.75, 1).map(S);
+    return { hits, wind, slam, land, X, travel, p0, steps, reds, beats,
+      pct(t) { let p = p0; for (const q of steps) if (t >= q.at) p += q.d; return p; },
+      flash(t) { for (const q of steps) { const a = t - q.at; if (a >= 0 && a < (q.big ? 0.2 : 0.1)) return q.big ? 2 : 1; } return 0; },
+      ricky(u) {
+        if (u < land) return null;
+        if (u >= wind && u < slam) { const [x, y] = arc(u, wind, slam, X, FLOOR, X, FLOOR, 12); return { x, y, anim: 'ricky_strum', frame: 3 }; }
+        if (u >= slam) return { x: X, y: FLOOR, anim: 'ricky_strum', frame: u < slam + 0.23 ? 4 : 2 };
+        if (u < hits[0] - 0.1) return null;                                   // just landed: idle
+        let f = 2;
+        for (const h of hits) { if (u >= h - 0.1 && u < h) f = 0; else if (u >= h && u < h + 0.1) f = 1; }
+        if (u >= hits[hits.length - 1] + 0.1 && u >= wind - 0.1) f = 3;
+        return { x: X, y: FLOOR, anim: 'ricky_strum', frame: f };
+      },
+      charlie(u) {
+        if (u < S(PL.charlie) + 0.25 || u < beats[0]) return null;
+        if (reds.some((r) => u >= r - 0.12 && u < r)) return { anim: 'charlie_jam', frame: 2 };   // stomp: foot up on the 8th before the red
+        if (beats.some((b) => u >= b && u < b + 0.13)) return { anim: 'charlie_jam', frame: 1 };  // nod on the beat
+        return { anim: 'charlie_jam', frame: 0 };
+      },
+    };
+  })();
+
   function heroState(u, t) {
     const J = {}, C = {}, R = {};
     const [cx, cy] = chuteAt(u);
@@ -289,6 +346,8 @@ export async function setup(ctx) {
       if (u >= S(CUE.comment[0]) - 0.05 && u < ENTER + 0.4) { const k = keys.filter((e) => u >= e).length; J.anim = 'drum'; J.frame = (k + (u - keys[Math.max(0, k - 1)] < 0.1 ? 1 : 0)) % 2; }
       // ENTER: the others jump for joy
       if (u >= ENTER + 0.12 && u < ENTER + 0.48) { const q = (u - ENTER - 0.12) / 0.36; const dy = Math.round(14 * 4 * q * (1 - q)); C.y += dy; R.y += dy; C.anim = R.anim = 'jump'; C.frame = R.frame = q < 0.5 ? 0 : 1; }
+      if (ENTER_V45 === 'chord' && u >= ENTER_UP && u < ENTER + 0.12) Object.assign(R, { anim: 'chord', frame: u >= ENTER - ENTER_SHOT ? 1 : 0 });
+      if (ENTER_V45 === 'hat' && u >= ENTER_UP - 0.14 && u < ENTER_UP + 0.17) Object.assign(C, { anim: 'throw', frame: u >= ENTER_UP ? 1 : 0 });
       // the fixtures sweep / the functions touch
       if (u >= P.FIX[0] - 0.12 && u < P.FIX[1] + 0.2) { J.anim = 'draw_graphite'; J.frame = 0; }
       if (u >= FUN - 0.25 && u < FUN + 0.6) { J.anim = 'draw_rainbow'; J.frame = 0; }
@@ -353,6 +412,7 @@ export async function setup(ctx) {
     const jP = hop(STOPS.jade, LAUNCH.party.jade, S(PL.jade), 18); if (jP) Object.assign(J, { ...jP, anim: jP.anim === 'idle' ? 'sing' : 'run_pencil', frame: jP.anim === 'idle' ? 0 : 1 });
     if (t >= LAUNCH.lights.reds[0] && J.anim === 'sing') { J.anim = 'drum'; J.frame = 0; }
     if (u >= SHOUT) { R.facing = C.facing = J.facing = 1; }
+    if (LVL_V45 && u >= SHOUT) { const r = LVL.ricky(u); if (r) Object.assign(R, r); const c = LVL.charlie(u); if (c && C.anim === 'idle') Object.assign(C, c); }
     return { J, C, R };
   }
 
@@ -615,6 +675,34 @@ export async function setup(ctx) {
       debris(fx, t, LAUNCH.fa.erupt, LAUNCH.fa.x + 48, 62, { n: 12, seed: 6, names: ['crumb0', 'crumb2'], vx: [-90, 90], vy: [60, 180], floor: 60 });
       Object.entries(PL).forEach(([h, e], i) => sparkle(fx, t, S(e), LAUNCH.party[h], FLOOR + 3, { n: 6, r: 10, seed: 20 + i, color: PAL.yellow }));
       if (launchShot) [[60, 140, 'cube18'], [-8, 74, 'cubeD14']].forEach(([x, y, n], i) => clouds.draw(n, x, y + Math.round(3 * Math.sin(t + i))));
+      // v45_lvl: Ricky's strums -> sound rings + notes / bolt into the REALITY bar; Charlie's stomp dust on the reds
+      if (LVL_V45 && launchShot) {
+        const GX = LVL.X - 4, GY = FLOOR + 16;                        // guitar body (world px, launch camera = screen + 32)
+        LVL.reds.forEach((r, i) => dust(fx, t, r, LAUNCH.party.charlie + 6, FLOOR, { n: 4, seed: 40 + i }));
+        LVL.steps.forEach((q, i) => {
+          const a = t - q.h; if (a < 0 || a > 0.5) return;
+          for (let k = 0; k < (q.big ? 3 : 2); k++) {                 // sound rings (right half, dotted) off the strings
+            const ak = a - k * 0.06, r = 5 + ak * (q.big ? 130 : 95); if (ak < 0 || r > (q.big ? 48 : 30)) continue;
+            const n = Math.round(r * 1.7); for (let j = 0; j < n; j++) { if (j % 3 === 2) continue; const g = -1.15 + 2.3 * j / n; fx.draw(r < 20 ? 'px2' : 'px1', GX + 8 + Math.cos(g) * r, GY + Math.sin(g) * r, { solid: r < 14 ? '#ffffff' : r < 22 ? '#c8fbff' : '#7ad8ff' }); }
+          }
+          if (LVL_V45 === 'notes') {
+            const dur = 4 / T.fps();
+            for (let k = 0; k < q.n; k++) {
+              const s0 = k * (q.big ? 0.03 : 0.045), cxk = 24 + 7 * (k % 3), col = q.big ? PAL.rainbow[(k * 2 + i) % 12] : (i + k) % 2 ? '#9ee6ff' : '#ffe14d';
+              const bz = (p) => { const m = 1 - p; return [m * m * (GX + 4) + 2 * m * p * cxk + p * p * 88, m * m * (GY + 6) + 2 * m * p * 172 + p * p * 171]; };
+              const p = (a - s0) / dur; if (p < 0 || p > 1.05) continue;
+              [0.36, 0.24, 0.12].forEach((d, j) => { if (p - d > 0) { const [x, y] = bz(Math.min(1, p - d)); cFx.draw(j ? 'px2' : 'px1', x, y, { solid: col }); } });
+              if (p <= 1 && p >= 0.2) { const [x, y] = bz(p); cFx.draw((i + k) % 2 ? 'note16' : 'note8', x - 6, y - 8, { color: col, s: 2 }); }
+            }
+          } else if (LVL_V45 === 'bolt' && a < 0.2) {
+            const rr = mulberry32(i * 53 + 11), J = () => Math.round((rr() - 0.5) * 6);
+            const pts = [[LVL.X + 12, FLOOR + 23], [50 + J(), 104], [62 + J(), 122], [42 + J(), 142], [64 + J(), 160], [88, 170]];
+            const dotted = a >= 0.1;
+            for (let s2 = 0; s2 + 1 < pts.length; s2++) { const [x0, y0] = pts[s2], [x1, y1] = pts[s2 + 1]; const n = Math.round(Math.hypot(x1 - x0, y1 - y0) / 2);
+              for (let j = 0; j < n; j++) { if (dotted && j % 2) continue; const x = x0 + (x1 - x0) * j / n, y = y0 + (y1 - y0) * j / n; cFx.draw('px2', x - 1, y, { solid: q.big ? PAL.rainbow[(j + s2 * 3) % 12] : '#ffe14d' }); if (!dotted) cFx.draw('px1', x, y, { solid: '#ffffff' }); } }
+          }
+        });
+      }
 
       // ================================================================ heroes
       setJade(H.J);
@@ -629,7 +717,17 @@ export async function setup(ctx) {
       const fl = act && FLASHES[act] ? Math.max(0, ...FLASHES[act].filter((e) => e <= u).slice(-1).map((e) => 1 - (u - e) / 0.2)) : 0;
       void at; void fl; void singing;
       // build bar
-      bar.update(t);
+      lvlUi.begin();
+      if (LVL_V45 && t >= SHOUT) {                                    // v45_lvl: the bar only moves on Ricky's strums
+        const b = buildAt(t), pct = LVL.pct(t), fl = LVL.flash(t), wait = t < LVL.steps[0].at;
+        bar.set({ ...b, pct, text: pct + '%', stuck: wait, glitch: 0, color: fl ? (fl > 1 ? PAL.goldHi : '#ffffff') : undefined }, t);
+        bar.spin.visible = false; if (fl) bar.inner.position.y = fl;
+        for (const q of LVL.steps) {
+          const tip = bar.bx + Math.round(bar.bw * LVL.pct(q.at) / 100);
+          sparkle(lvlUi, t, q.at, tip, bar.y0 + 7, { n: q.big ? 14 : 6, r: q.big ? 26 : 11, dur: q.big ? 0.45 : 0.28, seed: 60 + Math.round(q.h * 10), color: q.big ? PAL.goldHi : '#ffe14d' });
+          if (LVL_V45 === 'notes' || LVL_V45 === 'bolt') sparkle(lvlUi, t, q.at, 55, bar.y0 + 1, { n: 4, r: 7, dur: 0.2, seed: 80 + Math.round(q.h * 10), color: '#9ee6ff' });
+        }
+      } else bar.update(t);
       // hat counter
       const thrown = P.chunks.filter((c) => u >= c.throw).length;
       const hatsOn = t >= GOES && t < SHOUT;
@@ -672,6 +770,27 @@ export async function setup(ctx) {
         if (onL2) { cursor.setSize(9, 20); cursor.place(PB.x + 10 + (cmd ? l2.w * 2 : 0), PB.y + 7 + dy); }
         else { cursor.setSize(5, 10); cursor.place(PB.x + 9 + l1.w, PB.y + 36 + dy); }
         if (t >= S(CUE.cmd[2])) { const pressed = t >= ENTER && t < ENTER + 0.3; const q = entQ[pressed ? 1 : 0]; q.visible = true; q.place(PB.x + 14 + l2.w * 2, PB.y + 6 + dy - (pressed ? 2 : 0)); }
+        // v45_lvl: Ricky's chord shot / Charlie's hat presses ENTER (UI px; world -> UI through the camera)
+        if (ENTER_V45 && t >= ENTER_UP - 0.2) {
+          const toUI = (x, y) => [(x - L) * 320 / st.cam.vw, (y - Bt) * 180 / st.cam.vh];
+          const kx = PB.x + 14 + l2.w * 2 + 15, ky = PB.y + 6 + dy + 13, pressed = t >= ENTER && t < ENTER + 0.3 ? 2 : 0;
+          if (ENTER_V45 === 'chord') {
+            const ag = t - (ENTER - ENTER_SHOT);
+            if (ag >= 0 && ag < ENTER_SHOT + 0.16) {
+              const [x0, y0] = toUI(H.R.x - 16, H.R.y + 21), k = Math.min(1, ag / ENTER_SHOT), Ls = Math.hypot(kx - x0, ky - y0), n = Math.round(Ls / 3 * k);
+              for (let j = 0; j < n; j++) { if (ag > ENTER_SHOT + 0.1 && j % 2) continue; lvlUi.draw('px2', x0 + (kx - x0) * j * 3 / Ls, y0 + (ky - y0) * j * 3 / Ls, { solid: j % 3 ? '#ffe14d' : '#ffffff' }); }
+              if (k >= 1 && ag < ENTER_SHOT + 0.1) lvlUi.draw('impact', kx, ky);
+            }
+            sparkle(lvlUi, t, ENTER, kx, ky, { n: 10, r: 22, color: PAL.yellow, seed: 91 });
+          } else if (ENTER_V45 === 'hat' && t < OUT + 0.15) {
+            if (t >= ENTER_UP && t < ENTER) {
+              const [x0, y0] = toUI(H.C.x + 12, H.C.y + 30), q = (t - ENTER_UP) / (ENTER - ENTER_UP);
+              const m = 1 - q, cx1 = kx + 50, cy1 = 40;   // boomerang curve: under the box, hooking up into the key from the right (never over the prompt text)
+              lvlUi.draw('hat' + (Math.floor(t * 15) % 3), m * m * x0 + 2 * m * q * cx1 + q * q * kx, m * m * y0 + 2 * m * q * cy1 + q * q * (ky + 11), { s: 1.5 });
+            } else if (t >= ENTER) lvlUi.draw('hat0', kx, ky + 11 - pressed - (t - ENTER < 0.067 ? -1 : 0), { s: 1.5 });
+            sparkle(lvlUi, t, ENTER, kx, ky + 12, { n: 8, r: 18, color: PAL.yellow, seed: 92 });
+          }
+        }
         // the reply lands as a stamp on the box's top-right corner on "need?"
         if (t >= ENTER + 0.1) {
           const a = t - ENTER - 0.1, sc = a < 0.034 ? 3 : a < 0.1 ? 2.4 : 2;
@@ -683,6 +802,7 @@ export async function setup(ctx) {
       // chant row (hero type) + translation
       chant.forEach((c) => { const a = t - T.snap(c.on); c.q.visible = t >= SHOUT && a >= 0 && t < 75.4; if (c.q.visible) { c.q.setScale(a < 0.034 ? 2.8 : a < 0.067 ? 2.3 : 2); c.q.place(c.x, 144); } });
       // (v4) 一切从这里出发 is type in the scene (the chant row + the rainbow 出发): no translation chip on top of it
+      lvlUi.end();
       st.fx.flash = T.exactFrame(t, [SHOUT]) ? 0.9 : T.exactFrame(t, [FUN, ...OHS, LAUNCH.lights.green]) ? 0.45 : T.exactFrame(t, [STOP[0], ENTER]) ? 0.35 : 0;
     },
   };

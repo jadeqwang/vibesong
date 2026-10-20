@@ -51,6 +51,17 @@ const CARVE = { fix: CUE.fixtures, fun: CUE.functions, fill: 0.12, d: 3, depth: 
 // down to a trace: its parallel light strokes read as motion-blur streaks on the magenta-lit slab (92.0) and on the painted plank
 // (93-94.2; fresh_eyes_v4 #3). closeGlow: the FUNCTIONS glow in the firefly close-up (its violet end read as a magenta edge glow).
 const M4 = { hatchK: 0.2, backHatch: 0.2, closeGlow: 0.15 };
+// (v45_laser) Jade v4.4: "maybe at 1:30, ricky's guitar playing turns on the laser?" Ricky's power chord IS the trigger:
+//   null    = v4.4 (generic chord loop; the jack plugged at 89.38 off screen)
+//   'strum' = cameras unchanged: Ricky plugs in on the 89.69 drum accent, winds his arm up through the guitar swell, slams the
+//             power chord on the real strum (the 'other' stem's strum burst 89.933-89.985), the amp lens flares and the beam fires;
+//             a second stroke, then arms flung out (sustain lean) through the glamour freeze; strums again on the 91.11 re-hit
+//   'wave'  = the same + a camera beat on Ricky (beat 212 -> 214, 89.284-90.105, medium from his right-back, the slab behind):
+//             a sound wave rings out of the guitar, a spark runs down the cable into the amp, the beam ignites into FUNCTIONS
+const LASER_V45 = 'wave';
+const LZ_CAM = { pos: [[550, 53, -48], [556, 53, -42]], tgt: [779, 58, 92], fov: 42 };   // (v45_laser 'wave') the insert: west-south-west of Ricky (at the amp, 648,-16; he faces west), looking NE past him: his face + guitar left, the amp lens centre, the slab right
+const LZ_HITS = [89.933, 90.05, 91.11];   // (v45_laser) Ricky's strokes that pulse the amp / beam (the power chord, the second stroke, the re-hit)
+const LZ = { plug: 89.69, up: 89.86, hit: 89.933, up2: 90.0, hit2: 90.05, fling: 90.1, rehit: 91.11, end: 91.4, ins: [89.284, 90.105], spark: 0.025 };
 
 export async function setup(ctx) {
   PLAN.r5 = true;
@@ -92,9 +103,18 @@ export async function setup(ctx) {
       { anim: 'parachute', t0: POP, t1: LAND_T + 0.02, mask: 'all', fade: 0.09 }],
     ricky: [{ anim: 'chord', t0: 89.55, t1: SWING0 + 0.1, mask: 'armsHead', rate: 2 }, { anim: 'chord', t0: HEY[0] - 0.14, t1: HEY[2] + 0.34, mask: 'armsHead', fade: 0.1, p: heyP }],
   };
+  // (v45_laser) the guitar in playing position (the picking arm is the IK spec rickyPick below), the lean-back sustain through the freeze,
+  // then the re-hit strums; the hey chords unchanged
+  if (LASER_V45) layers.ricky = [{ anim: 'chord', t0: LZ.plug - 0.3, t1: LZ.fling + 0.04, mask: 'armsHead', fade: 0.15, p: () => 0.25 },
+    { anim: 'sustain', t0: LZ.fling - 0.04, t1: LZ.rehit + 0.06, mask: 'upper', fade: 0.1 },
+    { anim: 'chord', t0: LZ.rehit, t1: LZ.end, mask: 'armsHead', fade: 0.06, p: () => 0.25 }, layers.ricky[1]];
   // Ricky plugs his jack into the amp (arm IK: reach, push in along the socket axis, let go)
   const plugT0 = ricky.segs.find((s) => s.kind === 'clip').t0, ampFwd = V(1, 0, 0).applyQuaternion(A.amp.quaternion);
-  A.amp.updateMatrixWorld(true); const plug = press(A.amp.localToWorld(A.amp.userData.jack.clone()), plugT0, { tHit: plugT0 + 0.32, depth: 2, dir: ampFwd.toArray(), pose: 'grip' });
+  A.amp.updateMatrixWorld(true); const plug = LASER_V45 ? press(A.amp.localToWorld(A.amp.userData.jack.clone()), LZ.plug - 0.3, { tHit: LZ.plug, depth: 2, hold: 0.02, dir: ampFwd.toArray(), pose: 'grip' })
+    : press(A.amp.localToWorld(A.amp.userData.jack.clone()), plugT0, { tHit: plugT0 + 0.32, depth: 2, dir: ampFwd.toArray(), pose: 'grip' });
+  const rickyHand = LASER_V45 ? rickyPick(plug.spec) : plug.spec;
+  const jack0 = A.amp.localToWorld(A.amp.userData.jack.clone());
+  const FX45 = LASER_V45 === 'wave' ? buildFx45(R) : (R.fx45 || null);
   const hatOff = (t) => t >= POP - 0.24 && t < LAND_T + 0.16;    // cap in his hand, the canopy, folding back
   const tipR = onJoint(F.charlie, 'cap', [2, 3, 0], TIP - 0.2, TIP + 0.28, { fade: 0.12 });
   const recvC = () => A.recv.userData.crystal.centre();
@@ -126,10 +146,11 @@ export async function setup(ctx) {
       const hNH = hatOff(tc);
       const ch = hNH ? F.charlieNH : F.charlie;
       F.jade.group.visible = ch.group.visible = F.ricky.group.visible = true;
+      if (inIns(t)) F.jade.group.visible = false;   // (v45_laser) in the insert she is only ever directly behind Ricky (a two-headed read): keep her out of it; she is at her mark in the wide
       showHead(F.jade);   // Room B's first person hides her head / torso meshes: frames must be order-free, so restore them here
       F.jade.apply(jade, tc, { layers: layers.jade, pencil: true, look: looks.jade });
       ch.apply(charlie, tc, { layers: layers.charlie, look: looks.charlie, hands: hNH ? undefined : { R: tipR } });
-      F.ricky.apply(ricky, tc, { layers: layers.ricky, hands: { R: plug.spec }, look: looks.ricky });
+      F.ricky.apply(ricky, tc, { layers: layers.ricky, hands: { R: rickyHand }, look: looks.ricky });
       slashPose(F.jade, tc);
       const st = { jade: jade.state(tc), charlie: charlie.state(tc), ricky: ricky.state(tc) };
       { const u = glideU(tc); if (u > 0 && u < 1) { const g = ch.group; g.position.y += glideY(u) - st.charlie.y; g.rotateZ(-0.2 * Math.sin(Math.PI * u)); g.rotateX(0.07 * Math.sin(u * 11) * Math.sin(Math.PI * u)); g.updateMatrixWorld(true); } }
@@ -160,9 +181,12 @@ export async function setup(ctx) {
       A.plate.userData.slab.position.y = held ? 0.6 : 1.5; A.plate.userData.edgeMat.color.set(held ? '#ffe7a8' : '#5a5048').multiplyScalar(held ? 3 : 1);
       // the amp lens; the cable once Ricky has plugged in
       const lens = A.amp.localToWorld(A.amp.userData.lens.clone());
-      A.amp.userData.lensMat.color.set('#ff5fd2').multiplyScalar(tc >= FUN ? 3 : 0.25);
-      { const jack = A.amp.localToWorld(A.amp.userData.jack.clone()); const gtr = F.ricky.F.items.guitar; const plugT = plugT0 + 0.35;
-        const gj = gtr ? gtr.localToWorld(gtr.userData.strum.clone()) : F.ricky.hand('R'); if (tc >= plugT && tc < 93.8) R.setCable(gj, jack, 10); }
+      A.amp.userData.lensMat.color.set('#ff5fd2').multiplyScalar(LASER_V45 ? lensK(tc) : tc >= FUN ? 3 : 0.25);
+      if (A.amp.userData.stripe) A.amp.userData.stripe.emissiveIntensity = LASER_V45 && tc >= LZ.plug ? 1.4 + 2.5 * T.pulse(tc, LZ_HITS, 0.12) : 0;   // (v45_laser) the amp's power stripe: on when he plugs in
+      let cableAB = null;
+      { const jack = A.amp.localToWorld(A.amp.userData.jack.clone()); const gtr = F.ricky.F.items.guitar; const plugT = LASER_V45 ? LZ.plug : plugT0 + 0.35;
+        const gj = gtr ? gtr.localToWorld(gtr.userData.strum.clone()) : F.ricky.hand('R'); if (tc >= plugT && tc < 93.8) { R.setCable(gj, jack, 10); cableAB = [gj, jack]; }
+        else if (LASER_V45 && tc >= plugT0 && tc < plugT) R.setCable(gj, F.ricky.hand('R'), 5); }   // (v45_laser) the plug in his hand on the way to the jack
 
       // ---------------------------------------------------------------------------------- the slab: three strokes, the swing
       const S = A.slab;
@@ -207,10 +231,10 @@ export async function setup(ctx) {
         const drawn = [pts[0]]; { let r = d; for (let i = 1; i < pts.length && r > 0; i++) { const l = L[i] - L[i - 1]; drawn.push(r >= l ? pts[i] : pts[i - 1].clone().lerp(pts[i], r / l)); r -= l; } }
         const blk = heroBlock(drawn, [st.jade, st.charlie, st.ricky]);
         const fl = tc >= SWING0 && tc < RESUME ? 0.7 + 0.3 * (1 - ffGlow) : 1;
-        R.beams[0].visible = true; R.beams[0].set(blk.pts, 1, { width: (1 - off) * fl * (1 + 0.35 * T.pulse(tc, [FUN, ...HEY], 0.2) + 0.12 * Math.sin(tc * 40)) });
+        R.beams[0].visible = true; R.beams[0].set(blk.pts, 1, { width: (1 - off) * fl * (1 + 0.35 * T.pulse(tc, [FUN, ...HEY, ...(LASER_V45 ? LZ_HITS : [])], 0.2) + 0.12 * Math.sin(tc * 40)) });
         if (blk.hit) R.glowAt(6, blk.hit, 16, 0.9 * (1 - off));
         pts.slice(1).forEach((p, i) => { if (tt >= H[i + 1] && i < blk.seg) R.glowAt(i, p, (26 + 14 * T.pulse(tc, [FUN + H[i + 1]], 0.15)) * (i === 1 ? fl : 1), 0.9 * (1 - off)); });
-        R.glowAt(5, lens, 22, 1 - off);
+        R.glowAt(5, lens, 22 * (LASER_V45 ? 1 + 1.4 * T.pulse(tc, LZ_HITS, 0.14) : 1), 1 - off);
       }
       if (recvLit > 0.02) R.glowAt(4, recvC(), 24 * recvLit, 0.9 * recvLit);
 
@@ -227,6 +251,7 @@ export async function setup(ctx) {
       ]);
       P.sparks.visible = true;
       P.sparks.run(tc, [
+        ...(LASER_V45 ? [{ t0: LZ.plug, x: jack0.x, y: jack0.y, z: jack0.z, n: 10, speed: 30, up: 18, g: 120, dur: 0.3, seed: 540, colors: ['#ff9ae6', '#ffffff'] }] : []),   // (v45_laser) the jack goes in
         { t0: RUN - 0.05, x: LAND[0], y: 2, z: LAND[1] + 8, n: 16, speed: 45, up: 30, g: 120, dur: 0.5, seed: 200, colors: ['#ff4d6d', '#ffe14d', '#3ad06a', '#2bb4e8', '#a35cff'] },
         { t0: tGate - 0.1, x: GATE[0], y: LY + 40, z: GATE[1], n: 30, speed: 60, up: 20, g: 40, dur: 0.6, seed: 500, colors: ['#5ab4ff', '#ffffff'] },
         ...HEY.map((h, i) => { const p = recvC(); return { t0: h, x: p.x, y: p.y + 4, z: p.z, n: 8, speed: 26, up: 14, g: 60, dur: 0.35, seed: 520 + i, colors: ['#e8ff6a', '#ffffff'] }; }),
@@ -235,6 +260,8 @@ export async function setup(ctx) {
       // ---------------------------------------------------------------------------------- cameras (cuts on beats, >= 1.2 s)
       const cam = cameraA5(t, tc, st, TR);
       const camera = aim(persp('dropR5', aspect), cam.pos, cam.tgt, cam.fov);
+      if (LASER_V45 === 'wave') waveFx(tc, camera, cableAB, lens);
+      else if (FX45) FX45.root.visible = false;
       talosDump(t, { room: 'A', solids: { wall: A.wall, amp: A.amp, plinth: A.plinth, gate: A.gate, recv: A.recv, stele: A.stele, stub: A.stub, slab: A.slab.group, housing: null },
         heroes: { jade: F.jade, charlie: ch, ricky: F.ricky }, states: st, supports: { stub: A.stub, slab: A.slab.group, pad: A.pad, plate: A.plate, socket: A.socket }, beams: { relay: R.beams[0], pulse: R.beams[1], switch: P.beam }, camera });
       return { camera, target: cam.tgt, focus: cam.focus || cam.tgt, look: LOOK({ rays: 0.3, dofAmount: cam.dof ?? 0.18, r5: { columns: { keep: [] }, ...(cam.r5 || {}) } }), shadowExtent: 650 };
@@ -261,7 +288,7 @@ export async function setup(ctx) {
     for (const o of culled) o.visible = false; if (W.ruins) W.ruins.visible = false; for (const m of W.avenue) if (m.position.x > 560 && m.position.x < 1060) m.visible = false; voxSet(true); };
   const rend = scene.render; scene.render = (t, target) => { const lk = ctx.post?.look; let sv = null;
     if (t < SHOT[1] && lk?.mat?.uniforms?.uStreak) { sv = lk.mat.uniforms.uStreak.value; lk.mat.uniforms.uStreak.value = 0; }
-    rend(t, target); if (sv !== null) lk.mat.uniforms.uStreak.value = sv;
+    rend(t, target); if (sv !== null) lk.mat.uniforms.uStreak.value = sv; if (R.fx45) R.fx45.root.visible = false;   // (v45_laser) the wave fx stay in this scene
     if (W.compose?.root) W.compose.root.visible = true; for (const m of W.avenue) m.visible = true; for (const o of culled) o.visible = true; if (W.ruins) W.ruins.visible = true; voxSet(false); };
   return scene;
 
@@ -272,7 +299,65 @@ export async function setup(ctx) {
     if (tc < RESUME) return JOLT + 0.012 * Math.sin((tc - tJolt) * 70) * Math.exp(-(tc - tJolt) * 6);   // the jolt: a shudder that dies out
     const u = clamp01((tc - RESUME) / (SLAM - RESUME)); return JOLT + (1 - JOLT) * u * u;
   }
-  function beamOff(tc) { return smooth(RESUME + 0.04, SLAM - 0.1, tc); }   // the beam fades as the slab lies down; the receiver stays latched
+  /** (v45_laser) picture time inside the 'wave' camera beat on Ricky */
+  function inIns(t) { return LASER_V45 === 'wave' && t >= T.snap(LZ.ins[0]) - 1e-6 && t < T.snap(LZ.ins[1]) - 1e-6; }
+  function beamOff(tc) { return smooth(RESUME + 0.04, SLAM - 0.1, tc); }
+  /** (v45_laser) the amp lens: dim until plugged, a hum once plugged, charging (flicker) through the guitar swell, full on the chord */
+  function lensK(tc) { if (tc >= FUN) return 3 + 2 * T.pulse(tc, LZ_HITS, 0.12); if (tc < LZ.plug) return 0.25; const c = smooth(89.75, LZ.hit, tc); return 0.7 + 1.1 * c + 0.3 * c * Math.sin(tc * 70); }
+  /** (v45_laser) Ricky's picking hand (right-arm IK target, song time): the plug-in on the 89.69 accent, the wind-up through the swell,
+   *  the power chord slammed down on the real strum (LZ.hit), the follow-through, an upstroke + a second stroke that flings the arm out
+   *  (held through the glamour freeze), then 16th strums from the re-hit. Targets are rebuilt each frame from the posed shoulder + guitar. */
+  function rickyPick(plugSpec) {
+    const up = V(0, 1, 0); const e = (a, b, x) => smooth(a, b, x); const lerp = (a, b, u) => a.clone().lerp(b, u);
+    const at = (t, fig) => {
+      const FF_ = fig.F; FF_.group?.updateWorldMatrix?.(true, true); fig.group.updateWorldMatrix(true, true);
+      const sh = FF_.J.shoulderR.getWorldPosition(V(0, 0, 0)), shL = FF_.J.shoulderL.getWorldPosition(V(0, 0, 0));
+      const g = FF_.items.guitar; const G = g.localToWorld(g.userData.strum.clone()); const L = fig._armLen('R') * fig.scale;
+      const side = sh.clone().sub(shL).setY(0).normalize(); const fwd = up.clone().cross(side).normalize();
+      const W = sh.clone().addScaledVector(up, 0.86 * L).addScaledVector(side, 0.22 * L).addScaledVector(fwd, 0.08 * L);
+      const Fo = G.clone().addScaledVector(up, -0.32 * L).addScaledVector(side, 0.14 * L).addScaledVector(fwd, 0.12 * L);
+      const Gu = G.clone().addScaledVector(up, 0.2 * L);
+      const F2 = sh.clone().add(V(0, 0, 0).addScaledVector(up, -0.5).addScaledVector(side, 0.85).addScaledVector(fwd, 0.1).normalize().multiplyScalar(0.9 * L));
+      const strum = () => { const f = T.beatAt(t) * 4; return G.clone().addScaledVector(up, -0.13 * L * Math.sin(2 * Math.PI * (f - Math.floor(f)))); };
+      if (t < LZ.plug + 0.04) return plugSpec.at(t);
+      const J0 = plugSpec.at(LZ.plug + 0.04);
+      if (t < LZ.up) return lerp(J0, W, e(LZ.plug + 0.04, LZ.up, t));
+      if (t < LZ.hit - 0.03) return W.addScaledVector(up, 0.05 * L * e(LZ.up, LZ.hit - 0.03, t));
+      const Wt = W.clone().addScaledVector(up, 0.05 * L);
+      if (t < LZ.hit) { const u = clamp01((t - LZ.hit + 0.03) / 0.03); return lerp(Wt, G, u * u); }
+      if (t < LZ.up2) return lerp(G, Fo, 1 - Math.pow(1 - clamp01((t - LZ.hit) / (LZ.up2 - LZ.hit)), 2));
+      const mid = (LZ.up2 + LZ.hit2) / 2;
+      if (t < mid) return lerp(Fo, Gu, e(LZ.up2, mid, t));
+      if (t < LZ.hit2) { const u = clamp01((t - mid) / (LZ.hit2 - mid)); return lerp(Gu, G, u * u); }
+      if (t < LZ.rehit) return lerp(G, F2, 1 - Math.pow(1 - clamp01((t - LZ.hit2) / (LZ.fling - LZ.hit2)), 2));
+      return lerp(F2, strum(), e(LZ.rehit, LZ.rehit + 0.07, t));
+    };
+    return { at, t0: plugSpec.t0, t1: LZ.end, fade: plugSpec.fade, pole: null, pose: 'grip', kind: 'pick' };
+  }
+  /** (v45_laser, 'wave') the sound wave: rings out of the guitar on each stroke (billboarded), a spark running down the cable into the
+   *  amp, the cable left glowing pink while the chord rings */
+  function waveFx(tc, camera, cableAB, lens) {
+    const X = FX45; X.root.visible = true;
+    const gtr = F.ricky.F.items.guitar; gtr.updateWorldMatrix(true, false); const G = gtr.localToWorld(gtr.userData.base ? gtr.userData.strum.clone() : V(0, 0, 0));
+    camera.updateMatrixWorld(true);
+    const strokes = [LZ.hit, LZ.hit2, LZ.rehit];
+    // each stroke sends three rings (0.03 s apart) down the cable from the guitar to the amp (0.08 s), where they burst open round the lens
+    const tgtP = lens || G;
+    X.rings.forEach((m, i) => { const s = Math.floor(i / 3), k = i % 3; const t0 = strokes[s] + 0.03 * k; const u = (tc - t0) / 0.3; const big = s === 0 ? 1 : 0.6;
+      if (u < 0 || u >= 1 || (s === 2 && k > 0)) { m.visible = false; return; }
+      const a = 0.27; const v = clamp01(u / a); const w = clamp01((u - a) / (1 - a));
+      m.visible = true; m.position.copy(G).lerp(tgtP, v * v * (3 - 2 * v)); m.quaternion.copy(camera.quaternion);
+      m.scale.setScalar((3 + 7 * v + 34 * big * Math.pow(w, 0.7)) * (k === 1 ? 0.8 : k === 2 ? 0.62 : 1));
+      m.material.opacity = big * (u < a ? 0.9 : 0.9 * Math.pow(1 - w, 1.5)); });
+    // the spark down the cable (guitar -> jack) and the lit cable behind it
+    const n = X.hot.length; const sp = clamp01((tc - LZ.hit) / LZ.spark);
+    const glowK = tc >= LZ.hit ? (tc < LZ.rehit ? 0.35 + 0.65 * T.pulse(tc, LZ_HITS, 0.16) : 0.25 * T.pulse(tc, LZ_HITS, 0.2)) : 0;
+    X.hot.forEach((m, k) => { const u0 = k / n, u1 = (k + 1) / n; if (!cableAB || glowK < 0.02 || u0 > sp) { m.visible = false; return; }
+      const P = (u) => cableAB[0].clone().lerp(cableAB[1], u).add(V(0, -10 * 4 * u * (1 - u), 0)); const p0 = P(u0), p1 = P(Math.min(u1, Math.max(sp, u0 + 1e-3))); const d = p1.clone().sub(p0);
+      m.visible = true; m.position.copy(p0).add(p1).multiplyScalar(0.5); m.quaternion.setFromUnitVectors(V(0, 1, 0), d.clone().normalize()); m.scale.set(1, d.length() + 0.3, 1); m.material.opacity = glowK; });
+    if (cableAB && tc >= LZ.hit && tc < LZ.hit + LZ.spark + 0.05) { const u = clamp01((tc - LZ.hit) / LZ.spark); const p = cableAB[0].clone().lerp(cableAB[1], u).add(V(0, -40 * u * (1 - u), 0)); R.glowAt(7, p, 14, 1); }
+    else if (tc >= LZ.hit && tc < FUN + 0.2 && lens) R.glowAt(7, lens, 30 * T.pulse(tc, [FUN], 0.1), 0.9);
+  }   // the beam fades as the slab lies down; the receiver stays latched
   function plateHeldA(s, tc) { return tc >= LAND_T - 0.02 && tc < OFFPLATE + 0.1 && Math.hypot(s.x - PLATE[0], s.z - PLATE[1]) < 9; }
   /** the firefly on the receiver lens: blinks OFF the beat; hops on the first two heys; flies away on the third blinking ON the beat.
    *  Returns its glow (0..1) for the receiver's flicker. */
@@ -292,6 +377,15 @@ export async function setup(ctx) {
   // ---------------------------------------------------------------------------------------------- shots (chest height, from behind the party, looking +z)
   function cameraA5(t, tc, st, TR) {
     const C = A5.CAM;
+    if (inIns(t)) {   // (v45_laser) the camera beat on Ricky (beat 212 -> 214):
+      // medium from his right-back at chest height, the amp beside him, the slab + wall behind: he plugs in, winds up, slams the chord,
+      // the wave rings out of the guitar, the spark runs down the cable, the beam fires away into FUNCTIONS; a slow push, a jolt on the hit
+      const k = smooth(LZ.ins[0], LZ.ins[1], t); const s = TR.ricky.state(89.6); const base = V(s.x, s.y, s.z);
+      const pos = V(...LZ_CAM.pos[0]).lerp(V(...LZ_CAM.pos[1]), k), tgt = V(...LZ_CAM.tgt);
+      const sh = 2.4 * T.pulse(tc, [LZ.hit], 0.1) + 1.0 * T.pulse(tc, [LZ.hit2], 0.08); pos.x += Math.sin(tc * 90) * sh; pos.y += Math.cos(tc * 70) * sh;
+      const chest = base.clone().add(V(0, 40, 0));
+      return { pos, tgt, fov: LZ_CAM.fov, focus: chest, dof: 0.2, r5: { beam: 1, dof: 0.3, tilt: 0, focus: chest, columns: { keep: [] } } };
+    }
     if (t >= T.snap(CUT_FIX) - 1e-6 && t < SHOT[1]) {   // (v4b stage_3d) A1F: FIXTURES! (still 09): low and long behind the party, the
       // carved slab slams up and fills the middle of the frame (the biggest thing on screen), the trio small at its foot on the right;
       // a slow push through the stop; the slab sharp (focus on the word), the DOF capped (common.js)
@@ -322,10 +416,10 @@ export async function setup(ctx) {
       // (v4b stage_3d) still 10: the carved slab centre-left, FUNCTIONS lighting up rainbow as the chord lands; the beam leaves the amp
       // (right) and crosses in front of the slab to the crystal on its far flank (left), then back to the lit receiver beside it
       const c = holdClock(t, STOPS); const k = smooth(89.694, 91.4, c);
-      const pos = V(692 + 6 * k, 46, -300 + 14 * k), tgt = V(852, 98, 245);
+      const pos = V(692 + 6 * k, 46, -300 + 14 * k), tgt = LASER_V45 ? V(822, 96, 245) : V(852, 98, 245);   // (v45_laser) panned right: Ricky's whole figure + his strum in frame
       const sh = 1.2 * T.pulse(tc, [tJolt], 0.12) + 1.6 * T.pulse(tc, [CARVE.fun], 0.1); pos.x += Math.sin(tc * 80) * sh; pos.y += Math.cos(tc * 60) * sh;
       const word = V(887, 112, 242);
-      return { pos, tgt, fov: 33, focus: word, dof: 0.12, r5: { beam: 1, dof: 0.22, tilt: 0, focus: word, columns: { keep: [] } } };
+      return { pos, tgt, fov: LASER_V45 ? 35 : 33, focus: word, dof: 0.12, r5: { beam: 1, dof: 0.22, tilt: 0, focus: word, columns: { keep: [] } } };
     }
     if (t < SHOT[4]) {   // A4: the close-up: the firefly on the receiver lens; the slab slams down behind it; a slow drift
       const k = smooth(SHOT[3], SHOT[4], t); const ffp = PB.bugs.firefly.visible ? PB.bugs.firefly.position.clone() : recvC();
@@ -391,5 +485,15 @@ function buildRoomA5(R, Q) {
   R.roomA5 = A; return A;
 }
 const STELE_YAW_OF = () => A5.STELE_YAW;
+/** (v45_laser) the sound-wave rings + the hot cable overlay (built once per world, on the r4 root) */
+function buildFx45(R) {
+  if (R.fx45) return R.fx45;
+  const root = new THREE.Group(); root.name = 'v45_laser_fx'; R.add(root);
+  const ringMat = () => new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff6ad8').multiplyScalar(1.25), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
+  const rings = Array.from({ length: 9 }, () => { const m = new THREE.Mesh(new THREE.RingGeometry(0.86, 1, 64), ringMat()); m.userData.noAO = true; m.visible = false; root.add(m); return m; });
+  const hm = new THREE.MeshBasicMaterial({ color: new THREE.Color('#ff7ae0').multiplyScalar(3), transparent: true, opacity: 0, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false });
+  const hot = Array.from({ length: 14 }, () => { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 0.8, 1, 6), hm.clone()); m.userData.noAO = true; m.visible = false; root.add(m); return m; });
+  R.fx45 = { root, rings, hot }; return R.fx45;
+}
 /** restore what Room B's first person hides on the shared Jade figure (head + torso meshes) */
 export function showHead(fig) { const J = fig.F.J; J.head.visible = true; for (const j of [J.body, J.chest]) if (j) for (const c of j.children) if (c.isMesh) c.visible = true; }

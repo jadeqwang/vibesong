@@ -1,0 +1,47 @@
+{
+ "arm46": {
+  "x": 574,
+  "y": 1475,
+  "w": 261,
+  "h": 189,
+  "elbow": [
+   608,
+   1497
+  ],
+  "wrist": [
+   767,
+   1590
+  ],
+  "hand": [
+   812,
+   1618
+  ],
+  "crease": [
+   670,
+   1483
+  ]
+ },
+ "head46": {
+  "pivot": [
+   868,
+   1388
+  ],
+  "center": [
+   893,
+   1262
+  ],
+  "radii": [
+   108,
+   98
+  ],
+  "fall": 38,
+  "box": [
+   745,
+   1125,
+   1040,
+   1410
+  ]
+ },
+ "units": "spread px (5504x3072, spread_full_*); world = (x/3072, 1 - y/3072)",
+ "src": "v46_outstrum build_strum.py (gen arm_gen_a.png, tag v46_outstrum_arm_a)"
+}

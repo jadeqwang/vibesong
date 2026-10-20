@@ -1,0 +1,203 @@
+<title>Vibe Coding Song v4.4</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of notes in song order; each note = stage with stacked preloaded versions (switch keeps the playhead) + version strip; picks at the end. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #66686e; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ink-bg: #e4ebfb; --ok: #2f7d4f; --ok-bg: #e3f1e8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.5vw, 38px); line-height: 1.1; }
+h1 .stroke { display: block; width: 100px; height: 5px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 21px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+h2 .ts { font: 500 14px var(--mono); color: var(--ink); background: var(--ink-bg); padding: 1px 8px; border-radius: 4px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.quote { font-style: italic; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 10px; max-width: 68ch; }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.stage video.on { visibility: visible; }
+.hud { position: absolute; left: 10px; top: 10px; font: 500 13px var(--mono); background: rgba(0,0,0,.65); color: #fff; padding: 3px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vbtn { font: 500 14px var(--mono); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--graphite); cursor: pointer; min-width: 64px; }
+.vbtn[aria-pressed="true"] { background: var(--ink-bg); border-color: var(--ink); color: var(--ink); }
+.vbtn.rec::after { content: " · in show"; color: var(--muted); font-size: 12px; }
+.vbtn.old { font-style: italic; }
+.card { display: grid; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.card.active .stage { outline: 2px solid var(--ink); outline-offset: 2px; }
+ul.notes { margin: 0; padding-left: 20px; max-width: 68ch; display: grid; gap: 4px; }
+.tbtn { font: 600 14px var(--body); padding: 8px 16px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+.tbtn.ghost { background: transparent; color: var(--graphite); border: 1px solid var(--rule); }
+.tbtn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.keys { font-size: 13px; color: var(--muted); }
+kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--card); }
+.picks { display: grid; gap: 14px; }
+.pick { display: grid; gap: 6px; min-width: 0; }
+.pick .lab { font-weight: 600; }
+textarea { width: 100%; box-sizing: border-box; min-height: 48px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+#out { font-family: var(--mono); font-size: 13px; min-height: 80px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>Your v4.3 notes, fixed in v4.4<span class="stroke" aria-hidden="true"></span></h1>
+    <p>One player per note, in song order. Each player has the v4.3 clip and the v4.4 clip, plus choices where it’s your call. Switch versions while it plays and the playhead stays put. Timestamps are song time. The full cut is <code>engine/out/review/full_v4.4.mp4</code> on your machine.</p>
+  </header>
+  <div id="cards"></div>
+
+  <section class="card" style="border-top:1px solid var(--rule)">
+    <h2>Your picks</h2>
+    <div class="picks" id="picks"></div>
+    <label for="note" class="muted">Anything else (optional)</label>
+    <textarea id="note" placeholder="e.g. walk: orbit; card 05 +2"></textarea>
+    <div class="row"><button class="tbtn" id="copy" type="button">Copy answers</button></div>
+    <textarea id="out" readonly aria-label="Answers to paste into chat"></textarea>
+  </section>
+</div>
+
+<script>
+const BA = [{ lab: "v4.3", f: "a", old: true }, { lab: "v4.4", f: "b", rec: true }];
+const CARDS = [
+  { id: "open", ts: "0:06 · 0:08", title: "Charlie’s hat and your sprite", t0: 4, vers: BA, src: v => `v/open_${v.f}.mp4`,
+    quote: "0:06 – charlie’s hat is grey here … 0:08 – why is Jade’s sprite’s face kinda messed up here?",
+    notes: ["The hat Charlie throws at SHIP was a separate prop that the grey wash didn’t spare (only the characters were spared). It’s tan now.",
+            "Your sprite’s face is redrawn: bigger eyes with a highlight, two slightly different brows, a taller forehead under the hair, a small mouth, a rounded chin."] },
+  { id: "face", ts: "0:08", title: "Your sprite: which face", t0: 6.5, vers: [{ lab: "open mouth", f: "a", rec: true }, { lab: "closed smile", f: "b" }], src: v => `v/face_${v.f}.mp4`,
+    quote: "why is Jade’s sprite’s face kinda messed up here?",
+    notes: ["Two versions of the new face. Watch the SAVE FILE screen."] },
+  { id: "hat", ts: "1:53 – 1:58", title: "More grey hats", t0: 112.5, vers: BA, src: v => `v/hat_${v.f}.mp4`,
+    quote: "Charlie’s hat: still see grey",
+    notes: ["I checked the whole video three ways. One more place was grey: Charlie’s caps in the 3D battle (onto the firefly lamp, the boomerang, onto the drafts). Fixed.",
+            "Left as is: about 1:57, the cap goes cream for a moment inside the white “bug becomes a feature” flash, which bleaches everything on screen."] },
+  { id: "03", ts: "0:20", title: "Card 03: +0 on “because”, +6 after", t0: 17, loop: [19.9, 22.4],
+    vers: [{ lab: "v4.3 (+6)", f: "old", old: true }, { lab: "R18", f: "r18", rec: true }, { lab: "R15", f: "r15" }, { lab: "R24", f: "r24" }, { lab: "+0 all", f: "p0" }], src: v => `v/p03_${v.f}.mp4`,
+    quote: "+6 is correct for most of the line, but +0 is correct for “because”",
+    notes: ["“because” is the first word on the card, so the card starts at +0 and catches up to +6 inside the held “cause” vowel, where your face barely moves. The catch-up is a smooth slow-down; no jump, no frozen frame.",
+            "R18 catches up over 20.4–21.0. R15 does it later and slower (20.5–21.0); R24 spreads it over 20.33–21.13."] },
+  { id: "05", ts: "1:47", title: "Card 05: more of you, more body language", t0: 105, loop: [107.1, 110.0],
+    vers: [{ lab: "v4.3", f: "old", old: true }, { lab: "short", f: "v1" }, { lab: "+0", f: "p0", rec: true }, { lab: "−2", f: "m2" }, { lab: "+2", f: "p2" }, { lab: "+4", f: "p4" }, { lab: "+6", f: "p6" }], src: v => `v/p05_${v.f}.mp4`,
+    quote: "could use a little bit more body language … we should have more seconds of this than the 3d rendered one",
+    notes: ["Re-animated: your head moves about 2.5× as much and your body nearly 4×; you take the mic in your hand partway through. Charlie and Ricky move about twice as much.",
+            "The card now holds 2.4 s (世界 是我的) and the 3D band shot is 0.8 s, cutting just before the sung 舞. “short” holds the card 1.8 s instead.",
+            "The big 舞台 lettering used to come in half a second early (the lyric timing file was a syllable off); it now lands on 舞 and 台 as you sing them.",
+            "<b>+K</b> = lips K frames later. Pick by ear."] },
+  { id: "walk", ts: "1:22", title: "The walk", t0: 77.5,
+    vers: [{ lab: "v4.3", f: "ref", old: true }, { lab: "lead", f: "lead", rec: true }, { lab: "orbit", f: "orbit" }, { lab: "side", f: "side" }], src: v => `v/walk_${v.f}.mp4`,
+    quote: "something about this walk feels kinda boring / not engaging",
+    notes: ["Why it was boring: it’s the first drop (the music is near its peak) but the shot was one locked side view for 3.4 s, small figures in single file, faces hidden, a steady jog off the beat, and nobody interacting.",
+            "All three new versions: a real walking pace with every footstep on the beat, a dust puff per step, you and Charlie trade looks while he talks with his hands, Ricky air-strums on the beats.",
+            "<b>lead</b>: you walk toward the camera at the front of a wide V, faces readable. <b>orbit</b>: the camera circles from behind to the front, then rises to show the road ahead. <b>side</b>: a lower, closer version of the old side shot."] },
+  { id: "out", ts: "3:07", title: "The outro spread", t0: 184,
+    vers: [{ lab: "v4.3", f: "old", old: true }, { lab: "new", f: "page", rec: true }, { lab: "no pull-back", f: "hold" }, { lab: "fills frame", f: "fill" }, { lab: "take B", f: "b1" }], src: v => `v/out_${v.f}.mp4`,
+    quote: "i wish it were as good as the other colored pencil singing scenes",
+    notes: ["Why it fell short: on the cards your face is about 200 px tall; on the spread every face was about 50 px (25 px after the pull-back). And the old spread was made without the song, so nobody really sang; everyone had their eyes closed.",
+            "Now it’s made the way the cards are: a new colored-pencil drawing of the jam, closer in (knees up, you in the middle), animated with the vocal track so you actually sing the words. Charlie and Ricky play along.",
+            "<b>new</b> keeps the pull-back to the whole spread (the 2011 Charlie sketch on the left page). <b>no pull-back</b> stays close until the final push. <b>fills frame</b> drops the page edges so the jam fills the screen. <b>take B</b> is a livelier take where you turn toward Ricky."] },
+];
+const PICKS = [
+  { id: "open", lab: "Hat at 0:06 and sprite face", opts: ["Good", "Change"] },
+  { id: "face", lab: "Sprite face", opts: ["Open mouth", "Closed smile"] },
+  { id: "hat", lab: "Battle caps", opts: ["Good", "Still see grey"] },
+  { id: "03", lab: "Card 03", opts: ["R18", "R15", "R24", "+0 all", "Keep v4.3"] },
+  { id: "05", lab: "Card 05 length", opts: ["Long (2.4 s)", "Short (1.8 s)"] },
+  { id: "05t", lab: "Card 05 timing", opts: ["−2", "+0", "+2", "+4", "+6"] },
+  { id: "walk", lab: "The walk", opts: ["lead", "orbit", "side", "Try again"] },
+  { id: "out", lab: "Outro spread", opts: ["new", "no pull-back", "fills frame", "take B", "Reshoot again"] },
+];
+let active = null;
+const players = CARDS.map(C => {
+  const sec = document.createElement("section"); sec.className = "card"; sec.id = C.id;
+  sec.innerHTML = `<h2><span class="ts">${C.ts}</span>${C.title}</h2><p class="quote">“${C.quote}”</p>
+    <ul class="notes">${C.notes.map(n => `<li>${n}</li>`).join("")}</ul>
+    <div class="stage"><span class="hud"></span></div>
+    <div class="row vars" role="group" aria-label="Version"></div>
+    <div class="row"><button class="tbtn play" type="button">Play</button>
+      ${C.loop ? `<button class="tbtn ghost loop" type="button">Loop the key words (${C.loop[0]}–${C.loop[1]})</button>` : ""}
+      <button class="tbtn ghost restart" type="button">Back to start</button></div>`;
+  document.getElementById("cards").appendChild(sec);
+  const stage = sec.querySelector(".stage"), hud = sec.querySelector(".hud");
+  const vids = C.vers.map(v => { const el = document.createElement("video"); el.src = C.src(v); el.preload = "auto"; el.playsInline = true; el.muted = true; stage.insertBefore(el, hud); return el; });
+  const P = { C, sec, vids, cur: C.vers.findIndex(v => v.rec), looping: !!C.loop, playing: false };
+  vids[P.cur].classList.add("on");
+  const L = C.loop ? [C.loop[0] - C.t0, C.loop[1] - C.t0] : null;
+  const vbtns = C.vers.map((v, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn" + (v.rec ? " rec" : "") + (v.old ? " old" : ""); b.textContent = v.lab; b.onclick = () => { activate(P); show(i); }; sec.querySelector(".vars").appendChild(b); return b; });
+  function show(i) {
+    if (i === P.cur) return; const a = vids[P.cur], b = vids[i];
+    b.currentTime = a.currentTime; if (P.playing) { b.muted = false; b.play().catch(() => {}); a.pause(); } a.muted = true;
+    a.classList.remove("on"); b.classList.add("on"); P.cur = i; sync();
+  }
+  function sync() { vbtns.forEach((b, i) => b.setAttribute("aria-pressed", i === P.cur)); }
+  const playBtn = sec.querySelector(".play"), loopBtn = sec.querySelector(".loop");
+  function label() { playBtn.textContent = P.playing ? "Pause" : "Play"; if (loopBtn) loopBtn.setAttribute("aria-pressed", P.looping); }
+  function setPlaying(p) {
+    if (p && active && active !== P && active.playing) active.setPlaying(false);
+    P.playing = p; const v = vids[P.cur];
+    if (p) { v.muted = false; if (L && P.looping && (v.currentTime < L[0] || v.currentTime > L[1])) v.currentTime = L[0]; v.play().catch(() => { P.playing = false; label(); }); }
+    else v.pause();
+    label();
+  }
+  playBtn.onclick = () => { activate(P); setPlaying(!P.playing); };
+  if (loopBtn) loopBtn.onclick = () => { activate(P); P.looping = !P.looping; label(); };
+  sec.querySelector(".restart").onclick = () => { activate(P); vids[P.cur].currentTime = (L && P.looping) ? L[0] : 0; };
+  vids.forEach(v => v.addEventListener("ended", () => { if (v === vids[P.cur]) { P.playing = false; label(); } }));
+  sec.addEventListener("pointerdown", () => activate(P));
+  Object.assign(P, { show, setPlaying, label, L, hud }); sync(); label(); return P;
+});
+function activate(P) { active = P; players.forEach(x => x.sec.classList.toggle("active", x === P)); }
+activate(players[0]);
+(function tick() {
+  players.forEach(P => { const v = P.vids[P.cur];
+    if (P.playing && P.L && P.looping && v.currentTime >= P.L[1]) v.currentTime = P.L[0];
+    const t = P.C.t0 + v.currentTime, m = Math.floor(t / 60), s = (t - 60 * m).toFixed(1).padStart(4, "0");
+    P.hud.textContent = `${P.C.vers[P.cur].lab} · ${m}:${s}`; });
+  requestAnimationFrame(tick);
+})();
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA" || !active) return;
+  const n = "1234567".indexOf(e.key);
+  if (n >= 0 && n < active.vids.length) { active.show(n); e.preventDefault(); }
+  else if (e.key === " ") { active.setPlaying(!active.playing); e.preventDefault(); }
+  else if ((e.key === "l" || e.key === "L") && active.L) { active.looping = !active.looping; active.label(); }
+});
+const keys = document.createElement("p"); keys.className = "keys";
+keys.innerHTML = "<kbd>1</kbd>–<kbd>7</kbd> switch version · <kbd>Space</kbd> play / pause · <kbd>L</kbd> loop on / off. Keys act on the outlined player; click a player to select it. Sound starts after your first click.";
+document.getElementById("cards").before(keys);
+
+const KEY = "v44-review"; let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} out(); };
+const picksEl = document.getElementById("picks");
+PICKS.forEach(K => {
+  const d = document.createElement("div"); d.className = "pick";
+  d.innerHTML = `<span class="lab">${K.lab}</span><div class="row" role="group" aria-label="${K.lab}"></div>`;
+  const row = d.querySelector(".row");
+  const bs = K.opts.map(lab => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn"; b.textContent = lab;
+    b.onclick = () => { st[K.id] = st[K.id] === lab ? "" : lab; bs.forEach(x => x.setAttribute("aria-pressed", x.textContent === st[K.id])); save(); };
+    b.setAttribute("aria-pressed", st[K.id] === lab); row.appendChild(b); return b; });
+  picksEl.appendChild(d);
+});
+const note = document.getElementById("note"), outEl = document.getElementById("out");
+note.value = st.note || ""; note.oninput = () => { st.note = note.value; save(); };
+function out() { outEl.value = "v4.4 review: " + PICKS.map(K => `${K.lab}: ${st[K.id] || "unmarked"}`).join("; ") + (st.note && st.note.trim() ? ". Note: " + st.note.trim() : ""); }
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; out();
+  try { await navigator.clipboard.writeText(outEl.value); b.textContent = "Copied"; }
+  catch (err) { outEl.focus(); outEl.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answers"; }, 1800);
+};
+out();
+</script>

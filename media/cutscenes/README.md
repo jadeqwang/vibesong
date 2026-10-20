@@ -158,3 +158,9 @@ Stills: `tools/cutscenes/pb_liftcomp.py` (configs `_work/passB/m3/s0X/lift.json`
 `paper_0020/paper_0020.mp4` and `paper_0048/paper_0048.mp4` are now the v4.3 takes (Seedance 2.5 c4 / c2, flux upscale), at the +6 timing.
 The other timings are `paper_00XX_v43_shift{-2,+0,+2,+4,+6,+8}.mp4` (same time base: frame k = card t0 + k/30). Card 03's still is v3 (chest dot on her left).
 The v4.2 files are backed up in engine/out/bak_v4b/paper/v43/. Details: engine/checkpoints/passB_paper.md "## v4.3".
+
+## v4.4 (v44_paper, 2026-10-19)
+- paper_0020 (card 03): `paper_0020.mp4` = `paper_0020_v44_warp0to6_R18.mp4`: +0 on "because" (cut-in 20.167 .. 20.40), a smooth optical-flow time-warp
+  to +6 inside the held "cause" vowel (20.40-21.00), +6 for the rest of the line. Alts `_R15` (20.50-21.00) and `_R24` (20.333-21.133). Tool tools/cutscenes/pb_warp03.py.
+- paper_0147 (card 05): re-animated (take v44_05_sd25_a1, singer prompt with body language, upscaled 2.25x). `paper_0147.mp4` = `paper_0147_v44_shift+0.mp4`;
+  variants `_v44_shift{-2,+2,+4,+6,+8}`. Same time base: frame k = 107.15 + k/30, 98 frames. The show now holds the card 107.23-109.03 (main.js act3.card05).

@@ -1,0 +1,219 @@
+<title>Vibe Coding Song v4.5</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column of notes in song order; each note = stage with stacked preloaded versions (switch keeps the playhead) + version strip; picks at the end. */
+:root {
+  --paper: #f6f4ef; --card: #fffdf9; --graphite: #2b2d31; --muted: #66686e; --rule: #dcd8cf;
+  --ink: #2f5bd3; --ink-bg: #e4ebfb; --ok: #2f7d4f; --ok-bg: #e3f1e8;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --paper: #1b1c1f; --card: #232428; --graphite: #e8e6e1; --muted: #a2a3a8; --rule: #3a3b40;
+  --ink: #8fb0ff; --ink-bg: #22304f; --ok: #7fd3a0; --ok-bg: #1f3529; color-scheme: dark }
+body { background: var(--paper); color: var(--graphite); font: 15px/1.55 var(--body); }
+.wrap { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(26px, 4.5vw, 38px); line-height: 1.1; }
+h1 .stroke { display: block; width: 100px; height: 5px; margin-top: 12px; border-radius: 3px; background: linear-gradient(90deg,#e8473c,#f2a33a,#f4d64a,#4cc28a,#3d8fe0,#8b5cd6); }
+h2 { font-size: 21px; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+h2 .ts { font: 500 14px var(--mono); color: var(--ink); background: var(--ink-bg); padding: 1px 8px; border-radius: 4px; }
+p { margin: 0; max-width: 68ch; }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; min-width: 0; }
+.quote { font-style: italic; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 10px; max-width: 68ch; }
+.stage { position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; }
+.stage video { position: absolute; inset: 0; width: 100%; height: 100%; visibility: hidden; }
+.stage video.on { visibility: visible; }
+.hud { position: absolute; left: 10px; top: 10px; font: 500 13px var(--mono); background: rgba(0,0,0,.65); color: #fff; padding: 3px 8px; border-radius: 4px; font-variant-numeric: tabular-nums; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.vbtn { font: 500 14px var(--mono); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--card); color: var(--graphite); cursor: pointer; min-width: 64px; }
+.vbtn[aria-pressed="true"] { background: var(--ink-bg); border-color: var(--ink); color: var(--ink); }
+.vbtn.rec::after { content: " · in show"; color: var(--muted); font-size: 12px; }
+.vbtn.old { font-style: italic; }
+.card { display: grid; gap: 12px; padding-top: 20px; border-top: 1px solid var(--rule); }
+.card.active .stage { outline: 2px solid var(--ink); outline-offset: 2px; }
+ul.notes { margin: 0; padding-left: 20px; max-width: 68ch; display: grid; gap: 4px; }
+.tbtn { font: 600 14px var(--body); padding: 8px 16px; border-radius: 6px; border: 0; background: var(--graphite); color: var(--paper); cursor: pointer; }
+.tbtn.ghost { background: transparent; color: var(--graphite); border: 1px solid var(--rule); }
+.tbtn[aria-pressed="true"] { background: var(--ok-bg); color: var(--ok); border: 1px solid var(--ok); }
+button:focus-visible, textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.keys { font-size: 13px; color: var(--muted); }
+kbd { font: 12px var(--mono); border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; background: var(--card); }
+.picks { display: grid; gap: 14px; }
+.pick { display: grid; gap: 6px; min-width: 0; }
+.pick .lab { font-weight: 600; }
+textarea { width: 100%; box-sizing: border-box; min-height: 48px; resize: vertical; font: 14px/1.4 var(--body); color: var(--graphite); background: var(--card); border: 1px solid var(--rule); border-radius: 4px; padding: 8px; }
+#out { font-family: var(--mono); font-size: 13px; min-height: 80px; }
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:12px">
+    <h1>v4.5: Charlie and Ricky play<span class="stroke" aria-hidden="true"></span></h1>
+    <p>Your v4.4 picks are in (orbit walk, outro take B). This round, the guitars make things happen. One player per moment, in song order. Each has the v4.4 clip and the new one, plus choices where it’s your call. Switch versions while it plays and the playhead stays put. Timestamps are song time. The full cut is <code>engine/out/review/full_v4.5.mp4</code> on your machine.</p>
+    <p class="muted">The song has no separate guitar part, so the strums land on hits in the other instruments and the drums. Judge the sync by ear.</p>
+  </header>
+  <div id="cards"></div>
+
+  <section class="card" style="border-top:1px solid var(--rule)">
+    <h2>Your picks</h2>
+    <div class="picks" id="picks"></div>
+    <label for="note" class="muted">Anything else (optional)</label>
+    <textarea id="note" placeholder="e.g. lvl: bolt; lock shot too much"></textarea>
+    <div class="row"><button class="tbtn" id="copy" type="button">Copy answers</button></div>
+    <textarea id="out" readonly aria-label="Answers to paste into chat"></textarea>
+  </section>
+</div>
+
+<script>
+const OLD = { lab: "v4.4", f: "old", old: true };
+const CARDS = [
+  { id: "open", ts: "0:00", title: "Charlie strums on the 2011 page", t0: 0, vers: [OLD, { lab: "groove", f: "groove", rec: true }, { lab: "strum", f: "strum" }], src: v => `v/open_${v.f}.mp4`,
+    quote: "0:00 - can we animate some guitar strumming on Charlie, even here?",
+    notes: ["Only his forearm and hand move, swinging from the elbow, so the drawing stays exactly the sketch (no redraw, no flicker). With the arm at rest the frame is the same as v4.4, so the thumbnail is unchanged.",
+            "The intro has short muted “chk” hits on the 8th notes; full strokes land on those, small ghost strokes in between.",
+            "<b>groove</b>: a fuller strum and a nod every other beat. <b>strum</b>: smaller, no nod."] },
+  { id: "enter", ts: "0:52", title: "Ricky’s chord presses ENTER", t0: 45, vers: [OLD, { lab: "chord", f: "chord", rec: true }, { lab: "Charlie’s hat", f: "hat" }], src: v => `v/enter_${v.f}.mp4`,
+    quote: "find opportunities for more Charlie and Ricky actions",
+    notes: ["Both used to stand still for 9 s while you type. Now Ricky winds up and his power-chord blast hits ENTER on “need?”, which brings up “✓ on it”. It sets up 1:15, where his guitar fills the REALITY bar.",
+            "<b>Charlie’s hat</b>: Charlie throws a spare hat onto ENTER instead."] },
+  { id: "lvl", ts: "1:15", title: "Ricky’s guitar levels up reality", t0: 70, vers: [OLD, { lab: "notes", f: "notes", rec: true }, { lab: "bolt", f: "bolt" }], src: v => `v/lvl_${v.f}.mp4`,
+    quote: "1:15, maybe Ricky’s guitar playing is needed to help level up reality",
+    notes: ["The REALITY bar stops at 27% and blinks. It only moves when Ricky strums: each strum jumps it up. A windmill jump and slam take it to 98%. Charlie nods on the beats and stomps on the three red lights.",
+            "<b>notes</b>: pixel notes fly up into the bar (calmer, musical). <b>bolt</b>: a zig-zag from his guitar, punchier.",
+            "The sprites are small, so the strum itself is subtle; the bar jumping is what reads."] },
+  { id: "laser", ts: "1:30", title: "Ricky’s chord turns on the laser", t0: 84, vers: [OLD, { lab: "close on Ricky", f: "wave", rec: true }, { lab: "wide only", f: "strum" }], src: v => `v/laser_${v.f}.mp4`,
+    quote: "maybe at 1:30, ricky’s guitar playing turns on the laser?",
+    notes: ["He plugs into the amp on the drum accent, raises his fist, slams the power chord, and pink rings run down the cable into the amp; FUNCTIONS lights up behind him. The wide then shows the beam reaching the receiver under Charlie on the plate. The beam fires at the same moment as before.",
+            "<b>close on Ricky</b> adds a quick 0.8 s shot of him. <b>wide only</b> keeps the old camera; there he’s a small back view, so it’s less clear his chord did it.",
+            "This is Ricky’s biggest 3D close-up so far, so check that he looks like himself."] },
+  { id: "rap", ts: "2:01", title: "Ricky’s chord, Charlie says YES", t0: 119, vers: [OLD, { lab: "new", f: "new", rec: true }], src: v => `v/rap_${v.f}.mp4`,
+    quote: "find opportunities for more Charlie and Ricky actions",
+    notes: ["On “Fixtures 打底 functions 上色”, Ricky hits a chord and a rainbow trail runs to the ladybug; a little RECRUIT? ▶YES / NO sign pops up in the world, and Charlie punches YES on the drum hit.",
+            "The sign is game text inside the color flood, which we kept clear of HUD before. If it reads as UI to you, we can keep the chord and trail and drop the sign."] },
+  { id: "lock", ts: "2:18", title: "Charlie’s strum locks the 一", t0: 134, vers: [OLD, { lab: "strum", f: "strum", rec: true }], src: v => `v/lock_${v.f}.mp4`,
+    quote: "find opportunities for more Charlie and Ricky actions",
+    notes: ["Charlie (soft foreground) swings his guitar round on the band stop; his one strum on the lone hit sends a bolt of light to the top 一 as it snaps into place.",
+            "The bolt is bold. If it’s too much, keep v4.4 here."] },
+  { id: "jam", ts: "2:30", title: "Charlie and Ricky play, Ricky brings light", t0: 145, vers: [OLD, { lab: "play + light", f: "light", rec: true }, { lab: "play only", f: "play" }], src: v => `v/jam_${v.f}.mp4`,
+    quote: "Like 2:30, they could be playing their guitars, or Ricky’s guitar could be bringing light here",
+    notes: ["They take their guitars off their backs and play behind you: freeze in the band’s stops, hit the stab together, nod and lean back on the big hits, and turn to each other on “functions”.",
+            "<b>play + light</b>: rings of warm light race across the island from Ricky’s guitar, lighting the firefly lamp and lifting the sunset. It shows best in the high crane shot; in the low front shots it’s mostly his guitar flaring."] },
+  { id: "cart", ts: "2:41", title: "Ricky’s guitar powers the cart", t0: 159, vers: [OLD, { lab: "power", f: "power", rec: true }], src: v => `v/cart_${v.f}.mp4`,
+    quote: "maybe also while they’re flying on the composite bug/feature contraption, Ricky’s guitar playing provides power?",
+    notes: ["Both play on the cart. Each of Ricky’s strums flares the lamp, spins the wheels, flaps the glider and jumps the REALITY bar. Charlie still slams the button; Ricky’s big chord is the thrust, and leaves a ring of light in the air.",
+            "Ricky is partly behind Charlie in the front shot."] },
+  { id: "slab", ts: "3:00 · 3:03", title: "Their strums raise FIXTURES and light FUNCTIONS", t0: 178, vers: [OLD, { lab: "new", f: "new", rec: true }], src: v => `v/slab_${v.f}.mp4`,
+    quote: "find opportunities for more Charlie and Ricky actions",
+    notes: ["They used to just flip between two strum frames. Now each shot opens on a big downstroke: Charlie’s slams the FIXTURES slab up (a shock ring runs from his feet to the slab), Ricky’s chord sends a rainbow spark to the F and the color sweeps across FUNCTIONS.",
+            "FUNCTIONS reads best; Charlie is small in the FIXTURES shot, so his is subtler. There are no instruments on these two hits (they’re vocal shouts in a stop), so the strum lands on the cut."] },
+  { id: "out", ts: "3:07", title: "Outro: Ricky looks like himself", t0: 184, vers: [{ lab: "take B (v4.4)", f: "old", old: true }, { lab: "fixed", f: "r1", rec: true }, { lab: "fixed, alt", f: "r2" }], src: v => `v/out_${v.f}.mp4`,
+    quote: "the body language of outro take B is good, but Ricky needs to look more like himself",
+    notes: ["What was off: take B drew him with a bowl cut and heavy fringe, a rounder face, short sleeves with bold stripes, chunkier arms and a sunburst guitar. Your cards have short tousled hair, a slim face, long rolled sleeves with thin pale stripes and a natural-wood Strat with a navy strap.",
+            "You and Charlie are take B’s own frames, untouched; only Ricky is redrawn (from a corrected first frame), joined along your sleeve. His own movements are very close to take B’s but not identical.",
+            "<b>fixed</b>: he keeps looking at you, like take B. <b>fixed, alt</b>: he looks at you less.",
+            "Watch where your sleeve meets his guitar on your biggest sways (3:06.5–3:07.5).",
+            "Not changed, already in take B: your sleeve patch is drawn as a rectangular label, not the round 1420 MHz patch. Say if you want it fixed."] },
+];
+const PICKS = [
+  { id: "open", lab: "0:00 Charlie strum", opts: ["groove", "strum", "Keep v4.4"] },
+  { id: "enter", lab: "0:52 ENTER", opts: ["chord", "Charlie’s hat", "Keep v4.4"] },
+  { id: "lvl", lab: "1:15 level up", opts: ["notes", "bolt", "Keep v4.4"] },
+  { id: "laser", lab: "1:30 laser", opts: ["close on Ricky", "wide only", "Keep v4.4"] },
+  { id: "rap", lab: "2:01 recruit", opts: ["new", "Chord + trail, no sign", "Keep v4.4"] },
+  { id: "lock", lab: "2:18 lock strum", opts: ["strum", "Keep v4.4"] },
+  { id: "jam", lab: "2:30 jam", opts: ["play + light", "play only", "Keep v4.4"] },
+  { id: "cart", lab: "2:41 cart power", opts: ["power", "Keep v4.4"] },
+  { id: "slab", lab: "3:00 slabs", opts: ["new", "Keep v4.4"] },
+  { id: "out", lab: "3:07 outro Ricky", opts: ["fixed", "fixed, alt", "Keep take B", "Still not Ricky"] },
+  { id: "more", lab: "Build next?", opts: ["End on Charlie strumming the 2011 page (3:14)", "Pixel Charlie strumming on the SAVE FILE screen (0:07)", "Both", "Neither"] },
+];
+let active = null;
+const players = CARDS.map(C => {
+  const sec = document.createElement("section"); sec.className = "card"; sec.id = C.id;
+  sec.innerHTML = `<h2><span class="ts">${C.ts}</span>${C.title}</h2><p class="quote">“${C.quote}”</p>
+    <ul class="notes">${C.notes.map(n => `<li>${n}</li>`).join("")}</ul>
+    <div class="stage"><span class="hud"></span></div>
+    <div class="row vars" role="group" aria-label="Version"></div>
+    <div class="row"><button class="tbtn play" type="button">Play</button>
+      ${C.loop ? `<button class="tbtn ghost loop" type="button">Loop the key words (${C.loop[0]}–${C.loop[1]})</button>` : ""}
+      <button class="tbtn ghost restart" type="button">Back to start</button></div>`;
+  document.getElementById("cards").appendChild(sec);
+  const stage = sec.querySelector(".stage"), hud = sec.querySelector(".hud");
+  const vids = C.vers.map(v => { const el = document.createElement("video"); el.src = C.src(v); el.preload = "auto"; el.playsInline = true; el.muted = true; stage.insertBefore(el, hud); return el; });
+  const P = { C, sec, vids, cur: C.vers.findIndex(v => v.rec), looping: !!C.loop, playing: false };
+  vids[P.cur].classList.add("on");
+  const L = C.loop ? [C.loop[0] - C.t0, C.loop[1] - C.t0] : null;
+  const vbtns = C.vers.map((v, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn" + (v.rec ? " rec" : "") + (v.old ? " old" : ""); b.textContent = v.lab; b.onclick = () => { activate(P); show(i); }; sec.querySelector(".vars").appendChild(b); return b; });
+  function show(i) {
+    if (i === P.cur) return; const a = vids[P.cur], b = vids[i];
+    b.currentTime = a.currentTime; if (P.playing) { b.muted = false; b.play().catch(() => {}); a.pause(); } a.muted = true;
+    a.classList.remove("on"); b.classList.add("on"); P.cur = i; sync();
+  }
+  function sync() { vbtns.forEach((b, i) => b.setAttribute("aria-pressed", i === P.cur)); }
+  const playBtn = sec.querySelector(".play"), loopBtn = sec.querySelector(".loop");
+  function label() { playBtn.textContent = P.playing ? "Pause" : "Play"; if (loopBtn) loopBtn.setAttribute("aria-pressed", P.looping); }
+  function setPlaying(p) {
+    if (p && active && active !== P && active.playing) active.setPlaying(false);
+    P.playing = p; const v = vids[P.cur];
+    if (p) { v.muted = false; if (L && P.looping && (v.currentTime < L[0] || v.currentTime > L[1])) v.currentTime = L[0]; v.play().catch(() => { P.playing = false; label(); }); }
+    else v.pause();
+    label();
+  }
+  playBtn.onclick = () => { activate(P); setPlaying(!P.playing); };
+  if (loopBtn) loopBtn.onclick = () => { activate(P); P.looping = !P.looping; label(); };
+  sec.querySelector(".restart").onclick = () => { activate(P); vids[P.cur].currentTime = (L && P.looping) ? L[0] : 0; };
+  vids.forEach(v => v.addEventListener("ended", () => { if (v === vids[P.cur]) { P.playing = false; label(); } }));
+  sec.addEventListener("pointerdown", () => activate(P));
+  Object.assign(P, { show, setPlaying, label, L, hud }); sync(); label(); return P;
+});
+function activate(P) { active = P; players.forEach(x => x.sec.classList.toggle("active", x === P)); }
+activate(players[0]);
+(function tick() {
+  players.forEach(P => { const v = P.vids[P.cur];
+    if (P.playing && P.L && P.looping && v.currentTime >= P.L[1]) v.currentTime = P.L[0];
+    const t = P.C.t0 + v.currentTime, m = Math.floor(t / 60), s = (t - 60 * m).toFixed(1).padStart(4, "0");
+    P.hud.textContent = `${P.C.vers[P.cur].lab} · ${m}:${s}`; });
+  requestAnimationFrame(tick);
+})();
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "TEXTAREA" || !active) return;
+  const n = "1234567".indexOf(e.key);
+  if (n >= 0 && n < active.vids.length) { active.show(n); e.preventDefault(); }
+  else if (e.key === " ") { active.setPlaying(!active.playing); e.preventDefault(); }
+  else if ((e.key === "l" || e.key === "L") && active.L) { active.looping = !active.looping; active.label(); }
+});
+const keys = document.createElement("p"); keys.className = "keys";
+keys.innerHTML = "<kbd>1</kbd>–<kbd>7</kbd> switch version · <kbd>Space</kbd> play / pause · <kbd>L</kbd> loop on / off. Keys act on the outlined player; click a player to select it. Sound starts after your first click.";
+document.getElementById("cards").before(keys);
+
+const KEY = "v45-review"; let st = {};
+try { st = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) { st = {}; }
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} out(); };
+const picksEl = document.getElementById("picks");
+PICKS.forEach(K => {
+  const d = document.createElement("div"); d.className = "pick";
+  d.innerHTML = `<span class="lab">${K.lab}</span><div class="row" role="group" aria-label="${K.lab}"></div>`;
+  const row = d.querySelector(".row");
+  const bs = K.opts.map(lab => { const b = document.createElement("button"); b.type = "button"; b.className = "vbtn"; b.textContent = lab;
+    b.onclick = () => { st[K.id] = st[K.id] === lab ? "" : lab; bs.forEach(x => x.setAttribute("aria-pressed", x.textContent === st[K.id])); save(); };
+    b.setAttribute("aria-pressed", st[K.id] === lab); row.appendChild(b); return b; });
+  picksEl.appendChild(d);
+});
+const note = document.getElementById("note"), outEl = document.getElementById("out");
+note.value = st.note || ""; note.oninput = () => { st.note = note.value; save(); };
+function out() { outEl.value = "v4.5 review: " + PICKS.map(K => `${K.lab}: ${st[K.id] || "unmarked"}`).join("; ") + (st.note && st.note.trim() ? ". Note: " + st.note.trim() : ""); }
+document.getElementById("copy").onclick = async (e) => {
+  const b = e.currentTarget; out();
+  try { await navigator.clipboard.writeText(outEl.value); b.textContent = "Copied"; }
+  catch (err) { outEl.focus(); outEl.select(); b.textContent = "Selected, press Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy answers"; }, 1800);
+};
+out();
+</script>
+</script>

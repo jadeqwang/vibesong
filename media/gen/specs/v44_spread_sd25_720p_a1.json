@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v44_spread_sd25_720p_a1",
+ "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Jade sings the words of the reference audio, 'Everything I love about life just ... blossoms ... that's it', lips exactly in time with the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, performs like a real singer in a music video: her chest and shoulders rise and fall with her breathing, her head moves with the phrasing, small nods on the beat, a tilt to one side on the long notes, the chin lifting a little on the high note; her shoulders sway gently side to side; her eyebrows lift with feeling, she glances at Charlie and at Ricky and back toward the viewer, blinking naturally with both eyes together; warm, happy, a little nostalgic. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+  "image": "file:media/act5/_work/v44/ff_g1.jpg",
+  "reference_audios": [
+   "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+  ],
+  "duration": 9,
+  "resolution": "720p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

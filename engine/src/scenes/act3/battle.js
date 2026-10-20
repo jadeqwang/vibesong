@@ -29,7 +29,10 @@ import { makeBattleFX } from './battle_fx.js';
 import { makeFloodWave, floodK9On, floodRingOn, ringR, K9T, rainbowTip } from './flood_wave.js';   // (flood_k09) the k09 wave, --look k08b only
 import { loadMotionClips, MotionFigure, MotionTrack, hold, lipSync } from '../../core/motion/index.js';
 import { patchPaint } from './world/paint.js';
-import * as LK from '../../look.js';   // (r5) look_r5's per-shot API (r5ShotClear; overrides go through look: { r5 })
+import * as LK from '../../look.js';
+import { strumPose, strumHit, swooshPts, firstFrame, seeded, ringMesh } from './slab_insert.js';   // (v45_accents) the big strum helpers
+import { Beam, Burst } from './world/props.js';
+import { raster } from '../../core/text.js';   // (r5) look_r5's per-shot API (r5ShotClear; overrides go through look: { r5 })
 
 const top = MESA_B.top, DISC = top + 6;                      // mesa B top, the stage disc's top
 const SC = V(1360, top, 450);                                 // stage centre (props.stageC)
@@ -48,6 +51,13 @@ export const PENCIL = V(1354, top, 454);
 export const FLOOD = { t0: CUE.flood, c: PENCIL };
 export const HANDOVER_CAM = { pos: V(1380, 52, 610), tgt: V(1350, top + 26, 430), fov: 52 };
 export const REVEAL = 121.405;
+/** (v45_accents) the rap accent "Fixtures 打底 functions 上色" (drums 121.33; the recruit cut 121.405, first frame 121.433): 'new' = Ricky's big
+ *  downstroke IS the cut's first frame; a rainbow spark trail runs from his Strat to the ladybug button and pops a RECRUIT? ▶YES / NO
+ *  window there (in the world, not the 2D UI: the flood stays a clear frame) as the other-stem chord swells (121.52); Charlie presses YES
+ *  (121.745), the window closes in a gold burst before the first join (121.946). 'off' = v4.4 (Ricky in sustain, no window).
+ *  Backup engine/out/bak_v45/v45_accents/battle.js.v44. */
+export const RECRUIT_CHORD = 'new';
+const MENU_AT = new THREE.Vector3(1342, 0, 458);   // y set below (top + 44): over the ladybug button, between Charlie and Jade, below their heads; in front of the pencil, behind Charlie (his fist presses into it)
 /** Act IV's camera actually renders at fov 45 at the hand-over: act4/main3d.js lookFrom() has its updateProjectionMatrix()
  *  inside a line comment, so the camera keeps its constructor fov (45). Our band shot lands on that so the seam is exact.
  *  (Reported, not fixed: fixing it re-frames every Act IV shot.) */
@@ -252,6 +262,72 @@ export async function setupBattle(ctx, { withVerse2 = false } = {}) {
     if (k > 0 && J.shoulderL) { const d = Math.PI / 180; J.shoulderL.rotation.set((38 + 78 * k) * d, 0, (-10 + 18 * k) * d); if (J.elbowL) J.elbowL.rotation.set(0, 0, (25 + 10 * k) * d); }
     if (F.setFace) { const w = mouth27(t); let best = 'rest', bw = 0; for (const q in w) if (q !== 'rest' && w[q] > bw) { bw = w[q]; best = q; } F.setFace({ viseme: bw > 0.3 ? best : 'rest' }); }
   }
+  // ---------------------------------------------------------------- (v45_accents) Ricky's chord pops the RECRUIT window (RECRUIT_CHORD)
+  const RAINBOW = ['#ff4d6d', '#ffb02e', '#ffe14d', '#4fd06a', '#2bb4e8', '#a35cff'];
+  const RC = RECRUIT_CHORD === 'new' ? seeded(0x45ac2, () => {   // private seeded Math.random: the global stream stays untouched
+    const o = { swoosh: new Beam({ radius: 0.8, color: '#fff6e6', intensity: 5, glow: 3 }), trail: new Beam({ radius: 0.9, color: '#ffffff', intensity: 6, glow: 3.5 }),
+      ring: ringMesh('#fff1dc'), sp: new Burst(160, { size: 1.0, color: '#ffffff', emissive: 2.5 }),
+      menu: new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false })) };
+    o.menu.userData.noAO = true; o.menu.material.userData.noPaint = true; 
+    const holder = new THREE.Object3D(); W.scene.add(holder);   // type 'Object3D': act4/world4.js leaves it alone (no erase patch / re-show)
+    for (const m of Object.values(o)) { m.visible = false; m.frustumCulled = false; holder.add(m); } return o; }) : null;
+  MENU_AT.y = top + 44;
+  const MENU_TEX = [];   // 0 = cursor on YES, 1 = YES pressed (gold bar), 2 = chosen; drawn lazily (the pixel fonts load with the battle UI)
+  function menuTex(state) {
+    if (MENU_TEX[state]) return MENU_TEX[state];
+    const SC2 = 8, N0 = '#0d1022', N1 = '#161b38', SL = '#5a6080', GOLD = '#f5c542', GOLD_HI = '#ffe58a', WH = '#ffffff', SH = { dx: 1, dy: -1, color: N0 };
+    const R = (text, color, font = 'fp10', shadow = SH) => raster({ text, font, color, shadow });
+    const title = R('RECRUIT?', GOLD_HI, 'fp12'), cur = R('▶', state === 1 ? N0 : GOLD), yes = R('YES', state >= 1 ? N0 : GOLD_HI, 'fp10', state >= 1 ? undefined : SH), no = R('NO', WH);
+    const w = Math.max(title.w + 14, cur.w + yes.w + no.w + 30), h = 10 + title.h + yes.h + 4;
+    const cv = document.createElement('canvas'); cv.width = w * SC2; cv.height = h * SC2; const g = cv.getContext('2d'); g.imageSmoothingEnabled = false; g.scale(SC2, SC2);
+    const fill = (x0, y0, x1, y1, c) => { g.fillStyle = c; g.fillRect(x0, y0, x1 - x0 + 1, y1 - y0 + 1); };
+    const box = (x0, y0, x1, y1, c) => { fill(x0, y0, x1, y0, c); fill(x0, y1, x1, y1, c); fill(x0, y0, x0, y1, c); fill(x1, y0, x1, y1, c); };
+    fill(0, 0, w - 1, h - 1, N1); box(0, 0, w - 1, h - 1, N0); box(1, 1, w - 2, h - 2, WH); box(2, 2, w - 3, h - 3, SL);
+    g.drawImage(title.canvas, Math.round((w - title.w) / 2), 5);
+    const y2 = 6 + title.h + 1, x1 = 7 + cur.w + 2;
+    if (state >= 1) fill(5, y2 - 1, x1 + yes.w + 1, y2 + yes.h, state === 1 ? GOLD_HI : GOLD);   // pressed / chosen
+    if (state !== 2) g.drawImage(cur.canvas, 6, y2);
+    g.drawImage(yes.canvas, x1, y2); g.drawImage(no.canvas, w - 8 - no.w, y2);
+    const tx = new THREE.CanvasTexture(cv); tx.colorSpace = THREE.SRGBColorSpace; tx.magFilter = tx.minFilter = THREE.NearestFilter; tx.generateMipmaps = false;
+    MENU_TEX[state] = { tx, w, h }; return MENU_TEX[state];
+  }
+  const RHIT = firstFrame(REVEAL);   // 121.433: the recruit cut's first frame = Ricky's downstroke
+  const guitarAt = (g, out = new THREE.Vector3()) => { const gt = figOf(g)?.items?.guitar; if (!gt) return out.copy(g.position).setY(g.position.y + 26); gt.updateWorldMatrix(true, false); return gt.localToWorld(out.copy(gt.userData.strum)); };
+  const bez = (a, b, c, u) => a.clone().multiplyScalar((1 - u) * (1 - u)).addScaledVector(b, 2 * u * (1 - u)).addScaledVector(c, u * u);
+  function recruitChord(t, camera, H, fxs) {
+    if (t < REVEAL || t >= YES + 0.6) return;
+    const sh = t - RHIT, g = W.heroes.ricky;
+    // Ricky: the downstroke (frame 1 = through the strings), follow-through, then he lets it ring, neck up, until Charlie's YES
+    strumPose(g, strumHit(0)); const Gh = guitarAt(g);   // where the guitar was ON the hit: fixed particle / trail origin
+    if (t < YES) {
+      const e = strumHit(sh), after = { strum: -4, out: 4, side: 0, neck: 0.95, lift: 2, lean: 13, nod: 18, crouch: 0.25 }, cur = {};
+      for (const q of ['strum', 'out', 'side', 'neck', 'lift', 'lean', 'nod', 'crouch']) cur[q] = (e[q] ?? 0) + e.r * after[q] - (q === 'neck' ? e.r * 0.5 : 0);
+      strumPose(g, cur);
+      const pw = 1 - sh / 0.075; if (pw > 0) { RC.swoosh.set(swooshPts(g, cur, 7, { up: 26, out: 10, side: 7 }).reverse(), pw, { width: 1, colors: RAINBOW }); RC.swoosh.visible = true; }
+    } else putHero(W, g, H.ricky);   // YES: his own chord (heroesAt)
+    if (Math.round(sh * T.fps()) === 0) { fxs.flash = 0.14; fxs.flashColor = '#fff4fb'; }
+    // the shock ring off the Strat
+    const gr = clamp01(sh / 0.22); if (gr < 1) { RC.ring.visible = true; RC.ring.position.copy(Gh).addScaledVector(camera.position.clone().sub(Gh).normalize(), 4);
+      RC.ring.quaternion.copy(camera.quaternion); RC.ring.scale.setScalar(2.5 + 20 * (1 - Math.pow(1 - gr, 3))); RC.ring.material.opacity = 0.95 * (1 - gr); RC.ring.material.color.set(RAINBOW[Math.min(5, Math.floor(gr * 6))]); }
+    // the rainbow spark trail: Strat -> the window's spot above the ladybug button (arrives 0.09 s after the hit = 121.523, on the other-stem chord swell 121.52)
+    const C = V((Gh.x + MENU_AT.x) / 2, top + 104, (Gh.z + MENU_AT.z) / 2 - 34); const head = (x) => 1 - Math.pow(1 - clamp01(x / 0.09), 2);
+    const uh = head(sh), ut = smooth(0.05, 0.2, sh);   // (the control point is high and upstage: the arc passes behind Jade's head)
+    if (uh > ut + 0.01) { const pts = []; for (let i = 0; i <= 14; i++) pts.push(bez(Gh, C, MENU_AT, ut + (uh - ut) * i / 14)); RC.trail.set(pts, 1, { width: 1, colors: RAINBOW }); RC.trail.visible = true; }
+    // the window: pops on arrival (overshoot), the press on YES, closes into a gold burst before the first feature joins
+    const sm = sh - 0.09, close = smooth(YES + 0.14, YES + 0.2, t);
+    if (sm >= 0 && close < 1) {
+      const st = t < YES ? 0 : t < YES + 0.14 ? 1 : 2; const M = menuTex(st); const k = 0.55;   // world units per window pixel
+      const pop = sm < 0.05 ? 1.16 * (1 - Math.pow(1 - sm / 0.05, 3)) : 1.16 - 0.16 * smooth(0.05, 0.1, sm);
+      RC.menu.material.map = M.tx; RC.menu.material.needsUpdate = RC.menu.userData.st !== st; RC.menu.userData.st = st;
+      RC.menu.visible = true; RC.menu.position.copy(MENU_AT); RC.menu.quaternion.copy(camera.quaternion);
+      RC.menu.scale.set(M.w * k * pop * (1 + 0.15 * close), M.h * k * pop * (1 - close), 1);
+    }
+    const B = [{ t0: RHIT, x: Gh.x, y: Gh.y, z: Gh.z, n: 46, speed: 80, up: 34, g: 70, dur: 0.5, seed: 961, size: 1.0, colors: RAINBOW },
+      { t0: RHIT + 0.09, x: MENU_AT.x, y: MENU_AT.y, z: MENU_AT.z, n: 40, speed: 60, up: 26, g: 60, dur: 0.5, seed: 962, size: 0.9, colors: [...RAINBOW, '#ffffff'] },
+      { t0: YES + 0.17, x: MENU_AT.x, y: MENU_AT.y, z: MENU_AT.z, n: 44, speed: 70, up: 30, g: 80, dur: 0.5, seed: 963, size: 0.9, colors: ['#ffe58a', '#f5c542', '#ffffff'] }];
+    for (let i = 0; i < 5; i++) { const te = 0.02 + 0.011 * i; const q = bez(Gh, C, MENU_AT, head(te)); B.push({ t0: RHIT + te, x: q.x, y: q.y, z: q.z, n: 8, speed: 28, up: 6, g: 120, dur: 0.3, seed: 970 + i, size: 0.75, colors: RAINBOW }); }
+    RC.sp.run(t, B);
+  }
   const anchors = {}; const AV = Object.fromEntries([...BUG_NAMES, 'jade', 'charlie', 'ricky'].map((k) => [k, new THREE.Vector3()]));
 
   // ---------------------------------------------------------------- heroes
@@ -328,6 +404,7 @@ export async function setupBattle(ctx, { withVerse2 = false } = {}) {
       if (t < 122.0) H.charlie.facing = 1;   // he faces the button (+x) while he waits and presses
       const hopJ = T.pulse(t, [REVEAL + 0.05, YES + 0.05], 0.25); H.jade.y += 7 * hopJ;
       if (t >= YES && t < YES + 0.3) { H.ricky.anim = 'chord'; H.ricky.frame = 1; }
+      if (RECRUIT_CHORD === 'new' && t < YES) { H.ricky.anim = 'chord'; H.ricky.frame = 0; }   // (v45_accents) the strum itself: recruitChord() in frame()
     }
     // band shot: exactly the hand-over state (Act IV continues it)
     if (t >= 122.62) { const hb = handoverBand(t); for (const n of ['jade', 'charlie', 'ricky']) H[n] = { ...hb[n], rotY: yaw }; }
@@ -744,6 +821,7 @@ export async function setupBattle(ctx, { withVerse2 = false } = {}) {
       const H = heroesAt(tw);
       for (const [n, s] of Object.entries(H)) putHero(W, W.heroes[n], s);
       if (r5 && bandOn(tw)) bandJade(tw);   // (v4b) she sings into the pencil; on her stop the free arm flings out; lip sync on line 27
+      if (RC) recruitChord(t, camera, H, fxs);   // (v45_accents) Ricky's chord pops the RECRUIT window
       // ---- bugs / features
       const S = bugsAt(tw, T.beatAt(tw));
       // (v4b) the band shot is the band's alone: the waiting row sits just outside its frame edge (hidden there, seen in the wide)
@@ -816,6 +894,7 @@ export async function setupBattle(ctx, { withVerse2 = false } = {}) {
       if (useV2) { v2.render(t, target); if (!r5) bui.render(ctx.renderer, target); return; }   // (v4b) no battle swirl: verse 2 holds to card 05 (no cut at the 107.15 seam)
       FX.show(); cast.show(); if (W.compose?.dressing?.s108) W.compose.dressing.s108.visible = false;   // compose's old 108 framing column (re-set every frame by applyLook)
       try { main.render(t, target); } finally { FX.hide(); FX.reset(); cast.hide(); cast.end();   // children too (act4 re-shows top-level groups)
+        if (RC) { for (const m of Object.values(RC)) m.visible = false; RC.sp.count = 0; for (const b of [RC.swoosh, RC.trail]) b.set([V(0, 0, 0), V(0, 0, 1)], 0); }   // (v45_accents)
         for (const b of P.books) b.rotation.order = 'XYZ';
         // act4 re-shows every top-level world group in its pre-erase frames: leave no stale particles / trails behind
         for (const k of ['burst', 'petals', 'sparks']) P[k].count = 0;

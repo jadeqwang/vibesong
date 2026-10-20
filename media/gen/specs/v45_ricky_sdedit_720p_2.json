@@ -1,0 +1,21 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v45_ricky_sdedit_720p_2",
+ "est_usd": 8.75,
+ "notes": "v4.5 Ricky likeness fix: Seedance 2.5 video edit of take B (v44_spread_sd25_720p_b1); composite Ricky region only",
+ "input": {
+  "prompt": "Edit the reference video: keep it exactly the same, every frame, every movement, the same timing, the same camera and framing, the same colored-pencil drawing on the cream sketchbook page. Change ONLY the appearance of the young man on the right who plays the electric guitar (Ricky), so that he looks exactly like the young man in image 1 and image 2: short, tousled, slightly spiky black hair with the forehead partly visible (no bowl cut, no heavy fringe), a slim oval face with a narrow jaw, fair skin, gentle eyes, a long-sleeved white shirt with thin pale blue-grey stripes and the sleeves rolled up to the forearms, a navy blue guitar strap, and a natural light-wood Stratocaster with a white pickguard. He keeps exactly the same motion as in the reference video: the same head turns toward the girl, nods, hands, picking and fretting. Do not change the singing girl in the centre (her face, mouth movements, hair, bun and pencils, headphones, jacket) or the man with the flat cap and acoustic guitar on the left, or the background. No text.",
+  "reference_videos": [
+   "file:media/act5/_work/v45/takeB_720_c22.mp4"
+  ],
+  "reference_images": [
+   "file:media/act5/_work/v45/key_r1_f0_s.jpg",
+   "file:media/act5/_work/v45/id_ricky_r1_s.jpg"
+  ],
+  "duration": -1,
+  "resolution": "720p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

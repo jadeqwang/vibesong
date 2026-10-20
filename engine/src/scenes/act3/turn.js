@@ -102,6 +102,47 @@ function walkPaths(landX, tF) {
 }
 const walkZ = (n, t) => ZOF[n] + ({ jade: -5 * Math.sin(2 * Math.PI * runU(t) * 1.5), charlie: 4 * Math.sin(2 * Math.PI * runU(t) + 1), ricky: 5 * Math.sin(2 * Math.PI * runU(t) * 1.2 + 2) }[n]) * Math.sin(Math.PI * runU(t));
 
+// ---------------------------------------------------------------- (v44 walk) restaged as a real WALK (Jade's note on v4.3: "boring")
+// ONE-LINE SWITCH: WALK_V44 = 'orbit' | 'lead' | 'side' | null (null = the v4.3 jog + side-on follow camera, unchanged).
+// Shared by every variant: they land, settle, then step off one per beat (Jade 82.294 on the accent, Ricky, Charlie) into a
+// staggered abreast echelon (Jade in the near lane, the far ones a little ahead so nobody hides behind her), walking at a natural
+// 1.45-1.6 m/s with EVERY footfall on the beat (146 bpm = a strut on the drop; follow({ beats })); a dust puff on each footfall;
+// a look exchange between Jade and Charlie (he talks with his hands), Ricky air-strums on the beats in between. The switch /
+// chunk / hat / whistle cue times are unchanged (they are on the music); the road now builds AHEAD of them instead of under them.
+//   orbit: low dolly orbits from behind (the whip's end) round to a front 3/4 on their faces, then cranes up to reveal the road ahead
+//   lead : swoops round to the front and backs up ahead of them, low, long lens: a hero walk into the lens (faces), they grow in frame
+//   side : a low, close side dolly at hip height that lags behind them, so they stride across the frame toward the road ahead
+const WALK_V44 = 'orbit';   // (v4.5) Jade picked orbit
+const V44 = {
+  go: { jade: 82.294, ricky: 82.294, charlie: 82.706 },        // step-off: Jade + Ricky on the 82.294 accent, Charlie a beat later
+  mps: { jade: 1.46, charlie: 1.66, ricky: 1.68 },             // walking speeds (m/s): Ricky / Charlie draw level, then ahead (echelon)
+  fz: { jade: 16, charlie: 0, ricky: -16 },                    // lanes (causeway half-width 24): Jade on the camera side (+z), Ricky on the tree side
+};
+// per-variant formation overrides: 'lead' is seen head-on, so Jade takes the point of a V in the middle lane
+// and 'side' (profile) spreads them out along x (a loose file, ~30 apart) so nobody hides behind anybody
+// (lead polish 10:55) a WIDE V: lanes to the plaster lips (walkable at y 0 out to |z| 30 along the risen segments), Jade a little toward
+// Ricky (more room on Charlie's side; the guitar side has spare gap), both flankers ~25-30 behind her, so all three faces and bodies read separately
+const V44F = { lead: { mps: { jade: 1.5, charlie: 1.43, ricky: 1.42 }, fz: { jade: 2, charlie: -24, ricky: 24 } },
+  side: { mps: { jade: 1.55, charlie: 1.46, ricky: 1.24 }, fz: { jade: 10, charlie: 0, ricky: -10 } } };
+if (WALK_V44 && V44F[WALK_V44]) Object.assign(V44, V44F[WALK_V44]);
+// camera keys per variant: [t, azimuth deg (0 = ahead of them, 90 = their right side / +z, 180 = behind), dist, height, lag x,
+// target x, y, z (rel. to the party anchor), fov]; the first key (82.31) is the whip's end pose, filled in at setup
+const CAM44 = {
+  orbit: [[83.0, 110, 205, 34, 0, 16, 34, 0, 44], [83.85, 44, 150, 22, 0, 6, 36, 0, 38], [85.15, 30, 136, 21, 0, 4, 37, 0, 35], [86.385, 96, 180, 72, 0, 62, 14, -16, 48]],
+  lead: [[83.0, 70, 250, 34, 0, 20, 34, 0, 40], [83.75, 14, 235, 19, 0, 0, 38, 0, 30], [85.2, 7, 175, 17, 0, 0, 40, 0, 31], [86.385, 4, 152, 16, 0, 0, 40, 0, 36]],
+  side: [[83.0, 96, 175, 22, 20, 24, 34, -6, 40], [84.2, 92, 150, 12, -6, 20, 36, -10, 38], [86.385, 90, 150, 11, -30, 26, 38, -12, 40]],
+};
+/** (v44 walk) root path x(t), z(t) from the landing spot: stand, step off at go (smooth ramp into the walk), merge into the lane */
+function walkPaths44(land, tF, M) {
+  const P = {}; const RAMP = 0.5;
+  for (const n of ['jade', 'charlie', 'ricky']) {
+    const go = Math.max(V44.go[n], tF[n] + 0.14), a = go - 0.12, v = V44.mps[n] * M;   // a >= the landing's end: the path starts on the spot
+    const dx = (t) => { const u = (t - a) / RAMP; return u <= 0 ? 0 : u < 1 ? v * RAMP * (u * u * u - u * u * u * u / 2) : v * RAMP * 0.5 + v * (t - a - RAMP); };
+    P[n] = { x: (t) => land[n] + dx(t), z: (t) => ZOF[n] + (V44.fz[n] - ZOF[n]) * smooth(a, go + 1.4, t), go };
+  }
+  return P;
+}
+
 /** the parachute rig (Charlie's feet F) after the impact */
 function chuteAt(t) {
   const s = t - IMP(); const C0 = APEX.charlie;
@@ -301,6 +342,14 @@ export async function setup(ctx) {
     const LANDO = { jade: { v: 300, recover: 0.24, settle: false, tail: 0 }, charlie: { v: 160, recover: 0.28, settle: false, tail: 0 }, ricky: { v: 320, recover: 0.32, settle: false, tail: 0 } };
     const mk = (n) => new MotionTrack(R.clips, { t0: W_LAND[n], pos: [land[n], ZOF[n]], heading: (n === 'charlie' ? 30 : 40) * DEG, unit: F[n].unit, ground: () => 0, timing: T, name: 'turn_' + n }).land(LANDO[n]);
     const tF = {}; for (const n of ['jade', 'charlie', 'ricky']) tF[n] = mk(n).build().t1;   // the landing's end = the path's start
+    if (WALK_V44) {   // (v44 walk) the walk: own paths, footfalls on the beat
+      const M = (R.clips.meta?.designPerMetre || 48.82) * F.jade.unit; const paths = walkPaths44(land, tF, M); const tr = {};
+      for (const n of ['jade', 'charlie', 'ricky']) tr[n] = mk(n).follow((t) => [paths[n].x(t), paths[n].z(t)], { until: 86.6, beats: { every: 1 } }).build();
+      const ff = (n) => tr[n].footfalls().filter((f) => f.t > paths[n].go && f.t < RUN_END).map((f) => (T.beatAt(f.t) % 1).toFixed(2));
+      console.log(`[engine] [v44 walk] ${WALK_V44}: unit ${F.jade.unit.toFixed(3)} M ${M.toFixed(1)}; x at 86.385 ${['jade', 'charlie', 'ricky'].map((n) => n + ' ' + tr[n].state(RUN_END).x.toFixed(0)).join(' ')}; beat lock ${['jade', 'charlie', 'ricky'].map((n) => n + ' r=' + tr[n].beatLock?.r).join(' ')}; footfall beat phases J ${ff('jade').join(',')}`);
+      for (const n of ['jade', 'charlie', 'ricky']) if (tr[n].warnings.length) console.log('[engine] [v44 walk] warn ' + tr[n].warnings.join('; '));
+      return { PB, R, F, tr, paths, v44: true };
+    }
     const paths = walkPaths(land, tF);
     const tr = {}; for (const n of ['jade', 'charlie', 'ricky']) tr[n] = mk(n).follow((t) => [paths[n].x(t), walkZ(n, t)], { until: 86.6, cadence: W_CAD[n] }).build();
     const M = (R.clips.meta?.designPerMetre || 48.82) * F.jade.unit; const rng = (n) => { let lo = 1e9, hi = 0; for (let t = 82.9; t < RUN_END; t += 0.01) { const v = (paths[n].x(t + 0.01) - paths[n].x(t - 0.01)) / 0.02 / M; lo = Math.min(lo, v); hi = Math.max(hi, v); } return `${lo.toFixed(2)}-${hi.toFixed(2)}`; };
@@ -336,6 +385,17 @@ export async function setup(ctx) {
     charlie: HAT.map(([a, , c], i) => ({ at: (tk) => hatPos(i, Math.min(c - 1e-3, Math.max(a, tk))), t0: a, t1: c, fade: 0.12 })),
     ricky: ALL_CLICKS.map((te, i) => ({ at: TP.switches[i].position.clone().add(V(0, 40, 0)), t0: te - 0.5, t1: te + 0.25, fade: 0.2 })),
   };
+  // (v44 walk) character beats in the gap 83.2-84.9: Jade and Charlie look at each other (he talks with his hands), Ricky
+  // air-strums on the beats and then looks over at Jade; everyone looks ahead down the road while it builds
+  if (MO?.v44) {
+    const head = (n) => (tk) => { const s = MO.tr[n].state(tk); return [s.x, 54, s.z]; };
+    const strum = (t) => { const b = T.beatAt(t + 0.06); const f = b - Math.floor(b); return 0.75 + 0.5 * (f < 0.3 ? smooth(0, 0.3, f) : 1 - smooth(0.3, 1, f)); };
+    WLOOK.jade.push({ at: head('charlie'), t0: 83.2, t1: 83.95, fade: 0.15 }, { at: (tk) => [MO.tr.jade.state(tk).x + 200, 40, 0], t0: 84.5, t1: 85.15, fade: 0.2 });
+    WLOOK.charlie.push({ at: head('jade'), t0: 83.3, t1: 84.2, fade: 0.15 });
+    WLOOK.ricky.push({ at: head('jade'), t0: 84.15, t1: 84.95, fade: 0.2 });
+    WL.charlie.push({ clip: 'talk', t0: 83.28, t1: 84.2, fade: 0.18, mask: 'arms', p: (t) => 0.15 + (t - 83.28) / 2.93 });
+    WL.ricky.push({ anim: 'chord', t0: 83.38, t1: 84.95, fade: 0.12, mask: 'armsHead', p: strum });
+  }
 
   // fly-over camera keys (anchor = Jade's x); the first key is the turn's end pose
   const endPose = (() => { const r = rig(82.31, aspect, 180, pix2D); return { pos: r.camera.position.clone(), tgt: r.target.clone() }; })();
@@ -344,6 +404,20 @@ export async function setup(ctx) {
   const camKeys = [[82.31, endPose.pos.clone().sub(V(A0, 0, 0))], [83.6, V(-28, 42, 188)], [85.0, V(-14, 60, 214)], [86.4, V(-4, 50, 196)]];
   const tgtKeys = [[82.31, endPose.tgt.clone().sub(V(A0, 0, 0))], [83.6, V(44, 22, -36)], [85.0, V(58, 18, -44)], [86.4, V(48, 22, -40)]];
 
+  // (v44 walk) the walk camera: polar keys around the party anchor (Jade-weighted), Catmull-Rom; the first key = the whip's end
+  const cam44 = MO?.v44 ? (() => {
+    const anchor = (t) => { let x = 0, z = 0; for (const [n, w] of [['jade', 0.4], ['charlie', 0.3], ['ricky', 0.3]]) { const s = MO.tr[n].state(t); x += w * s.x; z += w * s.z; } return V(x, 0, z); };
+    const A0 = anchor(82.31), rel = endPose.pos.clone().sub(A0), tg = endPose.tgt.clone().sub(A0);
+    const k0 = [82.31, Math.atan2(rel.z, rel.x) / DEG, Math.hypot(rel.x, rel.z), rel.y, 0, tg.x, tg.y, tg.z, 50];
+    const K = [k0, ...CAM44[WALK_V44]];
+    const kA = K.map((k) => [k[0], V(k[1], k[2], k[3])]), kB = K.map((k) => [k[0], V(k[4], k[8], 0)]), kC = K.map((k) => [k[0], V(k[5], k[6], k[7])]);
+    console.log(`[engine] [v44 walk] camera start key az ${k0[1].toFixed(1)} dist ${k0[2].toFixed(0)} h ${k0[3].toFixed(0)}`);
+    return (t) => { const a = pathAt(t, kA), b = pathAt(t, kB), c = pathAt(t, kC); const O = anchor(t).add(V(b.x, 0, 0));
+      const pos = O.clone().add(V(Math.cos(a.x * DEG) * a.y, a.z, Math.sin(a.x * DEG) * a.y)); return { pos, tgt: O.clone().add(c), fov: b.y }; };
+  })() : null;
+  // (v44 walk) a dust puff on every footfall (plaster dust; the steps land on the beat)
+  const puffs44 = MO?.v44 ? ['jade', 'charlie', 'ricky'].flatMap((n, j) => MO.tr[n].footfalls().filter((f) => f.t > MO.paths[n].go - 0.05 && f.t < 86.5).map((f, i) => {
+    const s = MO.tr[n].state(f.t), side = (f.foot === 'R' ? 1 : -1) * 4.5; return { t0: f.t, x: s.x + Math.cos(s.h) * 7 - Math.sin(s.h) * side, y: 0.5, z: s.z + Math.sin(s.h) * 7 + Math.cos(s.h) * side, n: 5, speed: 26, up: 9, g: 90, dur: 0.42, seed: 300 + 40 * j + i, size: 0.75, cone: 0.25 }; })) : [];
   const CH = [[-124, 98], [-84, 98], [-44, 98], [-4, 98]];   // chant centres (scaled 0.8): top-left, under the bar
 
   const sc = await make3D(ctx, W, {
@@ -372,6 +446,7 @@ export async function setup(ctx) {
         HAT.forEach(([, tag], i) => { const te = [...CLICKS, CUE.pairs[3]][i]; const w = smooth(tag - 0.3, tag + 0.05, t) * (1 - smooth(te + 0.12, te + 0.5, t)); if (w > lean) { lean = w; lp = TP.switches[i].position; } });
         if (lp) tgt.lerp(V(lp.x, lp.y + 34, lp.z), 0.32 * lean);
         camera = aim(persp('fly', aspect), pos, tgt, lerp(42, 50, smooth(83.6, 85.0, t)) - 6 * lean); target = tgt;
+        if (cam44) { const c = cam44(t); pos.copy(c.pos); tgt.copy(c.tgt); camera = aim(persp('fly', aspect), pos, tgt, c.fov); target = tgt; }   // (v44 walk)
         flyPos = pos; look = LOOK({ rays: 0.35, dofAmount: 0.15 }); virtFov = 0; shadowExtent = 700;
       }
       const tt = t >= SIL0 && t < IMP() ? SIL0 : t;     // frozen scene clock through the silence
@@ -501,6 +576,7 @@ export async function setup(ctx) {
       ]);
       P.burst.visible = true; P.burst.run(t, [
         ...['jade', 'ricky', 'charlie'].map((n, i) => { const tl = n === 'charlie' ? LAND_C : LAND_J; const ch = chuteAt(tl); return { t0: tl, x: ch.x + (n === 'jade' ? 9 : n === 'ricky' ? -10 : 0), y: 0, z: ZOF[n], n: 12, speed: 40, up: 18, g: 120, dur: 0.6, seed: 3 + i, size: 1.2 }; }),
+        ...(t >= 82.2 ? puffs44 : []),   // (v44 walk)
         ...TP.bricks.filter((b) => b.k === 0 || (b.k % (b.c + 1)) === 0).map((b, i) => ({ t0: CUE.roll[b.hit], x: colX(b.c), y: (b.k + 1) * STEP.bh, z: 0, n: 5, speed: 30, up: 30, g: 200, dur: 0.3, seed: 40 + i, size: 0.7 })),
         ...SEGS.slice(1, 4).map(([x0, x1, te], i) => ({ t0: te + 0.05, x: (x0 + x1) / 2, y: 0, z: 0, n: 40, speed: 70, up: 26, g: 140, dur: 0.7, seed: 120 + i, size: 1.6, spread: (x1 - x0) / 2 })),
       ]);

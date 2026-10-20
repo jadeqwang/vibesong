@@ -69,9 +69,12 @@ export async function prepareBig(key) {
     B.glossN = (t) => { let k = 0; words.forEach((w, i) => { const n = w.length + (i < words.length - 1 ? 1 : 0); k += n * clamp01((t - W24[i].start) / 0.25); }); return k; };
   } else if (key === 'wutai') {
     const wu = W27.find((w) => w.w === '舞'), tai = W27.find((w) => w.w === '台');
-    B.chars[0].sched = schedule(B.chars[0].hv, { a: wu.start, b: wu.start + 0.5 });
-    B.chars[1].sched = schedule(B.chars[1].hv, { a: tai.start, b: tai.start + 0.32 });
-    B.glossIn = wu.start;
+    // (coordinator 2026-10-19) lyrics_timed line 27 is one syllable early from 是; the stem has 舞 at 109.62. Shift both onto the stem.
+    // The card holds to 109.62 (v44), so 舞台 lives on the 0.8 s 3D shot: 舞 109.62-109.92, 台 109.92-110.24.
+    void wu; void tai;
+    B.chars[0].sched = schedule(B.chars[0].hv, { a: 109.62, b: 109.92 });
+    B.chars[1].sched = schedule(B.chars[1].hv, { a: 109.92, b: 110.24 });
+    B.glossIn = 109.62;
   } else if (key === 'da') {
     B.after.t = T.nearestBeat(T.word(35, 6).start - 0.2);   // = act4.paper_listen's t0 (the cut to the Charlie | Ricky frame)
     // stroke by stroke over "一笔一画 都是我的" (125.86 -> the card's last frames); 答 completes as 回 is reached

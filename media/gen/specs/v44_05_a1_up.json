@@ -1,0 +1,2 @@
+{"model": "black-forest-labs/flux-video-upscale", "tag": "v44_05_a1_up", "notes": "v4.4 card 05 take v44_05_sd25_a1: precise 2.25x of take frames 1..89 (from 0.041667 s, media/cutscenes/_work/v44/upscale/seg_05_v44a1.txt), covers slot 107.15-110.41 at shifts -2..+8",
+ "input": {"input_video": "file:media/cutscenes/_work/v44/upscale/seg_05_v44a1.mp4", "upscale_factor": 2.25, "creativity": 0, "safety_tolerance": 4}}

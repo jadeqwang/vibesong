@@ -50,7 +50,9 @@ function cartCanvas() {
   });
 }
 
-export function makeAct4HUD(ctx) {
+// (v45_jam) opts.steps (sorted song times, last = the montage start 168.075): the REALITY LV2 -> LV3 bar holds between them and
+// JUMPS on each (Ricky's strums power the cart, main3d.js CART_V45); outside [steps[0], last) the original curve, so the montage's bar is unchanged
+export function makeAct4HUD(ctx, opts = {}) {
   const scene = new THREE.Scene(); const cam = new THREE.OrthographicCamera(0, 320, 180, 0, -10, 10);
   const add = (o, z) => { o.traverse((m) => { m.renderOrder = z + (m.userData.dz || 0); }); scene.add(o); return o; };
   const bar = add(new BuildBar2(), ZUI.BANNER);
@@ -72,7 +74,11 @@ export function makeAct4HUD(ctx) {
     scene, cam, bar,
     /** o.cart2d: 0..1 = the pixel cart's run across this frame (2D callback cuts), null = hidden */
     update(t, o = {}) {
-      bar.update(t);
+      const ST = opts.steps;
+      if (ST && ST.length > 1 && t >= T.snap(ST[0]) && t < T.snap(ST[ST.length - 1])) {   // (v45_jam) stepped on the strums
+        let tk = ST[0]; for (const x of ST) if (t >= T.snap(x)) tk = x;
+        const s0 = buildAt2(t), sk = buildAt2(T.snap(tk) + 1e-4); bar.set({ ...s0, pct: sk.pct, text: s0.text === s0.pct + '%' ? sk.pct + '%' : s0.text }, t);
+      } else bar.update(t);
       const on = false;   // (v4, Jade 2026-10-18: speedrun timer CUT) no split timer, no split rows
       timer.visible = on; rows.forEach((r) => { r.visible = false; });
       if (on) {

@@ -57,6 +57,30 @@ const WIPE_FS = /* glsl */`
     gl_FragColor = vec4(c, 1.0);
   }`;
 
+// (v4.4 v44_spread, Jade 10-19 "i wish it were as good as the other colored pencil singing scenes") THE LIVING RIGHT PAGE: one switch.
+//   LIVE = LIVES.v44a1  new card-style jam (NBP still + Seedance 2.5 lip-synced to the vocal stem, played in REAL TIME from rt.t0)
+//          LIVES.v44b1  same still, livelier take (turns to Ricky)
+//          LIVES.v14    v4.3 (Veo 3.1, stretched over 186.65-194.31, v11 spread still, old close-up) = the old behaviour exactly
+//   CAMV = 'page' (close-up, pull back to the whole spread at 191.95) | 'hold' (no pull-back: close-up until the 194.06 push) |
+//          'fill' (the jam fills the frame, held until the 194.06 push). v14 always uses 'page' with its own close-up.
+const LIVES = {
+  v14: { seq: 'spreadR_v14', tex: 'v11', rt: null, close: [0.56, 0.51], cy: 0.515, feather: [0.04, 0.0001, 0.03, 0.04] },
+  v44a1: { seq: 'spreadR_v44a1', tex: 'spreadR_v44a1', rt: { t0: 186.30, lag: 0 }, close: [0.50, 0.45], cy: 0.515, feather: [0.08, 0.035, 0.05, 0.05] },
+  v44b1: { seq: 'spreadR_v44b1', tex: 'spreadR_v44b1', rt: { t0: 186.30, lag: 0 }, close: [0.50, 0.45], cy: 0.515, feather: [0.08, 0.035, 0.05, 0.05] },
+  // (v4.5 v45_ricky, Jade: "the body language of outro take B is good, but Ricky needs to look more like himself") take B kept frame for
+  // frame for Jade, Charlie and the page; Ricky's region swapped in from a Seedance re-run off the same still with Ricky redrawn on model
+  // (short tousled hair, slim face, long rolled sleeves, natural-wood Strat, navy strap), cut along take B's own Jade sleeve outline
+  // (tools/cutscenes/pb_spread45_hybrid.py; engine/checkpoints/v45_ricky.md).  r1 = Ricky re-run "watching Jade" (bk2), r2 = exact take-B prompt (br1)
+  v45r1: { seq: 'spreadR_v45r1', tex: 'spreadR_v45r1', rt: { t0: 186.30, lag: 0 }, close: [0.50, 0.45], cy: 0.515, feather: [0.08, 0.035, 0.05, 0.05] },
+  // (v4.6 v46_outro) r2 = the same take, hybrid shoulder seam fixed (tools/cutscenes/pb_spread46_hybrid.py: cut on take B's own shoulder
+  //   outline, no vertical line through the hill / Ricky's shirt), then flux-video-upscale precise 2x (creativity 0) -> 1080 instead of
+  //   lanczos from 720p (spreadR_v46r2b; the lanczos v4.5 set spreadR_v45r2 is kept as the fallback). Lip lag on word events = 0..+0.04 s (< 1 frame): lag 0.
+  v45r2: { seq: 'spreadR_v46r2b', tex: 'spreadR_v46r2b', rt: { t0: 186.30, lag: 0 }, close: [0.50, 0.45], cy: 0.515, feather: [0.08, 0.035, 0.05, 0.05] },
+};
+// const LIVE = LIVES.v44b1, CAMV = 'page';   // (v4.5) Jade picked take B (pre-v45_ricky; A/B: swap with the line below)
+// const LIVE = LIVES.v45r1, CAMV = 'page';   // (v4.5 v45_ricky) take B + Ricky on model (r1)
+const LIVE = LIVES.v45r2, CAMV = 'page';   // (v4.6) Jade picked "fixed, alt" = r2
+const CLOSE = LIVE.rt && CAMV === 'fill' ? { h: [0.40, 0.37], cy: 0.497, hold: true } : { h: LIVE.close, cy: LIVE.cy, hold: !!LIVE.rt && CAMV === 'hold' };
 const A = 5504 / 3072;                       // spread aspect (world: x 0..A, y 0..1, y up)
 const P = (u, v) => [u * A, 1 - v];          // image-normalised (u right, v down) -> world
 export const OUT = { o0: 186.65, blossoms: 191.22, thats: 191.95,   /* (v4 M3) word onsets per the type unit's stem audit (were 189.68 = 'just', 191.30) */ pulse: 194.06, last: 198.035, chops: [199.25, 199.55, 200.15, 200.45], end: 201.16, ded: [198.471, 199.10], fin: 203.0,   /* (v4 M3) ded was [201.4, 202.4]: readable 0.5 s */
@@ -68,6 +92,25 @@ const PM = { ax: 5.3963e-4, bx: -0.097247, ay: 5.3542e-4, by: 0.923717 };
 // the push target: the same scale as the page, slid right just enough to stay inside the spread (its left 9 % is beyond
 // the book's edge); the page then settles into its own framing after the wipe
 const PUSH = { cx: 0.51913, cy: 0.63459, h: 0.5784 };
+// (v4.6 v46_outstrum, Jade's v4.5 pick "End on Charlie strumming the 2011 page (3:14)") the push into the left page: Charlie strums,
+// the same 2D puppet as the 0:00 page (act1/cold_open.js STRUM_V45), so the video ends the way it opened. The spread's left page is
+// its own drawing (spread_v1 art, not page01), so the puppet is cut from the spread itself: assets/v4_stills/tools/v46_outstrum/
+// build_strum.py -> media/act5/tex/{hole46.png (the guitar under the forearm, NBP, only inside the forearm footprint), arm46m.png
+// (forearm+hand alpha; the arm samples the spread texture itself, so at rest it is the page pixel for pixel), strum46.json}.
+//   END_STRUM_V46 = 'groove'  8th-note strumming on the synth pulse + a head nod (the 0:00 pick)
+//                   'strum'   fewer, bigger strokes: a downstroke on every beat, the hand lifts back above the strings between
+//                   null      v4.5 (static page; the Veo spread layer settles into the still 194.06 -> 194.9)
+// Strum points = measured onsets on the demucs "other" stem (5 ms log-RMS flux; no guitar stem exists, drums are silent here;
+// tools/v46_outstrum/onsets.py): the synth pulse sits 15-30 ms ahead of the grid: 194.033 (the big one), 194.307 / 194.45-194.50 /
+// 194.706 (soft), 194.931 195.160 195.375 195.594 195.829 (steady 8ths), 196.727. Each crossing = the hand passing the strings
+// (fastest point), + = downstroke. With the rig on, the Veo spread layer settles a beat earlier (fade), before the first stroke.
+const END_STRUM_V46 = 'groove';
+const END_STRUMS = {
+  groove: { elbow: 7.0, wrist: 11.0, nod: 2.6, fade: [193.55, 194.0], X: [[194.033, 1, 1.0], [194.285, -1, 0.35], [194.495, 1, 0.5], [194.706, -1, 0.55],
+    [194.931, 1, 0.95], [195.160, -1, 0.7], [195.375, 1, 0.95], [195.594, -1, 0.85], [195.829, 1, 0.9], [196.055, -1, 0.45], [196.280, 1, 0.45], [196.510, -1, 0.4], [196.727, 1, 1.0]] },
+  strum: { elbow: 11.0, wrist: 15.0, nod: 0, fade: [193.55, 194.0], X: [[194.033, 1, 1.0], [194.495, 1, 0.6], [194.931, 1, 1.0], [195.375, 1, 0.95],
+    [195.829, 1, 1.0], [196.280, 1, 0.6], [196.727, 1, 1.0]] },
+};
 // (v4, ONE ending) the sketchbook IS the end: 'act5.outro' runs 186.65 -> 198.035 (the page holds through the old pixel SAVE
 // COMPLETE slot), 'act5.last' 198.035 -> 203.0 (the stamp lands on the final drum tag, credits, title, the dedication last).
 // Credits: docs/credits.md (Jade's wording). MODELS is filled at picture lock with only models whose output is in the cut.
@@ -91,7 +134,7 @@ export async function setup(ctx) {
   const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, -10, 10);
 
   // ---- the spread
-  const img = new Image(); img.src = `/media/act5/tex/${H <= 540 ? 'spread_half_v11' : 'spread_full_v11'}.jpg`; await img.decode();   // (v4 Pass B) v11 brows
+  const img = new Image(); img.src = `/media/act5/tex/spread_${H <= 540 ? 'half' : 'full'}_${LIVE.tex}.jpg`; await img.decode();   // (v4.4) LIVE.tex   // (v4 Pass B) v11 brows
   const ptex = new THREE.Texture(img); ptex.needsUpdate = true; ptex.minFilter = THREE.LinearMipmapLinearFilter; ptex.anisotropy = 8;
   const paper = new THREE.Mesh(new THREE.PlaneGeometry(A, 1), new THREE.ShaderMaterial({
     uniforms: { map: { value: ptex }, uWarm: { value: 0 } }, depthTest: false, depthWrite: false,
@@ -107,13 +150,17 @@ export async function setup(ctx) {
       void main(){ vec3 c = texture2D(map, vUv).rgb * mix(vec3(1.0), vec3(1.03, 0.99, 0.93), uWarm);
         float a = smoothstep(0.0, uFeather.x, vUv.x) * smoothstep(0.0, uFeather.y, 1.0 - vUv.x) * smoothstep(0.0, uFeather.z, vUv.y) * smoothstep(0.0, uFeather.w, 1.0 - vUv.y);
         gl_FragColor = vec4(c, a * uOp); }`;
-    for (const [name, rect, feather, z] of [['spreadF', [21 / 5504, 0, 5461 / 5504, 1], [0.0001, 0.0001, 0.0001, 0.0001], 1], ['spreadR_v14', [0.444, 0.235, 0.556, 0.5602], [0.04, 0.0001, 0.03, 0.04], 2]]) {
+    for (const [name, rect, feather, z] of [['spreadF', [21 / 5504, 0, 5461 / 5504, 1], [0.0001, 0.0001, 0.0001, 0.0001], 1], [LIVE.seq, [0.444, 0.235, 0.556, 0.5602], LIVE.feather, 2]]) {   // (v4.4) LIVE.seq
       const seq = await FrameSeq.load(name, ctx, { prefer: name.startsWith('spreadR') || H > 540 ? 1080 : 540 }); if (!seq) continue;
       const m = new THREE.Mesh(new THREE.PlaneGeometry(rect[2] * A, rect[3]), new THREE.ShaderMaterial({ uniforms: { map: { value: null }, uFeather: { value: new THREE.Vector4(...feather) }, uWarm: { value: 1 }, uOp: { value: 1 } },
         transparent: true, depthTest: false, depthWrite: false, vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.0); }', fragmentShader: VID_FS }));
-      m.position.set((rect[0] + rect[2] / 2) * A, 1 - (rect[1] + rect[3] / 2), 0); m.renderOrder = z; scene.add(m); living.push({ seq, m });
+      m.position.set((rect[0] + rect[2] / 2) * A, 1 - (rect[1] + rect[3] / 2), 0); m.renderOrder = z; scene.add(m); living.push({ seq, m, rt: name === LIVE.seq ? LIVE.rt : null });
     }
   }
+  // (v4.6 v46_outstrum) Charlie's strum puppet on the left page (outro entry only), under the Veo layer (renderOrder < 1)
+  const ES = !isLast && END_STRUM_V46 ? END_STRUMS[END_STRUM_V46] : null;
+  const endStrum = ES ? await endStrumRig(ptex, ES) : null;
+  for (const m of endStrum ? endStrum.meshes : []) scene.add(m);
   const add = (o, z) => { o.renderOrder = z; scene.add(o); return o; };
 
   // ---- flower (grows on the right page, left end of the bench)
@@ -235,8 +282,8 @@ export async function setup(ctx) {
       const [cx0, cy0] = P(0.737, 0.515);
       if (!isLast) {
         const push = T.span(t, OUT.o0, OUT.thats, T.ease.linear);
-        const close = [cx0 + 0.008 * push, cy0, 0.56 - 0.05 * push];
-        const u = T.span(t, OUT.thats, OUT.thats + 1.6, T.ease.inOut);
+        const close = [cx0 + 0.008 * push, 1 - CLOSE.cy, CLOSE.h[0] + (CLOSE.h[1] - CLOSE.h[0]) * push];   // (v4.4) was [.., cy0, 0.56 - 0.05 * push]
+        const u = CLOSE.hold ? 0 : T.span(t, OUT.thats, OUT.thats + 1.6, T.ease.inOut);   // (v4.4) 'hold'/'fill': no pull-back
         const v = T.span(t, OUT.push[0], OUT.push[1], T.ease.inOut);       // (v4 Pass B) into the 2011 page
         const c1 = [close[0] + (full[0] - close[0]) * u, close[1] + (full[1] - close[1]) * u, close[2] + (full[2] - close[2]) * u];
         const c2 = [c1[0] + (PUSH.cx - c1[0]) * v, c1[1] + (PUSH.cy - c1[1]) * v, c1[2] + (PUSH.h - c1[2]) * v]; camSet(...c2);
@@ -249,8 +296,9 @@ export async function setup(ctx) {
         const z = 1 - 0.016 * u; setPageCam([960 - 960 * z, 960 + 960 * z, -540 + 540 * z + 6 * u, -540 - 540 * z + 6 * u]);   // (v4 Pass B) the same breath on the page
       }
       paper.material.uniforms.uWarm.value = isLast ? 0 : 1 - T.span(t, OUT.thats, OUT.thats + 2);
-      for (const { seq, m } of living) { m.material.uniforms.uWarm.value = paper.material.uniforms.uWarm.value; m.material.uniforms.map.value = seq.time(Math.max(0, t - OUT.o0) * seq.duration / (194.31 - OUT.o0));
-        m.material.uniforms.uOp.value = 1 - T.span(t, OUT.pulse, OUT.pulse + 0.84, T.ease.inOut); m.visible = m.material.uniforms.uOp.value > 0.001; }   // (v4) settles into the still before the 198.035 cut
+      for (const { seq, m, rt } of living) { m.material.uniforms.uWarm.value = paper.material.uniforms.uWarm.value; m.material.uniforms.map.value = seq.time(rt ? t - rt.t0 + rt.lag : Math.max(0, t - OUT.o0) * seq.duration / (194.31 - OUT.o0));   // (v4.4) rt: real time (lip sync)
+        m.material.uniforms.uOp.value = rt ? 1 : ES ? 1 - T.span(t, ES.fade[0], ES.fade[1], T.ease.inOut) : 1 - T.span(t, OUT.pulse, OUT.pulse + 0.84, T.ease.inOut);   /* (v4.6) ES: settles before the first stroke */   /* (v4.4 coord) rt takes: no settle into the still (poses differ -> ghosting); the clip holds its last frame */ m.visible = m.material.uniforms.uOp.value > 0.001; }   // (v4) settles into the still before the 198.035 cut
+      if (endStrum) endStrum.apply(t, paper.material.uniforms.uWarm.value);   // (v4.6 v46_outstrum) Charlie strums on the push
       // ---------------- flower: stem 187.0-188.8, bloom on "blossoms"
       const grow = isLast ? 1 : T.span(t, OUT.o0 + 0.3, OUT.blossoms - 0.3, T.ease.out);
       const bloom = isLast ? 1 : T.span(t, OUT.blossoms, OUT.blossoms + 0.9, T.ease.back);
@@ -321,6 +369,96 @@ export async function setup(ctx) {
         const tip = new THREE.Vector2(qx * H, (1 - qy) * H), dir = new THREE.Vector2(0.55, 0.83).normalize(), L = H * 0.6;
         U.uPenB.value.copy(tip); U.uPenA.value.set(tip.x - dir.x * L, tip.y + dir.y * L); U.uPenOn.value = u < 1 ? 1 : 0;
         r.setRenderTarget(target); wipe.q.render(r);
+      }
+    },
+  };
+}
+
+// ================================================================== (v4.6, v46_outstrum) the strum puppet on the spread's left page
+// Same rig as the 0:00 page (act1/cold_open.js strumRig), in spread px (5504x3072, y down; world = (x/3072, 1 - y/3072)):
+// hole46 = the clean guitar under the forearm (only inside its footprint), drawn over the untouched spread; the arm samples the
+// spread texture itself through the arm46m alpha and swings about the elbow (+ a lagging wrist), inverse-mapped per pixel so the
+// pencil lines bend, never tear; the head nod ('groove') is an opaque patch of the spread rotated about the base of the neck,
+// weight 0 at its border and below the neck (the whole cap is inside the head ellipse, so the cap always rides with the head).
+const SPX = 3072, SPW = 5504;
+/** hand position through the strings at t (0 = the drawn pose = on the strings, + = below after a downstroke, - = above).
+ *  X = [[t, dir, s], ...] string crossings (dir +1 down / -1 up). Alternating crossings: a half-sine between them (the 0:00 shape);
+ *  two downs in a row: a fast downstroke, the hand rings below, then lifts back above the strings slowly and comes down again. */
+function endStrumAt(t, X) {
+  const n = X.length, K = 1.8, hs = (u) => Math.tanh(K * Math.sin(Math.PI * u)) / Math.tanh(K);
+  const L0 = X.length > 1 ? Math.min(0.45, X[1][0] - X[0][0]) : 0.45;
+  const pre = [X[0][0] - L0, -X[0][1], 0.5], post = [X[n - 1][0] + L0, -X[n - 1][1], 0];
+  if (t <= pre[0] || t >= post[0]) return 0;
+  const P = [pre, ...X, post]; let i = 0; while (i < P.length - 2 && t >= P[i + 1][0]) i++;
+  const a = P[i], b = P[i + 1], u = (t - a[0]) / (b[0] - a[0]);
+  const env = i === 0 ? T.span(t, pre[0], pre[0] + 0.6 * L0, T.ease.inOut) : 1;   // the wind-up from the drawn pose
+  if (b[1] !== a[1] || i === 0 || i === P.length - 2) {
+    const s = i === P.length - 2 ? a[2] : i === 0 ? b[2] * 0.6 : (a[2] + b[2]) / 2;
+    return env * s * (i === 0 ? -b[1] : a[1]) * hs(u);
+  }
+  // down -> down: cubic Hermite through (u, p, slope): fast through the strings at both ends, a slow lift in between
+  const s = (a[2] + b[2]) / 2, KEY = [[0, 0, 10.7], [0.14, 1, 0], [0.42, 0.88, 0], [0.88, -0.85, 0], [1, 0, 10.6]];
+  let k = 0; while (k < KEY.length - 2 && u >= KEY[k + 1][0]) k++;
+  const [u0, p0, m0] = KEY[k], [u1, p1, m1] = KEY[k + 1], h = u1 - u0, x = (u - u0) / h;
+  const h00 = 2 * x ** 3 - 3 * x ** 2 + 1, h10 = x ** 3 - 2 * x ** 2 + x, h01 = -2 * x ** 3 + 3 * x ** 2, h11 = x ** 3 - x ** 2;
+  return a[1] * s * (h00 * p0 + h10 * h * m0 + h01 * p1 + h11 * h * m1);
+}
+const ES_VS = 'varying vec2 vF; void main(){ vF = vec2(position.x * 3072.0, (1.0 - position.y) * 3072.0); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
+const ES_COMMON = /* glsl */`uniform float uOp, uWarm; varying vec2 vF;
+  vec2 rot(vec2 v, float a){ float c = cos(a), s = sin(a); return vec2(c * v.x - s * v.y, s * v.x + c * v.y); }
+  vec3 warm(vec3 c){ return c * mix(vec3(1.0), vec3(1.03, 0.99, 0.93), uWarm); }
+  vec2 spUV(vec2 q){ return vec2(q.x / ${SPW.toFixed(1)}, 1.0 - q.y / ${SPX.toFixed(1)}); }`;
+function esMesh([x0, y0, x1, y1], uniforms, fs, z) {
+  const g = new THREE.PlaneGeometry((x1 - x0) / SPX, (y1 - y0) / SPX); g.translate((x0 + x1) / 2 / SPX, 1 - (y0 + y1) / 2 / SPX, 0);
+  const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ uniforms: { uOp: { value: 1 }, uWarm: { value: 0 }, ...uniforms },
+    transparent: true, depthTest: false, depthWrite: false, vertexShader: ES_VS, fragmentShader: ES_COMMON + fs }));
+  m.renderOrder = z; m.frustumCulled = false; m.visible = false; return m;
+}
+async function endStrumRig(ptex, ES) {
+  const L = await (await fetch(TEX + 'strum46.json')).json(), Ar = L.arm46, H = L.head46, V2 = (p) => new THREE.Vector2(p[0], p[1]);
+  const ax = (a, b) => { const d = [b[0] - a[0], b[1] - a[1]], l = Math.hypot(...d); return [d[0] / l, d[1] / l]; };
+  const box = [Ar.x, Ar.y, Ar.x + Ar.w, Ar.y + Ar.h], M = 70;   // room for the swing
+  const hole = esMesh(box, { map: { value: imgTex(await loadImg(TEX + 'hole46.png')) }, uBox: { value: new THREE.Vector4(Ar.x, Ar.y, Ar.w, Ar.h) } },
+    /* glsl */`uniform sampler2D map; uniform vec4 uBox;
+    void main(){ vec2 uv = (vF - uBox.xy) / uBox.zw; vec4 c = texture2D(map, vec2(uv.x, 1.0 - uv.y)); gl_FragColor = vec4(warm(c.rgb), c.a * uOp); }`, 0.3);
+  const arm = esMesh([box[0] - M, box[1] - M, box[2] + M, box[3] + M], { map: { value: ptex }, mask: { value: imgTex(await loadImg(TEX + 'arm46m.png')) },
+    uBox: { value: new THREE.Vector4(Ar.x, Ar.y, Ar.w, Ar.h) }, uE: { value: V2(Ar.elbow) }, uW: { value: V2(Ar.wrist) }, uK: { value: V2(Ar.crease) },
+    uAxE: { value: V2(ax(Ar.elbow, Ar.hand)) }, uAxW: { value: V2(ax(Ar.wrist, Ar.hand)) }, uAE: { value: 0 }, uAW: { value: 0 } },
+  /* glsl */`uniform sampler2D map, mask; uniform vec4 uBox; uniform vec2 uE, uW, uK, uAxE, uAxW; uniform float uAE, uAW;
+    void main(){
+      vec2 d = vF - uE; float w = smoothstep(0.0, 60.0, dot(d, uAxE));          // the elbow itself stays put (soft over ~60 px)
+      w *= smoothstep(6.0, 50.0, length(vF - uK));                            // and the inner-elbow crease (the dark T-shirt edge there never tears)
+      vec2 q = uE + rot(d, -uAE * w);
+      vec2 d2 = q - uW; float w2 = smoothstep(-26.0, 26.0, dot(d2, uAxW));
+      q = uW + rot(d2, -uAW * w2);
+      vec2 uv = (q - uBox.xy) / uBox.zw;
+      if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) discard;
+      float a = texture2D(mask, vec2(uv.x, 1.0 - uv.y)).r;
+      gl_FragColor = vec4(warm(texture2D(map, spUV(q)).rgb), a * uOp); }`, 0.4);
+  let head = null;
+  if (ES.nod) {
+    head = esMesh(H.box, { map: { value: ptex }, uP: { value: V2(H.pivot) }, uC: { value: V2(H.center) }, uRad: { value: V2(H.radii) },
+      uFall: { value: H.fall }, uA: { value: 0 }, uDy: { value: 0 } },
+    /* glsl */`uniform sampler2D map; uniform vec2 uP, uC, uRad; uniform float uFall, uA, uDy;
+      void main(){
+        vec2 e = (vF - uC) / uRad; float w = 1.0 - smoothstep(0.0, uFall, (length(e) - 1.0) * min(uRad.x, uRad.y));
+        w *= 1.0 - smoothstep(uP.y - 35.0, uP.y + 10.0, vF.y);
+        vec2 q = uP + rot(vF - uP, -uA * w) - vec2(0.0, uDy * w);
+        gl_FragColor = vec4(warm(texture2D(map, spUV(q)).rgb), uOp); }`, 0.35);
+  }
+  const D = Math.PI / 180, t0 = ES.X[0][0] - 0.5, t1 = ES.X[ES.X.length - 1][0] + 0.5;
+  const meshes = [hole, arm, head].filter(Boolean);
+  return {
+    meshes,
+    apply(t, uWarm) {
+      const on = t > t0 && t < t1; for (const m of meshes) { m.visible = on; m.material.uniforms.uWarm.value = uWarm; }
+      if (!on) return;
+      const p = endStrumAt(t, ES.X), pw = endStrumAt(t - 0.035, ES.X);   // the hand trails the forearm a little (wrist whip)
+      arm.material.uniforms.uAE.value = p * ES.elbow * D;
+      arm.material.uniforms.uAW.value = pw * ES.wrist * D;
+      if (head) {   // nods down into every other beat (the half-time feel), as at 0:00
+        const ph = T.beatAt(t) / 2, dip = Math.pow(0.5 + 0.5 * Math.cos(2 * Math.PI * (ph - Math.floor(ph))), 2) * T.span(t, t0, t0 + 0.5, T.ease.inOut);
+        head.material.uniforms.uA.value = ES.nod * dip * D; head.material.uniforms.uDy.value = 1.8 * dip;
       }
     },
   };

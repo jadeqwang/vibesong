@@ -29,7 +29,17 @@ import { TextSprite } from '../../core/text.js';
 import { Pencil } from '../../core/props.js';
 import { TITLE, buildTitle, PencilRig, act1Atlas, speedLines } from './common.js';
 import { mulberry32 } from '../../util.js';
-import { pageKit, WipeBand } from '../act5/paperkit.js';
+import { pageKit, WipeBand, FrameLayer, WIPE_GLSL, TEX, loadImg, imgTex, loadJSON } from '../act5/paperkit.js';
+import * as THREE from 'three';
+
+// (v4.5, v45_open) Charlie strums on the 2011 page. null = v4.4 (static page). Variants (engine/checkpoints/v45_open.md):
+//   'strum'  forearm + wrist strum only (smaller swing)
+//   'groove' a fuller strum + Charlie nods his head on the beats
+export const STRUM_V45 = 'groove';
+const STRUM_VARIANTS = {
+  strum: { elbow: 4.0, wrist: 7.0, nod: 0 },
+  groove: { elbow: 6.0, wrist: 10.0, nod: 2.4 },
+};
 
 export async function setup(ctx) {
   const C = (k) => T.cue('act1.' + k);
@@ -108,6 +118,15 @@ export async function setup(ctx) {
   };
   const pageState = { on: true, wipe: -1 };
 
+  // ---------------------------------------------------------------- (v4.5, v45_open) Charlie strums while the page is up
+  // Jade 10-19: "0:00 - can we animate some guitar strumming on Charlie, even here?" A 2D puppet cut from the page itself
+  // (assets/v4_stills/tools/v45_open/build_strum.py): hole01 = the guitar redrawn under the forearm (NBP edit, ONLY inside the
+  // forearm footprint) over the untouched page01, arm01 = the forearm + hand cut from page01. At rest page01 + hole01 + arm01 == page01,
+  // so frame 0 is still the approved still. The forearm swings about the elbow (+ a lagging wrist) through the strings on
+  // the song's 8th grid; the strokes that hit are the measured mid-band hits (see STRUM below), the rest are ghost strokes.
+  const SV = STRUM_V45 && STRUM_VARIANTS[STRUM_V45];
+  const strum = SV ? await strumRig(kit, page, SV) : null;
+
   return {
     stage: st,
     render(t, target) {
@@ -132,6 +151,7 @@ export async function setup(ctx) {
         const gone = u >= 1;
         page.visible = yi.visible = ded.visible = pShadow.visible = !gone; band.visible = u >= 0 && !gone;
         for (const q of [page, yi, ded, slate]) q.wipe(u); pShadow.wipe(u); band.wipe = u;
+        if (strum) { strum.wipe(u); strum.visible(!gone); strum.apply(t); }   // (v4.5) Charlie strums
         yi.reveal = p.reveal;
         pen.visible = p.lift < 1500; pen.place(p.tip[0], p.tip[1], PG.ang + wob);
         pShadow.set(p.tip, PG.ang + wob, p.lift); pShadow.material.uniforms.uOp.value = 0.3 * (1 - T.span(p.lift, 0, 900));
@@ -180,5 +200,83 @@ export async function setup(ctx) {
       batch.end();
       st.fx.flash = T.exactFrame(t, [HIT]) ? 0.85 : 0;
     },
+  };
+}
+
+// ================================================================== (v4.5, v45_open) the strum puppet on the 2011 page
+// Song hits (measured on the mix, 300-3000 Hz short "chk" transients; no guitar stem exists and the intro has no sustained guitar):
+// 0.348 (kick) 0.998 1.207 1.637 1.846 2.072 2.276 2.490 (2.688 weak) 2.914 3.129 3.355. They all sit on the 8th grid
+// (within 5-18 ms; the grid is drum-anchored), so the strokes cross the strings exactly on the grid 8ths c_k = beat(k/2):
+// even k = downstroke on the beat, odd k = upstroke on the "and". S = how hard each crossing is (1 = a measured hit, 0.35 = a ghost stroke).
+const STRUM_S = { '-1': 0.55, 0: 1, 1: 0.35, 2: 0.35, 3: 0.9, 4: 1, 5: 0.35, 6: 1, 7: 0.9, 8: 1, 9: 0.9, 10: 1, 11: 0.6, 12: 1, 13: 0.9, 14: 1, 15: 0.5 };
+/** hand position through the strings at t: 0 = the drawn pose (on the strings), + = below (after a downstroke), - = above */
+export function strumAt(t) {
+  const c = (k) => T.beat(k / 2), s = (k) => STRUM_S[k] ?? 0.35;
+  const k = Math.floor(T.beatAt(t) * 2); if (k < -1 || k > 15) return 0;
+  const u = (t - c(k)) / (c(k + 1) - c(k)), K = 1.8;
+  const p = ((s(k) + s(k + 1)) / 2) * Math.tanh(K * Math.sin(Math.PI * u)) / Math.tanh(K) * ((k & 1) ? -1 : 1);
+  return p * T.span(t, 0.10, 0.30, T.ease.inOut);   // frame 0 = the still; the hand winds up for the first stroke on the kick
+}
+const PUP_VS = 'varying vec2 vF; void main(){ vF = vec2(position.x, -position.y); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }';
+const PUP_COMMON = /* glsl */`uniform float uOp, uWipe, uWipeDir; uniform vec2 uRes; varying vec2 vF;
+  ${WIPE_GLSL}
+  vec2 rot(vec2 v, float a){ float c = cos(a), s = sin(a); return vec2(c * v.x - s * v.y, s * v.x + c * v.y); }
+  float wipeM(){ return uWipe >= 0.0 ? smoothstep(-0.004, 0.012, pw_d(gl_FragCoord.xy / uRes, uWipe) * uWipeDir) : 1.0; }`;
+function pupMesh(box, uniforms, fs, res, z) {
+  const [x0, y0, x1, y1] = box, g = new THREE.PlaneGeometry(x1 - x0, y1 - y0); g.translate((x0 + x1) / 2, -(y0 + y1) / 2, 0);
+  const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ uniforms: { uOp: { value: 1 }, uWipe: { value: -1 }, uWipeDir: { value: 1 }, uRes: { value: res }, ...uniforms },
+    transparent: true, depthTest: false, depthWrite: false, vertexShader: PUP_VS, fragmentShader: PUP_COMMON + fs }));
+  m.renderOrder = z; m.frustumCulled = false; return m;
+}
+async function strumRig(kit, page, SV) {
+  const L = await loadJSON(TEX + 'strum01.json'), A = L.arm01, H = L.head01, V2 = (p) => new THREE.Vector2(p[0], p[1]);
+  const E = [A.x + A.elbow[0], A.y + A.elbow[1]], W = [A.x + A.wrist[0], A.y + A.wrist[1]], Hd = [A.x + A.hand[0], A.y + A.hand[1]];
+  const ax = (a, b) => { const d = [b[0] - a[0], b[1] - a[1]], l = Math.hypot(...d); return [d[0] / l, d[1] / l]; };
+  const hole = new FrameLayer(imgTex(await loadImg(TEX + 'hole01.png')), A.w, A.h, { res: kit.res, z: 1 }).place(A.x, A.y); kit.scene.add(hole);
+  const M = 30;   // room for the swing
+  // the forearm: swings about the elbow (weight ramps in over the first ~25 px of forearm, so the elbow itself stays put),
+  // then the hand turns about the wrist; inverse-mapped per pixel so the pencil lines bend, never tear
+  const arm = pupMesh([A.x - M, A.y - M, A.x + A.w + M, A.y + A.h + M], {
+    map: { value: imgTex(await loadImg(TEX + 'arm01.png')) }, uBox: { value: new THREE.Vector4(A.x, A.y, A.w, A.h) },
+    uE: { value: V2(E) }, uW: { value: V2(W) }, uAxE: { value: V2(ax(E, Hd)) }, uAxW: { value: V2(ax(W, Hd)) }, uAE: { value: 0 }, uAW: { value: 0 } },
+  /* glsl */`uniform sampler2D map; uniform vec4 uBox; uniform vec2 uE, uW, uAxE, uAxW; uniform float uAE, uAW;
+    void main(){
+      vec2 d = vF - uE; float w = smoothstep(-4.0, 22.0, dot(d, uAxE));
+      vec2 q = uE + rot(d, -uAE * w);
+      vec2 d2 = q - uW; float w2 = smoothstep(-14.0, 14.0, dot(d2, uAxW));
+      q = uW + rot(d2, -uAW * w2);
+      vec2 uv = (q - uBox.xy) / uBox.zw;
+      if (uv.x < 0.0 || uv.x > 1.0 || uv.y < 0.0 || uv.y > 1.0) discard;
+      vec4 c = texture2D(map, vec2(uv.x, 1.0 - uv.y));
+      gl_FragColor = vec4(c.rgb, c.a * uOp * wipeM()); }`, kit.res, 2);
+  kit.scene.add(arm);
+  // the head nod ('groove'): an opaque patch of the page itself, rotated about the base of the neck inside the head ellipse,
+  // weight 0 at the patch edge and below the neck (so it is the page, pixel for pixel, at rest and at its border)
+  let head = null;
+  if (SV.nod) {
+    head = pupMesh(H.box, { map: { value: page.material.uniforms.map.value }, uP: { value: V2(H.pivot) }, uC: { value: V2(H.center) },
+      uRad: { value: V2(H.radii) }, uFall: { value: H.fall }, uA: { value: 0 }, uDy: { value: 0 } },
+    /* glsl */`uniform sampler2D map; uniform vec2 uP, uC, uRad; uniform float uFall, uA, uDy;
+      void main(){
+        vec2 e = (vF - uC) / uRad; float w = 1.0 - smoothstep(0.0, uFall, (length(e) - 1.0) * min(uRad.x, uRad.y));
+        w *= 1.0 - smoothstep(uP.y - 22.0, uP.y + 6.0, vF.y);
+        vec2 q = uP + rot(vF - uP, -uA * w) - vec2(0.0, uDy * w);
+        vec4 c = texture2D(map, vec2(q.x / 1920.0, 1.0 - q.y / 1080.0));
+        gl_FragColor = vec4(c.rgb, uOp * wipeM()); }`, kit.res, 1);
+    kit.scene.add(head);
+  }
+  const D = Math.PI / 180, KICK = T.cue('act1.first_kick');
+  return {
+    apply(t) {
+      const p = strumAt(t), pw = strumAt(t - 0.035);   // the hand trails the forearm a little (wrist whip)
+      arm.material.uniforms.uAE.value = p * SV.elbow * D;
+      arm.material.uniforms.uAW.value = pw * SV.wrist * D;
+      if (head) {   // nods down into every other beat (the half-time kick/snare feel), from the kick on
+        const ph = T.beatAt(t) / 2, dip = Math.pow(0.5 + 0.5 * Math.cos(2 * Math.PI * (ph - Math.floor(ph))), 2) * T.span(t, KICK, KICK + 0.5, T.ease.inOut);
+        head.material.uniforms.uA.value = SV.nod * dip * D; head.material.uniforms.uDy.value = 1.2 * dip;
+      }
+    },
+    wipe(u) { for (const m of [hole, arm, head]) if (m) m.material.uniforms.uWipe.value = u; },
+    visible(v) { hole.visible = arm.visible = v; if (head) head.visible = v; },
   };
 }

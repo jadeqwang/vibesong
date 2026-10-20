@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v44_spread_sd25_480p_b1",
+ "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: Jade sings 'Everything I love about life just ... blossoms ... that's it' from the reference audio, each syllable on the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, sings with her whole upper body like live footage of a singer: shoulders and chest moving, her body swaying side to side to the rhythm, her head bobbing and tilting freely, turning toward Charlie on one line and toward Ricky on the next, then back to the viewer; her eyes close briefly on the long note 'blossoms' and open again, both eyes always together; joyful and warm, never a still body with only a moving mouth. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+  "image": "file:media/act5/_work/v44/ff_g1.jpg",
+  "reference_audios": [
+   "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+  ],
+  "duration": 9,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

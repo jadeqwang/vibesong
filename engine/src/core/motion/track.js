@@ -148,7 +148,7 @@ export class MotionTrack {
    * `face`), so a hand-timed position table gets real planted steps. fn(start) should equal the current position.
    * cadence: a multiplier on the gait model's cadence (> 1 = quicker, shorter steps: a light jog for short legs; per-hero character).
    */
-  follow(fn, { until, turn = 9, face = null, fade = null, cadence = 1 } = {}) { return this._push({ kind: 'follow', fn, until, turn, face, fade, cadence }); }
+  follow(fn, { until, turn = 9, face = null, fade = null, cadence = 1, beats = null } = {}) { return this._push({ kind: 'follow', fn, until, turn, face, fade, cadence, beats }); }   // (v44 walk) beats: footfalls on the beat grid, as move({ beats })
   /** (v43 walk) start on the ground with a landing (as if dropped in at impact speed v, world u/s): squash + recovery + settle;
    *  tail = standing time after the recovery (0: run straight out of it with a follow / move) */
   land({ v = 250, recover = null, settle = true, tail = 0.3 } = {}) { return this._push({ kind: 'land', v, recover, settle, tail, fade: 0 }); }
@@ -326,7 +326,7 @@ export class MotionTrack {
   }
   /** (v43 walk) scripted root path: position from seg.fn(t), speed by central difference, cadence-driven phase */
   _follow(seg, c, emit, turnTo, now) {
-    const fn = seg.fn, h = 0.02, n = Math.max(1, Math.round((seg.until - now()) / DT));
+    const fn = seg.fn, h = 0.02, n = Math.max(1, Math.round((seg.until - now()) / DT)), i0 = this.S.length;
     for (let i = 0; i < n; i++) {
       const t = now(), p = fn(t), a = fn(t - h), b = fn(t + h);
       const vx = (b[0] - a[0]) / (2 * h), vz = (b[1] - a[1]) / (2 * h), v = Math.hypot(vx, vz);
@@ -336,6 +336,7 @@ export class MotionTrack {
       const f = gaitInfo(this.G, v).f * (seg.cadence ?? 1); c.f = f; if (v > 1e-4) c.ph += f * DT;
       emit([{ k: 'loco', v, w: 1 }]);
     }
+    if (seg.beats && this.timing && this.S.length - i0 > 4) { this._lockBeats(this.S, i0, seg.beats); c.ph = this.S[this.S.length - 1].ph; }   // (v44 walk)
     return [{ k: 'loco', v: c.v, w: 1 }];
   }
   /** footfalls on the beat grid: blend the natural phase into ph = c0 + (r / 2) * beatAt(t) (r steps per beat) */

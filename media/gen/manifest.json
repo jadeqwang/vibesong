@@ -4514,8 +4514,1025 @@
     }
    ],
    "collected": 1792388544.6490278
+  },
+  "vibesong/v44_05_sd25_a1-3656bdae32": {
+   "id": "3656bdae32",
+   "job": "vibesong/v44_05_sd25_a1-3656bdae32",
+   "tag": "v44_05_sd25_a1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_05_sd25_a1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. The young woman in the centre sings, in Mandarin, the words of the reference audio, 'shi jie, shi wo de wu tai' (the world is my stage), her lips shaping each syllable exactly in time with the voice: open wide on 'jie' and 'tai', rounding on 'wo' and 'wu'. She performs it like a proud lead singer in a music video, with real body language: her shoulders rise and roll with the phrasing, her chest lifts with each breath, her head tilts and nods on the beat and lifts her chin on 'wu tai'; her eyebrows rise with feeling, her eyes sparkle and glance toward each bandmate and back; one hand comes up into the frame and grips the microphone on its stand. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873724,
+   "submitted": 1792423344.3097568,
+   "bytes": 1622723,
+   "started": 1792423478.422,
+   "gen_secs": 166.3,
+   "finished": 1792423644.701,
+   "latency_secs": 300.4,
+   "files": [
+    "media/gen/v44_05_sd25_a1_3656bdae32.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2272863,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792423700.6263168
+  },
+  "vibesong/v44_05_sd25_a2-83d2d62379": {
+   "id": "83d2d62379",
+   "job": "vibesong/v44_05_sd25_a2-83d2d62379",
+   "tag": "v44_05_sd25_a2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_05_sd25_a2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. The young woman in the centre sings, in Mandarin, the words of the reference audio, 'shi jie, shi wo de wu tai' (the world is my stage), her lips shaping each syllable exactly in time with the voice: open wide on 'jie' and 'tai', rounding on 'wo' and 'wu'. She performs it like a proud lead singer in a music video, with real body language: her shoulders rise and roll with the phrasing, her chest lifts with each breath, her head tilts and nods on the beat and lifts her chin on 'wu tai'; her eyebrows rise with feeling, her eyes sparkle and glance toward each bandmate and back; one hand comes up into the frame and grips the microphone on its stand. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873724,
+   "submitted": 1792423345.6689172,
+   "bytes": 1622723,
+   "started": 1792423478.465,
+   "gen_secs": 163.7,
+   "finished": 1792423642.209,
+   "latency_secs": 296.5,
+   "files": [
+    "media/gen/v44_05_sd25_a2_83d2d62379.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2147992,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792423701.6137848
+  },
+  "vibesong/v44_05_sd25_b1-316adb33f0": {
+   "id": "316adb33f0",
+   "job": "vibesong/v44_05_sd25_b1-316adb33f0",
+   "tag": "v44_05_sd25_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_05_sd25_b1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. The young woman in the centre sings, in Mandarin, the words of the reference audio, 'shi jie, shi wo de wu tai' (the world is my stage), her lips shaping each syllable exactly in time with the voice: open wide on 'jie' and 'tai', rounding on 'wo' and 'wu'. She performs it like a proud lead singer in a music video, with big, joyful body language: her shoulders bounce and roll to the beat, her upper body sways side to side, her head tilts and nods on the beat and her chin lifts on 'wu tai'; her eyebrows rise, her eyes sparkle and look out over the crowd; on 'wo de wu tai' one hand sweeps up and out to the side, palm open, presenting the stage. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873725,
+   "submitted": 1792423347.05314,
+   "bytes": 1622720,
+   "started": 1792423543.585,
+   "gen_secs": 150.4,
+   "finished": 1792423694.008,
+   "latency_secs": 347.0,
+   "files": [
+    "media/gen/v44_05_sd25_b1_316adb33f0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2292104,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792423718.6664414
+  },
+  "vibesong/v44_05_sd25_b2-24876eb9af": {
+   "id": "24876eb9af",
+   "job": "vibesong/v44_05_sd25_b2-24876eb9af",
+   "tag": "v44_05_sd25_b2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_05_sd25_b2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. The young woman in the centre sings, in Mandarin, the words of the reference audio, 'shi jie, shi wo de wu tai' (the world is my stage), her lips shaping each syllable exactly in time with the voice: open wide on 'jie' and 'tai', rounding on 'wo' and 'wu'. She performs it like a proud lead singer in a music video, with big, joyful body language: her shoulders bounce and roll to the beat, her upper body sways side to side, her head tilts and nods on the beat and her chin lifts on 'wu tai'; her eyebrows rise, her eyes sparkle and look out over the crowd; on 'wo de wu tai' one hand sweeps up and out to the side, palm open, presenting the stage. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873725,
+   "submitted": 1792423348.6570005,
+   "bytes": 1622720,
+   "started": 1792423543.639,
+   "gen_secs": 284.7,
+   "finished": 1792423828.353,
+   "latency_secs": 479.7,
+   "files": [
+    "media/gen/v44_05_sd25_b2_24876eb9af.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2282664,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792423846.0371459
+  },
+  "vibesong/v44_05_sd25_c1-35fc9f5fe6": {
+   "id": "35fc9f5fe6",
+   "job": "vibesong/v44_05_sd25_c1-35fc9f5fe6",
+   "tag": "v44_05_sd25_c1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_05_sd25_c1.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. Lip sync first: the young woman in the centre sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu', closing only between phrases. She performs it like a proud lead singer in a music video, with big, joyful body language: her shoulders bounce and roll to the beat, her upper body sways side to side, her head tilts and nods on the beat and her chin lifts on 'wu tai'; her eyebrows rise, her eyes sparkle and look out over the crowd; on 'wo de wu tai' one hand sweeps up and out to the side, palm open, presenting the stage. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873726,
+   "submitted": 1792423350.1066008,
+   "bytes": 1622707,
+   "started": 1792423598.584,
+   "gen_secs": 151.0,
+   "finished": 1792423749.627,
+   "latency_secs": 399.5,
+   "files": [
+    "media/gen/v44_05_sd25_c1_35fc9f5fe6.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2227802,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792423783.8682618
+  },
+  "vibesong/v44_05_sd25_c2-d5cc267fdb": {
+   "id": "d5cc267fdb",
+   "job": "vibesong/v44_05_sd25_c2-d5cc267fdb",
+   "tag": "v44_05_sd25_c2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_05_sd25_c2.json",
+   "input": {
+    "duration": 5,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. Lip sync first: the young woman in the centre sings 'shi jie, shi wo de wu tai' from the reference audio in Mandarin, each syllable on the voice, mouth open wide on 'jie' and 'tai', lips rounding on 'wo' and 'wu', closing only between phrases. She performs it like a proud lead singer in a music video, with big, joyful body language: her shoulders bounce and roll to the beat, her upper body sways side to side, her head tilts and nods on the beat and her chin lifts on 'wu tai'; her eyebrows rise, her eyes sparkle and look out over the crowd; on 'wo de wu tai' one hand sweeps up and out to the side, palm open, presenting the stage. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+    "reference_audios": [
+     "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+    ]
+   },
+   "est_usd": 0.514,
+   "est_basis": "5s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873726,
+   "submitted": 1792423351.5332649,
+   "bytes": 1622707,
+   "started": 1792423598.738,
+   "gen_secs": 151.8,
+   "finished": 1792423750.554,
+   "latency_secs": 399.0,
+   "files": [
+    "media/gen/v44_05_sd25_c2_d5cc267fdb.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 5.042,
+     "bytes": 2331440,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 121
+      }
+     ]
+    }
+   ],
+   "collected": 1792423751.8838625
+  },
+  "vibesong/v44_05_a1_up-062b84422a": {
+   "id": "062b84422a",
+   "job": "vibesong/v44_05_a1_up-062b84422a",
+   "tag": "v44_05_a1_up",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.4 card 05 take v44_05_sd25_a1: precise 2.25x of take frames 1..89 (from 0.041667 s, media/cutscenes/_work/v44/upscale/seg_05_v44a1.txt), covers slot 107.15-110.41 at shifts -2..+8",
+   "spec_file": "media/gen/specs/v44_05_a1_up.json",
+   "input": {
+    "input_video": "file:media/cutscenes/_work/v44/upscale/seg_05_v44a1.mp4",
+    "upscale_factor": 2.25,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29873733,
+   "submitted": 1792423909.9292297,
+   "bytes": 2931601,
+   "started": 1792424018.528,
+   "gen_secs": 57.2,
+   "finished": 1792424075.724,
+   "latency_secs": 165.8,
+   "files": [
+    "media/gen/v44_05_a1_up_062b84422a.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 3.708,
+     "bytes": 8026335,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1922,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 89
+      }
+     ]
+    }
+   ],
+   "collected": 1792424102.2496006
+  },
+  "vibesong/v44_spread_sd25_720p_a1-740663aef0": {
+   "id": "740663aef0",
+   "job": "vibesong/v44_spread_sd25_720p_a1-740663aef0",
+   "tag": "v44_spread_sd25_720p_a1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_spread_sd25_720p_a1.json",
+   "input": {
+    "duration": 9,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Jade sings the words of the reference audio, 'Everything I love about life just ... blossoms ... that's it', lips exactly in time with the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, performs like a real singer in a music video: her chest and shoulders rise and fall with her breathing, her head moves with the phrasing, small nods on the beat, a tilt to one side on the long notes, the chin lifting a little on the high note; her shoulders sway gently side to side; her eyebrows lift with feeling, she glances at Charlie and at Ricky and back toward the viewer, blinking naturally with both eyes together; warm, happy, a little nostalgic. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/act5/_work/v44/ff_g1.jpg",
+    "reference_audios": [
+     "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+    ]
+   },
+   "est_usd": 2.0808,
+   "est_basis": "9s x 0.2312 (@720p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873744,
+   "submitted": 1792424569.2425058,
+   "bytes": 1280151,
+   "started": 1792424678.32,
+   "gen_secs": 385.1,
+   "finished": 1792425063.37,
+   "latency_secs": 494.1,
+   "files": [
+    "media/gen/v44_spread_sd25_720p_a1_740663aef0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 5657135,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1280,
+       "height": 720,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792425109.8948472
+  },
+  "vibesong/v44_spread_sd25_720p_b1-8099f41f75": {
+   "id": "8099f41f75",
+   "job": "vibesong/v44_spread_sd25_720p_b1-8099f41f75",
+   "tag": "v44_spread_sd25_720p_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_spread_sd25_720p_b1.json",
+   "input": {
+    "duration": 9,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: Jade sings 'Everything I love about life just ... blossoms ... that's it' from the reference audio, each syllable on the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, sings with her whole upper body like live footage of a singer: shoulders and chest moving, her body swaying side to side to the rhythm, her head bobbing and tilting freely, turning toward Charlie on one line and toward Ricky on the next, then back to the viewer; her eyes close briefly on the long note 'blossoms' and open again, both eyes always together; joyful and warm, never a still body with only a moving mouth. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/act5/_work/v44/ff_g1.jpg",
+    "reference_audios": [
+     "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+    ]
+   },
+   "est_usd": 2.0808,
+   "est_basis": "9s x 0.2312 (@720p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873744,
+   "submitted": 1792424570.3785927,
+   "bytes": 1280111,
+   "started": 1792424678.352,
+   "gen_secs": 164.5,
+   "finished": 1792424842.817,
+   "latency_secs": 272.4,
+   "files": [
+    "media/gen/v44_spread_sd25_720p_b1_8099f41f75.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 5965536,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1280,
+       "height": 720,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792424860.8697422
+  },
+  "vibesong/v44_spread_sd25_480p_b1-8823d28f85": {
+   "id": "8823d28f85",
+   "job": "vibesong/v44_spread_sd25_480p_b1-8823d28f85",
+   "tag": "v44_spread_sd25_480p_b1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v44_spread_sd25_480p_b1.json",
+   "input": {
+    "duration": 9,
+    "resolution": "480p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: Jade sings 'Everything I love about life just ... blossoms ... that's it' from the reference audio, each syllable on the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, sings with her whole upper body like live footage of a singer: shoulders and chest moving, her body swaying side to side to the rhythm, her head bobbing and tilting freely, turning toward Charlie on one line and toward Ricky on the next, then back to the viewer; her eyes close briefly on the long note 'blossoms' and open again, both eyes always together; joyful and warm, never a still body with only a moving mouth. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/act5/_work/v44/ff_g1.jpg",
+    "reference_audios": [
+     "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+    ]
+   },
+   "est_usd": 0.9252,
+   "est_basis": "9s x 0.1028 (@480p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873745,
+   "submitted": 1792424571.663899,
+   "bytes": 1280111,
+   "started": 1792424742.875,
+   "gen_secs": 161.1,
+   "finished": 1792424903.948,
+   "latency_secs": 332.3,
+   "files": [
+    "media/gen/v44_spread_sd25_480p_b1_8823d28f85.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 3753169,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 854,
+       "height": 480,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792424924.7054482
+  },
+  "vibesong/v45_ricky_aleph_k1-ca0e4ba85f": {
+   "id": "ca0e4ba85f",
+   "job": "vibesong/v45_ricky_aleph_k1-ca0e4ba85f",
+   "tag": "v45_ricky_aleph_k1",
+   "model": "runwayml/aleph-2",
+   "notes": "v4.5 Ricky likeness fix on take B (v44_spread_sd25_720p_b1) via video edit; keyframe = take B f0 with the NBP-fixed Ricky (edit_r1). Composite Ricky region only.",
+   "spec_file": "media/gen/specs/v45_ricky_aleph_k1.json",
+   "input": {
+    "prompt": "Edit only the young man on the right who plays the electric guitar, so that he looks exactly like he does in the keyframe image: short, tousled, slightly spiky black hair (no bowl cut, no heavy fringe), a slim oval face with a narrow jaw and fair skin, a long-sleeved white shirt with thin pale blue-grey stripes, sleeves rolled up to the forearms, a navy blue guitar strap, and a natural light-wood Stratocaster with a white pickguard. Keep all of his motion exactly as in the input video: the same head turns, nods, hands, picking and fretting. Keep the singing girl in the centre and the man with the cap and acoustic guitar on the left completely unchanged, frame for frame. Same colored-pencil drawing style, paper texture, sketchbook page, colours and framing.",
+    "video_uri": "file:media/gen/v44_spread_sd25_720p_b1_8099f41f75.mp4",
+    "keyframes": [
+     {
+      "uri": "file:media/act5/_work/v45/key_r1_f0.jpg",
+      "seconds": 0
+     }
+    ],
+    "seed": 4511,
+    "duration": 9.04
+   },
+   "est_usd": 3.0374,
+   "est_basis": "9.04s x 0.336 (Default (per second))",
+   "state": "error",
+   "bucket": 29873818,
+   "submitted": 1792429006.3630233,
+   "bytes": 8229416,
+   "gen_secs": 1.6,
+   "started": 1792429119.298,
+   "finished": 1792429120.912,
+   "latency_secs": 114.5,
+   "error": "2047: Invalid User Credentials",
+   "logged": true
+  },
+  "vibesong/v45_spread_sd25_720p_br1-6d877334c0": {
+   "id": "6d877334c0",
+   "job": "vibesong/v45_spread_sd25_720p_br1-6d877334c0",
+   "tag": "v45_spread_sd25_720p_br1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag)",
+   "spec_file": "media/gen/specs/v45_spread_sd25_720p_br1.json",
+   "input": {
+    "duration": 9,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: Jade sings 'Everything I love about life just ... blossoms ... that's it' from the reference audio, each syllable on the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, sings with her whole upper body like live footage of a singer: shoulders and chest moving, her body swaying side to side to the rhythm, her head bobbing and tilting freely, turning toward Charlie on one line and toward Ricky on the next, then back to the viewer; her eyes close briefly on the long note 'blossoms' and open again, both eyes always together; joyful and warm, never a still body with only a moving mouth. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/act5/_work/v45/ff_r1.jpg",
+    "reference_audios": [
+     "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+    ]
+   },
+   "est_usd": 2.0808,
+   "est_basis": "9s x 0.2312 (@720p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873818,
+   "submitted": 1792429015.806029,
+   "bytes": 1038955,
+   "started": 1792429118.205,
+   "gen_secs": 173.5,
+   "finished": 1792429291.739,
+   "latency_secs": 275.9,
+   "files": [
+    "media/gen/v45_spread_sd25_720p_br1_6d877334c0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 5477518,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1280,
+       "height": 720,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792429326.6158447
+  },
+  "vibesong/v45_ricky_pvr1-1b2da4eea0": {
+   "id": "1b2da4eea0",
+   "job": "vibesong/v45_ricky_pvr1-1b2da4eea0",
+   "tag": "v45_ricky_pvr1",
+   "model": "pruna/p-video-replace",
+   "notes": "v4.5 Ricky likeness fix on take B via identity replacement; composite Ricky region only",
+   "spec_file": "media/gen/specs/v45_ricky_pvr1.json",
+   "input": {
+    "video": "file:media/gen/v44_spread_sd25_720p_b1_8099f41f75.mp4",
+    "images": [
+     "file:media/act5/_work/v45/id_ricky_r1.jpg",
+     "file:media/act5/_work/v45/ref_ricky_cards.jpg"
+    ],
+    "turbo": false,
+    "resolution": "720p",
+    "save_audio": false,
+    "ignore_audio": true,
+    "target_fps": "original",
+    "instruction_prompt": "Replace only the young man on the right who plays the electric guitar with the young man in the reference images: his short tousled spiky black hair, slim face, fair skin, long-sleeved white shirt with thin pale blue-grey stripes and rolled sleeves, navy strap, natural light-wood Stratocaster. Keep his exact motion. Keep the singing girl in the centre and the man in the flat cap on the left unchanged. Keep the colored-pencil drawing style and the sketchbook paper.",
+    "disable_safety_checker": false,
+    "duration": 9.04
+   },
+   "est_usd": 0.2712,
+   "est_basis": "9.04s x 0.03 (@720p (per second))",
+   "state": "error",
+   "bucket": 29873821,
+   "submitted": 1792429170.8675036,
+   "bytes": 9860814,
+   "gen_secs": 3.7,
+   "started": 1792429300.28,
+   "finished": 1792429303.946,
+   "latency_secs": 133.1,
+   "error": "7003: User Input Error",
+   "logged": true
+  },
+  "vibesong/v45_ricky_pvr2-6592eda39e": {
+   "id": "6592eda39e",
+   "job": "vibesong/v45_ricky_pvr2-6592eda39e",
+   "tag": "v45_ricky_pvr2",
+   "model": "pruna/p-video-replace",
+   "notes": "v4.5 Ricky likeness fix on take B via identity replacement; composite Ricky region only",
+   "spec_file": "media/gen/specs/v45_ricky_pvr2.json",
+   "input": {
+    "video": "file:media/gen/v44_spread_sd25_720p_b1_8099f41f75.mp4",
+    "images": [
+     "file:media/act5/_work/v45/id_ricky_r1.jpg",
+     "file:media/act5/_work/v45/ref_ricky_cards.jpg"
+    ],
+    "turbo": false,
+    "resolution": "720p",
+    "save_audio": false,
+    "ignore_audio": true,
+    "target_fps": "original",
+    "instruction_prompt": "Replace only the young man on the right who plays the electric guitar with the young man in the reference images: his short tousled spiky black hair, slim face, fair skin, long-sleeved white shirt with thin pale blue-grey stripes and rolled sleeves, navy strap, natural light-wood Stratocaster. Keep his exact motion. Keep the singing girl in the centre and the man in the flat cap on the left unchanged. Keep the colored-pencil drawing style and the sketchbook paper.",
+    "disable_safety_checker": false
+   },
+   "est_usd": 0.28,
+   "est_basis": "from spec",
+   "state": "error",
+   "bucket": 29873824,
+   "submitted": 1792429370.3155828,
+   "bytes": 9860796,
+   "gen_secs": 3.8,
+   "started": 1792429479.126,
+   "finished": 1792429482.915,
+   "latency_secs": 112.6,
+   "error": "7003: User Input Error",
+   "logged": true
+  },
+  "vibesong/v45_ricky_pvr3-0626d4a010": {
+   "id": "0626d4a010",
+   "job": "vibesong/v45_ricky_pvr3-0626d4a010",
+   "tag": "v45_ricky_pvr3",
+   "model": "pruna/p-video-replace",
+   "notes": "v4.5 Ricky likeness fix on take B via identity replacement; composite Ricky region only",
+   "spec_file": "media/gen/specs/v45_ricky_pvr3.json",
+   "input": {
+    "video": "file:media/act5/_work/v45/takeB_720_aud.mp4",
+    "images": [
+     "file:media/act5/_work/v45/id_ricky_r1.jpg",
+     "file:media/act5/_work/v45/ref_ricky_cards.jpg"
+    ],
+    "turbo": false,
+    "resolution": "720p",
+    "save_audio": false,
+    "ignore_audio": false,
+    "target_fps": "original",
+    "instruction_prompt": "Replace only the young man on the right who plays the electric guitar with the young man in the reference images: his short tousled spiky black hair, slim face, fair skin, long-sleeved white shirt with thin pale blue-grey stripes and rolled sleeves, navy strap, natural light-wood Stratocaster. Keep his exact motion. Keep the singing girl in the centre and the man in the flat cap on the left unchanged. Keep the colored-pencil drawing style and the sketchbook paper.",
+    "disable_safety_checker": false
+   },
+   "est_usd": 0.28,
+   "est_basis": "from spec",
+   "state": "error",
+   "bucket": 29873827,
+   "submitted": 1792429522.9354227,
+   "bytes": 10017517,
+   "gen_secs": 3.4,
+   "started": 1792429662.09,
+   "finished": 1792429665.463,
+   "latency_secs": 142.5,
+   "error": "7003: User Input Error",
+   "logged": true
+  },
+  "vibesong/v45_ricky_sdedit_720p_1-197a636150": {
+   "id": "197a636150",
+   "job": "vibesong/v45_ricky_sdedit_720p_1-197a636150",
+   "tag": "v45_ricky_sdedit_720p_1",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.5 Ricky likeness fix: Seedance 2.5 video edit of take B (v44_spread_sd25_720p_b1); composite Ricky region only",
+   "spec_file": "media/gen/specs/v45_ricky_sdedit_720p_1.json",
+   "input": {
+    "duration": -1,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "Edit the reference video: keep it exactly the same, every frame, every movement, the same timing, the same camera and framing, the same colored-pencil drawing on the cream sketchbook page. Change ONLY the appearance of the young man on the right who plays the electric guitar (Ricky), so that he looks exactly like the young man in image 1 and image 2: short, tousled, slightly spiky black hair with the forehead partly visible (no bowl cut, no heavy fringe), a slim oval face with a narrow jaw, fair skin, gentle eyes, a long-sleeved white shirt with thin pale blue-grey stripes and the sleeves rolled up to the forearms, a navy blue guitar strap, and a natural light-wood Stratocaster with a white pickguard. He keeps exactly the same motion as in the reference video: the same head turns toward the girl, nods, hands, picking and fretting. Do not change the singing girl in the centre (her face, mouth movements, hair, bun and pencils, headphones, jacket) or the man with the flat cap and acoustic guitar on the left, or the background. No text.",
+    "reference_videos": [
+     "file:media/gen/v44_spread_sd25_720p_b1_8099f41f75.mp4"
+    ],
+    "reference_images": [
+     "file:media/act5/_work/v45/key_r1_f0.jpg",
+     "file:media/act5/_work/v45/id_ricky_r1.jpg"
+    ]
+   },
+   "est_usd": 8.75,
+   "est_basis": "from spec",
+   "state": "error",
+   "bucket": 29873830,
+   "submitted": 1792429734.897034,
+   "bytes": 9637041,
+   "gen_secs": 7.9,
+   "started": 1792429842.464,
+   "finished": 1792429850.319,
+   "latency_secs": 115.4,
+   "error": "7003: User Input Error",
+   "logged": true
+  },
+  "vibesong/v45_ricky_pvr4-f91208d2e3": {
+   "id": "f91208d2e3",
+   "job": "vibesong/v45_ricky_pvr4-f91208d2e3",
+   "tag": "v45_ricky_pvr4",
+   "model": "pruna/p-video-replace",
+   "notes": "v4.5 Ricky likeness fix on take B via identity replacement; composite Ricky region only",
+   "spec_file": "media/gen/specs/v45_ricky_pvr4.json",
+   "input": {
+    "video": "file:media/act5/_work/v45/takeB_720_c22_aud.mp4",
+    "images": [
+     "file:media/act5/_work/v45/id_ricky_r1_s.jpg",
+     "file:media/act5/_work/v45/key_r1_f0_s.jpg"
+    ],
+    "turbo": false,
+    "resolution": "720p",
+    "save_audio": false,
+    "ignore_audio": false,
+    "target_fps": "original",
+    "instruction_prompt": "Replace only the young man on the right who plays the electric guitar with the young man in the reference images: his short tousled spiky black hair, slim face, fair skin, long-sleeved white shirt with thin pale blue-grey stripes and rolled sleeves, navy strap, natural light-wood Stratocaster. Keep his exact motion. Keep the singing girl in the centre and the man in the flat cap on the left unchanged. Keep the colored-pencil drawing style and the sketchbook paper.",
+    "disable_safety_checker": false
+   },
+   "est_usd": 0.28,
+   "est_basis": "from spec",
+   "state": "error",
+   "bucket": 29873834,
+   "submitted": 1792429928.8650649,
+   "bytes": 2276301,
+   "gen_secs": 2.7,
+   "started": 1792430078.485,
+   "finished": 1792430081.224,
+   "latency_secs": 152.4,
+   "error": "7003: User Input Error",
+   "logged": true
+  },
+  "vibesong/v45_ricky_sdedit_720p_2-e6e1d6f24c": {
+   "id": "e6e1d6f24c",
+   "job": "vibesong/v45_ricky_sdedit_720p_2-e6e1d6f24c",
+   "tag": "v45_ricky_sdedit_720p_2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.5 Ricky likeness fix: Seedance 2.5 video edit of take B (v44_spread_sd25_720p_b1); composite Ricky region only",
+   "spec_file": "media/gen/specs/v45_ricky_sdedit_720p_2.json",
+   "input": {
+    "duration": -1,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "Edit the reference video: keep it exactly the same, every frame, every movement, the same timing, the same camera and framing, the same colored-pencil drawing on the cream sketchbook page. Change ONLY the appearance of the young man on the right who plays the electric guitar (Ricky), so that he looks exactly like the young man in image 1 and image 2: short, tousled, slightly spiky black hair with the forehead partly visible (no bowl cut, no heavy fringe), a slim oval face with a narrow jaw, fair skin, gentle eyes, a long-sleeved white shirt with thin pale blue-grey stripes and the sleeves rolled up to the forearms, a navy blue guitar strap, and a natural light-wood Stratocaster with a white pickguard. He keeps exactly the same motion as in the reference video: the same head turns toward the girl, nods, hands, picking and fretting. Do not change the singing girl in the centre (her face, mouth movements, hair, bun and pencils, headphones, jacket) or the man with the flat cap and acoustic guitar on the left, or the background. No text.",
+    "reference_videos": [
+     "file:media/act5/_work/v45/takeB_720_c22.mp4"
+    ],
+    "reference_images": [
+     "file:media/act5/_work/v45/key_r1_f0_s.jpg",
+     "file:media/act5/_work/v45/id_ricky_r1_s.jpg"
+    ]
+   },
+   "est_usd": 8.75,
+   "est_basis": "from spec",
+   "state": "error",
+   "bucket": 29873837,
+   "submitted": 1792430127.5880785,
+   "bytes": 2174341,
+   "gen_secs": 6.1,
+   "started": 1792430258.342,
+   "finished": 1792430264.467,
+   "latency_secs": 136.9,
+   "error": "7003: User Input Error",
+   "logged": true
+  },
+  "vibesong/v45_spread_sd25_720p_bk2-acad6507f0": {
+   "id": "acad6507f0",
+   "job": "vibesong/v45_spread_sd25_720p_bk2-acad6507f0",
+   "tag": "v45_spread_sd25_720p_bk2",
+   "model": "bytedance/seedance-2.5",
+   "notes": "v4.4 outro spread singer; S0=186.3 (clip t = song t - S0 + lag) | bk2: take B prompt + Ricky keeps looking at Jade (for the Ricky-region hybrid)",
+   "spec_file": "media/gen/specs/v45_spread_sd25_720p_bk2.json",
+   "input": {
+    "duration": 9,
+    "resolution": "720p",
+    "aspect_ratio": "16:9",
+    "fps": 24,
+    "camera_fixed": false,
+    "watermark": false,
+    "output_format": "mp4",
+    "use_virtual_avatar": true,
+    "generate_audio": false,
+    "prompt": "A colored-pencil drawing on a cream sketchbook page comes to life, a hand-drawn pencil drawing in every frame: same pencil lines, paper and hatching as the first frame, never a photo or 3D. Lip sync first: Jade sings 'Everything I love about life just ... blossoms ... that's it' from the reference audio, each syllable on the voice: mouth opening on 'Everything', lips pressing together on the 'v' and on the 'm' of 'blossoms', a rounded 'o' on 'love' and 'blossoms', open on 'life', a soft smile on 'that's it'. JADE, the girl in the centre, sings with her whole upper body like live footage of a singer: shoulders and chest moving, her body swaying side to side to the rhythm, her head bobbing and tilting freely, turning toward Charlie on one line and toward Ricky on the next, then back to the viewer; her eyes close briefly on the long note 'blossoms' and open again, both eyes always together; joyful and warm, never a still body with only a moving mouth. CHARLIE (left) strums his acoustic guitar steadily, fingers changing chords, head nodding in time, smiling. RICKY (right) picks his electric guitar, hands always moving, head bobbing to the beat, his head turned toward Jade the whole time, watching her sing with a warm smile. Nobody ever freezes; all stay seated on the rainbow bench. Eyes natural and sane: both eyes of each person always look the same way, normal blinks, no winks. Keep every face exactly as in the first frame; do not restyle anyone. Jade's hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink), moving only with her head. Charlie's beige flat cap stays on. Headphones stay round her neck; ONE chest dot and ONE sleeve patch, where they are. Static camera, no zoom. No captions, no text, no new objects.",
+    "image": "file:media/act5/_work/v45/ff_r1.jpg",
+    "reference_audios": [
+     "file:media/act5/_work/v44/voc_186.30_9s.mp3"
+    ]
+   },
+   "est_usd": 2.0808,
+   "est_basis": "9s x 0.2312 (@720p non-video input (per second))",
+   "state": "done",
+   "bucket": 29873842,
+   "submitted": 1792430429.3149562,
+   "bytes": 1039036,
+   "started": 1792430558.247,
+   "gen_secs": 293.8,
+   "finished": 1792430852.081,
+   "latency_secs": 422.8,
+   "files": [
+    "media/gen/v45_spread_sd25_720p_bk2_acad6507f0.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 6105170,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1280,
+       "height": 720,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792430873.3203638
+  },
+  "vibesong/v46_outro_up15-99e77d86a1": {
+   "id": "99e77d86a1",
+   "job": "vibesong/v46_outro_up15-99e77d86a1",
+   "tag": "v46_outro_up15",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.6 v46_outro: outro spread v45r2 hybrid (media/act5/_work/v45/hyb_br1.mp4 re-encoded crf14 veryslow = media/act5/_work/v46/hyb_br1_crf14.mp4 PSNR 49.8 dB, 1280x720 24 fps 9.04 s, drawn frames only) precise 1.5x, creativity 0, for the 1080 master",
+   "spec_file": "media/gen/specs/v46_outro_up15.json",
+   "input": {
+    "input_video": "file:media/act5/_work/v46/hyb_br1_crf14.mp4",
+    "upscale_factor": 1.5,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874011,
+   "submitted": 1792440589.6200762,
+   "bytes": 6284472,
+   "started": 1792440699.101,
+   "gen_secs": 71.3,
+   "finished": 1792440770.403,
+   "latency_secs": 180.8,
+   "files": [
+    "media/gen/v46_outro_up15_99e77d86a1.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 15211872,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 1920,
+       "height": 1080,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792440793.0961478
+  },
+  "vibesong/v46_outro_up20-ab78fbca00": {
+   "id": "ab78fbca00",
+   "job": "vibesong/v46_outro_up20-ab78fbca00",
+   "tag": "v46_outro_up20",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.6 v46_outro: outro spread v45r2 hybrid (media/act5/_work/v45/hyb_br1.mp4 re-encoded crf14 veryslow = media/act5/_work/v46/hyb_br1_crf14.mp4 PSNR 49.8 dB, 1280x720 24 fps 9.04 s, drawn frames only) precise 2.0x, creativity 0, for the 1080 master",
+   "spec_file": "media/gen/specs/v46_outro_up20.json",
+   "input": {
+    "input_video": "file:media/act5/_work/v46/hyb_br1_crf14.mp4",
+    "upscale_factor": 2.0,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874011,
+   "submitted": 1792440592.5899172,
+   "bytes": 6284472,
+   "started": 1792440699.237,
+   "gen_secs": 95.2,
+   "finished": 1792440794.461,
+   "latency_secs": 201.9,
+   "files": [
+    "media/gen/v46_outro_up20_ab78fbca00.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 23102999,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 2560,
+       "height": 1440,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792440796.7934384
+  },
+  "vibesong/v46_outro_up20b-f7ca907bea": {
+   "id": "f7ca907bea",
+   "job": "vibesong/v46_outro_up20b-f7ca907bea",
+   "tag": "v46_outro_up20b",
+   "model": "black-forest-labs/flux-video-upscale",
+   "notes": "v4.6 v46_outro: outro spread v45r2 hybrid with the shoulder seam fixed (tools/cutscenes/pb_spread46_hybrid.py -> media/act5/_work/v46/hyb_br1b.mp4, re-encoded crf14 veryslow = hyb_br1b_crf14.mp4; 1280x720 24 fps 9.04 s, drawn frames only) precise 2x, creativity 0, same settings as v46_outro_up20",
+   "spec_file": "media/gen/specs/v46_outro_up20b.json",
+   "input": {
+    "input_video": "file:media/act5/_work/v46/hyb_br1b_crf14.mp4",
+    "upscale_factor": 2.0,
+    "creativity": 0,
+    "safety_tolerance": 4
+   },
+   "est_usd": null,
+   "est_basis": "unrecognised pricing keys ['Precise (per megapixel-second)', 'Creative (per megapixel-second)']",
+   "state": "done",
+   "bucket": 29874077,
+   "submitted": 1792444519.9355898,
+   "bytes": 6253612,
+   "started": 1792444658.329,
+   "gen_secs": 91.5,
+   "finished": 1792444749.816,
+   "latency_secs": 229.9,
+   "files": [
+    "media/gen/v46_outro_up20b_f7ca907bea.mp4"
+   ],
+   "probe": [
+    {
+     "duration": 9.042,
+     "bytes": 23691609,
+     "streams": [
+      {
+       "codec_type": "video",
+       "codec_name": "h264",
+       "width": 2560,
+       "height": 1440,
+       "fps": 24.0,
+       "frames": 217
+      }
+     ]
+    }
+   ],
+   "collected": 1792444781.624108
   }
  },
- "total_est_usd": 73.7236,
- "total_est_usd_done": 57.238
+ "total_est_usd": 107.7046,
+ "total_est_usd_done": 69.5704
 }

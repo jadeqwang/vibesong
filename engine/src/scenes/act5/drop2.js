@@ -77,7 +77,10 @@ export async function setup(ctx) {
   const W = await buildWorld5(ctx);
   const { scene, setShadow } = W;
   const cam = new THREE.PerspectiveCamera(35, ctx.width / ctx.height, 0.02, 40000);
-  ctx.post.setScene(scene, cam);
+  // (v46_blob) post.gtao is ONE shared pass that re-renders the scene it was built for: binding it to this scene at setup made every
+  // earlier 3D frame in the same render (Act III/IV world, montage callbacks) take its AO from the Act V world (the 171.47 black blob).
+  // Build our own pass, give the shared one back, and swap ours in only around our own post.render.
+  const aoShared = ctx.post.gtao; ctx.post.setScene(scene, cam); const aoOwn = ctx.post.gtao; ctx.post.gtao = aoShared;
   const rtVox = new THREE.WebGLRenderTarget(ctx.width, ctx.height);
 
   // ---- the pencil close-up rig on the first 一 (beside Jade)
@@ -226,7 +229,7 @@ export async function setup(ctx) {
     render(t, target) {
       const r = ctx.renderer;
       const U = comp.material.uniforms;
-      ctx.post.render(scene, cam, rtVox);
+      { const g = ctx.post.gtao; ctx.post.gtao = aoOwn; try { ctx.post.render(scene, cam, rtVox); } finally { ctx.post.gtao = g; } }   // (v46_blob) our own AO pass
       U.uBlur.value = t >= TIMES.drop ? Math.min(0.12, this._speed * 0.045) : 0;
       // the wave
       const F = T.keys(t, [[TIMES.wave0, -0.1], [TIMES.wave1 - 0.08, 1.12]], (u) => u * (0.6 + 0.4 * u));

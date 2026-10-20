@@ -1,4 +1,11 @@
-# Launch deliverables: three 9:16 cuts, thumbnails, sheet (2026-10-18)
+# Launch deliverables: three 9:16 cuts, thumbnails, sheet (2026-10-18; refreshed for v4.6 2026-10-19)
+
+**v4.6 refresh (2026-10-19, unit v46_launch, checkpoints/v46_launch.md).** Everything below was re-rendered with the v4.6 code (master = `out/master/full_v4.6_1080p.mp4`). The v4.1 set is in `out/bak_v46/launch_v41/`. Method changes:
+- `seg/render_all.sh` now also renders `c1_insert_wide` (it was run by hand before). Whole set: ~16 min of renders.
+- `seg/assemble.py`: MASTER = full_v4.6_1080p.mp4 (pill crop unchanged). **Cut 2 has a new pan** for the v4.5 'orbit' walk and **its slate moved to the bottom** (y 1680, fading in over the last 0.85 s; `slate_lead`), because the orbit close-up keeps the heads at the top of frame through the end.
+- Thumbnail A moved 183.6 -> **183.733**: at 183.6 Ricky's slab-strum sparkles sit on his guitar. 183.733 is the first clean frame (word fully lit, all three playing).
+- `seg/pancheck.py SRC KEYS t0 t1 step OUT.jpg` draws the 1080-wide crop box on frames of a wide render; use it to re-tune pans when a shot changes.
+
 
 All files are in `engine/out/launch/`. Nothing was published or uploaded, nothing was paid for, and engine/src was not touched.
 
@@ -8,7 +15,7 @@ All files are in `engine/out/launch/`. Nothing was published or uploaded, nothin
 | `launch_9x16_2_shatter.mp4` | Cut 2, 2D→3D shatter, 71.109-86.400, 15.3 s, with end slate |
 | `launch_9x16_3_terraces.mp4` | Cut 3, terraces, 169.668-186.660, 17.0 s, with end slate |
 | `launch_9x16_*_clean.mp4` | the same three cuts without the slate |
-| `thumb_{A_functions,B_terraces,C_hua}_{1280x720,1080x1350}.jpg` | three thumbnail candidates in two sizes. **A is the one I recommend.** |
+| `thumb_{A_functions,B_terraces,C_hua}_{1280x720,1080x1350}.jpg` | three thumbnail candidates in two sizes. **A is the one I recommend.** (v4.6: A from 183.733) |
 | `launch_sheet.jpg` | the three cuts at 1 fps, plus the thumbnail candidates |
 | `seg/` | scripts, segment renders and the 3 thumbnail source stills, so everything can be re-assembled without re-rendering (`seg/*.mp4` takes 166 MB and can be deleted; `render_all.sh` rebuilds it in about 15 min) |
 
@@ -29,7 +36,7 @@ Render commands (`seg/render_all.sh`, run from `engine/`, `TMPDIR=$PWD/out/dev/t
 ```
 COMMON="--show main --fps 30 --fig native --figscale 1.3 --figres 2.5 --look k08b+cs --mblur 8 --shutter 0.33 --workers 1"
 node render.js $COMMON --from 41.028  --to 59.434  --res 1080x1920 --mp4 out/launch/seg/c1_portrait.mp4
-node render.js $COMMON --from 48.567  --to 50.667  --res 3414x1920 --mp4 out/launch/seg/c1_insert_wide.mp4
+node render.js $COMMON --from 48.567  --to 50.667  --res 3414x1920 --mp4 out/launch/seg/c1_insert_wide.mp4   # in render_all.sh since v4.6
 node render.js $COMMON --from 69.444  --to 82.706  --res 1080x1920 --mp4 out/launch/seg/c2_portrait.mp4
 node render.js $COMMON --from 82.706  --to 86.400  --res 3414x1920 --mp4 out/launch/seg/c2_wide.mp4
 node render.js $COMMON --from 169.668 --to 174.400 --res 1080x1920 --mp4 out/launch/seg/c3_portrait.mp4
@@ -51,7 +58,7 @@ The arc is complete: "I think about stuff I read" → "I just ask myself what it
 **Cut 2: 2D→3D shatter, 71.109 → 86.400 (bar 43 → end of the drop-1 whistle phrase).** It runs from the build (REALITY bar filling 31→100%), through 一切从这里出发! (72.13) with 出发 drawn in rainbow, the triplet roll and 一笔一画! (79.36), and the silent LOADING freeze (79.87-80.81). Then the pixel world shatters into the sunlit plaster world (80.81), followed by the 3D causeway run with Ricky's beam hitting switches through the whistle hook (81.87-86.15).
 - It ends at the shot cut at 86.400, before the 86.41 accent and "Fixtures!" (86.63).
 - I first tried starting at 69.444 (bar 42), but the first 2.5 s are an empty void in portrait, so the cut now starts with the 一切 typing 1 s in.
-- From 71.109 to 82.706 the render is native portrait (the shatter reads fully in 9:16). From the beat cut at 82.706 (bar 50 downbeat) it switches to the wide render. The pan keeps the three heroes in frame: cx 0.40 → 0.28 by 83.5 → 0.29 → 0.25.
+- From 71.109 to 82.706 the render is native portrait (the shatter reads fully in 9:16). From the beat cut at 82.706 (bar 50 downbeat) it switches to the wide render. The pan keeps the three heroes in frame: v4.1 cx 0.40 → 0.28 by 83.5 → 0.29 → 0.25. **v4.6 (orbit walk):** cx 0.46 → 0.48 (83.7) → 0.52-0.53 (84.2-84.8, front 3/4 close-up) → 0.51 (85.2) → 0.45 → 0.34 (85.8) → 0.31-0.32. In the close-up (84.3-85.2) the trio is ~1400 px wide in the 3414 frame, wider than 1080, so Jade's outer arm and Ricky's guitar headstock are trimmed; all three faces stay in.
 - I left FIXTURES!/FUNCTIONS! (86.6-91) out because both slab words are wider than 9:16.
 
 **Cut 3: terraces, 169.668 → 186.660 (bar 104 → end of drop 2).** It covers the flash-recap montage, the pink-paper pencil writing 一笔一画 (172.8-174.4), and the 174.40 rocket up to the voxel 一笔一画. Then come the photoreal subdivision to the rice terraces (175.5-176.6) and the aerial whistle hook, the FIXTURES!/FUNCTIONS! beats (graphite drawing of the terraces, then back to colour), and the dive into the red 一 stroke.
@@ -64,12 +71,12 @@ The arc is complete: "I think about stuff I read" → "I just ask myself what it
 
 **Slate (a proposal, in the main files).** The video's own pixel title card (the intro box from 13.2-13.8 s) fades in over the last 1.5 s: "The Vibe Coding Song" / "(一笔一画)", 744x200, at x 168.
 - The box was rebuilt with the engine's fonts (PressStart2P + fusion-pixel 12px zh_hans), colours sampled from the master, nearest-neighbour scaling ×4 (`seg/titlebox.py`).
-- It sits on calm background: the black void in cut 1 (y 236), the temple in cut 2 (y 236) and the red terraces in cut 3 (y 300). It never covers the heroes or subtitles.
+- It sits on calm background: the black void in cut 1 (y 236), the temple in cut 2 (y 236; **v4.6: the grass/ground at y 1680, fading in from 14.44 s**) and the red terraces in cut 3 (y 300). It never covers the heroes or subtitles.
 - If Jade wants no text at all, use the `_clean` files. No other text was added.
 
 ## Thumbnails (from 2560x1440 engine stills: `--stills T:… --res 2560x1440`, same flags without mblur)
 The title uses the same pixel card (`seg/make_thumbs.py`).
-- **A, carved FUNCTIONS slab + the band (183.6). Recommended.** A huge rainbow FUNCTIONS over three faces holding instruments says "coding + band" at a glance, and it reads at 240 px wide.
+- **A, carved FUNCTIONS slab + the band (183.6; v4.6: 183.733, after the slab-strum sparkles clear). Recommended.** A huge rainbow FUNCTIONS over three faces holding instruments says "coding + band" at a glance, and it reads at 240 px wide.
   - YouTube: full frame, title card at the bottom over the band's legs.
   - Social: the word + band fitted to width, title card above, blurred fill.
   - Jade checked at 2-4×: hair loose with a pencil in each hand (blue cap visible), headphones around the neck, white jacket with the chest band, sleeve band, chest dot and patch, navy cargos with orange straps. All on canon.

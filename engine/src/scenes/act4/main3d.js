@@ -39,6 +39,27 @@ import { envUniforms } from '../../env.js';
 import { getWorld, V, F, RT, E, J, SPIRAL, GROUND, GY, PAPER_Y, SUN, SUN_DAY, F5, RT5, at, yawFor, spiralPoint, placeHero, paint } from './world4.js';
 import { Overlay } from './overlay.js';
 import { makeAct4HUD } from './hud2d.js';   // (act4 M2) the second build bar + the speedrun split timer
+import { pose as figPose } from '../../core/voxfig.js';   // (v45_jam) Charlie + Ricky's strums keyed to the music (pose 'chord' with our own phase)
+
+// (v45_jam, Jade 2026-10-19 on v4.4: "Like 2:30, they could be playing their guitars, or Ricky's guitar could be bringing light here")
+// the rebuild 149.786-154.26 ("That's it, the fixtures and the functions"). checkpoints/v45_jam.md
+//   null = v4.4 (they stand; Ricky one chord on "functions") | 'play' = both play (strums on the guitar events, nods, the stab
+//   together in the mini-stop, turn to each other on "functions") | 'light' = 'play' + every big strum of Ricky's sends a ring of warm
+//   light across the island (it lights the lamp, flares the guitar, lifts the sunset key)
+export const JAM_V45 = 'light';
+// (v45_jam, Jade 2026-10-19: "maybe also while they're flying on the composite bug/feature contraption, Ricky's guitar playing provides
+// power?") the party cart 161.728-168.075. null = v4.4 (Ricky strums the 8ths, Charlie idle until the button) | 'power' = both play;
+// Ricky (moved to the camera side, standing) powers it: every strum flares the lamp, kicks the wheels + dust, flaps the glider and
+// steps the REALITY LV2 -> LV3 bar; his big strums send a ring of light from under the cart; the launch chord (166.275) leaves a ring
+// of light in the air behind it (the thrust). Charlie still SHIPS it (the button slam on 165.87)
+export const CART_V45 = 'power';
+// (v45_jam, scout's optional) the final-chorus lock shot 135.6-139.4: null = v4.4 (Charlie idle in the soft foreground, guitar on his back) |
+// 'strum' = on the band stop (137.03) he swings the acoustic round and waits; his ONE strum on the lone hit (138.595) sends a bolt of
+// light from his guitar to the top 一, which snaps home on it (the snap was already on that hit) as the camera whips into Jade's eye
+export const LOCK_V45 = 'strum';
+/** the bar's steps for the cart (hud2d opts.steps): the same strums as CART.steps below, from cues (K is built later in setup) */
+function cartSteps() { const b = T.cue('act4.build'), e = T.cue('act4.eights'), acc = [163.715, 164.112, 164.708, 164.907, 165.502, 165.701, 166.098, 166.694, 166.892, 167.288, 167.883];
+  return [...new Set([...T.beatsIn(b - 0.01, e - 0.01, 1), ...acc, T.cue('act4.chufa_accent')].filter((x) => x < e - 0.01).map((x) => Math.round(T.snap(x) * 1000) / 1000)), e].sort((a, c) => a - c); }
 
 const C = (k) => T.cue('act4.' + k);
 const sm = (a, b, x) => { const u = T.clamp01((x - a) / (b - a)); return u * u * (3 - 2 * u); };
@@ -55,7 +76,7 @@ export async function setup(ctx) {
   const { W, heroes, field, PG, eraser, eraserS, flyCap, heldCap, rings, ringMat, feats, moreWheels, cartRig, spiral, tramp, pencil, bugs, lampLights, gate, gateGroup, sea, baseObjs, cams, ERASE, root } = Wd;
   const cam = cams.main;
   const ov = new Overlay(ctx);
-  const hud = makeAct4HUD(ctx);   // (act4 M2)
+  const hud = makeAct4HUD(ctx, CART_V45 === 'power' ? { steps: cartSteps() } : {});   // (act4 M2) (v45_jam: the bar steps on Ricky's strums)
   const bui = await makeBattleUI(ctx);   // (battle scene v2) the battle UI: THE ERASER draws near! (123.18) + the final-boss menu
   const fx = { flash: 0, fade: 0, flashColor: '#ffffff', fadeColor: '#000000' };
   // (act4 r5) round-5 staging (docs/game_design_half2_r5.md 123.18-173.02, checkpoints/act4_r5.md) behind --r5; every default path untouched
@@ -456,6 +477,7 @@ export async function setup(ctx) {
         const dir = p2.clone().sub(p).setY(0).normalize();
         if (t < cT1) placeHero(H.charlie, p, dir, { anim: 'run', t, pencil: false });
         else if (t < K.steps[0] - 0.05) placeHero(H.charlie, p, dir, { anim: 'throw', t: t - cT1, pencil: false });
+        else if (LOCK_V45 && t >= K.stop - 0.2) lockStrum(t, p, fwd);   // (v45_jam) the lone hit is Charlie's strum
         else placeHero(H.charlie, p, fwd, { anim: 'idle', t, pencil: false });
       }
       // trampoline (hat) at the end of the bridge
@@ -554,11 +576,228 @@ export async function setup(ctx) {
     return { pos: p, yaw: T.lerp(Math.PI / 2 - 0.2, slot.yaw, u), wave: t >= K.chufa ? 1 : Math.sin(t * 6) };
   }
 
+  // ================================================================ (v45_jam) THE JAM 149.786-154.26: Charlie + Ricky play behind Jade
+  // Guitar events measured on the demucs 'other' stem (work/demucs/htdemucs_ft/song/other.wav, 800-6000 Hz onset strength on the
+  // 16th grid): the band's mini-stops 150.755-150.96 / 151.05-151.36 (cues act4.mini_stops) with the STAB 150.982 between them (the
+  // strongest guitar onset in the window), 151.779 (the chord under "functions"), 154.169 (into the gang vocal). Ricky plays quarters
+  // (his big strums on the measured hits), Charlie strums 8ths; both freeze in the stops and hit the stab together.
+  const JAM = (() => {
+    const t0 = K.rebuilt, t1 = K.gang + 0.3, stops = C('mini_stops');
+    const inStop = (x) => stops.some(([a, b]) => x > a - 0.02 && x < b + 0.02);
+    const stab = T.nearestBeat(150.982), big = [stab, T.nearestBeat(151.779), T.nearestBeat(154.169)];
+    const q = T.beatsIn(t0 - 0.01, t1, 1).filter((x) => !inStop(x) || Math.abs(x - stab) < 0.03);
+    const e8 = T.beatsIn(t0 - 0.01, t1, 2).filter((x) => !inStop(x) || Math.abs(x - stab) < 0.03);
+    // the light rings (JAM_V45 'light'): Ricky's downbeats + the measured hits; k = strength
+    const rings = [[t0, 0.55], [T.nearestBeat(150.185), 0.7], [stab, 1.0], [big[1], 1.0], [T.nearestBeat(152.576), 0.7], [T.nearestBeat(153.372), 0.7], [big[2], 1.0]];
+    return { t0, t1, stops, inStop, stab, big, q, e8, rings, face: T.nearestBeat(151.779), back: T.nearestBeat(153.771) };
+  })();
+  K.jam = JAM;
+  // the duo's spots (RB = Jade's first drawing spot): both to Jade's left (screen right in R1 / R1b), Ricky upstage
+  const JAM_P = { charlie: RB.clone().add(V(-38, 0, -50)), ricky: RB.clone().add(V(-64, 0, -8)) };
+  const figOf = (g) => { for (const o of g.children[0]?.children || []) if (o.visible && o.userData.F) return o.userData.F; return null; };
+  /** the picking-hand phase for voxfig pose 'chord' (strum offset = 2.6 sin 2pi p): p 0.25 = hand up, 0.75 = hand down. The downstroke
+   *  lands ON each hit (dn s long), then the hand floats back up before the next one; frozen (muted) in the mini-stops */
+  function strumP(t, hits, dn = 0.07) {
+    let k = -1; for (let i = 0; i < hits.length; i++) if (hits[i] - dn <= t) k = i;
+    if (k < 0) return 0.25;
+    const h = hits[k]; if (t < h) return 0.25 + 0.5 * T.ease.in(T.clamp01((t - (h - dn)) / dn));
+    const nx = hits[k + 1]; const gap = nx !== undefined ? nx - dn - h : 0.4;
+    if (JAM.inStop(t) && Math.abs(h - JAM.stab) > 0.03) return 0.75;   // muted: the hand rests on the strings
+    return 0.75 + 0.5 * T.ease.inOut(T.clamp01((t - h) / Math.max(0.05, Math.min(gap, 0.32))));
+  }
+  const D2R = Math.PI / 180;
+  /** a hero playing his guitar at p facing dir: voxfig 'chord' (or o.anim, e.g. 'sustain') at our own strum phase pPick, plus
+   *  performer body language (o.nod / o.lean / o.dip 0..1) and Charlie's swing of the acoustic off his back (o.swing 0..1) */
+  function playFig(h, hero, p, dir, pPick, o) {
+    placeHero(h, p, dir, { anim: 'chord', frame: 0, pencil: false });
+    const F = figOf(h); if (!F) return;
+    figPose(F, o.anim || 'chord', pPick, { hero });
+    const J = F.J;
+    // performer body language on top of the playing pose: nod, knee-bounce on the 8ths, lean back on the big hits
+    J.head.rotation.z += (-9 * o.nod + 10 * o.lean) * D2R;
+    J.body.rotation.z += (6 * o.lean - 2 * o.dip) * D2R;
+    J.hipR.rotation.z += 7 * o.dip * D2R; J.hipL.rotation.z += 7 * o.dip * D2R; J.kneeR.rotation.z -= 12 * o.dip * D2R; J.kneeL.rotation.z -= 12 * o.dip * D2R;
+    F.root.position.y -= 0.9 * o.dip * F.model.u;
+    if (o.swing !== undefined && o.swing < 1 && F.items.guitar?.userData.slung) {   // Charlie swings the acoustic round off his back
+      const g = F.items.guitar, S = g.userData.slung, u = T.ease.inOut(o.swing);
+      const posP = g.position.clone(), qP = g.quaternion.clone();
+      g.position.copy(S.pos).lerp(posP, u); g.quaternion.copy(S.quat).slerp(qP, u);
+      J.body.rotation.y += (1 - u) * 0.5;
+    }
+    return F;
+  }
+  function jamHeroes(t) {
+    const H = heroes; const stop = JAM.inStop(t) && t > JAM.stab + 0.12 || (t > JAM.stops[0][0] && t < JAM.stab - 0.02);
+    const nod = stop ? 0 : T.beatPulse(t, 1, 0.13);                     // head nods on the beats (none in the stops)
+    const hitPulse = T.pulse(t, JAM.big, 0.28);                        // the big strums: lean back / rock out
+    // turn to each other on "functions" (151.78) and play facing each other, back out to the front on the 153.77 downbeat
+    const face = T.ease.inOut(T.span(t, JAM.face - 0.12, JAM.face + 0.25)) * (1 - T.ease.inOut(T.span(t, JAM.back - 0.1, JAM.back + 0.35)));
+    const cp = JAM_P.charlie.clone(), rp = JAM_P.ricky.clone();
+    // Ricky's step: he steps in toward Charlie as they turn (a little hop on the step), and back
+    const step = face; rp.addScaledVector(cp.clone().sub(rp).setY(0).normalize(), 12 * step);
+    onFloor(cp); onFloor(rp);
+    const toC = cp.clone().sub(rp).setY(0).normalize(), toR = rp.clone().sub(cp).setY(0).normalize();
+    const rDir = V(1, 0, -0.15).normalize().lerp(toC, 0.75 * face).normalize(), cDir = V(1, 0, 0.35).normalize().lerp(toR, 0.7 * face).normalize();
+    const dip = (x) => { const v = T.beatPulse(x, 2, 0.09); return stop ? 0 : v; };
+    playFig(H.ricky, 'ricky', rp, rDir, strumP(t, JAM.q, 0.08), { nod, lean: hitPulse, dip: 0.6 * dip(t) });
+    playFig(H.charlie, 'charlie', cp, cDir, strumP(t, JAM.e8, 0.06), { nod: T.beatPulse(t + 0.05, 1, 0.13) * (stop ? 0 : 1), lean: 0.5 * hitPulse, dip: dip(t), swing: T.span(t, JAM.t0, JAM.t0 + 0.32) });
+  }
+  // (v45_jam LOCK_V45) Charlie's strum on the lone hit + the bolt from his guitar to the top 一
+  const bolt = (() => {
+    const g = new THREE.CylinderGeometry(1, 1, 1, 12, 24, true); g.translate(0, 0.5, 0);
+    const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, depthTest: false, blending: THREE.AdditiveBlending, uniforms: { uF: { value: 0 }, uA: { value: 0 } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform float uF, uA; varying vec2 vUv; vec3 hue(float h){ return clamp(abs(fract(h + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0); }
+        void main(){ float y = vUv.y; if (y > uF) discard; float head = exp(-pow((uF - y) * 9.0, 2.0)); vec3 c = mix(vec3(1.0, 0.8, 0.45), hue(y * 1.5 + 0.1), 0.35);
+          gl_FragColor = vec4(c * (0.55 + 1.6 * head) * uA, 1.0); }` }));
+    m.visible = false; m.frustumCulled = false; m.renderOrder = 40; root.add(m); return m; })();
+  const _bq = new THREE.Quaternion();
+  function lockStrum(t, p, fwd) {
+    const tl = T.snap(K.lone);
+    const F = playFig(heroes.charlie, 'charlie', p, fwd, t < tl ? strumP(t, [K.lone], 0.08) : 0.75, { nod: 0, lean: 0.6 * T.pulse(t, [K.lone], 0.3), dip: 0.8 * T.pulse(t, [K.lone], 0.12), swing: T.span(t, K.stop - 0.2, K.stop + 0.25) });
+    bolt.visible = false;
+    if (LOCK_V45 !== 'strum' || !F || t < tl || t > tl + 0.45) return;
+    const gtr = F.items.guitar; gtr.updateWorldMatrix(true, false); const a = gtr.localToWorld(gtr.userData.strum.clone());
+    const one = field.meshes.filter((m) => m.userData.frag.stroke === 0); if (!one.length) return;
+    const b = one.reduce((acc, m) => acc.add(m.position), V(0, 0, 0)).multiplyScalar(1 / one.length);
+    const d = b.clone().sub(a), L = d.length(); const age = t - tl;
+    bolt.visible = true; bolt.position.copy(a); _bq.setFromUnitVectors(V(0, 1, 0), d.normalize()); bolt.quaternion.copy(_bq);
+    bolt.scale.set(2.2 + 4 * age, L, 2.2 + 4 * age);
+    bolt.material.uniforms.uF.value = T.clamp01(age / 0.067 + 0.35); bolt.material.uniforms.uA.value = 1.6 * (1 - T.clamp01((age - 0.08) / 0.37));
+  }
+
+  // (v45_jam CART_V45) the cart's guitar events: Ricky's quarters from the build + the measured drum accents (drums stem, 16th grid:
+  // 163.715 164.112 164.708 164.907 165.502 165.701 166.098 166.694 166.892 167.288 167.883); big = rings + the bar's big steps
+  const CART = (() => {
+    const acc = [163.715, 164.112, 164.708, 164.907, 165.502, 165.701, 166.098, 166.694, 166.892, 167.288, 167.883];
+    const big = [K.build, 163.715, 164.907, 165.701, K.chufaAcc, 166.892, 167.288];
+    const strums = [...new Set([...T.beatsIn(K.build - 0.01, K.pshot, 1), ...acc, K.chufaAcc].map((x) => Math.round(T.snap(x) * 1000) / 1000))].sort((a, b) => a - b);
+    const isBig = (x) => big.some((b) => Math.abs(b - x) < 0.03);
+    const strike = (t) => { let v = 0; for (const h of strums) { const hs = T.snap(h); if (t >= hs - 1e-6) v = Math.max(v, (isBig(h) ? 1 : 0.45) * Math.exp(-(t - hs) / 0.3)); } return v; };
+    // the bar steps: every strum from the build to the montage (the montage keeps the original curve: same value at 168.075)
+    const steps = strums.filter((x) => x >= K.build - 0.01 && x < K.eights - 0.01).concat([K.eights]);
+    return { strums, big, isBig, strike, steps, rings: big.filter((x) => x < K.chufa).map((x) => [x, 1.0]), e8: T.beatsIn(K.build - 0.01, K.pshot, 2) };
+  })();
+  K.cartJam = CART;
+
+  // the light (JAM_V45 'light'): each ring is a warm band of light on the ground racing out from Ricky's guitar, a rainbow fringe at
+  // its front, a lit wake behind it; it flares the guitar light and the firefly lamp as it passes, and lifts the sunset key
+  const jamLight = (() => {
+    const N = 8, R0 = new Array(N).fill(-1), A0 = new Array(N).fill(0);
+    const mat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -4,
+      uniforms: { uC: { value: new THREE.Vector3() }, uR: { value: R0 }, uA: { value: A0 }, uDisc: { value: new THREE.Vector4(SC.x, SC.z, 47, 0) }, uGain: { value: 1 } },
+      vertexShader: `varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+      fragmentShader: `uniform vec3 uC; uniform float uR[${N}], uA[${N}]; uniform vec4 uDisc; uniform float uGain; varying vec3 vW;
+        vec3 hue(float h){ return clamp(abs(fract(h + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0); }
+        void main(){
+          if (uDisc.w > 0.5 && length(vW.xz - uDisc.xy) > uDisc.z) discard;      // the stage-disc copy: only on the disc
+          if (uDisc.w < 0.5 && length(vW.xz - uDisc.xy) < uDisc.z - 1.0) discard; // the ground copy: not under the disc
+          float d = length(vW.xz - uC.xz); vec3 col = vec3(0.0);
+          for (int i = 0; i < ${N}; i++) { if (uR[i] < 0.0) continue; float r = uR[i], a = uA[i];
+            float x = (d - r) / (12.0 + 0.07 * r);
+            float front = exp(-x * x);
+            float wake = d < r ? exp(-(r - d) / (60.0 + 0.25 * r)) * 0.35 : 0.0;
+            vec3 warm = vec3(1.0, 0.72, 0.36);
+            vec3 fr = mix(warm, hue(d * 0.0035 + 0.08), smoothstep(-0.2, 1.4, x) * 0.7);
+            col += a * smoothstep(900.0, 600.0, r) * (fr * front + warm * wake); }
+          gl_FragColor = vec4(col * uGain, 1.0); }` });
+    const plane = (y, disc) => { const g = new THREE.PlaneGeometry(1, 1); g.rotateX(-Math.PI / 2); const m = new THREE.Mesh(g, disc ? mat.clone() : mat); m.position.y = y; m.renderOrder = 5; m.visible = false; m.userData.noAO = true; m.frustumCulled = false; root.add(m); return m; };
+    const ground = plane(GY + 0.7, false), disc = plane(DISC_Y + 0.7, true); disc.material.uniforms.uDisc.value.w = 1;
+    disc.material.uniforms.uR.value = R0; disc.material.uniforms.uA.value = A0; disc.material.uniforms.uC = mat.uniforms.uC; disc.material.uniforms.uGain = mat.uniforms.uGain;
+    const gl = new THREE.PointLight(0xffc070, 0, 220, 1.6); root.add(gl);   // the guitar's own light
+    // light motes: as a ring's front passes a spot, a mote rises from it (so the wave reads from the low front-on angles too)
+    const NM = 110, MR = JAM.rings.length, mPos = new Float32Array(NM * MR * 3), mA = new Float32Array(NM * MR), mH = new Float32Array(NM * MR);
+    const mGeo = new THREE.BufferGeometry(); mGeo.setAttribute('position', new THREE.BufferAttribute(mPos, 3)); mGeo.setAttribute('aA', new THREE.BufferAttribute(mA, 1)); mGeo.setAttribute('aH', new THREE.BufferAttribute(mH, 1));
+    const motes = new THREE.Points(mGeo, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { uS: { value: ctx.height / 540 } },
+      vertexShader: `attribute float aA, aH; uniform float uS; varying float vA; varying float vH; void main(){ vA = aA; vH = aH; vec4 mv = modelViewMatrix * vec4(position, 1.0); gl_Position = projectionMatrix * mv; gl_PointSize = aA > 0.0 ? uS * 2600.0 / max(1.0, -mv.z) : 0.0; }`,
+      fragmentShader: `varying float vA; varying float vH; vec3 hue(float h){ return clamp(abs(fract(h + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0); }
+        void main(){ vec2 q = gl_PointCoord - 0.5; float d = length(q); if (d > 0.5) discard; float k = exp(-d * d * 28.0);
+          vec3 c = mix(vec3(1.0, 0.78, 0.42), hue(vH), 0.35); gl_FragColor = vec4(c * k * vA * 2.0, 1.0); }` }));
+    motes.frustumCulled = false; motes.visible = false; root.add(motes);
+    function moteState(t, src) {
+      let n = 0; mA.fill(0);
+      JAM.rings.forEach(([te, k], ri) => { const t0 = T.snap(te); if (t < t0) return;
+        for (let j = 0; j < NM; j++) { const i = ri * NM + j, h1 = hash(i * 1.37 + 0.1), h2 = hash(i * 2.71 + 0.3), h3 = hash(i * 0.53 + 0.7);
+          const r = 18 + 520 * Math.sqrt(h1), age0 = r / SPEED; const age = t - t0 - age0; if (age < 0 || age > 1.3) continue;
+          const a = h2 * Math.PI * 2; const p = V(src.x + Math.cos(a) * r, 0, src.z + Math.sin(a) * r); const fy = floorY(p.x, p.z);
+          mPos[i * 3] = p.x + 3 * Math.sin(age * 5 + j); mPos[i * 3 + 1] = fy + 2 + (22 + 30 * h3) * age; mPos[i * 3 + 2] = p.z + 3 * Math.cos(age * 4 + j);
+          mA[i] = k * Math.min(1, age * 10) * (1 - age / 1.3) * smoothstepJS(620, 380, r); mH[i] = h3; n++; } });
+      mGeo.attributes.position.needsUpdate = mGeo.attributes.aA.needsUpdate = mGeo.attributes.aH.needsUpdate = true; motes.visible = n > 0;
+    }
+    // the wave's wall: a low curtain of light standing on each ring's front (reads from the low front-on angles, where the pale
+    // paving swallows the ground ring)
+    const wallMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, uniforms: { uA: { value: 0 } },
+      vertexShader: `varying vec2 vUv; varying vec3 vW; void main(){ vUv = uv; vec4 w = modelMatrix * vec4(position, 1.0); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+      fragmentShader: `uniform float uA; varying vec2 vUv; varying vec3 vW; vec3 hue(float h){ return clamp(abs(fract(h + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0); }
+        void main(){ float v = vUv.y; float k = pow(1.0 - v, 2.2) * smoothstep(0.0, 0.06, v); vec3 c = mix(vec3(1.0, 0.74, 0.38), hue(vUv.x * 3.0 + v * 0.6), 0.45 * v + 0.15);
+          gl_FragColor = vec4(c * k * uA, 1.0); }` });
+    const walls = JAM.rings.map(() => { const g = new THREE.CylinderGeometry(1, 1, 1, 96, 1, true); g.translate(0, 0.5, 0); const m = new THREE.Mesh(g, wallMat.clone()); m.visible = false; m.frustumCulled = false; m.renderOrder = 6; m.userData.noAO = true; root.add(m); return m; });
+    function wallState(t, src, rs) {
+      for (const w of walls) w.visible = false;
+      rs.forEach((r, i) => { if (i >= walls.length || r.r < 4) return; const w = walls[i]; w.visible = true; w.position.set(src.x, GY - 1, src.z);
+        w.scale.set(r.r, 10 + 26 * Math.exp(-r.age * 1.6), r.r); w.material.uniforms.uA.value = 1.3 * r.a * smoothstepJS(700, 420, r.r); });
+    }
+    const smoothstepJS = (a, b, x) => { const u = T.clamp01((x - a) / (b - a)); return u * u * (3 - 2 * u); };
+    const SPEED = 520, LIFE = 2.6;
+    /** ring radii at t: [{ r, a }] (a fades with age) */
+    const ringsAt = (t, list = JAM.rings) => list.filter(([te]) => t >= T.snap(te) - 1e-6 && t - te < LIFE).map(([te, k]) => { const age = Math.max(0, t - T.snap(te)); return { r: SPEED * age * (1 - 0.18 * age / LIFE), a: k * (1 - age / LIFE) * (1 - Math.exp(-age * 25 - 0.2)), age, te }; });
+    function state(t) {
+      ground.visible = disc.visible = false; gl.intensity = 0; motes.visible = false; for (const w of walls) w.visible = false;
+      if (CART_V45 === 'power' && t >= K.build && t < K.pshot) return cartState(t);
+      if (JAM_V45 !== 'light' || t < JAM.t0 || t >= K.roll[0]) return { lift: 0 };
+      const src = (t < K.gang ? JAM_P.ricky : JAM_P.ricky).clone(); onFloor(src);
+      const rs = ringsAt(t); for (let i = 0; i < N; i++) { R0[i] = i < rs.length ? rs[i].r : -1; A0[i] = i < rs.length ? rs[i].a : 0; }
+      mat.uniforms.uC.value.copy(src); ground.visible = disc.visible = rs.length > 0;
+      for (const m of [ground, disc]) { m.position.x = src.x; m.position.z = src.z; m.scale.set(3200, 1, 3200); }
+      mat.uniforms.uGain.value = 1.0; moteState(t, src); wallState(t, src, rs);
+      // the guitar flare (on Ricky's strums: every beat a little, the rings big)
+      const gtr = heroes.ricky.visible ? figOf(heroes.ricky)?.items.guitar : null;
+      if (gtr) { gtr.updateWorldMatrix(true, false); gl.position.copy(gtr.localToWorld(gtr.userData.strum.clone())).add(V(16, 8, 0)); }   // just in front of the strings (no hot spot on him)
+      else gl.position.copy(src).add(V(0, 40, 0));
+      const strike = Math.max(...JAM.rings.map(([te, k]) => (t >= T.snap(te) - 1e-6 ? k * Math.exp(-(t - T.snap(te)) / 0.35) : 0)), 0);
+      gl.intensity = t < K.gang ? 1100 * (0.2 + strike) : 0;
+      // the firefly lamp (RB + (16, -44)) flares as a ring passes it
+      const lampD = V(RB.x + 16, 0, RB.z - 44).sub(src).setY(0).length();
+      const lampHit = rs.reduce((m, r) => Math.max(m, r.a * Math.exp(-Math.pow((r.r - lampD) / 30, 2))), 0);
+      // the sunset key: lifts a step on each ring and stays a little brighter (the light comes back with the music)
+      const lift = 0.4 * T.span(t, JAM.t0, K.gang, T.ease.inOut) + 0.6 * strike;
+      return { lift, lampHit, strike };
+    }
+    // (v45_jam CART_V45 'power') the cart: a ring of light under it on each of Ricky's power strums while it is on the mesa;
+    // the launch chord (166.275) = a vertical ring of light left in the air behind the cart (the thrust)
+    const boomMat = new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide, uniforms: { uA: { value: 0 } },
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: `uniform float uA; varying vec2 vUv; vec3 hue(float h){ return clamp(abs(fract(h + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0) - 1.0, 0.0, 1.0); }
+        void main(){ float k = exp(-pow((vUv.y - 0.5) * 3.2, 2.0)); vec3 c = mix(vec3(1.0, 0.74, 0.38), hue(vUv.x * 2.0), 0.4); gl_FragColor = vec4(c * k * uA, 1.0); }` });
+    const boom = (() => { const g = new THREE.CylinderGeometry(1, 1, 1, 96, 1, true); g.rotateZ(Math.PI / 2); const m = new THREE.Mesh(g, boomMat); m.visible = false; m.frustumCulled = false; m.renderOrder = 6; m.userData.noAO = true; root.add(m); return m; })();
+    function cartState(t) {
+      boom.visible = false;
+      const cf = K.cartFrame(t), src = cf.pos.clone(); src.y = GY;
+      const onMesa = cf.pos.x < 1560;
+      const rs = onMesa ? ringsAt(t, CART.rings) : [];
+      for (let i = 0; i < N; i++) { R0[i] = i < rs.length ? rs[i].r : -1; A0[i] = i < rs.length ? rs[i].a : 0; }
+      mat.uniforms.uC.value.copy(src); ground.visible = disc.visible = rs.length > 0; mat.uniforms.uGain.value = 1.0;
+      for (const m of [ground, disc]) { m.position.x = src.x; m.position.z = src.z; m.scale.set(3200, 1, 3200); }
+      wallState(t, src, rs);
+      const strike = CART.strike(t);
+      const gtr = heroes.ricky.visible ? figOf(heroes.ricky)?.items.guitar : null;
+      if (gtr) { gtr.updateWorldMatrix(true, false); gl.position.copy(gtr.localToWorld(gtr.userData.strum.clone())).add(V(14, 8, -8)); gl.intensity = 1100 * (0.2 + strike); }
+      // the thrust ring: born at the cart's tail on the launch chord, stays where it was born, grows and fades
+      const tb = T.snap(K.chufaAcc); if (t >= tb && t < tb + 0.7) { const age = t - tb, c0 = K.cartFrame(tb).pos;
+        boom.visible = true; boom.position.set(c0.x - cartRig.halfL - 10, c0.y + 30, c0.z); const r = 30 + 260 * T.ease.out(T.clamp01(age / 0.7)); boom.scale.set(14 + 30 * age, r, r);
+        boomMat.uniforms.uA.value = 2.2 * (1 - age / 0.7); }
+      return { lift: 0.5 * strike, strike, lampHit: 0 };
+    }
+    return { state };
+  })();
+  let jamS = { lift: 0 };
+
   function m2Heroes(t) {
     const H = heroes; const beat = T.beatAt(t); const b = T.beatPulse(t, 1, 0.1);
     if (t < K.gang) {   // ---- REBUILD
       const j = jadeRB(t); const toCam = V(1, 0, 0.35);
       placeHero(H.jade, onFloor(j.p.clone()), toCam, j.moving ? { anim: 'run', t, pencil: true } : { anim: t >= tFun ? 'draw_rainbow' : 'draw_graphite', frame: 0, pencil: true });
+      if (JAM_V45) { jamHeroes(t); return; }   // (v45_jam) Charlie + Ricky play
       placeHero(H.charlie, onFloor(RB.clone().add(V(-48, 0, -36))), V(1, 0, 0.5), { anim: t >= tFun && t < tFun + 0.3 ? 'throw' : 'idle', t: t >= tFun ? t - tFun : t + 0.4, pencil: false });
       placeHero(H.ricky, onFloor(RB.clone().add(V(-62, 0, 26))), V(1, 0, 0.1), { anim: t >= tFun - 0.05 ? (t < tFun + 0.3 ? 'chord' : 'sustain') : 'idle', t: t >= tFun - 0.05 ? t - tFun + 0.05 : t, pencil: false });
       return;
@@ -579,6 +818,7 @@ export async function setup(ctx) {
     const seat = { charlie: 'seat0', jade: 'seat1', ricky: 'seat2' };
     for (const n of ['charlie', 'jade', 'ricky']) {
       const sl = cartRig.world(seat[n], cf); const u = asmU(seat[n], t);
+      if (CART_V45 && n === 'ricky') sl.p.copy(cf.pos).add(V(-cartRig.halfL * 0.6, cartRig.top, -cartRig.halfW * 0.62));   // (v45_jam) Ricky stands on the camera side
       const p = lerpV(GANG[n], sl.p, u); if (u < 1) p.y += 40 * Math.sin(Math.PI * u);
       const bob = t >= K.build ? 1.5 * T.beatPulse(t, 2, 0.06) : 0; p.y += bob;
       let st;
@@ -586,6 +826,13 @@ export async function setup(ctx) {
       else if (n === 'charlie') st = t >= K.chufa - 0.12 && t < K.chufa + 0.25 ? { anim: 'throw', t: t - (K.chufa - 0.12), pencil: false } : { anim: 'idle', t: t + 0.4, pencil: false };
       else if (n === 'ricky') st = { anim: 'chord', frame: Math.floor(beat * 2) % 2, pencil: false };
       else st = { anim: 'sing', frame: Math.floor(beat) % 2, pencil: true };
+      if (CART_V45 && u >= 1 && t >= K.build && n !== 'jade' && !(n === 'charlie' && st.anim === 'throw')) {   // (v45_jam) both play on the ride
+        const nod = T.beatPulse(t, 1, 0.13), str = CART.strike(t);
+        if (n === 'ricky') { const thrust = t >= K.chufaAcc - 0.03 && t < K.chufaAcc + 0.6;
+          playFig(H.ricky, 'ricky', p, V(1, 0, -0.45).normalize(), thrust ? 0 : strumP(t, CART.strums, 0.07), { anim: thrust ? 'sustain' : 'chord', nod: thrust ? 0 : nod, lean: thrust ? 0 : str, dip: 0.6 * T.beatPulse(t, 2, 0.09) }); }
+        else playFig(H.charlie, 'charlie', p, V(1, 0, -0.2).normalize(), strumP(t, CART.e8, 0.06), { nod, lean: 0.3 * str, dip: T.beatPulse(t, 2, 0.09), swing: T.span(t, K.build, K.build + 0.32) });
+        continue;
+      }
       placeHero(H[n], p, V(1, 0, 0), st);
     }
   }
@@ -654,14 +901,16 @@ export async function setup(ctx) {
     // ---- the roll: every part flies to its slot on the 16ths (the beetle wheel's three copies pop out of it); then the cart
     const cf = cartFrame(t); const parts = { bridge: feats.bridge, lamp: feats.lamp, button: feats.button, glider: feats.glider };
     const from = { bridge: CHUNKS[0].clone().lerp(CHUNKS[1], 0.5).add(V(0, 18, 0)), lamp: GANG.lamp, button: GANG.button, glider: V(GANG.glider.x, GY + 105, GANG.glider.z) };
-    cartRig.pose(cf, { t, beat, dist: cf.dist, glow: 1, press: t >= K.chufa - 0.03 ? Math.exp(-Math.max(0, t - K.chufa) * 4) : (t >= K.build ? 0 : undefined), flash: t >= K.chufa - 0.03 ? 1 : 0, flap: t >= K.chufa ? 0.35 * Math.sin(t * 18) : undefined });
+    const pw = CART_V45 === 'power' && t >= K.build ? CART.strike(t) : 0;   // (v45_jam) Ricky's strums power the cart
+    const kick = CART_V45 === 'power' ? CART.strums.reduce((a, h) => a + (t >= T.snap(h) ? (CART.isBig(h) ? 10 : 4) * (1 - Math.exp(-(t - T.snap(h)) / 0.12)) : 0), 0) : 0;
+    cartRig.pose(cf, { t, beat, dist: cf.dist + kick, glow: 1 + 0.8 * pw, flap: t < K.chufa && pw > 0.05 ? 0.4 * pw * Math.sin(t * 22) : undefined, press: t >= K.chufa - 0.03 ? Math.exp(-Math.max(0, t - K.chufa) * 4) : (t >= K.build ? 0 : undefined), flash: t >= K.chufa - 0.03 ? 1 : 0, ...(t >= K.chufa ? { flap: 0.35 * Math.sin(t * 18) } : {}) });
     for (const [n, o] of Object.entries(parts)) { const u = asmU(n, t); if (u >= 1) continue; const w = cartRig.world(n, cf); const p = lerpV(from[n], w.p, u); p.y += 30 * Math.sin(Math.PI * u); o.position.copy(p); o.rotation.y = T.lerp(o.rotation.y, w.yaw, u); }
     const wheels = [feats.wheel, ...moreWheels];
     wheels.forEach((w, i) => { const u = asmU('wheel' + i, t); if (u >= 1) return; const sl = cartRig.world('wheel' + i, cf); const src = onFloor(V(GANG.wheel.x, 0, 380 + ((K.roll[0] - K.gang) * 50) % 150));
       if (i > 0 && u <= 0) { w.visible = false; return; } const p = lerpV(src, sl.p, u); p.y += 25 * Math.sin(Math.PI * u); w.position.copy(p); });
     if (r5 && cf.susp) wheels.forEach((w, i) => { if (asmU('wheel' + i, t) >= 1) w.position.y -= cf.susp; });   // (act4 r5) suspension: the wheels stay on the pavers
     dustState(t);   // (act4 r5)
-    lampLights[0].position.copy(cartRig.world('lamp', cf).p).add(V(10, 10, 0)); lampLights[0].intensity = 1600;
+    lampLights[0].position.copy(cartRig.world('lamp', cf).p).add(V(10, 10, 0)); lampLights[0].intensity = 1600 * (1 + 1.1 * pw);
     if (t >= K.pshot) for (const f of [...Object.values(feats), ...moreWheels]) f.visible = false;
   }
 
@@ -678,7 +927,7 @@ export async function setup(ctx) {
       const cf = cartFrame(ts); if (cf.pos.x > 1560) continue;   // airborne: nothing to kick up
       const sd = k % 2 ? 1 : -1, h = hash(k * 3.1), s = dust[i]; s.visible = true;
       s.position.set(cf.pos.x - cartRig.halfL * 0.62 - 6 - 30 * age, GY + 4 + 26 * age + 8 * h, cf.pos.z + sd * (cartRig.halfW + 8) + 10 * (h - 0.5));
-      const sc = 10 + 34 * age; s.scale.set(sc, sc * 0.8, 1); s.material.opacity = (ts < K.chufa ? 0.32 : 0.55) * (1 - age / LIFE); }
+      const sc = 10 + 34 * age; s.scale.set(sc, sc * 0.8, 1); s.material.opacity = (ts < K.chufa ? 0.32 : 0.55) * (1 - age / LIFE) * (CART_V45 === 'power' ? 0.7 + 1.2 * CART.strike(ts) : 1); }
   }
 
   // ---------------------------------------------------------------- bug features
@@ -944,6 +1193,7 @@ export async function setup(ctx) {
     }
     else if (ws.erased) { L.exposure = t < K.fc ? 0.5 : 0.6; L.ao = 0.15; L.rays = t < K.fc ? 0.18 : 0.5; L.atmos = 0.6 * CRISP.atmos; L.bloomAmt = t < K.fc ? 0.2 : 0.35; }
     else { L.exposure = 0.6 + 0.12 * T.pulse(t, [K.slam], 0.5); L.rays = 0.45; }
+    if (jamS.lift) { L.exposure += 0.04 * jamS.lift; L.rays = (L.rays ?? 0.45) + 0.1 * jamS.lift; L.bloomAmt = (L.bloomAmt ?? 0.35) + 0.06 * jamS.lift; }   // (v45_jam) the light comes back with Ricky's guitar
     if (t >= K.chufa && t < K.pshot) { L.exposure = 0.5; L.rays = 0.0; L.atmos = 0.6 * CRISP.atmos; }
     if (t >= K.pshot) { L.exposure = 0.36; L.rays = 0.0; L.dof = 1; L.dofAmount = 0.7; L.bloomAmt = 0.14; L.atmos = 0.5 * CRISP.atmos; }
     if (r5) {   // (act4 r5) DOF belongs to look_r5's tilt-shift (r5Shot below); the dusk foreground lifted a little out of the mud
@@ -1034,8 +1284,10 @@ export async function setup(ctx) {
     if (t >= K.acc) handover(W, null);           // (battle scene v2) the battle cast is not part of W.reset(): hide it
     const ws = worldState(t);
     for (const f of Object.values(feats)) f.visible = false;   // (act4 M1) set per range below
-    heldCap.visible = false; flyCap.visible = false; for (const l of lampLights) l.intensity = 0; for (const w of moreWheels) w.visible = false;
+    heldCap.visible = false; flyCap.visible = false; bolt.visible = false; for (const l of lampLights) l.intensity = 0; for (const w of moreWheels) w.visible = false;
     eraserState(t); heroState(t); bugState(t); ringState(t); gateState(t); slabState(t); beamState(t); finaleState(t);
+    jamS = jamLight.state(t);   // (v45_jam) Ricky's light rings
+    if (jamS.lampHit) { lampLights[0].intensity += 2600 * jamS.lampHit; }
     lastCam = camera(t);
     fieldState(t);   // (act4 r5) the world text field faces the lens
     if (api.cartFly != null) flyCartAcross(api.cartFly);   // (act4 M2) the speedrun montage: the cart blasts through this callback frame

@@ -1833,6 +1833,36 @@
    "colors": 21,
    "source": "assets/sprites/bug_firefly_dance.png -> nano-banana-pro 2x redraw (tools/sprites/a3_hi.py, a3_post.py)",
    "note": "A-3 2x-density strip for the voxel heroes; silhouette = Scale2x of bug_firefly_dance (same poses/timing); hero palette + in-between shades. pose + pixel music note"
+  },
+  "ricky_strum": {
+   "file": "ricky_strum.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 5,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 8,
+   "loop": false,
+   "colors": 16,
+   "source": "assets/sprites/ricky_idle.png f0 hand-pixeled (tools/sprites/v45_lvl_jam.py)",
+   "note": "v45_lvl strum: 0 up, 1 hit (1 px dip), 2 ring (follow-through), 3 windmill (arm up), 4 slam (2 px dip)"
+  },
+  "charlie_jam": {
+   "file": "charlie_jam.png",
+   "frame_w": 36,
+   "frame_h": 44,
+   "frames": 3,
+   "anchor": [
+    18,
+    43
+   ],
+   "fps": 4,
+   "loop": false,
+   "colors": 18,
+   "source": "assets/sprites/charlie_idle.png f0 (tools/sprites/v45_lvl_jam.py)",
+   "note": "v45_lvl jam along: 0 up, 1 nod (head+body 1-2 px down), 2 stomp prep (front foot up 2 px)"
   }
  }
 }

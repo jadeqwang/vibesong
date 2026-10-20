@@ -1,0 +1,17 @@
+{
+ "model": "bytedance/seedance-2.5",
+ "tag": "v44_05_sd25_a1",
+ "notes": "v4.4 paper card 05 body language; S0=106.85 (clip t = song t - S0 + lag)",
+ "input": {
+  "prompt": "A colored-pencil drawing on cream paper comes to life, a hand-drawn pencil drawing in every frame: same pencil lines and paper texture as the first frame, never a photo or 3D. The young woman in the centre sings, in Mandarin, the words of the reference audio, 'shi jie, shi wo de wu tai' (the world is my stage), her lips shaping each syllable exactly in time with the voice: open wide on 'jie' and 'tai', rounding on 'wo' and 'wu'. She performs it like a proud lead singer in a music video, with real body language: her shoulders rise and roll with the phrasing, her chest lifts with each breath, her head tilts and nods on the beat and lifts her chin on 'wu tai'; her eyebrows rise with feeling, her eyes sparkle and glance toward each bandmate and back; one hand comes up into the frame and grips the microphone on its stand. The young man in the flat cap on the left strums his acoustic guitar to the rhythm, grinning, bobbing his head and bouncing on his knees; the young man in the striped shirt on the right plays his electric guitar, nodding his head to the beat and swaying; both keep their mouths closed. The three warm spotlight cones shimmer softly. Lively, natural motion like live concert footage, never still bodies; everyone stays in place. The young woman stays the same person as in the first frame: large head, heart-shaped face, soft chin, tall forehead, high centre-parted hairline, the two slightly different eyebrows, big dark-brown eyes; do not restyle her face. Her hair stays up in the bun with the two yellow pencils crossing through it in an X, both eraser caps pointing up (one blue, one pink); the pencils move only with her head and never fall. The black-and-orange headphones stay round her neck; the white cropped jacket keeps its horizontal orange bands, ONE small pale-blue chest dot exactly where it is in the first frame and ONE round 1420 MHz patch on the sleeve band. Static camera, same framing, no zoom. No captions, no text, no new objects.",
+  "image": "file:media/cutscenes/_work/passB/c05/ff_v2.jpg",
+  "reference_audios": [
+   "file:media/cutscenes/_work/v44/c05/voc05_106.85_5s.mp3"
+  ],
+  "duration": 5,
+  "resolution": "480p",
+  "aspect_ratio": "16:9",
+  "generate_audio": false,
+  "use_virtual_avatar": true
+ }
+}

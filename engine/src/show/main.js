@@ -25,7 +25,10 @@ export default function show(T) {
     { id: 'act3.verse2', t0: T.bar(57), t1: 107.15, load: () => import('../scenes/act3/verse2.js') },
     { id: 'act3.stage', t0: 107.15, t1: 110.41, load: () => import('../scenes/act3/stage.js') },
     // (v4b stage_3d) card 05 (the paper unit's clip; still 05 as the placeholder until it lands): the 8th 107.238 (世界) -> the beat 107.641 (Jade's stop)
-    { id: 'act3.card05', t0: 107.23, t1: 107.62, load: () => import('../scenes/act3/card05.js') },
+    // (v44_paper, Jade 10-19 "more seconds of this than the 3d one") the card holds 世界 是我的 to the 8th 109.046 (last card frame 109.000); the 3D band
+    // shot keeps 舞台 (type.wutai 109.09) to the rap. Alt V2: t1 109.62 (cut in the stop before the sung 舞 109.62; needs type.wutai t0 -> ~109.58). v4.3: t1 107.62
+    // (coordinator 10-19) V2 installed: t1 109.62; type.wutai t0 109.58 (sung 舞 is 109.62 on the stem; lyrics_timed line 27 is a syllable early)
+    { id: 'act3.card05', t0: 107.23, t1: 109.62, load: () => import('../scenes/act3/card05.js') },
     { id: 'act3.rap', t0: 110.41, t1: T.section('Bridge').start, load: () => import('../scenes/act3/rap.js') },
   ];
   const act4 = [
@@ -58,7 +61,7 @@ export default function show(T) {
     { id: 'type.void', t0: 35.6, t1: 38.6, load: () => import('../scenes/type/overlay.js') },                                   // 说出来 它就存在: code comments under the rows
     { id: 'type.chufa', t0: 73.6, t1: 75.4, load: () => import('../scenes/type/overlay.js') },                                  // 一切从这里出发: code comment under the chant
     { id: 'type.zhan', t0: T.bar(57), t1: T.line(24).end + 0.4, load: () => import('../scenes/type/overlay.js') },             // 绽 (blossoms), one stroke per beat
-    { id: 'type.wutai', t0: T.word(27, 3).start - 0.05, t1: 110.41, load: () => import('../scenes/type/overlay.js') },        // 舞台 together on one shot (stage_3d's frame)
+    { id: 'type.wutai', t0: 109.58, t1: 110.41, load: () => import('../scenes/type/overlay.js') },        // 舞台 together on one shot (stage_3d's frame)
     { id: 'type.couplet', t0: T.cue('act4.bridge_start'), t1: T.cue('act4.bridge_accent'), load: () => import('../scenes/type/overlay.js') },   // 是一幅画 | 也是一段代码
     { id: 'type.da', t0: T.cue('act4.bridge_accent'), t1: 128.9, load: () => import('../scenes/type/overlay.js') },   // 答 on the paper card, held over the 128.18 cut through its syllable (128.62)
   ];

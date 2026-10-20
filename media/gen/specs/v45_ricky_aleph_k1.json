@@ -1,0 +1,17 @@
+{
+ "model": "runwayml/aleph-2",
+ "tag": "v45_ricky_aleph_k1",
+ "notes": "v4.5 Ricky likeness fix on take B (v44_spread_sd25_720p_b1) via video edit; keyframe = take B f0 with the NBP-fixed Ricky (edit_r1). Composite Ricky region only.",
+ "input": {
+  "prompt": "Edit only the young man on the right who plays the electric guitar, so that he looks exactly like he does in the keyframe image: short, tousled, slightly spiky black hair (no bowl cut, no heavy fringe), a slim oval face with a narrow jaw and fair skin, a long-sleeved white shirt with thin pale blue-grey stripes, sleeves rolled up to the forearms, a navy blue guitar strap, and a natural light-wood Stratocaster with a white pickguard. Keep all of his motion exactly as in the input video: the same head turns, nods, hands, picking and fretting. Keep the singing girl in the centre and the man with the cap and acoustic guitar on the left completely unchanged, frame for frame. Same colored-pencil drawing style, paper texture, sketchbook page, colours and framing.",
+  "video_uri": "file:media/gen/v44_spread_sd25_720p_b1_8099f41f75.mp4",
+  "keyframes": [
+   {
+    "uri": "file:media/act5/_work/v45/key_r1_f0.jpg",
+    "seconds": 0
+   }
+  ],
+  "seed": 4511,
+  "duration": 9.04
+ }
+}
